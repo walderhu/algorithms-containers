@@ -1,7 +1,7 @@
 #include "s21_list.hxx"
 
 /*
-TODO
+TODO ~HEAD TASK
 
 */
 

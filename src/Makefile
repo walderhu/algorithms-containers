@@ -6,7 +6,7 @@ SRC_PATH = ./Core
 TESTS_PATH = ./Tests
 SRCS = $(wildcard $(SRC_PATH)/*.cxx)
 HEADERS = $(wildcard $(SRC_PATH)/*.hxx)
-TRASH = README.html $(BUILD_PATH)
+TRASH = README.html $(BUILD_PATH) $(SRC_PATH)/*.gch
 UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S),Linux)
