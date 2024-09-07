@@ -1,11 +1,11 @@
 CC = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++11
-SRC_DIR = Core
 EXE = s21_list
 BUILD_PATH = ./bin
+SRC_PATH = ./Core
 TESTS_PATH = ./Tests
-SRCS = $(wildcard $(SRC_DIR)/*.cxx)
-HEADERS = $(wildcard $(SRC_DIR)/*.hxx)
+SRCS = $(wildcard $(SRC_PATH)/*.cxx)
+HEADERS = $(wildcard $(SRC_PATH)/*.hxx)
 TRASH = README.html $(BUILD_PATH)
 UNAME_S := $(shell uname -s)
 
@@ -32,7 +32,7 @@ clean:
 	rm -rf $(TRASH)
 
 style:
-	clang-format -n -style=google Core/* Tests/*
+	clang-format -n -style=google $(SRC_PATH)/* $(TESTS_PATH)/*
 
 dist: 
 	@tar cvzf ${EXE}.tgz $(BUILD_PATH)

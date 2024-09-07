@@ -1,5 +1,5 @@
-#ifndef S21_LIST_HXX
-#define S21_LIST_HXX
+#ifndef __S21_LIST_HXX__
+#define __S21_LIST_HXX__
 
 #include <iostream>
-#endif  // S21_LIST_HXX
+#endif  // __S21_LIST_HXX__
