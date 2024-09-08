@@ -20,7 +20,11 @@ class List final {
   size_t size() const { return this->_size; }
 
   friend std::ostream& operator<<(std::ostream& os, const List& obj) {
-    os << "Size: " << obj._size;
+    Node* current = obj.head;
+    while (current) {
+      os << current->data << " ";
+      current = current->next;
+    }
     return os;
   }
 
@@ -28,7 +32,6 @@ class List final {
 
   void push_back(T data);
   void clear();
-  void print() const;
 
  private:
   struct Node {
@@ -76,17 +79,6 @@ void s21::List<T>::clear() {
     delete temp;
   }
   tail = nullptr;
-}
-
-template <typename T>
-inline void s21::List<T>::print() const {
-  Node* current = head;
-  while (current) {
-    std::cout << current->data << " ";  // Выводим данные узла
-    current = current->next;  // Переходим к следующему узлу
-  }
-  std::cout
-      << std::endl;  // Переход на новую строку после вывода всех элементов
 }
 
 #endif  // __S21_LIST_HXX__
