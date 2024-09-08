@@ -20,6 +20,7 @@ class List final {
 
   void push_back(type data);
   void clear();
+  void print() const;
 
  private:
   struct Node {
@@ -65,6 +66,17 @@ void s21::List<type>::clear() {
     delete temp;
   }
   tail = nullptr;
+}
+
+template <typename type>
+inline void s21::List<type>::print() const {
+  Node* current = head;
+  while (current) {
+    std::cout << current->data << " ";  // Выводим данные узла
+    current = current->next;  // Переходим к следующему узлу
+  }
+  std::cout
+      << std::endl;  // Переход на новую строку после вывода всех элементов
 }
 
 #endif  // __S21_LIST_HXX__
