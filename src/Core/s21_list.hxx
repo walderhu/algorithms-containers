@@ -9,15 +9,15 @@ class List final {
   List() : head(nullptr), tail(nullptr) {}
   ~List() { this->clear(); }
 
-  void push_back(type value);
+  void push_back(type data);
   void clear();
 
  private:
   struct Node {
-    type value;
+    type data;
     Node* next;
     Node* prev;
-    Node(type value) : value(value), next(nullptr), prev(nullptr) {}
+    Node(type data = type()) : data(data), next(nullptr), prev(nullptr) {}
   };
   Node* head;
   Node* tail;
@@ -26,8 +26,8 @@ class List final {
 }  // namespace s21
 
 template <typename type>
-void s21::List<type>::push_back(type value) {
-  Node* new_node = new Node(value);
+void s21::List<type>::push_back(type data) {
+  Node* new_node = new Node(data);
 
   if (!head) {
     head = new_node;
