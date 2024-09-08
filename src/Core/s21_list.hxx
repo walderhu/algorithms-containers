@@ -1,6 +1,7 @@
 #ifndef __S21_LIST_HXX__
 #define __S21_LIST_HXX__
 
+// #include <initializer_list>
 #include <iostream>
 #include <limits>
 namespace s21 {
@@ -56,6 +57,11 @@ class List final {
   };
   iterator begin() { return iterator(head); }
   iterator end() { return iterator(nullptr); }
+
+  void print() {
+    for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";
+    std::cout << std::endl;
+  }
 
   friend std::ostream& operator<<(std::ostream& os, const List& obj) {
     Node* current = obj.head;

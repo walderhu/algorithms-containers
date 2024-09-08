@@ -6,9 +6,9 @@ int main() {
   list.push_back(3);
   list.push_back(1);
 
-  std::cout << list << std::endl;
+  list.print();
   list.sort();
-  std::cout << list << std::endl;
+  list.print();
 
   return 0;
 }
