@@ -7,8 +7,8 @@ namespace s21 {
 template <typename type>
 class List final {
  public:
-  List() : size(0), head(nullptr), tail(nullptr) {}
-  ~List() { this->clear(); }
+  List() noexcept : size(0), head(nullptr), tail(nullptr) {}
+  ~List() noexcept { this->clear(); }
   size_t size;
 
   friend std::ostream& operator<<(std::ostream& os, const List& obj) {
@@ -16,7 +16,7 @@ class List final {
     return os;
   }
 
-  type& operator[](const int index);
+  type& operator[](const int index) const;
 
   void push_back(type data);
   void clear();
@@ -35,7 +35,7 @@ class List final {
 }  // namespace s21
 
 template <typename type>
-inline type& s21::List<type>::operator[](const int index) {
+inline type& s21::List<type>::operator[](const int index) const {
   if (index < 0 || index >= size) throw std::out_of_range("Index out of range");
   Node* current = head;
   for (int i = 0; i < index; ++i) current = current->next;
