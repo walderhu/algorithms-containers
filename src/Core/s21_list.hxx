@@ -2,6 +2,7 @@
 #define __S21_LIST_HXX__
 
 #include <iostream>
+#include <limits>
 namespace s21 {
 
 template <typename T>
@@ -11,7 +12,7 @@ class List final {
     T value;
     Node* next;
     Node* prev;
-    Node(T value = T()) : value(value), next(nullptr), prev(nullptr) {}
+    Node(T value = T());
   };
   Node* head;
   Node* tail;
@@ -25,10 +26,10 @@ class List final {
   // using const_iterator = const T*;
   using size_type = size_t;
 
-  List() noexcept : head(nullptr), tail(nullptr), _size(0) {}
-  ~List() noexcept { clear(); }
+  List() noexcept;
+  ~List() noexcept;
 
-  size_t size() const { return _size; }
+  size_t size() const;
   T& operator[](const int index) const;
   void push_back(T value);
   bool empty();
@@ -37,15 +38,16 @@ class List final {
   void push_front(T value);
   void pop_back();
   void reverse();
-  const T& front() { return head->value; }
-  const T& back() { return tail->value; }
+  const T& front();
+  const T& back();
+  size_t max_size();
 
   struct iterator {
     Node* current;
-    iterator(Node* n) : current(n) {}
-    bool operator==(const iterator& other) { return current == other.current; }
-    bool operator!=(const iterator& other) { return !(*this == other); }
-    T& operator*() { return current->value; }
+    iterator(Node* n);
+    bool operator==(const iterator& other);
+    bool operator!=(const iterator& other);
+    T& operator*();
     iterator& operator++() {
       current = current->next;
       return *this;
@@ -63,7 +65,43 @@ class List final {
     return os;
   }
 };
+
+template <typename T>
+inline List<T>::Node::Node(T value)
+    : value(value), next(nullptr), prev(nullptr) {}
+
+template <typename T>
+inline List<T>::iterator::iterator(Node* n) : current(n) {}
+
+template <typename T>
+inline bool List<T>::iterator::operator==(const iterator& other) {
+  return current == other.current;
+}
+
+template <typename T>
+inline bool List<T>::iterator::operator!=(const iterator& other) {
+  return !(*this == other);
+}
+
+template <typename T>
+inline T& List<T>::iterator::operator*() {
+  return current->value;
+}
+
 }  // namespace s21
+
+template <typename T>
+inline s21::List<T>::List() noexcept : head(nullptr), tail(nullptr), _size(0) {}
+
+template <typename T>
+inline s21::List<T>::~List() noexcept {
+  clear();
+}
+
+template <typename T>
+inline size_t s21::List<T>::size() const {
+  return _size;
+}
 
 template <typename T>
 inline T& s21::List<T>::operator[](const int index) const {
@@ -157,6 +195,21 @@ inline void s21::List<T>::reverse() {
     }
     std::swap(head, tail);
   }
+}
+
+template <typename T>
+inline const T& s21::List<T>::front() {
+  return head->value;
+}
+
+template <typename T>
+inline const T& s21::List<T>::back() {
+  return tail->value;
+}
+
+template <typename T>
+inline size_t s21::List<T>::max_size() {
+  return (std::numeric_limits<size_t>::max() / sizeof(T)) / 2;
 }
 
 #endif  // __S21_LIST_HXX__

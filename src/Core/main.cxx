@@ -7,6 +7,5 @@ int main() {
   list.push_back(3);
 
   std::cout << list << std::endl;
-  // list.print();
   return 0;
 }
