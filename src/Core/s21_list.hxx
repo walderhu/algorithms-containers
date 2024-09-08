@@ -4,47 +4,57 @@
 #include <iostream>
 namespace s21 {
 
-template <typename type>
+template <typename T>
 class List final {
  public:
-  List() noexcept : size(0), head(nullptr), tail(nullptr) {}
+  using value_type = T;
+  using reference = T&;
+  using const_reference = const T&;
+  using iterator = T*;
+  using const_iterator = const T*;
+  using size_type = size_t;
+
+  List() noexcept : head(nullptr), tail(nullptr), _size(0) {}
   ~List() noexcept { this->clear(); }
-  size_t size;
+
+  size_t size() const { return this->_size; }
 
   friend std::ostream& operator<<(std::ostream& os, const List& obj) {
-    os << "Size: " << obj.size;
+    os << "Size: " << obj._size;
     return os;
   }
 
-  type& operator[](const int index) const;
+  T& operator[](const int index) const;
 
-  void push_back(type data);
+  void push_back(T data);
   void clear();
   void print() const;
 
  private:
   struct Node {
-    type data;
+    T data;
     Node* next;
     Node* prev;
-    Node(type data = type()) : data(data), next(nullptr), prev(nullptr) {}
+    Node(T data = T()) : data(data), next(nullptr), prev(nullptr) {}
   };
   Node* head;
   Node* tail;
+  size_t _size;
 };
 
 }  // namespace s21
 
-template <typename type>
-inline type& s21::List<type>::operator[](const int index) const {
-  if (index < 0 || index >= size) throw std::out_of_range("Index out of range");
+template <typename T>
+inline T& s21::List<T>::operator[](const int index) const {
+  if (index < 0 || index >= _size)
+    throw std::out_of_range("Index out of range");
   Node* current = head;
   for (int i = 0; i < index; ++i) current = current->next;
   return current->data;
 }
 
-template <typename type>
-void s21::List<type>::push_back(type data) {
+template <typename T>
+void s21::List<T>::push_back(T data) {
   Node* new_node = new Node(data);
 
   if (!head) {
@@ -55,11 +65,11 @@ void s21::List<type>::push_back(type data) {
     tail->next = new_node;
     tail = new_node;
   }
-  size++;
+  _size++;
 }
 
-template <typename type>
-void s21::List<type>::clear() {
+template <typename T>
+void s21::List<T>::clear() {
   while (head) {
     Node* temp = head;
     head = head->next;
@@ -68,8 +78,8 @@ void s21::List<type>::clear() {
   tail = nullptr;
 }
 
-template <typename type>
-inline void s21::List<type>::print() const {
+template <typename T>
+inline void s21::List<T>::print() const {
   Node* current = head;
   while (current) {
     std::cout << current->data << " ";  // Выводим данные узла
