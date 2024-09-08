@@ -22,14 +22,14 @@ endif
 all: clean $(EXE) run
 
 $(EXE): $(SRCS) $(HEADERS)
-	mkdir -p $(BUILD_PATH)
-	$(CC) $(CXXFLAGS) $(SRCS) -o $(BUILD_PATH)/$(EXE)
+	@mkdir -p $(BUILD_PATH)
+	@$(CC) $(CXXFLAGS) $(SRCS) -o $(BUILD_PATH)/$(EXE)
 
 run: $(EXE)
-	$(BUILD_PATH)/$(EXE)
+	@$(BUILD_PATH)/$(EXE)
 
 clean:
-	rm -rf $(TRASH)
+	@rm -rf $(TRASH)
 
 style:
 	clang-format -n -style=google $(SRC_PATH)/* $(TESTS_PATH)/*

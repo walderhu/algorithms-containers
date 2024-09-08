@@ -1,13 +1,21 @@
 #ifndef __S21_LIST_HXX__
 #define __S21_LIST_HXX__
 
+#include <iostream>
 namespace s21 {
 
 template <typename type>
 class List final {
  public:
-  List() : head(nullptr), tail(nullptr) {}
+  List() : size(0), head(nullptr), tail(nullptr) {}
   ~List() { this->clear(); }
+
+  int size;
+
+  friend std::ostream& operator<<(std::ostream& os, const List& obj) {
+    os << "Size: " << obj.size;
+    return os;
+  }
 
   void push_back(type data);
   void clear();
@@ -37,6 +45,7 @@ void s21::List<type>::push_back(type data) {
     tail->next = new_node;
     tail = new_node;
   }
+  size++;
 }
 
 template <typename type>
