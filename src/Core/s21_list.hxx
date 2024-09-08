@@ -1,34 +1,52 @@
 #ifndef __S21_LIST_HXX__
 #define __S21_LIST_HXX__
 
-#include <iostream>
-
 namespace s21 {
 
 template <typename type>
 class List final {
  public:
-  struct Node {
-    type value;
-    type* next;
-    type* prev;
-    Node(type value) : value(value), prev(nullptr), next(nullptr) {}
-  };
-
   List() : head(nullptr), tail(nullptr) {}
   ~List() { this->clear(); }
+
   void push_back(type value);
   void clear();
 
  private:
+  struct Node {
+    type value;
+    Node* next;
+    Node* prev;
+    Node(type value) : value(value), next(nullptr), prev(nullptr) {}
+  };
   Node* head;
   Node* tail;
-
- protected:
-  //   void push_front(type value);
-  //   void pop_back();
-  //   void pop_front();
 };
+
 }  // namespace s21
+
+template <typename type>
+void s21::List<type>::push_back(type value) {
+  Node* new_node = new Node(value);
+
+  if (!head) {
+    head = new_node;
+    tail = new_node;
+  } else {
+    new_node->prev = tail;
+    tail->next = new_node;
+    tail = new_node;
+  }
+}
+
+template <typename type>
+void s21::List<type>::clear() {
+  while (head) {
+    Node* temp = head;
+    head = head->next;
+    delete temp;
+  }
+  tail = nullptr;
+}
 
 #endif  // __S21_LIST_HXX__
