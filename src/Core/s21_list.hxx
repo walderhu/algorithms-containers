@@ -138,13 +138,20 @@ inline bool s21::List<T>::empty() {
   return size() == 0;
 }
 
+// template <typename T>
+// void s21::List<T>::clear() {
+//   while (head) {
+//     Node* temp = head;
+//     head = head->next;
+//     delete temp;
+//   }
+//   tail = nullptr;
+// }
+
+// TODO потестировать update
 template <typename T>
 void s21::List<T>::clear() {
-  while (head) {
-    Node* temp = head;
-    head = head->next;
-    delete temp;
-  }
+  while (_size) pop_front();
   tail = nullptr;
 }
 
@@ -192,9 +199,10 @@ inline void s21::List<T>::pop_back() {
   }
 }
 
+// TODO надо тестить, странно работает
 template <typename T>
 inline void s21::List<T>::reverse() {
-  if (size > 1) {
+  if (size() > 1) {
     Node* current = head;
     while (current != tail) {
       std::swap(current->next, current->prev);

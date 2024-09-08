@@ -9,6 +9,9 @@ int main() {
   list.print();
   list.sort();
   list.print();
+  // list.reverse();
+  list.clear();
+  list.print();
 
   return 0;
 }
