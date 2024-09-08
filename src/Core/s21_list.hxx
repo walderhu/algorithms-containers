@@ -9,13 +9,14 @@ class List final {
  public:
   List() : size(0), head(nullptr), tail(nullptr) {}
   ~List() { this->clear(); }
-
-  int size;
+  size_t size;
 
   friend std::ostream& operator<<(std::ostream& os, const List& obj) {
     os << "Size: " << obj.size;
     return os;
   }
+
+  type& operator[](const int index);
 
   void push_back(type data);
   void clear();
@@ -32,6 +33,14 @@ class List final {
 };
 
 }  // namespace s21
+
+template <typename type>
+inline type& s21::List<type>::operator[](const int index) {
+  if (index < 0 || index >= size) throw std::out_of_range("Index out of range");
+  Node* current = head;
+  for (int i = 0; i < index; ++i) current = current->next;
+  return current->data;
+}
 
 template <typename type>
 void s21::List<type>::push_back(type data) {
