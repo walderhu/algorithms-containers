@@ -50,10 +50,8 @@
  - [ ] void splice(const_iterator pos, list& other)
  <!-- - [x] void reverse() -->
  - [ ] void unique()
- - [ ] void sort()
+ <!-- - [x] void sort() -->
 
 
 
- итератор
  сортировка
- максимальное число

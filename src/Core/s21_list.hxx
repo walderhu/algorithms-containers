@@ -41,6 +41,7 @@ class List final {
   const T& front();
   const T& back();
   size_t max_size();
+  void sort();
 
   struct iterator {
     Node* current;
@@ -210,6 +211,26 @@ inline const T& s21::List<T>::back() {
 template <typename T>
 inline size_t s21::List<T>::max_size() {
   return (std::numeric_limits<size_t>::max() / sizeof(T)) / 2;
+}
+
+template <typename T>
+inline void s21::List<T>::sort() {
+  Node* current = head;
+  bool swapped = true;
+
+  while (swapped) {
+    swapped = false;
+    current = head;
+
+    while (current && current->next) {
+      Node* next_node = current->next;
+      if (current->value > next_node->value) {
+        std::swap(current->value, next_node->value);
+        swapped = true;
+      }
+      current = current->next;
+    }
+  }
 }
 
 #endif  // __S21_LIST_HXX__
