@@ -6,12 +6,23 @@ namespace s21 {
 
 template <typename T>
 class List final {
+ private:
+  struct Node {
+    T value;
+    Node* next;
+    Node* prev;
+    Node(T value = T()) : value(value), next(nullptr), prev(nullptr) {}
+  };
+  Node* head;
+  Node* tail;
+  size_t _size;
+
  public:
   using value_type = T;
   using reference = T&;
   using const_reference = const T&;
-  using iterator = T*;
-  using const_iterator = const T*;
+  // using iterator = T*;
+  // using const_iterator = const T*;
   using size_type = size_t;
 
   List() noexcept : head(nullptr), tail(nullptr), _size(0) {}
@@ -29,6 +40,20 @@ class List final {
   const T& front() { return head->value; }
   const T& back() { return tail->value; }
 
+  struct iterator {
+    Node* current;
+    iterator(Node* n) : current(n) {}
+    bool operator==(const iterator& other) { return current == other.current; }
+    bool operator!=(const iterator& other) { return !(*this == other); }
+    T& operator*() { return current->value; }
+    iterator& operator++() {
+      current = current->next;
+      return *this;
+    }
+  };
+  iterator begin() { return iterator(head); }
+  iterator end() { return iterator(nullptr); }
+
   friend std::ostream& operator<<(std::ostream& os, const List& obj) {
     Node* current = obj.head;
     while (current) {
@@ -37,19 +62,7 @@ class List final {
     }
     return os;
   }
-
- private:
-  struct Node {
-    T value;
-    Node* next;
-    Node* prev;
-    Node(T value = T()) : value(value), next(nullptr), prev(nullptr) {}
-  };
-  Node* head;
-  Node* tail;
-  size_t _size;
 };
-
 }  // namespace s21
 
 template <typename T>
@@ -77,7 +90,7 @@ void s21::List<T>::push_back(T value) {
 
 template <typename T>
 inline bool s21::List<T>::empty() {
-  return bool(head);
+  return size() == 0;
 }
 
 template <typename T>
