@@ -26,8 +26,15 @@ template <typename T>
 inline s21::List<T>::List() noexcept : head(nullptr), tail(nullptr), _size(0) {}
 
 template <typename T>
-inline s21::List<T>::List(size_type n) noexcept : _size(n) {
+inline s21::List<T>::List(size_type n) noexcept : s21::List<T>() {
   for (size_t i = 0; i < size(); i++) push_front(T());
+}
+
+template <typename T>
+inline s21::List<T>::List(
+    std::initializer_list<value_type> const& items) noexcept
+    : s21::List<T>() {
+  for (auto it = items.begin(); it != items.end(); ++it) push_back(*it);
 }
 
 template <typename T>

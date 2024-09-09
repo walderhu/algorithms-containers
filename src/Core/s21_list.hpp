@@ -48,7 +48,7 @@ class List final {
 
   // TODO
   List(size_type n) noexcept;
-  // list(std::initializer_list<value_type> const& items);
+  List(std::initializer_list<value_type> const& items) noexcept;
   // list(const list& l);
   // list(list&& l);
 
@@ -82,3 +82,29 @@ class List final {
 #include "s21_list.tpp"
 
 #endif  // __S21_LIST_HXX__
+
+// TODO
+// using Array = std::initializer_list<double>;
+
+// S21Matrix::S21Matrix(const Array& array) : S21Matrix(array.size(), 1) {
+//   FillingMatrix(array);
+// }
+
+// void S21Matrix::FillingMatrix(const Matrix& matrix) {
+//   int row = 0, col = 0;
+//   for (const auto& rows : matrix) {
+//     col = 0;
+//     for (const auto& elem : rows) {
+//       this->matrix_[row][col] = elem;
+//       col++;
+//     }
+//     row++;
+//   }
+// }
+
+// template <typename T>
+// inline s21::List<T>::List(
+//     std::initializer_list<value_type> const& items) noexcept
+//     : _size(items.size()) {
+//   for (const value_type& item : items) push_back(item);
+// }
