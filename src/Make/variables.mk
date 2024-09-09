@@ -1,5 +1,5 @@
-ifndef VARIABLES
-export VARIABLES = 1
+ifndef __VARIABLES_MK__
+export __VARIABLES_MK__ = 1
 
 CC := g++
 CXXFLAGS := -Wall -Wextra -Werror -std=c++11

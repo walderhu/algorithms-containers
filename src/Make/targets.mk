@@ -1,5 +1,5 @@
-ifndef TARGETS
-export TARGETS = 1
+ifndef __TARGETS_MK__
+export __TARGETS_MK__ = 1
 
 include Make/variables.mk
 

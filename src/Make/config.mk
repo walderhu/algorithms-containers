@@ -1,5 +1,5 @@
-ifndef CONFIG
-export CONFIG = 1
+ifndef __CONFIG_MK__
+export __CONFIG_MK__ = 1
 
 include Make/variables.mk
 

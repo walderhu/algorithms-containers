@@ -1,6 +1,5 @@
-
-ifndef GENERAL
-export GENERAL = 1
+ifndef __MAKEFILE__
+export __MAKEFILE__ = 1
 include Make/variables.mk
 include Make/targets.mk
 include Make/config.mk
