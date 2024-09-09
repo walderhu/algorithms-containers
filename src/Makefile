@@ -9,6 +9,9 @@ HEADERS := $(wildcard $(SRC_PATH)/*.hpp)
 TRASH := README.html $(BUILD_PATH) $(SRC_PATH)/*.gch
 UNAME_S := $(shell uname -s)
 
+DEPS := $(SRCS:.cpp=.d)
+-include $(DEPS)
+
 ifeq ($(UNAME_S),Linux)
     OPEN_CMD = xdg-open
 	LIB = -lgtest -lrt -lpthread -lsubunit -lm
@@ -28,7 +31,7 @@ $(EXE): $(BUILD_PATH)/%.o
 	$(CC) $(CXXFLAGS) -o $(BUILD_PATH)/$@ $^
 
 $(BUILD_PATH)/%.o: $(SRCS) $(HEADERS)
-	$(CC) $(CXXFLAGS) -c $< -o $@
+	$(CC) $(CXXFLAGS) -MMD -c $< -o $@
 
 $(BUILD_PATH):
 	@mkdir -p $@
