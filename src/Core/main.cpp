@@ -10,8 +10,8 @@ int main() {
   list.sort();
   list.print();
   // list.reverse();
-  list.clear();
-  list.print();
+  // list.clear();
+  // list.print();
 
   return 0;
 }

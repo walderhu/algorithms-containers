@@ -52,13 +52,10 @@ class List final {
     bool operator==(const iterator& other);
     bool operator!=(const iterator& other);
     T& operator*();
-    iterator& operator++() {
-      current = current->next;
-      return *this;
-    }
+    iterator& operator++();
   };
-  iterator begin() { return iterator(head); }
-  iterator end() { return iterator(nullptr); }
+  iterator begin();
+  iterator end();
 };
 }  // namespace s21
 

@@ -70,9 +70,25 @@ void s21::List<T>::clear() {
 }
 
 template <typename T>
+typename s21::List<T>::iterator s21::List<T>::begin() {
+  return iterator(this->head);
+}
+
+template <typename T>
+typename s21::List<T>::iterator s21::List<T>::end() {
+  return iterator(nullptr);
+}
+
+template <typename T>
+typename s21::List<T>::iterator& s21::List<T>::iterator::operator++() {
+  current = current->next;
+  return *this;
+}
+
+template <typename T>
 void s21::List<T>::print() {
   for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";
-  std::cout << std::endl;
+  std::cout << "\n";
 }
 
 template <typename T>
