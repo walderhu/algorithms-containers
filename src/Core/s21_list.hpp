@@ -49,11 +49,9 @@ class List final {
   // TODO
   List(size_type n) noexcept;
   List(std::initializer_list<value_type> const& items) noexcept;
-  List(const List& other) noexcept;
-  List(List&& other) noexcept;
-
-  // operator=(list && l);
-  // operator= [size_t index];
+  List(const List& other) noexcept;           // BUG
+  List(List&& other) noexcept;                // BUG
+  List<T>& operator=(List&& other) noexcept;  // BUG
 
   // iterator insert(iterator pos, const_reference value);
   // void erase(iterator pos);

@@ -5,6 +5,8 @@ int main() {
   // list.push_back(2);
   // list.push_back(3);
   // list.push_back(1);
+  // s21::List<int> list2(list);  // BUG
+  s21::List<int> list2 = list;
 
   list.print();
   list.sort();

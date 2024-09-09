@@ -52,6 +52,20 @@ inline s21::List<T>::List(List&& other) noexcept {
 }
 
 template <typename T>
+inline s21::List<T>& s21::List<T>::operator=(List&& other) noexcept {
+  this->clear();
+
+  this->head = other.head;
+  this->tail = other.tail;
+  this->_size = other._size;
+
+  other.head = nullptr;
+  other.tail = nullptr;
+  other._size = 0;
+  return *this;
+}
+
+template <typename T>
 inline s21::List<T>::List(
     std::initializer_list<value_type> const& items) noexcept
     : s21::List<T>() {
