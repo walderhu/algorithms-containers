@@ -1,5 +1,5 @@
 CC = g++
-# CXXFLAGS = -Wall -Wextra -Werror -std=c++11
+CXXFLAGS = -Wall -Wextra -Werror -std=c++11
 EXE = s21_list
 BUILD_PATH = ./bin
 SRC_PATH = ./Core
@@ -24,11 +24,11 @@ all: clean $(BUILD_PATH) $(EXE) run
 run: 
 	@$(BUILD_PATH)/$(EXE)
 
-$(EXE): $(BUILD_PATH)/main.o
-	$(CC) $(CFLAGS) -o $(BUILD_PATH)/$@ $^
+$(EXE): $(BUILD_PATH)/%.o
+	$(CC) $(CXXFLAGS) -o $(BUILD_PATH)/$@ $^
 
-$(BUILD_PATH)/main.o: $(SRC_PATH)/main.cpp $(SRC_PATH)/s21_list.hpp
-	$(CC) $(CFLAGS) -c $(SRC_PATH)/main.cpp -o $@
+$(BUILD_PATH)/%.o: $(SRCS) $(HEADERS)
+	$(CC) $(CXXFLAGS) -c $< -o $@
 
 $(BUILD_PATH):
 	@mkdir -p $@
