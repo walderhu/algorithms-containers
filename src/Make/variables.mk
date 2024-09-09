@@ -25,4 +25,11 @@ else ifeq ($(UNAME_S),Windows_NT)
     OPEN_CMD = start
 endif
 
+# Если таргет вызывается из терминала, или из другой части мейкфайла
+ifeq ($(shell test -t 0 && echo yes), yes)
+    RM_FLAGS = --recursive --force --verbose
+else
+    RM_FLAGS = --recursive --force
+endif
+
 endif # __VARIABLES_MK__
