@@ -1,6 +1,6 @@
-all:
-	@doxygen Doxyfile
-	@open docs/html/index.html
+ifndef __DOCS_MAKEFILE__
+export __DOCS_MAKEFILE__ = 1
 
-clean:
-	@rm -rf docs
+include ../Make/docs.mk
+
+endif # __DOCS_MAKEFILE__
