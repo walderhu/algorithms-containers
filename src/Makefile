@@ -4,7 +4,7 @@ EXE = s21_list
 BUILD_PATH = ./bin
 SRC_PATH = ./Core
 TESTS_PATH = ./Tests
-SRCS = $(wildcard $(SRC_PATH)/*.cxx)
+SRCS = $(wildcard $(SRC_PATH)/*.cxx) $(wildcard $(SRC_PATH)/*.tpp)
 HEADERS = $(wildcard $(SRC_PATH)/*.hxx)
 TRASH = README.html $(BUILD_PATH) $(SRC_PATH)/*.gch
 UNAME_S := $(shell uname -s)
@@ -22,20 +22,20 @@ endif
 all: clean $(EXE) run
 
 $(EXE): $(SRCS) $(HEADERS)
-	@mkdir -p $(BUILD_PATH)
-	@$(CC) $(CXXFLAGS) $(SRCS) -o $(BUILD_PATH)/$(EXE)
+	mkdir -p $(BUILD_PATH)
+	$(CC) $(CXXFLAGS) $(SRCS) -o $(BUILD_PATH)/$(EXE)
 
 run: $(EXE)
-	@$(BUILD_PATH)/$(EXE)
+	$(BUILD_PATH)/$(EXE)
 
 clean:
-	@rm -rf $(TRASH)
+	rm -rf $(TRASH)
 
 style:
 	clang-format -n -style=google $(SRC_PATH)/* $(TESTS_PATH)/*
 
 dist: 
-	@tar cvzf ${EXE}.tgz $(BUILD_PATH)
+	tar cvzf ${EXE}.tgz $(BUILD_PATH)
 
 dvi: README.html
 	$(OPEN_CMD) README.html

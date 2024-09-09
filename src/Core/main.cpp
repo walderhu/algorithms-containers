@@ -1,4 +1,5 @@
-#include "s21_list.hxx"
+#include "s21_list.hpp"
+#include "s21_list.tpp"
 
 int main() {
   s21::List<int> list;

@@ -44,6 +44,19 @@
         "ostream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
-    }
+        "typeinfo": "cpp",
+        "s21_list.h": "c"
+    },
+    "c_cpp_properties.json": {
+        "compilerArgs": [
+            "-I/usr/include/c++/<версия_компилятора>",
+            "-I/usr/lib/gcc/x86_64-linux-gnu/<версия_компилятора>/include"
+        ]
+    },
+    "gcc.includePaths": [
+        "/usr/include/c++/<версия_компилятора>",
+        "/usr/lib/gcc/x86_64-linux-gnu/<версия_компилятора>/include"
+    ],
+    "cpp.cxxStandard": "c++17",
+    "cpp.compilerPath": "/usr/bin/g++"
 }
