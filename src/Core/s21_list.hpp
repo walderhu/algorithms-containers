@@ -21,18 +21,18 @@ class List final {
   size_t _size;
 
  public:
-  // using value_type = T;
-  // using reference = T&;
-  // using const_reference = const T&;
-  // using iterator = T*;
-  // using const_iterator = const T*;
+  using value_type = T;
+  using reference = T&;
+  using const_reference = const T&;
+  using iterator = T*;
+  using const_iterator = const T*;
   using size_type = size_t;
 
   List() noexcept;
   ~List() noexcept;
 
   size_type size() const;
-  T& operator[](const int index) const;
+  reference operator[](const int index) const;
   void push_back(T value);
   bool empty();
   void clear();
@@ -40,22 +40,22 @@ class List final {
   void push_front(T value);
   void pop_back();
   void reverse();
-  const T& front();
-  const T& back();
+  const_reference front();
+  const_reference back();
   size_type max_size();
   void sort();
   void print();
 
-  struct iterator {
+  struct Iterator {
     Node* current;
-    iterator(Node* n);
-    bool operator==(const iterator& other);
-    bool operator!=(const iterator& other);
-    T& operator*();
-    iterator& operator++();
+    Iterator(Node* n);
+    bool operator==(const Iterator& other);
+    bool operator!=(const Iterator& other);
+    reference operator*();
+    Iterator& operator++();
   };
-  iterator begin();
-  iterator end();
+  Iterator begin();
+  Iterator end();
 
   template <typename U>
   friend std::ostream& operator<<(std::ostream& os, const List<U>& obj);
