@@ -19,20 +19,22 @@ else ifeq ($(UNAME_S),Windows_NT)
     OPEN_CMD = start
 endif
 
-all: clean $(BUILD_PATH) 
-	make -C ./Core -s
+all: clean $(BUILD_PATH) $(EXE) run
 
+run: 
+	@$(BUILD_PATH)/$(EXE)
+
+$(EXE): $(BUILD_PATH)/main.o
+	$(CC) $(CFLAGS) -o $(BUILD_PATH)/$@ $^
+
+$(BUILD_PATH)/main.o: $(SRC_PATH)/main.cpp $(SRC_PATH)/s21_list.hpp
+	$(CC) $(CFLAGS) -c $(SRC_PATH)/main.cpp -o $@
 
 $(BUILD_PATH):
-	mkdir -p $@
-
-
-run: $(EXE)
-	$(BUILD_PATH)/$(EXE)
+	@mkdir -p $@
 
 clean:
-	rm -rf $(TRASH) *.o
-	make -C ./Core clean -s
+	@rm -rf $(TRASH) *.o
 
 style:
 	clang-format -n -style=google $(SRC_PATH)/* $(TESTS_PATH)/*
