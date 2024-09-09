@@ -26,4 +26,4 @@ docs:
 clean_docs:
 	@$(MAKE) -C Docs clean -s
 
-endif
+endif # __CONFIG_MK__

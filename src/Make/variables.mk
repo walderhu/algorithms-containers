@@ -25,4 +25,4 @@ else ifeq ($(UNAME_S),Windows_NT)
     OPEN_CMD = start
 endif
 
-endif
+endif # __VARIABLES_MK__
