@@ -45,7 +45,10 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
-        "s21_list.h": "c"
+        "s21_list.h": "c",
+        "*.tpp": "c",
+        "optional": "c",
+        "variant": "c"
     },
     "c_cpp_properties.json": {
         "compilerArgs": [

@@ -1,28 +1,26 @@
 #include "s21_list.hpp"
 
 template <typename T>
-inline List<T>::Node::Node(T value)
+inline s21::List<T>::Node::Node(T value)
     : value(value), next(nullptr), prev(nullptr) {}
 
 template <typename T>
-inline List<T>::iterator::iterator(Node* n) : current(n) {}
+inline s21::List<T>::iterator::iterator(Node* n) : current(n) {}
 
 template <typename T>
-inline bool List<T>::iterator::operator==(const iterator& other) {
+inline bool s21::List<T>::iterator::operator==(const iterator& other) {
   return current == other.current;
 }
 
 template <typename T>
-inline bool List<T>::iterator::operator!=(const iterator& other) {
+inline bool s21::List<T>::iterator::operator!=(const iterator& other) {
   return !(*this == other);
 }
 
 template <typename T>
-inline T& List<T>::iterator::operator*() {
+inline T& s21::List<T>::iterator::operator*() {
   return current->value;
 }
-
-}  // namespace s21
 
 template <typename T>
 inline s21::List<T>::List() noexcept : head(nullptr), tail(nullptr), _size(0) {}

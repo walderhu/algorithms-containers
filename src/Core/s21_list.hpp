@@ -21,12 +21,12 @@ class List final {
   size_t _size;
 
  public:
-  using value_type = T;
-  using reference = T&;
-  using const_reference = const T&;
+  // using value_type = T;
+  // using reference = T&;
+  // using const_reference = const T&;
   // using iterator = T*;
   // using const_iterator = const T*;
-  using size_type = size_t;
+  // using size_type = size_t;
 
   List() noexcept;
   ~List() noexcept;
@@ -63,15 +63,8 @@ class List final {
     for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";
     std::cout << std::endl;
   }
-
-  friend std::ostream& operator<<(std::ostream& os, const List& obj) {
-    Node* current = obj.head;
-    while (current) {
-      os << current->value << " ";
-      current = current->next;
-    }
-    return os;
-  }
 };
+}  // namespace s21
 
+#include "s21_list.tpp"
 #endif  // __S21_LIST_HXX__
