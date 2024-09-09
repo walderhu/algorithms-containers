@@ -49,8 +49,8 @@ class List final {
   // TODO
   List(size_type n) noexcept;
   List(std::initializer_list<value_type> const& items) noexcept;
-  // list(const list& l);
-  // list(list&& l);
+  List(const List& other) noexcept;
+  List(List&& other) noexcept;
 
   // operator=(list && l);
   // operator= [size_t index];

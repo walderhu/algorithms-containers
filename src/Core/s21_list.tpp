@@ -30,6 +30,27 @@ inline s21::List<T>::List(size_type n) noexcept : s21::List<T>() {
   for (size_t i = 0; i < size(); i++) push_front(T());
 }
 
+// Конструктор копирования
+template <typename T>
+inline s21::List<T>::List(const List& other) noexcept {
+  this->clear();
+  for (auto it = other.begin(); it != other.end(); ++it) push_back(*it);
+}
+
+// Конструктор перемещения
+template <typename T>
+inline s21::List<T>::List(List&& other) noexcept {
+  this->clear();
+
+  this->head = other.head;
+  this->tail = other.tail;
+  this->_size = other._size;
+
+  other.head = nullptr;
+  other.tail = nullptr;
+  other._size = 0;
+}
+
 template <typename T>
 inline s21::List<T>::List(
     std::initializer_list<value_type> const& items) noexcept
