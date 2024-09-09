@@ -7,7 +7,7 @@
 
 ## TODO ~HEAD TASK
 В этой таблице перечислены основные публичные методы для взаимодействия с классом:
- <!-- - [x] list()  -->
+ - [x] list() 
  - [ ] list(size_type n)
  - [ ] list(std::initializer_list<value_type> const &items)
  - [ ] list(const list &l)
@@ -19,38 +19,38 @@
 *List Element access*
 В этой таблице перечислены публичные методы для доступа к элементам класса:
 
-<!--  - [x] const_reference front()  -->
-<!--  - [x] const_reference back()  -->
+ - [x] const_reference front() 
+ - [x] const_reference back() 
 
 *List Iterators*
 В этой таблице перечислены публичные методы для итерирования по элементам класса (доступ к итераторам):
 
-<!--  - [x] iterator begin()  -->
-<!--  - [x] iterator end()  -->
+ - [x] iterator begin() 
+ - [x] iterator end() 
 
 *List Capacity*
 В этой таблице перечислены публичные методы для доступа к информации о наполнении контейнера:
 
-<!--  - [x] bool empty() 
+ - [x] bool empty()  
  - [x] size_type size() 
- - [?] size_type max_size()  -->
+ <!-- - [?] size_type max_size()   -->
 
 *List Modifiers*
 В этой таблице перечислены публичные методы для изменения контейнера:
 
-<!--  - [x] void clear()  -->
+ - [x] void clear() 
  - [ ] iterator insert(iterator pos, const_reference value)  TODO
  - [ ] void erase(iterator pos)
-<!-- - [x] void push_back(const_reference value)  -->
-<!-- - [x] void pop_back()  -->
-<!-- - [x] void push_front(const_reference value)  -->
-<!-- - [x] void pop_front()  -->
+- [x] void push_back(const_reference value) 
+- [x] void pop_back() 
+- [x] void push_front(const_reference value) 
+- [x] void pop_front() 
  - [ ] void swap(list& other)
  - [ ] void merge(list& other)
  - [ ] void splice(const_iterator pos, list& other)
-<!--  - [x] void reverse()  -->
+ - [x] void reverse() 
  - [ ] void unique() 
-<!--  - [x] void sort()  -->
+ - [x] void sort() 
 
 
 
