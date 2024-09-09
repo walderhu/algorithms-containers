@@ -9,6 +9,7 @@ int main() {
   list.print();
   list.sort();
   list.print();
+  std::cout << list << std::endl;
   // list.reverse();
   // list.clear();
   // list.print();

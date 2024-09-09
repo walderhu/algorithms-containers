@@ -85,6 +85,20 @@ typename s21::List<T>::iterator& s21::List<T>::iterator::operator++() {
   return *this;
 }
 
+namespace s21 {
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const List<T>& obj) {
+  typename List<T>::Node* current = obj.head;
+  while (current) {
+    os << current->value << " ";
+    current = current->next;
+  }
+  return os;
+}
+
+}  // namespace s21
+
 template <typename T>
 void s21::List<T>::print() {
   for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";

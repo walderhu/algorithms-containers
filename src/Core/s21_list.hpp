@@ -56,6 +56,9 @@ class List final {
   };
   iterator begin();
   iterator end();
+
+  template <typename U>
+  friend std::ostream& operator<<(std::ostream& os, const List<U>& obj);
 };
 }  // namespace s21
 
