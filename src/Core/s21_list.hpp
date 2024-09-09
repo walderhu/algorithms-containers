@@ -26,12 +26,12 @@ class List final {
   // using const_reference = const T&;
   // using iterator = T*;
   // using const_iterator = const T*;
-  // using size_type = size_t;
+  using size_type = size_t;
 
   List() noexcept;
   ~List() noexcept;
 
-  size_t size() const;
+  size_type size() const;
   T& operator[](const int index) const;
   void push_back(T value);
   bool empty();
@@ -42,7 +42,7 @@ class List final {
   void reverse();
   const T& front();
   const T& back();
-  size_t max_size();
+  size_type max_size();
   void sort();
   void print();
 

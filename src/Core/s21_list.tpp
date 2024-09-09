@@ -30,8 +30,13 @@ inline s21::List<T>::~List() noexcept {
   clear();
 }
 
+// template <typename T>
+// inline s21::List<T>::size_type s21::List<T>::size() const {
+//   return _size;
+// }
+
 template <typename T>
-inline size_t s21::List<T>::size() const {
+inline typename s21::List<T>::size_type s21::List<T>::size() const {
   return _size;
 }
 
@@ -173,7 +178,7 @@ inline const T& s21::List<T>::back() {
 }
 
 template <typename T>
-inline size_t s21::List<T>::max_size() {
+inline typename s21::List<T>::size_type s21::List<T>::max_size() {
   return (std::numeric_limits<size_t>::max() / sizeof(T)) / 2;
 }
 
