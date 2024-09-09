@@ -18,7 +18,7 @@ $(BUILD_PATH):
 	@mkdir -p $@
 
 clean: clean_docs
-	@rm -rf $(TRASH)
+	@rm $(RM_FLAGS) $(TRASH)
 
 test: clean $(BUILD_PATH) $(EXE)
 	$(CC) $(TESTS_PATH)/*.hpp $(TESTS_PATH)/*.cpp $(LIB) -o $(BUILD_PATH)/$@

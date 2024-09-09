@@ -25,4 +25,7 @@ else ifeq ($(UNAME_S),Windows_NT)
     OPEN_CMD = start
 endif
 
+RM_FLAGS = --recursive --force
+# RM_FLAGS += --verbose
+
 endif # __VARIABLES_MK__
