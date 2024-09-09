@@ -1,0 +1,38 @@
+# Doxyfile for CPP2 s21_containers project
+
+# Project-related settings
+PROJECT_NAME           = "CPP2 s21_containers"
+PROJECT_BRIEF          = "A C++ project for container implementations"
+PROJECT_VERSION        = 1.0
+OUTPUT_DIRECTORY       = docs
+USE_MDFILE_AS_MAINPAGE = README.md
+
+# Input settings
+INPUT                  = Core/ Tests/
+FILE_PATTERNS          = *.cpp *.hpp *.tpp
+RECURSIVE              = YES
+
+# Output settings
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_LATEX         = NO
+
+# Extraction settings
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+
+# Preprocessor settings
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = YES
+
+# Other settings
+GENERATE_TODOLIST      = YES
+GENERATE_BUGLIST       = YES
+GENERATE_DEPRECATEDLIST= YES
+QUIET                  = NO
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
