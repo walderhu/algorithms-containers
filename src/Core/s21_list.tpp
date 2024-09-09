@@ -70,6 +70,12 @@ void s21::List<T>::clear() {
 }
 
 template <typename T>
+void s21::List<T>::print() {
+  for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";
+  std::cout << std::endl;
+}
+
+template <typename T>
 inline void s21::List<T>::pop_front() {
   if (head) {
     Node* tmp = head;

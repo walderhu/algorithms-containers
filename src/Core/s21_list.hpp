@@ -44,6 +44,7 @@ class List final {
   const T& back();
   size_t max_size();
   void sort();
+  void print();
 
   struct iterator {
     Node* current;
@@ -58,13 +59,9 @@ class List final {
   };
   iterator begin() { return iterator(head); }
   iterator end() { return iterator(nullptr); }
-
-  void print() {
-    for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";
-    std::cout << std::endl;
-  }
 };
 }  // namespace s21
 
 #include "s21_list.tpp"
+
 #endif  // __S21_LIST_HXX__

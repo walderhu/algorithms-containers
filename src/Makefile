@@ -4,8 +4,8 @@ EXE = s21_list
 BUILD_PATH = ./bin
 SRC_PATH = ./Core
 TESTS_PATH = ./Tests
-SRCS = $(wildcard $(SRC_PATH)/*.cxx) $(wildcard $(SRC_PATH)/*.tpp)
-HEADERS = $(wildcard $(SRC_PATH)/*.hxx)
+SRCS = $(wildcard $(SRC_PATH)/*.cpp) 
+HEADERS = $(wildcard $(SRC_PATH)/*.hpp)
 TRASH = README.html $(BUILD_PATH) $(SRC_PATH)/*.gch
 UNAME_S := $(shell uname -s)
 
@@ -19,17 +19,20 @@ else ifeq ($(UNAME_S),Windows_NT)
     OPEN_CMD = start
 endif
 
-all: clean $(EXE) run
+all: clean $(BUILD_PATH) 
+	make -C ./Core -s
 
-$(EXE): $(SRCS) $(HEADERS)
-	mkdir -p $(BUILD_PATH)
-	$(CC) $(CXXFLAGS) $(SRCS) -o $(BUILD_PATH)/$(EXE)
+
+$(BUILD_PATH):
+	mkdir -p $@
+
 
 run: $(EXE)
 	$(BUILD_PATH)/$(EXE)
 
 clean:
-	rm -rf $(TRASH)
+	rm -rf $(TRASH) *.o
+	make -C ./Core clean -s
 
 style:
 	clang-format -n -style=google $(SRC_PATH)/* $(TESTS_PATH)/*
