@@ -46,6 +46,23 @@ class List final {
   void sort();
   void print();
 
+  // TODO
+  List(size_type n) noexcept;
+  // list(std::initializer_list<value_type> const& items);
+  // list(const list& l);
+  // list(list&& l);
+
+  // operator=(list && l);
+  // operator= [size_t index];
+
+  // iterator insert(iterator pos, const_reference value);
+  // void erase(iterator pos);
+  // void swap(list& other);
+  // void merge(list& other);
+  // void splice(const_iterator pos, list& other);
+  // void unique();
+  //
+
   struct Iterator {
     Node* current;
     Iterator(Node* n);
