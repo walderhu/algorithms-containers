@@ -1,4 +1,4 @@
-#include "s21_list_test.hxx"
+#include "s21_list_test.hpp"
 
 TEST(S21ListTest, ListTest1) { EXPECT_EQ(1, 1); }
 

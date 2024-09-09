@@ -5,7 +5,7 @@
 
 #include <list>
 
-#include "../Core/s21_list.hxx"
+#include "../Core/s21_list.hpp"
 
 void run_tests();
 
