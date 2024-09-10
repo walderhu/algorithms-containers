@@ -13,6 +13,11 @@ int main() {
   std::cout << list << std::endl;
   list.reverse();
   std::cout << list << std::endl;
+  auto it = list.begin();
+  ++it;
+  ++it;
+  list.insert(it, 5);
+  std::cout << list << std::endl;
   // list.clear();
   // list.print();
 

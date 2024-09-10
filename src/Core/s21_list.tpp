@@ -29,6 +29,12 @@ typename s21::List<T>::Iterator& s21::List<T>::Iterator::operator++() {
 }
 
 template <typename T>
+typename s21::List<T>::Iterator& s21::List<T>::Iterator::operator--() {
+  current = current->prev;
+  return *this;
+}
+
+template <typename T>
 inline s21::List<T>::ConstIterator::ConstIterator(Node* n) : current(n) {}
 
 template <typename T>
@@ -53,6 +59,13 @@ template <typename T>
 typename s21::List<T>::ConstIterator&
 s21::List<T>::ConstIterator::operator++() {
   current = current->next;
+  return *this;
+}
+
+template <typename T>
+typename s21::List<T>::ConstIterator&
+s21::List<T>::ConstIterator::operator--() {
+  current = current->prev;
   return *this;
 }
 
@@ -292,3 +305,63 @@ inline void s21::List<T>::sort() {
     }
   }
 }
+
+template <typename T>
+inline auto s21::List<T>::swap(List& other) noexcept -> void {
+  std::swap(head, other.head);
+  std::swap(tail, other.tail);
+  std::swap(size, other.size);
+}
+
+template <typename T>
+inline auto s21::List<T>::merge(List& other) -> void {
+  for (auto it = other.begin(); it != other.end(); ++it) this->push_back(*it);
+}
+
+// template <typename T>
+// inline auto s21::List<T>::insert(iterator pos,
+//                                  const_reference value) -> iterator {
+//   for (auto it = this->begin(); it != this->end(); ++it) {
+//     if (it == pos) {
+//       Node* new_value = new Node(value);
+//       // here
+//       break;
+//     }
+//   }
+// }
+
+template <typename T>
+inline auto s21::List<T>::insert(iterator pos,
+                                 const_reference value) -> iterator {
+  Node* new_node = new Node(value);
+
+  if (pos == begin()) {
+    new_node->next = head;
+    if (head) head->prev = new_node;
+    head = new_node;
+  } else {
+    Node* current = pos.current;
+    Node* previous = current->prev;
+
+    new_node->next = current;
+    new_node->prev = previous;
+
+    if (previous) previous->next = new_node;
+    current->prev = new_node;
+  }
+
+  if (pos == end()) tail = new_node;
+  this->_size++;
+  return new_node;
+}
+
+//
+
+template <typename T>
+inline auto s21::List<T>::erase(iterator pos) -> void {}
+
+template <typename T>
+inline auto s21::List<T>::splice(const_iterator pos, List& other) -> void {}
+
+template <typename T>
+inline auto s21::List<T>::unique() -> void {}

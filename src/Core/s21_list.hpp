@@ -21,17 +21,26 @@ class List final {
   size_t _size;
 
  public:
+  struct Iterator;
+  struct ConstIterator;
   using value_type = T;
   using reference = T&;
+  // using iterator = T*;
+  // using const_reference = const T&;
+  using iterator = Iterator;
+  using const_iterator = ConstIterator;
   using const_reference = const T&;
-  using iterator = T*;
-  using const_iterator = const T*;
   using size_type = size_t;
 
   List() noexcept;
   ~List() noexcept;
+  List(size_type n) noexcept;
+  List(std::initializer_list<value_type> const& items) noexcept;
+  List(const List& other) noexcept;
+  List(List&& other) noexcept;
 
   size_type size() const;
+  List<T>& operator=(List&& other) noexcept;
   reference operator[](const int index) const;
   void push_back(T value);
   bool empty();
@@ -46,19 +55,15 @@ class List final {
   void sort();
   void print();
 
-  // TODO
-  List(size_type n) noexcept;
-  List(std::initializer_list<value_type> const& items) noexcept;
-  List(const List& other) noexcept;           // BUG
-  List(List&& other) noexcept;                // BUG
-  List<T>& operator=(List&& other) noexcept;  // BUG
+  // DONE NEED TESTING
+  void swap(List& other) noexcept;
+  void merge(List& other);
 
-  // iterator insert(iterator pos, const_reference value);
-  // void erase(iterator pos);
-  // void swap(list& other);
-  // void merge(list& other);
-  // void splice(const_iterator pos, list& other);
-  // void unique();
+  // TODO
+  iterator insert(iterator pos, const_reference value);
+  void erase(iterator pos);
+  void splice(const_iterator pos, List& other);
+  void unique();
 
   struct Iterator {
     Node* current;
@@ -67,6 +72,7 @@ class List final {
     bool operator!=(const Iterator& other);
     reference operator*();
     Iterator& operator++();
+    Iterator& operator--();
   };
   Iterator begin();
   Iterator end();
@@ -78,6 +84,7 @@ class List final {
     bool operator!=(const ConstIterator& other) const;
     const_reference operator*() const;
     ConstIterator& operator++();
+    ConstIterator& operator--();
   };
 
   ConstIterator cbegin() const;
