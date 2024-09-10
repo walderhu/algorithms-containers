@@ -15,6 +15,10 @@
     amend = commit --amend --no-edit
     last = log -1 HEAD
     ciw = commit -m
+    undo = reset HEAD~1 --mixed
+    uncommit = reset HEAD~1 --soft
+    format-patch = format-patch origin/master
+    diff = diff --color-words 
 
 [merge]
     tool = meld
@@ -22,7 +26,8 @@
     options = -X theirs
 
 [core]
-    editor = code --wait  
+    editor = nano
+    # editor = code --wait  
 
 [completion]
     auto = true
