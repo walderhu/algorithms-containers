@@ -23,18 +23,60 @@ inline typename s21::List<T>::reference s21::List<T>::Iterator::operator*() {
 }
 
 template <typename T>
+typename s21::List<T>::Iterator& s21::List<T>::Iterator::operator++() {
+  current = current->next;
+  return *this;
+}
+
+template <typename T>
+inline s21::List<T>::ConstIterator::ConstIterator(Node* n) : current(n) {}
+
+template <typename T>
+inline bool s21::List<T>::ConstIterator::operator==(
+    const ConstIterator& other) const {
+  return current == other.current;
+}
+
+template <typename T>
+inline bool s21::List<T>::ConstIterator::operator!=(
+    const ConstIterator& other) const {
+  return !(*this == other);
+}
+
+template <typename T>
+inline typename s21::List<T>::const_reference
+s21::List<T>::ConstIterator::operator*() const {
+  return current->value;
+}
+
+template <typename T>
+typename s21::List<T>::ConstIterator&
+s21::List<T>::ConstIterator::operator++() {
+  current = current->next;
+  return *this;
+}
+
+template <typename T>
 inline s21::List<T>::List() noexcept : head(nullptr), tail(nullptr), _size(0) {}
 
 template <typename T>
 inline s21::List<T>::List(size_type n) noexcept : s21::List<T>() {
+  this->_size = n;
   for (size_t i = 0; i < size(); i++) push_front(T());
 }
 
-// Конструктор копирования
+// TODO проверить на наличие утечек памяти, если вызывать clear() то
+// munmap_chunk(): invalid pointer
 template <typename T>
-inline s21::List<T>::List(const List& other) noexcept {
-  this->clear();
-  for (auto it = other.begin(); it != other.end(); ++it) push_back(*it);
+inline s21::List<T>::List(const List& other) noexcept
+    : head(nullptr), tail(nullptr), _size(0) {
+  if (this != &other) {
+    Node* current = other.head;
+    while (current) {
+      push_back(current->value);
+      current = current->next;
+    }
+  }
 }
 
 // Конструктор перемещения
@@ -127,11 +169,18 @@ typename s21::List<T>::Iterator s21::List<T>::end() {
   return Iterator(nullptr);
 }
 
+//  ConstIterator begin() const;
+// ConstIterator end() const; todo
 template <typename T>
-typename s21::List<T>::Iterator& s21::List<T>::Iterator::operator++() {
-  current = current->next;
-  return *this;
+typename s21::List<T>::ConstIterator s21::List<T>::cbegin() const {
+  return ConstIterator(this->head);
 }
+
+template <typename T>
+typename s21::List<T>::ConstIterator s21::List<T>::cend() const {
+  return ConstIterator(nullptr);
+}
+//
 
 namespace s21 {
 
@@ -200,15 +249,21 @@ inline void s21::List<T>::pop_back() {
 // TODO надо тестить, странно работает
 template <typename T>
 inline void s21::List<T>::reverse() {
-  if (size() > 1) {
-    Node* current = head;
-    while (current != tail) {
-      std::swap(current->next, current->prev);
-      current = current->prev;
-    }
-    std::swap(head, tail);
-  }
+  if (this->size() < 2) return;
+  List<T> new_list;
+  for (auto it = this->begin(); it != this->end(); ++it)
+    new_list.push_front(*it);
+  // *this = new_list; // TODO
 }
+// {
+//   Node* current = head;
+//   while (current != tail) {
+//     std::swap(current->next, current->prev);
+//     current = current->prev;
+//   }
+//   std::swap(head, tail);
+// }
+// }
 
 template <typename T>
 inline typename s21::List<T>::const_reference s21::List<T>::front() {

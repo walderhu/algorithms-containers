@@ -71,6 +71,18 @@ class List final {
   Iterator begin();
   Iterator end();
 
+  struct ConstIterator {
+    Node* current;
+    ConstIterator(Node* n);
+    bool operator==(const ConstIterator& other) const;
+    bool operator!=(const ConstIterator& other) const;
+    const_reference operator*() const;
+    ConstIterator& operator++();
+  };
+
+  ConstIterator cbegin() const;
+  ConstIterator cend() const;
+
   template <typename U>
   friend std::ostream& operator<<(std::ostream& os, const List<U>& obj);
 };
