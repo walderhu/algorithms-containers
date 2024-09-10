@@ -1,0 +1,16 @@
+[user]
+    name = denis
+    email = denis.lipatov163@gmail.com
+
+[color]
+    ui = auto
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    ci = commit
+    lg = log --graph --oneline --decorate
+
+[merge]
+    tool = meld
