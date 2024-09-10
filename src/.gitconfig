@@ -3,19 +3,20 @@
     email = denis.lipatov163@gmail.com
 
 [alias]
-    lg = log --graph --oneline --decorate
-    amend = "!f() { git add . && git commit --amend --no-edit && git push -f; }; f"
-    tmp = "!f() { git add . && git commit -m 'Temporary commit' && git push; }; f"
-    delete = "!f() { git push origin --delete \"$1\" && git branch -D \"$1\"; }; f"
-    last = log -1 HEAD
-    ciw = commit -m
-    undo = reset HEAD~1 --mixed
-    uncommit = reset HEAD~1 --soft
-    format-patch = format-patch origin/master
-    diff = diff --color-words 
     list = config --list
     apply = config --global include.path # $(GITCONFIG_PATH)
     unapply = config --global --unset include.path
+
+    amend = "!f() { git add . && git commit --amend --no-edit && git push -f; }; f"
+    tmp = "!f() { git add . && git commit -m 'Temporary commit' && git push; }; f"
+    delete = "!f() { git push origin --delete \"$1\" && git branch -D \"$1\"; }; f"
+    
+    last = log -1 HEAD
+    diff = diff --color-words 
+    patch = format-patch origin/master
+    lg = log --graph --oneline --decorate
+    s = checkout -
+    
 
 [merge]
     tool = meld

@@ -169,8 +169,6 @@ typename s21::List<T>::Iterator s21::List<T>::end() {
   return Iterator(nullptr);
 }
 
-//  ConstIterator begin() const;
-// ConstIterator end() const; todo
 template <typename T>
 typename s21::List<T>::ConstIterator s21::List<T>::cbegin() const {
   return ConstIterator(this->head);
@@ -246,24 +244,14 @@ inline void s21::List<T>::pop_back() {
   }
 }
 
-// TODO надо тестить, странно работает
 template <typename T>
 inline void s21::List<T>::reverse() {
   if (this->size() < 2) return;
   List<T> new_list;
   for (auto it = this->begin(); it != this->end(); ++it)
     new_list.push_front(*it);
-  // *this = new_list; // TODO
+  *this = std::move(new_list);
 }
-// {
-//   Node* current = head;
-//   while (current != tail) {
-//     std::swap(current->next, current->prev);
-//     current = current->prev;
-//   }
-//   std::swap(head, tail);
-// }
-// }
 
 template <typename T>
 inline typename s21::List<T>::const_reference s21::List<T>::front() {
@@ -272,7 +260,7 @@ inline typename s21::List<T>::const_reference s21::List<T>::front() {
 
 // template <typename T>
 // inline auto s21::List<T>::front() -> const_reference {
-//   return head->value;
+// return head->value;
 // }
 
 template <typename T>
