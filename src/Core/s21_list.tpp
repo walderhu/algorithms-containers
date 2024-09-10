@@ -355,6 +355,15 @@ inline auto s21::List<T>::insert(iterator pos,
   return new_node;
 }
 
+template <typename T>
+inline auto s21::List<T>::insert(
+    iterator pos, std::initializer_list<value_type> const& items) -> iterator {
+  for (auto item = items.end(); item != items.begin();) {
+    --item;
+    pos = insert(pos, *item);
+  }
+  return pos;
+}
 //
 
 template <typename T>

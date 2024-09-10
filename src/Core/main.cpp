@@ -16,7 +16,7 @@ int main() {
   auto it = list.begin();
   ++it;
   ++it;
-  list.insert(it, 5);
+  list.insert(it, {5, 2, 3});
   std::cout << list << std::endl;
   // list.clear();
   // list.print();

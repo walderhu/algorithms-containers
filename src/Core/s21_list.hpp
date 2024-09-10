@@ -58,9 +58,10 @@ class List final {
   // DONE NEED TESTING
   void swap(List& other) noexcept;
   void merge(List& other);
+  iterator insert(iterator pos, const_reference value);
+  iterator insert(iterator pos, std::initializer_list<value_type> const& items);
 
   // TODO
-  iterator insert(iterator pos, const_reference value);
   void erase(iterator pos);
   void splice(const_iterator pos, List& other);
   void unique();
