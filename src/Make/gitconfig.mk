@@ -10,4 +10,4 @@ gitconfig-apply: $(GITCONFIG_PATH)
 gitconfig-unapply:
 	git config --global --unset include.path
 
-gitconfig-reset: unapply apply status
+gitconfig-reset: gitconfig-unapply gitconfig-apply gitconfig-status
