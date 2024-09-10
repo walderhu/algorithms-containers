@@ -2,35 +2,53 @@
     name = denis | walderhu
     email = denis.lipatov163@gmail.com
 
-[color]
-    branch = auto
-    diff = auto
-    status = auto
-    interactive = auto
-
 [alias]
     lg = log --graph --oneline --decorate
-    amend = commit --amend --no-edit
+    amend = "!f() { git add . && git commit --amend --no-edit && git push -f; }; f"
+    tmp = "!f() { git add . && git commit -m 'Temporary commit' && git push; }; f"
+    delete = "!f() { git push origin --delete \"$1\" && git branch -D \"$1\"; }; f"
     last = log -1 HEAD
     ciw = commit -m
     undo = reset HEAD~1 --mixed
     uncommit = reset HEAD~1 --soft
     format-patch = format-patch origin/master
     diff = diff --color-words 
-    delete = "!f() { git push origin --delete \"$1\" && git branch -D \"$1\"; }; f"
-    tmp = "!f() { git add . && git commit -m 'Temporary commit' && git push; }; f"
+    list = config --list
+    apply = config --global include.path # $(GITCONFIG_PATH)
+    unapply = config --global --unset include.path
 
 [merge]
     tool = meld
     conflictstyle = diff3
     options = -X theirs
 
+[init]
+    defaultBranch = walderhu/feature
+
 [core]
-    editor = code --wait  
-    # editor = nano
+    editor = nano
+    # editor = code --wait  
 
 [completion]
     auto = true
 
 [pull]
     rebase = true  
+
+[credential]
+    helper = cache 
+
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+    interactive = auto
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[completion]
+    auto = true
+    useConfigOnly = true
