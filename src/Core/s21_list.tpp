@@ -49,23 +49,19 @@ inline auto s21::List<T>::ConstIterator::operator!=(
   return !(*this == other);
 }
 
-// here
 template <typename T>
-inline typename s21::List<T>::const_reference
-s21::List<T>::ConstIterator::operator*() const {
+inline auto s21::List<T>::ConstIterator::operator*() const -> const_reference {
   return current->value;
 }
 
 template <typename T>
-typename s21::List<T>::ConstIterator&
-s21::List<T>::ConstIterator::operator++() {
+inline auto s21::List<T>::ConstIterator::operator++() -> ConstIterator& {
   current = current->next;
   return *this;
 }
 
 template <typename T>
-typename s21::List<T>::ConstIterator&
-s21::List<T>::ConstIterator::operator--() {
+inline auto s21::List<T>::ConstIterator::operator--() -> ConstIterator& {
   current = current->prev;
   return *this;
 }
@@ -134,13 +130,12 @@ inline s21::List<T>::~List() noexcept {
 }
 
 template <typename T>
-inline typename s21::List<T>::size_type s21::List<T>::size() const {
+inline auto s21::List<T>::size() const -> size_type {
   return _size;
 }
 
 template <typename T>
-inline typename s21::List<T>::reference s21::List<T>::operator[](
-    const int index) const {
+inline auto s21::List<T>::operator[](const int index) const -> reference {
   if (index < 0 || index >= _size)
     throw std::out_of_range("Index out of range");
   Node* current = head;
@@ -149,7 +144,7 @@ inline typename s21::List<T>::reference s21::List<T>::operator[](
 }
 
 template <typename T>
-void s21::List<T>::push_back(T value) {
+inline auto s21::List<T>::push_back(T value) -> void {
   Node* new_node = new Node(value);
   if (!head) {
     head = new_node;
@@ -163,36 +158,35 @@ void s21::List<T>::push_back(T value) {
 }
 
 template <typename T>
-inline bool s21::List<T>::empty() {
+inline auto s21::List<T>::empty() -> bool {
   return size() == 0;
 }
 
 template <typename T>
-void s21::List<T>::clear() {
+inline auto s21::List<T>::clear() -> void {
   while (_size) pop_front();
   tail = nullptr;
 }
 
 template <typename T>
-typename s21::List<T>::Iterator s21::List<T>::begin() {
+inline auto s21::List<T>::begin() -> Iterator {
   return Iterator(this->head);
 }
 
 template <typename T>
-typename s21::List<T>::Iterator s21::List<T>::end() {
+inline auto s21::List<T>::end() -> Iterator {
   return Iterator(nullptr);
 }
 
 template <typename T>
-typename s21::List<T>::ConstIterator s21::List<T>::cbegin() const {
+inline auto s21::List<T>::cbegin() const -> ConstIterator {
   return ConstIterator(this->head);
 }
 
 template <typename T>
-typename s21::List<T>::ConstIterator s21::List<T>::cend() const {
+inline auto s21::List<T>::cend() const -> ConstIterator {
   return ConstIterator(nullptr);
 }
-//
 
 namespace s21 {
 
@@ -209,13 +203,13 @@ std::ostream& operator<<(std::ostream& os, const List<T>& obj) {
 }  // namespace s21
 
 template <typename T>
-void s21::List<T>::print() {
+inline auto s21::List<T>::print() -> void {
   for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";
   std::cout << "\n";
 }
 
 template <typename T>
-inline void s21::List<T>::pop_front() {
+inline auto s21::List<T>::pop_front() -> void {
   if (head) {
     Node* tmp = head;
     head = head->next;
@@ -230,7 +224,7 @@ inline void s21::List<T>::pop_front() {
 }
 
 template <typename T>
-inline void s21::List<T>::push_front(T value) {
+inline auto s21::List<T>::push_front(T value) -> void {
   Node* new_node = new Node(value);
   if (!head) {
     head = new_node;
@@ -244,7 +238,7 @@ inline void s21::List<T>::push_front(T value) {
 }
 
 template <typename T>
-inline void s21::List<T>::pop_back() {
+inline auto s21::List<T>::pop_back() -> void {
   if (head) {
     Node* tmp = tail;
     tail = tail->prev;
@@ -259,7 +253,7 @@ inline void s21::List<T>::pop_back() {
 }
 
 template <typename T>
-inline void s21::List<T>::reverse() {
+inline auto s21::List<T>::reverse() -> void {
   if (this->size() < 2) return;
   List<T> new_list;
   for (auto it = this->begin(); it != this->end(); ++it)
@@ -268,27 +262,22 @@ inline void s21::List<T>::reverse() {
 }
 
 template <typename T>
-inline typename s21::List<T>::const_reference s21::List<T>::front() {
+inline auto s21::List<T>::front() -> const_reference {
   return head->value;
 }
 
-// template <typename T>
-// inline auto s21::List<T>::front() -> const_reference {
-// return head->value;
-// }
-
 template <typename T>
-inline typename s21::List<T>::const_reference s21::List<T>::back() {
+inline auto s21::List<T>::back() -> const_reference {
   return tail->value;
 }
 
 template <typename T>
-inline typename s21::List<T>::size_type s21::List<T>::max_size() {
+inline auto s21::List<T>::max_size() -> size_type {
   return (std::numeric_limits<size_t>::max() / sizeof(T)) / 2;
 }
 
 template <typename T>
-inline void s21::List<T>::sort() {
+inline auto s21::List<T>::sort() -> void {
   Node* current = head;
   bool swapped = true;
 
