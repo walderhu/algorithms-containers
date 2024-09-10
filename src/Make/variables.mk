@@ -2,7 +2,7 @@ ifndef __VARIABLES_MK__
 export __VARIABLES_MK__ = 1
 
 CC := g++
-CXXFLAGS := -Wall -Wextra -Werror -std=c++11
+# CXXFLAGS := -Wall -Wextra -Werror -std=c++11
 EXE := s21_list
 BUILD_PATH := bin
 SRC_PATH := Core
@@ -25,11 +25,7 @@ else ifeq ($(UNAME_S),Windows_NT)
     OPEN_CMD = start
 endif
 
-# Если таргет вызывается из терминала, или из другой части мейкфайла
-ifeq ($(shell test -t 0 && echo yes), yes)
-    RM_FLAGS = --recursive --force --verbose
-else
-    RM_FLAGS = --recursive --force
-endif
+RM_FLAGS = --recursive --force
+# RM_FLAGS += --verbose
 
 endif # __VARIABLES_MK__

@@ -1,7 +1,7 @@
 #ifndef __S21_LIST_HXX__
 #define __S21_LIST_HXX__
 
-// #include <initializer_list>
+#include <initializer_list>
 #include <iostream>
 #include <limits>
 
@@ -59,7 +59,6 @@ class List final {
   // void merge(list& other);
   // void splice(const_iterator pos, list& other);
   // void unique();
-  //
 
   struct Iterator {
     Node* current;
@@ -72,6 +71,18 @@ class List final {
   Iterator begin();
   Iterator end();
 
+  struct ConstIterator {
+    Node* current;
+    ConstIterator(Node* n);
+    bool operator==(const ConstIterator& other) const;
+    bool operator!=(const ConstIterator& other) const;
+    const_reference operator*() const;
+    ConstIterator& operator++();
+  };
+
+  ConstIterator cbegin() const;
+  ConstIterator cend() const;
+
   template <typename U>
   friend std::ostream& operator<<(std::ostream& os, const List<U>& obj);
 };
@@ -80,29 +91,3 @@ class List final {
 #include "s21_list.tpp"
 
 #endif  // __S21_LIST_HXX__
-
-// TODO
-// using Array = std::initializer_list<double>;
-
-// S21Matrix::S21Matrix(const Array& array) : S21Matrix(array.size(), 1) {
-//   FillingMatrix(array);
-// }
-
-// void S21Matrix::FillingMatrix(const Matrix& matrix) {
-//   int row = 0, col = 0;
-//   for (const auto& rows : matrix) {
-//     col = 0;
-//     for (const auto& elem : rows) {
-//       this->matrix_[row][col] = elem;
-//       col++;
-//     }
-//     row++;
-//   }
-// }
-
-// template <typename T>
-// inline s21::List<T>::List(
-//     std::initializer_list<value_type> const& items) noexcept
-//     : _size(items.size()) {
-//   for (const value_type& item : items) push_back(item);
-// }
