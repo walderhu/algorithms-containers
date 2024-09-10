@@ -8,28 +8,28 @@ template <typename T>
 inline s21::List<T>::Iterator::Iterator(Node* n) : current(n) {}
 
 template <typename T>
-inline bool s21::List<T>::Iterator::operator==(const Iterator& other) {
+inline auto s21::List<T>::Iterator::operator==(const Iterator& other) -> bool {
   return current == other.current;
 }
 
 template <typename T>
-inline bool s21::List<T>::Iterator::operator!=(const Iterator& other) {
+inline auto s21::List<T>::Iterator::operator!=(const Iterator& other) -> bool {
   return !(*this == other);
 }
 
 template <typename T>
-inline typename s21::List<T>::reference s21::List<T>::Iterator::operator*() {
+inline auto s21::List<T>::Iterator::operator*() -> reference {
   return current->value;
 }
 
 template <typename T>
-typename s21::List<T>::Iterator& s21::List<T>::Iterator::operator++() {
-  current = current->next;
+auto s21::List<T>::Iterator::operator++() -> Iterator& {
+  if (current) current = current->next;
   return *this;
 }
 
 template <typename T>
-typename s21::List<T>::Iterator& s21::List<T>::Iterator::operator--() {
+inline auto s21::List<T>::Iterator::operator--() -> Iterator& {
   current = current->prev;
   return *this;
 }
@@ -38,17 +38,18 @@ template <typename T>
 inline s21::List<T>::ConstIterator::ConstIterator(Node* n) : current(n) {}
 
 template <typename T>
-inline bool s21::List<T>::ConstIterator::operator==(
-    const ConstIterator& other) const {
+inline auto s21::List<T>::ConstIterator::operator==(
+    const ConstIterator& other) const -> bool {
   return current == other.current;
 }
 
 template <typename T>
-inline bool s21::List<T>::ConstIterator::operator!=(
-    const ConstIterator& other) const {
+inline auto s21::List<T>::ConstIterator::operator!=(
+    const ConstIterator& other) const -> bool {
   return !(*this == other);
 }
 
+// here
 template <typename T>
 inline typename s21::List<T>::const_reference
 s21::List<T>::ConstIterator::operator*() const {

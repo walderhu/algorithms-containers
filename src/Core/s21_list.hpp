@@ -60,11 +60,10 @@ class List final {
   void merge(List& other);
   iterator insert(iterator pos, const_reference value);
   iterator insert(iterator pos, std::initializer_list<value_type> const& items);
-
-  // TODO
   void erase(iterator pos);
   void splice(const_iterator pos, List& other);
   void unique();
+  //
 
   struct Iterator {
     Node* current;
@@ -87,7 +86,6 @@ class List final {
     ConstIterator& operator++();
     ConstIterator& operator--();
   };
-
   ConstIterator cbegin() const;
   ConstIterator cend() const;
 
