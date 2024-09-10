@@ -318,18 +318,6 @@ inline auto s21::List<T>::merge(List& other) -> void {
   for (auto it = other.begin(); it != other.end(); ++it) this->push_back(*it);
 }
 
-// template <typename T>
-// inline auto s21::List<T>::insert(iterator pos,
-//                                  const_reference value) -> iterator {
-//   for (auto it = this->begin(); it != this->end(); ++it) {
-//     if (it == pos) {
-//       Node* new_value = new Node(value);
-//       // here
-//       break;
-//     }
-//   }
-// }
-
 template <typename T>
 inline auto s21::List<T>::insert(iterator pos,
                                  const_reference value) -> iterator {
@@ -364,13 +352,56 @@ inline auto s21::List<T>::insert(
   }
   return pos;
 }
-//
 
 template <typename T>
-inline auto s21::List<T>::erase(iterator pos) -> void {}
+inline auto s21::List<T>::erase(iterator pos) -> void {
+  if (pos == end()) throw std::out_of_range("Cannot erase end iterator");
+
+  Node* current = pos.current;
+  Node* prev = current->prev;
+  Node* next = current->next;
+
+  if (prev == nullptr)
+    head = next;
+  else
+    prev->next = next;
+
+  if (next == nullptr)
+    tail = prev;
+  else
+    next->prev = prev;
+
+  delete current;
+  _size -= 1;
+}
 
 template <typename T>
-inline auto s21::List<T>::splice(const_iterator pos, List& other) -> void {}
+inline auto s21::List<T>::splice(const_iterator pos, List& other) -> void {
+  if (pos == end()) throw std::out_of_range("Cannot splice at end iterator");
+  if (other.empty()) return;
+  auto other_begin = other.begin();
+  auto other_end = other.end();
+
+  for (auto it = other_end; it != other_begin;) {
+    --it;
+    insert(pos, *it);
+  }
+  other.clear();
+}
 
 template <typename T>
-inline auto s21::List<T>::unique() -> void {}
+inline auto s21::List<T>::unique() -> void {
+  if (this->empty()) return;
+
+  for (iterator it = this->begin(); it != this->end();) {
+    Node* current = it.current;
+
+    if (current->next && current->value == current->next->value) {
+      Node* next = current->next;
+      this->erase(it);
+      it = iterator(next);
+    } else {
+      ++it;
+    }
+  }
+}

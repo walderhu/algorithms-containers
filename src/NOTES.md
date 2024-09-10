@@ -39,17 +39,17 @@
 В этой таблице перечислены публичные методы для изменения контейнера:
 
  - [x] void clear() 
- - [ ] iterator insert(iterator pos, const_reference value)  TODO
- - [ ] void erase(iterator pos)
+ - [x] iterator insert(iterator pos, const_reference value)  TODO
+ - [x] void erase(iterator pos)
 - [x] void push_back(const_reference value) 
 - [x] void pop_back() 
 - [x] void push_front(const_reference value) 
 - [x] void pop_front() 
- - [ ] void swap(list& other)
- - [ ] void merge(list& other)
- - [ ] void splice(const_iterator pos, list& other)
+ - [x] void swap(list& other)
+ - [x] void merge(list& other)
+ - [x] void splice(const_iterator pos, list& other)
  - [x] void reverse() 
- - [ ] void unique() 
+ - [x] void unique() 
  - [x] void sort() 
 
 
@@ -62,26 +62,4 @@
 
  <!-- TODO TASK ~TAIL -->
  <!-- NOTE: TASK ~TAIL -->
- - [ ] iterator insert(iterator pos, const_reference value) ; TODO
- - [ ] void erase(iterator pos) ;стирает элемент в позиции ; TODO
- - [ ] void swap(list& other) ;меняет местами содержимое
  - [ ] void merge(list& other) ;объединяет два отсортированных списка
- - [ ] void splice(const_iterator pos, list& other) ;переносит элементы из списка other, начиная с позиции
- - [ ] void unique() ;удаляет последовательные повторяющиеся элементы
-
-
- splice переносит элементы начиная с какого то значения, а мерж полностью переносит
- можно реализовать splice а потом в мерж делегировать на него с условием на весь список
-
- тз
- для начала хочу попробовать реализовать метод insert который вставляет определенный
- элемент в конкретное место в списке
-
- добавить мб перегрузку для этого метода, чтобы он работал как и через
- итераторы так и через прямую индексацию
-
- остановиться и облажить результат
- работы тестами
-
- а еще у меня вообще не работает reverse 
-

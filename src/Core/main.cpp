@@ -18,8 +18,6 @@ int main() {
   ++it;
   list.insert(it, {5, 2, 3});
   std::cout << list << std::endl;
-  // list.clear();
-  // list.print();
 
   return 0;
 }
