@@ -8,7 +8,7 @@
 namespace s21 {
 
 template <typename T>
-class List final {
+class list final {
  private:
   struct Node {
     T value;
@@ -25,22 +25,20 @@ class List final {
   struct ConstIterator;
   using value_type = T;
   using reference = T&;
-  // using iterator = T*;
-  // using const_reference = const T&;
   using iterator = Iterator;
   using const_iterator = ConstIterator;
   using const_reference = const T&;
   using size_type = size_t;
 
-  List() noexcept;
-  ~List() noexcept;
-  List(size_type n) noexcept;
-  List(std::initializer_list<value_type> const& items) noexcept;
-  List(const List& other) noexcept;
-  List(List&& other) noexcept;
+  list() noexcept;
+  ~list() noexcept;
+  list(size_type n) noexcept;
+  list(std::initializer_list<value_type> const& items) noexcept;
+  list(const list& other) noexcept;
+  list(list&& other) noexcept;
 
   size_type size() const;
-  List<T>& operator=(List&& other) noexcept;
+  list<T>& operator=(list&& other) noexcept;
   reference operator[](const int index) const;
   void push_back(T value);
   bool empty();
@@ -56,12 +54,12 @@ class List final {
   void print();
 
   // DONE NEED TESTING
-  void swap(List& other) noexcept;
-  void merge(List& other);
+  void swap(list& other) noexcept;
+  void merge(list& other);
   iterator insert(iterator pos, const_reference value);
   iterator insert(iterator pos, std::initializer_list<value_type> const& items);
   void erase(iterator pos);
-  void splice(const_iterator pos, List& other);
+  void splice(const_iterator pos, list& other);
   void unique();
   //
 
@@ -90,7 +88,7 @@ class List final {
   ConstIterator cend() const;
 
   template <typename U>
-  friend std::ostream& operator<<(std::ostream& os, const List<U>& obj);
+  friend std::ostream& operator<<(std::ostream& os, const list<U>& obj);
 };
 }  // namespace s21
 

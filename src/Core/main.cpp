@@ -1,23 +1,22 @@
 #include "s21_list.hpp"
 
 int main() {
-  s21::List<int> list = {2, 3, 1};
-  list.push_back(2);
-  list.push_back(3);
-  list.push_back(1);
-  // s21::List<int> list2(list);  // BUG
-  s21::List<int> list2 = list;
+  s21::list<int> lst = {2, 3, 1};
+  lst.push_back(2);
+  lst.push_back(3);
+  lst.push_back(1);
+  s21::list<int> list2 = lst;
 
-  list.print();
-  list.sort();
-  std::cout << list << std::endl;
-  list.reverse();
-  std::cout << list << std::endl;
-  auto it = list.begin();
+  lst.print();
+  lst.sort();
+  std::cout << lst << std::endl;
+  lst.reverse();
+  std::cout << lst << std::endl;
+  auto it = lst.begin();
   ++it;
   ++it;
-  list.insert(it, {5, 2, 3});
-  std::cout << list << std::endl;
+  lst.insert(it, {5, 2, 3});
+  std::cout << lst << std::endl;
 
   return 0;
 }
