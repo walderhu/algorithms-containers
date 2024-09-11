@@ -153,29 +153,29 @@ TEST(List, Iterator_Begin) {
   EXPECT_EQ(*s21_it, *std_it);
 }
 
-// TEST(List, Iterator_BeginPlusAndMinus) {
-//   s21::list<int> s21_list = {1, 2, 3};
-//   std::list<int> std_list = {1, 2, 3};
-//   s21::list<int>::iterator s21_it;
-//   s21_it = s21_list.begin();
-//   ++s21_it;
-//   std::list<int>::iterator std_it;
-//   std_it = std_list.begin();
-//   ++std_it;
-//   EXPECT_EQ(*s21_it, *std_it);
-//   --s21_it;
-//   --std_it;
-//   EXPECT_EQ(*s21_it, *std_it);
-// }
+TEST(List, Iterator_BeginPlusAndMinus) {
+  s21::list<int> s21_list = {1, 2, 3};
+  std::list<int> std_list = {1, 2, 3};
+  s21::list<int>::iterator s21_it;
+  s21_it = s21_list.begin();
+  ++s21_it;
+  std::list<int>::iterator std_it;
+  std_it = std_list.begin();
+  ++std_it;
+  EXPECT_EQ(*s21_it, *std_it);
+  --s21_it;
+  --std_it;
+  EXPECT_EQ(*s21_it, *std_it);
+}
 
 // TEST(List, Iterator_End_Last) {
 //   s21::list<int> s21_list = {1, 2, 3};
 //   std::list<int> std_list = {1, 2, 3};
 //   s21::list<int>::iterator s21_it;
-//   s21_it = s21_list.end();
-//   --s21_it;
 //   std::list<int>::iterator std_it;
+//   s21_it = s21_list.end();
 //   std_it = std_list.end();
+//   --s21_it;
 //   --std_it;
 //   EXPECT_EQ(*s21_it, *std_it);
 // }
@@ -267,97 +267,47 @@ TEST(List, Reverse) {
   EXPECT_EQ(s21_list.back(), std_list.back());
 }
 
-// TEST(List, Unique) {
-//   s21::list<int> s21_list = {1, 2, 2, 3, 3};
-//   std::list<int> std_list = {1, 2, 2, 3, 3};
-//   s21::list<int>::iterator s21_it;
-//   std::list<int>::iterator std_it;
-//   s21_list.unique();
-//   std_list.unique();
-//   s21_it = s21_list.begin();
-//   std_it = std_list.begin();
-//   EXPECT_EQ(*s21_it, *std_it);
-//   ++s21_it;
-//   ++std_it;
-//   EXPECT_EQ(*s21_it, *std_it);
-//   ++s21_it;
-//   ++std_it;
-//   EXPECT_EQ(*s21_it, *std_it);
-// }
+TEST(List, Unique) {
+  s21::list<int> s21_list = {1, 2, 2, 3, 3};
+  std::list<int> std_list = {1, 2, 2, 3, 3};
+  s21::list<int>::iterator s21_it;
+  std::list<int>::iterator std_it;
+  s21_list.unique();
+  std_list.unique();
+  s21_it = s21_list.begin();
+  std_it = std_list.begin();
+  EXPECT_EQ(*s21_it, *std_it);
+  ++s21_it;
+  ++std_it;
+  EXPECT_EQ(*s21_it, *std_it);
+  ++s21_it;
+  ++std_it;
+  EXPECT_EQ(*s21_it, *std_it);
+}
 
-// TEST(List, Sort) {
-//   s21::list<int> s21_list = {2, 4, 1, 3, 5};
-//   std::list<int> std_list = {2, 4, 1, 3, 5};
-//   s21::list<int>::iterator s21_it;
-//   std::list<int>::iterator std_it;
-//   s21_list.sort();
-//   std_list.sort();
-//   s21_it = s21_list.begin();
-//   std_it = std_list.begin();
-//   EXPECT_EQ(*s21_it, *std_it);
-//   ++s21_it;
-//   ++std_it;
-//   EXPECT_EQ(*s21_it, *std_it);
-//   ++s21_it;
-//   ++std_it;
-//   EXPECT_EQ(*s21_it, *std_it);
-//   ++s21_it;
-//   ++std_it;
-//   EXPECT_EQ(*s21_it, *std_it);
-//   ++s21_it;
-//   ++std_it;
-//   EXPECT_EQ(*s21_it, *std_it);
-// }
-
-// TEST(List, Insert_Many) {
-//   s21::list<int> s21_list = {1, 2, 3, 4, 5};
-//   s21::list<int>::iterator s21_it = s21_list.begin();
-//   ++s21_it;
-//   s21_list.insert_many(s21_it, 7, 8, 9);
-//   s21_it = s21_list.begin();
-//   EXPECT_EQ(*s21_it, 1);
-//   ++s21_it;
-//   EXPECT_EQ(*s21_it, 7);
-//   ++s21_it;
-//   EXPECT_EQ(*s21_it, 8);
-//   ++s21_it;
-//   EXPECT_EQ(*s21_it, 9);
-//   ++s21_it;
-//   EXPECT_EQ(*s21_it, 2);
-// }
-
-// TEST(List, Insert_Many_Back) {
-//   s21::list<int> s21_list = {1, 2, 3, 4, 5};
-//   s21::list<int>::iterator s21_it;
-//   s21_list.insert_many_back(7, 8, 9);
-//   s21_it = s21_list.end();
-//   --s21_it;
-//   EXPECT_EQ(*s21_it, 9);
-//   --s21_it;
-//   EXPECT_EQ(*s21_it, 8);
-//   --s21_it;
-//   EXPECT_EQ(*s21_it, 7);
-//   --s21_it;
-//   EXPECT_EQ(*s21_it, 5);
-//   --s21_it;
-//   EXPECT_EQ(*s21_it, 4);
-// }
-
-// TEST(List, Insert_Many_Front) {
-//   s21::list<int> s21_list = {1, 2, 3, 4, 5};
-//   s21::list<int>::iterator s21_it;
-//   s21_list.insert_many_front(7, 8, 9);
-//   s21_it = s21_list.begin();
-//   EXPECT_EQ(*s21_it, 9);
-//   ++s21_it;
-//   EXPECT_EQ(*s21_it, 8);
-//   ++s21_it;
-//   EXPECT_EQ(*s21_it, 7);
-//   ++s21_it;
-//   EXPECT_EQ(*s21_it, 1);
-//   ++s21_it;
-//   EXPECT_EQ(*s21_it, 2);
-// }
+TEST(List, Sort) {
+  s21::list<int> s21_list = {2, 4, 1, 3, 5};
+  std::list<int> std_list = {2, 4, 1, 3, 5};
+  s21::list<int>::iterator s21_it;
+  std::list<int>::iterator std_it;
+  s21_list.sort();
+  std_list.sort();
+  s21_it = s21_list.begin();
+  std_it = std_list.begin();
+  EXPECT_EQ(*s21_it, *std_it);
+  ++s21_it;
+  ++std_it;
+  EXPECT_EQ(*s21_it, *std_it);
+  ++s21_it;
+  ++std_it;
+  EXPECT_EQ(*s21_it, *std_it);
+  ++s21_it;
+  ++std_it;
+  EXPECT_EQ(*s21_it, *std_it);
+  ++s21_it;
+  ++std_it;
+  EXPECT_EQ(*s21_it, *std_it);
+}
 
 void run_tests() {
   ::testing::InitGoogleTest();
