@@ -5,7 +5,12 @@ inline s21::list<T>::Node::Node(T value)
     : value(value), next(nullptr), prev(nullptr) {}
 
 template <typename T>
-inline s21::list<T>::Iterator::Iterator(Node* n) noexcept : current(n) {}
+inline s21::list<T>::Iterator::Iterator(Node* node, s21::list<T>* list) noexcept
+    : current(node), list(list) {}
+
+template <typename T>
+inline s21::list<T>::Iterator::Iterator(Node* node) noexcept
+    : current(node), list(nullptr) {}
 
 template <typename T>
 inline s21::list<T>::Iterator::Iterator() noexcept : current(nullptr) {}
@@ -35,15 +40,18 @@ auto s21::list<T>::Iterator::operator++() -> Iterator& {
   return *this;
 }
 
+// here BUG TODO
 template <typename T>
 inline auto s21::list<T>::Iterator::operator--() -> Iterator& {
-  current = current->prev;
+  current = current ? current->prev : list->tail;
   return *this;
 }
+
 template <typename T>
 inline auto s21::list<T>::Iterator::operator=(const Iterator& other)
     -> Iterator& {
-  if (this != &other) current = other.current;
+  current = other.current;
+  list = other.list;
   return *this;
 }
 
@@ -75,7 +83,10 @@ inline auto s21::list<T>::ConstIterator::operator++() -> ConstIterator& {
 
 template <typename T>
 inline auto s21::list<T>::ConstIterator::operator--() -> ConstIterator& {
-  current = current->prev;
+  if (current)
+    current = current->prev;
+  else
+    throw std::out_of_range("Cannot decrement iterator: already at beginning");
   return *this;
 }
 
@@ -184,12 +195,12 @@ inline auto s21::list<T>::clear() -> void {
 
 template <typename T>
 inline auto s21::list<T>::begin() -> Iterator {
-  return Iterator(this->head);
+  return Iterator(this->head, this);
 }
 
 template <typename T>
 inline auto s21::list<T>::end() -> Iterator {
-  return Iterator(nullptr);
+  return Iterator(nullptr, this);
 }
 
 template <typename T>

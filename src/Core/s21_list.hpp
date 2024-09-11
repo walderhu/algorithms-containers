@@ -66,8 +66,10 @@ class list final {
 
   struct Iterator {
     Node* current;
+    s21::list<T>* list;
     Iterator() noexcept;
-    Iterator(Node* n) noexcept;
+    Iterator(Node* node) noexcept;
+    Iterator(Node* node, s21::list<T>* list) noexcept;
     Iterator(const Iterator& other) noexcept;
     bool operator==(const Iterator& other);
     bool operator!=(const Iterator& other);

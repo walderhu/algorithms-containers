@@ -168,34 +168,34 @@ TEST(List, Iterator_BeginPlusAndMinus) {
   EXPECT_EQ(*s21_it, *std_it);
 }
 
-// TEST(List, Iterator_End_Last) {
-//   s21::list<int> s21_list = {1, 2, 3};
-//   std::list<int> std_list = {1, 2, 3};
-//   s21::list<int>::iterator s21_it;
-//   std::list<int>::iterator std_it;
-//   s21_it = s21_list.end();
-//   std_it = std_list.end();
-//   --s21_it;
-//   --std_it;
-//   EXPECT_EQ(*s21_it, *std_it);
-// }
+TEST(List, Iterator_End_Last) {
+  s21::list<int> s21_list = {1, 2, 3};
+  std::list<int> std_list = {1, 2, 3};
+  s21::list<int>::iterator s21_it;
+  std::list<int>::iterator std_it;
+  s21_it = s21_list.end();
+  std_it = std_list.end();
+  --s21_it;
+  --std_it;
+  EXPECT_EQ(*s21_it, *std_it);
+}
 
-// TEST(List, Iterator_Equals) {
-//   s21::list<int> first_list = {1, 2, 3};
-//   s21::list<int>::iterator s21_it_first;
-//   s21_it_first = first_list.begin();
-//   s21::list<int>::iterator s21_it_second;
-//   s21_it_second = first_list.begin();
-//   EXPECT_TRUE(s21_it_first == s21_it_second);
-//   EXPECT_TRUE(s21_it_first >= s21_it_second);
-//   EXPECT_TRUE(s21_it_first <= s21_it_second);
-//   ++s21_it_second;
-//   EXPECT_TRUE(s21_it_first != s21_it_second);
-//   EXPECT_TRUE(s21_it_second > s21_it_first);
-//   EXPECT_TRUE(s21_it_second >= s21_it_first);
-//   EXPECT_TRUE(s21_it_first < s21_it_second);
-//   EXPECT_TRUE(s21_it_first <= s21_it_second);
-// }
+TEST(List, Iterator_Equals) {
+  s21::list<int> first_list = {1, 2, 3};
+  s21::list<int>::iterator s21_it_first;
+  s21_it_first = first_list.begin();
+  s21::list<int>::iterator s21_it_second;
+  s21_it_second = first_list.begin();
+  EXPECT_TRUE(s21_it_first == s21_it_second);
+  // EXPECT_TRUE(s21_it_first >= s21_it_second);
+  // EXPECT_TRUE(s21_it_first <= s21_it_second);
+  ++s21_it_second;
+  EXPECT_TRUE(s21_it_first != s21_it_second);
+  // EXPECT_TRUE(s21_it_second > s21_it_first);
+  // EXPECT_TRUE(s21_it_second >= s21_it_first);
+  // EXPECT_TRUE(s21_it_first < s21_it_second);
+  // EXPECT_TRUE(s21_it_first <= s21_it_second);
+}
 
 // TEST(List, Insert) {
 //   s21::list<int> s21_list;
