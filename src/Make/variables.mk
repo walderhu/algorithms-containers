@@ -4,12 +4,13 @@ export __VARIABLES_MK__ = 1
 CC := g++
 CXXFLAGS := -Wall -Wextra -Werror -std=c++11
 EXE := s21_list
+TEST_EXE := s21_list_test
 BUILD_PATH := bin
 SRC_PATH := Core
 TESTS_PATH := Tests
 SRCS := $(wildcard $(SRC_PATH)/*.cpp) 
 HEADERS := $(wildcard $(SRC_PATH)/*.hpp)
-TRASH := README.html $(BUILD_PATH) $(SRC_PATH)/*.gch
+TRASH := README.html $(BUILD_PATH) $(SRC_PATH)/*.gch report
 UNAME_S := $(shell uname -s)
 
 DEPS := $(SRCS:.cpp=.d)
