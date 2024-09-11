@@ -116,7 +116,6 @@ inline auto s21::list<T>::operator=(list&& other) noexcept -> s21::list<T>& {
   return *this;
 }
 
-// todo
 template <typename T>
 inline auto s21::list<T>::operator=(const list& other) noexcept
     -> s21::list<T>& {

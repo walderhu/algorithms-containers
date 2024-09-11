@@ -3,7 +3,7 @@ export __TARGETS_MK__ = 1
 
 include Make/variables.mk
 
-all: $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
+all: clean $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
 
 run: 
 	@$(BUILD_PATH)/$(EXE)
@@ -22,7 +22,7 @@ clean: clean_docs
 
 reset: clean all
 
-test: $(BUILD_PATH)/$(TEST_EXE) test_run
+test: clean $(BUILD_PATH)/$(TEST_EXE) test_run
 
 $(BUILD_PATH)/$(TEST_EXE): $(BUILD_PATH) $(BUILD_PATH)/$(EXE)
 	@$(CC) $(TESTS_PATH)/*.hpp $(TESTS_PATH)/*.cpp $(LIB) --coverage -o $@

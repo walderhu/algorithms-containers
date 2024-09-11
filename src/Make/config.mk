@@ -17,8 +17,8 @@ README.html: README.md
 
 .PHONY: test all install uninstall clean Dvi dist gcov_report 
 
-leaks: $(BUILD_PATH)/$(EXE)
-	valgrind --leak-check=full --track-origins=yes $(BUILD_PATH)/$(EXE)
+leaks: $(BUILD_PATH)/$(TEST_EXE)
+	valgrind --leak-check=full --track-origins=yes $(BUILD_PATH)/$(TEST_EXE)
 
 docs:
 	@$(MAKE) -C Docs -s 
