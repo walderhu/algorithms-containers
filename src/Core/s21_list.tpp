@@ -30,6 +30,30 @@ inline auto s21::list<T>::Iterator::operator!=(const Iterator& other) -> bool {
 }
 
 template <typename T>
+inline auto s21::list<T>::Iterator::operator<(const Iterator& other) -> bool {
+  for (auto it = list->begin(); it != list->end(); ++it) {
+    if (it == current) return true;
+    if (it == other) return false;
+  }
+  throw std::out_of_range("Итератора не существует");
+}
+
+template <typename T>
+inline auto s21::list<T>::Iterator::operator<=(const Iterator& other) -> bool {
+  return this->operator==(other) || this->operator<(other);
+}
+
+template <typename T>
+inline auto s21::list<T>::Iterator::operator>(const Iterator& other) -> bool {
+  return !this->operator<(other);
+}
+
+template <typename T>
+inline auto s21::list<T>::Iterator::operator>=(const Iterator& other) -> bool {
+  return this->operator==(other) || this->operator>(other);
+}
+
+template <typename T>
 inline auto s21::list<T>::Iterator::operator*() -> reference {
   return current->value;
 }

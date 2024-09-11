@@ -187,14 +187,14 @@ TEST(List, Iterator_Equals) {
   s21::list<int>::iterator s21_it_second;
   s21_it_second = first_list.begin();
   EXPECT_TRUE(s21_it_first == s21_it_second);
-  // EXPECT_TRUE(s21_it_first >= s21_it_second);
-  // EXPECT_TRUE(s21_it_first <= s21_it_second);
+  EXPECT_TRUE(s21_it_first >= s21_it_second);
+  EXPECT_TRUE(s21_it_first <= s21_it_second);
   ++s21_it_second;
   EXPECT_TRUE(s21_it_first != s21_it_second);
-  // EXPECT_TRUE(s21_it_second > s21_it_first);
-  // EXPECT_TRUE(s21_it_second >= s21_it_first);
-  // EXPECT_TRUE(s21_it_first < s21_it_second);
-  // EXPECT_TRUE(s21_it_first <= s21_it_second);
+  EXPECT_TRUE(s21_it_second > s21_it_first);
+  EXPECT_TRUE(s21_it_second >= s21_it_first);
+  EXPECT_TRUE(s21_it_first < s21_it_second);
+  EXPECT_TRUE(s21_it_first <= s21_it_second);
 }
 
 // TEST(List, Insert) {

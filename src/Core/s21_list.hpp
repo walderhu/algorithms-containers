@@ -73,6 +73,10 @@ class list final {
     Iterator(const Iterator& other) noexcept;
     bool operator==(const Iterator& other);
     bool operator!=(const Iterator& other);
+    bool operator<(const Iterator& other);
+    bool operator<=(const Iterator& other);
+    bool operator>(const Iterator& other);
+    bool operator>=(const Iterator& other);
     reference operator*();
     Iterator& operator++();
     Iterator& operator--();
