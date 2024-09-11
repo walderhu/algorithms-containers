@@ -53,8 +53,6 @@ class list final {
   size_type max_size();
   void sort();
   void print();
-
-  // DONE NEED TESTING
   void swap(list& other) noexcept;
   void merge(list& other);
   iterator insert(iterator pos, const_reference value);
@@ -62,7 +60,6 @@ class list final {
   void erase(iterator pos);
   void splice(const_iterator pos, list& other);
   void unique();
-  //
 
   struct Iterator {
     Node* current;
@@ -71,13 +68,13 @@ class list final {
     Iterator(Node* node) noexcept;
     Iterator(Node* node, s21::list<T>* list) noexcept;
     Iterator(const Iterator& other) noexcept;
-    bool operator==(const Iterator& other);
-    bool operator!=(const Iterator& other);
+    virtual bool operator==(const Iterator& other);
+    virtual bool operator!=(const Iterator& other);
     bool operator<(const Iterator& other);
     bool operator<=(const Iterator& other);
     bool operator>(const Iterator& other);
     bool operator>=(const Iterator& other);
-    reference operator*();
+    virtual reference operator*();
     Iterator& operator++();
     Iterator& operator--();
     Iterator& operator=(const Iterator& other);
@@ -85,15 +82,10 @@ class list final {
   Iterator begin();
   Iterator end();
 
-  struct ConstIterator {
-    Node* current;
-    ConstIterator() noexcept : current(nullptr) {}
-    ConstIterator(Node* n);
-    bool operator==(const ConstIterator& other) const;
-    bool operator!=(const ConstIterator& other) const;
-    const_reference operator*() const;
-    ConstIterator& operator++();
-    ConstIterator& operator--();
+  struct ConstIterator final : public Iterator {
+    bool operator==(const ConstIterator& other) const override;
+    bool operator!=(const ConstIterator& other) const override;
+    const_reference operator*() const override;
   };
   ConstIterator cbegin() const;
   ConstIterator cend() const;

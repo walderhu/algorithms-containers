@@ -80,12 +80,9 @@ inline auto s21::list<T>::Iterator::operator=(const Iterator& other)
 }
 
 template <typename T>
-inline s21::list<T>::ConstIterator::ConstIterator(Node* n) : current(n) {}
-
-template <typename T>
 inline auto s21::list<T>::ConstIterator::operator==(
     const ConstIterator& other) const -> bool {
-  return current == other.current;
+  return Iterator::current == other.current;
 }
 
 template <typename T>
@@ -96,22 +93,7 @@ inline auto s21::list<T>::ConstIterator::operator!=(
 
 template <typename T>
 inline auto s21::list<T>::ConstIterator::operator*() const -> const_reference {
-  return current->value;
-}
-
-template <typename T>
-inline auto s21::list<T>::ConstIterator::operator++() -> ConstIterator& {
-  current = current->next;
-  return *this;
-}
-
-template <typename T>
-inline auto s21::list<T>::ConstIterator::operator--() -> ConstIterator& {
-  if (current)
-    current = current->prev;
-  else
-    throw std::out_of_range("Cannot decrement iterator: already at beginning");
-  return *this;
+  return Iterator::current->value;
 }
 
 template <typename T>
@@ -122,8 +104,6 @@ inline s21::list<T>::list(size_type n) noexcept : s21::list<T>() {
   for (size_t i = 0; i < n; i++) push_front(T());
 }
 
-// TODO проверить на наличие утечек памяти, если вызывать clear() то
-// munmap_chunk(): invalid pointer
 template <typename T>
 inline s21::list<T>::list(const list& other) noexcept
     : head(nullptr), tail(nullptr), _size(0) {
