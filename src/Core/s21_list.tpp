@@ -222,12 +222,12 @@ inline auto s21::list<value_type>::end() -> Iterator {
 
 template <typename value_type>
 inline auto s21::list<value_type>::cbegin() const -> ConstIterator {
-  return ConstIterator(this->head);
+  return ConstIterator(this->head, this);
 }
 
 template <typename value_type>
 inline auto s21::list<value_type>::cend() const -> ConstIterator {
-  return ConstIterator(nullptr);
+  return ConstIterator(nullptr, this);
 }
 
 namespace s21 {
