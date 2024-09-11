@@ -66,18 +66,22 @@ class list final {
 
   struct Iterator {
     Node* current;
-    Iterator(Node* n);
+    Iterator() noexcept;
+    Iterator(Node* n) noexcept;
+    Iterator(const Iterator& other) noexcept;
     bool operator==(const Iterator& other);
     bool operator!=(const Iterator& other);
     reference operator*();
     Iterator& operator++();
     Iterator& operator--();
+    Iterator& operator=(const Iterator& other);
   };
   Iterator begin();
   Iterator end();
 
   struct ConstIterator {
     Node* current;
+    ConstIterator() noexcept : current(nullptr) {}
     ConstIterator(Node* n);
     bool operator==(const ConstIterator& other) const;
     bool operator!=(const ConstIterator& other) const;

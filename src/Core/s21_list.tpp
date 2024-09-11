@@ -5,7 +5,14 @@ inline s21::list<T>::Node::Node(T value)
     : value(value), next(nullptr), prev(nullptr) {}
 
 template <typename T>
-inline s21::list<T>::Iterator::Iterator(Node* n) : current(n) {}
+inline s21::list<T>::Iterator::Iterator(Node* n) noexcept : current(n) {}
+
+template <typename T>
+inline s21::list<T>::Iterator::Iterator() noexcept : current(nullptr) {}
+
+template <typename T>
+inline s21::list<T>::Iterator::Iterator(const Iterator& other) noexcept
+    : current(other.current) {}
 
 template <typename T>
 inline auto s21::list<T>::Iterator::operator==(const Iterator& other) -> bool {
@@ -31,6 +38,12 @@ auto s21::list<T>::Iterator::operator++() -> Iterator& {
 template <typename T>
 inline auto s21::list<T>::Iterator::operator--() -> Iterator& {
   current = current->prev;
+  return *this;
+}
+template <typename T>
+inline auto s21::list<T>::Iterator::operator=(const Iterator& other)
+    -> Iterator& {
+  if (this != &other) current = other.current;
   return *this;
 }
 
