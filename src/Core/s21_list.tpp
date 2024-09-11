@@ -1,36 +1,41 @@
 #include "s21_list.hpp"
 
-template <typename T>
-inline s21::list<T>::Node::Node(T value)
+template <typename value_type>
+inline s21::list<value_type>::Node::Node(value_type value)
     : value(value), next(nullptr), prev(nullptr) {}
 
-template <typename T>
-inline s21::list<T>::Iterator::Iterator(Node* node, s21::list<T>* list) noexcept
+template <typename value_type>
+inline s21::list<value_type>::Iterator::Iterator(
+    Node* node, s21::list<value_type>* list) noexcept
     : current(node), list(list) {}
 
-template <typename T>
-inline s21::list<T>::Iterator::Iterator(Node* node) noexcept
+template <typename value_type>
+inline s21::list<value_type>::Iterator::Iterator(Node* node) noexcept
     : current(node), list(nullptr) {}
 
-template <typename T>
-inline s21::list<T>::Iterator::Iterator() noexcept : current(nullptr) {}
+template <typename value_type>
+inline s21::list<value_type>::Iterator::Iterator() noexcept
+    : current(nullptr) {}
 
-template <typename T>
-inline s21::list<T>::Iterator::Iterator(const Iterator& other) noexcept
+template <typename value_type>
+inline s21::list<value_type>::Iterator::Iterator(const Iterator& other) noexcept
     : current(other.current) {}
 
-template <typename T>
-inline auto s21::list<T>::Iterator::operator==(const Iterator& other) -> bool {
+template <typename value_type>
+inline auto s21::list<value_type>::Iterator::operator==(const Iterator& other)
+    -> bool {
   return current == other.current;
 }
 
-template <typename T>
-inline auto s21::list<T>::Iterator::operator!=(const Iterator& other) -> bool {
+template <typename value_type>
+inline auto s21::list<value_type>::Iterator::operator!=(const Iterator& other)
+    -> bool {
   return !(*this == other);
 }
 
-template <typename T>
-inline auto s21::list<T>::Iterator::operator<(const Iterator& other) -> bool {
+template <typename value_type>
+inline auto s21::list<value_type>::Iterator::operator<(const Iterator& other)
+    -> bool {
   for (auto it = list->begin(); it != list->end(); ++it) {
     if (it == current) return true;
     if (it == other) return false;
@@ -38,74 +43,80 @@ inline auto s21::list<T>::Iterator::operator<(const Iterator& other) -> bool {
   throw std::out_of_range("Итератора не существует");
 }
 
-template <typename T>
-inline auto s21::list<T>::Iterator::operator<=(const Iterator& other) -> bool {
+template <typename value_type>
+inline auto s21::list<value_type>::Iterator::operator<=(const Iterator& other)
+    -> bool {
   return this->operator==(other) || this->operator<(other);
 }
 
-template <typename T>
-inline auto s21::list<T>::Iterator::operator>(const Iterator& other) -> bool {
+template <typename value_type>
+inline auto s21::list<value_type>::Iterator::operator>(const Iterator& other)
+    -> bool {
   return !this->operator<(other);
 }
 
-template <typename T>
-inline auto s21::list<T>::Iterator::operator>=(const Iterator& other) -> bool {
+template <typename value_type>
+inline auto s21::list<value_type>::Iterator::operator>=(const Iterator& other)
+    -> bool {
   return this->operator==(other) || this->operator>(other);
 }
 
-template <typename T>
-inline auto s21::list<T>::Iterator::operator*() -> reference {
+template <typename value_type>
+inline auto s21::list<value_type>::Iterator::operator*() -> reference {
   return current->value;
 }
 
-template <typename T>
-auto s21::list<T>::Iterator::operator++() -> Iterator& {
+template <typename value_type>
+auto s21::list<value_type>::Iterator::operator++() -> Iterator& {
   if (current) current = current->next;
   return *this;
 }
 
 // here BUG TODO
-template <typename T>
-inline auto s21::list<T>::Iterator::operator--() -> Iterator& {
+template <typename value_type>
+inline auto s21::list<value_type>::Iterator::operator--() -> Iterator& {
   current = current ? current->prev : list->tail;
   return *this;
 }
 
-template <typename T>
-inline auto s21::list<T>::Iterator::operator=(const Iterator& other)
+template <typename value_type>
+inline auto s21::list<value_type>::Iterator::operator=(const Iterator& other)
     -> Iterator& {
   current = other.current;
   list = other.list;
   return *this;
 }
 
-template <typename T>
-inline auto s21::list<T>::ConstIterator::operator==(
+template <typename value_type>
+inline auto s21::list<value_type>::ConstIterator::operator==(
     const ConstIterator& other) const -> bool {
   return Iterator::current == other.current;
 }
 
-template <typename T>
-inline auto s21::list<T>::ConstIterator::operator!=(
+template <typename value_type>
+inline auto s21::list<value_type>::ConstIterator::operator!=(
     const ConstIterator& other) const -> bool {
   return !(*this == other);
 }
 
-template <typename T>
-inline auto s21::list<T>::ConstIterator::operator*() const -> const_reference {
+template <typename value_type>
+inline auto s21::list<value_type>::ConstIterator::operator*() const
+    -> const_reference {
   return Iterator::current->value;
 }
 
-template <typename T>
-inline s21::list<T>::list() noexcept : head(nullptr), tail(nullptr), _size(0) {}
+template <typename value_type>
+inline s21::list<value_type>::list() noexcept
+    : head(nullptr), tail(nullptr), _size(0) {}
 
-template <typename T>
-inline s21::list<T>::list(size_type n) noexcept : s21::list<T>() {
-  for (size_t i = 0; i < n; i++) push_front(T());
+template <typename value_type>
+inline s21::list<value_type>::list(size_type n) noexcept
+    : s21::list<value_type>() {
+  for (size_t i = 0; i < n; i++) push_front(value_type());
 }
 
-template <typename T>
-inline s21::list<T>::list(const list& other) noexcept
+template <typename value_type>
+inline s21::list<value_type>::list(const list& other) noexcept
     : head(nullptr), tail(nullptr), _size(0) {
   if (this != &other) {
     Node* current = other.head;
@@ -116,16 +127,17 @@ inline s21::list<T>::list(const list& other) noexcept
   }
 }
 
-template <typename T>
-inline s21::list<T>::list(list&& other) noexcept
+template <typename value_type>
+inline s21::list<value_type>::list(list&& other) noexcept
     : head(other.head), tail(other.tail), _size(other._size) {
   other.head = nullptr;
   other.tail = nullptr;
   other._size = 0;
 }
 
-template <typename T>
-inline auto s21::list<T>::operator=(list&& other) noexcept -> s21::list<T>& {
+template <typename value_type>
+inline auto s21::list<value_type>::operator=(list&& other) noexcept
+    -> s21::list<value_type>& {
   this->clear();
 
   this->head = other.head;
@@ -138,33 +150,34 @@ inline auto s21::list<T>::operator=(list&& other) noexcept -> s21::list<T>& {
   return *this;
 }
 
-template <typename T>
-inline auto s21::list<T>::operator=(const list& other) noexcept
-    -> s21::list<T>& {
-  s21::list<T> new_list(other);
+template <typename value_type>
+inline auto s21::list<value_type>::operator=(const list& other) noexcept
+    -> s21::list<value_type>& {
+  s21::list<value_type> new_list(other);
   *this = std::move(new_list);
   return *this;
 }
 
-template <typename T>
-inline s21::list<T>::list(
+template <typename value_type>
+inline s21::list<value_type>::list(
     std::initializer_list<value_type> const& items) noexcept
-    : s21::list<T>() {
+    : s21::list<value_type>() {
   for (auto it = items.begin(); it != items.end(); ++it) push_back(*it);
 }
 
-template <typename T>
-inline s21::list<T>::~list() noexcept {
+template <typename value_type>
+inline s21::list<value_type>::~list() noexcept {
   clear();
 }
 
-template <typename T>
-inline auto s21::list<T>::size() const -> size_type {
+template <typename value_type>
+inline auto s21::list<value_type>::size() const -> size_type {
   return _size;
 }
 
-template <typename T>
-inline auto s21::list<T>::operator[](const int index) const -> reference {
+template <typename value_type>
+inline auto s21::list<value_type>::operator[](const int index) const
+    -> reference {
   if (index < 0 || index >= _size)
     throw std::out_of_range("Index out of range");
   Node* current = head;
@@ -172,8 +185,8 @@ inline auto s21::list<T>::operator[](const int index) const -> reference {
   return current->value;
 }
 
-template <typename T>
-inline auto s21::list<T>::push_back(T value) -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::push_back(value_type value) -> void {
   Node* new_node = new Node(value);
   if (!head) {
     head = new_node;
@@ -186,53 +199,53 @@ inline auto s21::list<T>::push_back(T value) -> void {
   _size++;
 }
 
-template <typename T>
-inline auto s21::list<T>::empty() -> bool {
+template <typename value_type>
+inline auto s21::list<value_type>::empty() -> bool {
   return size() == 0;
 }
 
-template <typename T>
-inline auto s21::list<T>::clear() -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::clear() -> void {
   while (_size) pop_front();
   tail = nullptr;
 }
 
-template <typename T>
-inline auto s21::list<T>::begin() -> Iterator {
+template <typename value_type>
+inline auto s21::list<value_type>::begin() -> Iterator {
   return Iterator(this->head, this);
 }
 
-template <typename T>
-inline auto s21::list<T>::end() -> Iterator {
+template <typename value_type>
+inline auto s21::list<value_type>::end() -> Iterator {
   return Iterator(nullptr, this);
 }
 
-template <typename T>
-inline auto s21::list<T>::cbegin() const -> ConstIterator {
+template <typename value_type>
+inline auto s21::list<value_type>::cbegin() const -> ConstIterator {
   return ConstIterator(this->head);
 }
 
-template <typename T>
-inline auto s21::list<T>::cend() const -> ConstIterator {
+template <typename value_type>
+inline auto s21::list<value_type>::cend() const -> ConstIterator {
   return ConstIterator(nullptr);
 }
 
 namespace s21 {
-template <typename T>
-std::ostream& operator<<(std::ostream& os, const list<T>& obj) {
+template <typename value_type>
+std::ostream& operator<<(std::ostream& os, const list<value_type>& obj) {
   for (auto it = obj.cbegin(); it != obj.cend(); ++it) os << *it << " ";
   return os;
 }
 }  // namespace s21
 
-template <typename T>
-inline auto s21::list<T>::print() -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::print() -> void {
   for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";
   std::cout << "\n";
 }
 
-template <typename T>
-inline auto s21::list<T>::pop_front() -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::pop_front() -> void {
   if (head) {
     Node* tmp = head;
     head = head->next;
@@ -246,8 +259,8 @@ inline auto s21::list<T>::pop_front() -> void {
   }
 }
 
-template <typename T>
-inline auto s21::list<T>::push_front(T value) -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::push_front(value_type value) -> void {
   Node* new_node = new Node(value);
   if (!head) {
     head = new_node;
@@ -260,8 +273,8 @@ inline auto s21::list<T>::push_front(T value) -> void {
   _size++;
 }
 
-template <typename T>
-inline auto s21::list<T>::pop_back() -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::pop_back() -> void {
   if (head) {
     Node* tmp = tail;
 
@@ -278,34 +291,34 @@ inline auto s21::list<T>::pop_back() -> void {
   }
 }
 
-template <typename T>
-inline auto s21::list<T>::reverse() -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::reverse() -> void {
   if (this->size() < 2) return;
-  list<T> new_list;
+  list<value_type> new_list;
   for (auto it = this->begin(); it != this->end(); ++it)
     new_list.push_front(*it);
   *this = std::move(new_list);
 }
 
-template <typename T>
-inline auto s21::list<T>::front() -> const_reference {
+template <typename value_type>
+inline auto s21::list<value_type>::front() -> const_reference {
   if (head == nullptr) throw std::out_of_range("List is empty");
   return head->value;
 }
 
-template <typename T>
-inline auto s21::list<T>::back() -> const_reference {
+template <typename value_type>
+inline auto s21::list<value_type>::back() -> const_reference {
   if (tail == nullptr) throw std::out_of_range("List is empty");
   return tail->value;
 }
 
-template <typename T>
-inline auto s21::list<T>::max_size() -> size_type {
-  return (std::numeric_limits<size_t>::max() / sizeof(T)) / 2;
+template <typename value_type>
+inline auto s21::list<value_type>::max_size() -> size_type {
+  return (std::numeric_limits<size_t>::max() / sizeof(value_type)) / 2;
 }
 
-template <typename T>
-inline auto s21::list<T>::sort() -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::sort() -> void {
   Node* current = head;
   bool swapped = true;
 
@@ -324,21 +337,21 @@ inline auto s21::list<T>::sort() -> void {
   }
 }
 
-template <typename T>
-inline auto s21::list<T>::swap(list& other) noexcept -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::swap(list& other) noexcept -> void {
   std::swap(head, other.head);
   std::swap(tail, other.tail);
   std::swap(size, other.size);
 }
 
-template <typename T>
-inline auto s21::list<T>::merge(list& other) -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::merge(list& other) -> void {
   for (auto it = other.begin(); it != other.end(); ++it) this->push_back(*it);
 }
 
-template <typename T>
-inline auto s21::list<T>::insert(iterator pos,
-                                 const_reference value) -> iterator {
+template <typename value_type>
+inline auto s21::list<value_type>::insert(iterator pos,
+                                          const_reference value) -> iterator {
   Node* new_node = new Node(value);
 
   if (pos == begin()) {
@@ -361,8 +374,8 @@ inline auto s21::list<T>::insert(iterator pos,
   return new_node;
 }
 
-template <typename T>
-inline auto s21::list<T>::insert(
+template <typename value_type>
+inline auto s21::list<value_type>::insert(
     iterator pos, std::initializer_list<value_type> const& items) -> iterator {
   for (auto item = items.end(); item != items.begin();) {
     --item;
@@ -371,8 +384,8 @@ inline auto s21::list<T>::insert(
   return pos;
 }
 
-template <typename T>
-inline auto s21::list<T>::erase(iterator pos) -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::erase(iterator pos) -> void {
   if (pos == end()) throw std::out_of_range("Cannot erase end iterator");
 
   Node* current = pos.current;
@@ -393,8 +406,9 @@ inline auto s21::list<T>::erase(iterator pos) -> void {
   _size -= 1;
 }
 
-template <typename T>
-inline auto s21::list<T>::splice(const_iterator pos, list& other) -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::splice(const_iterator pos,
+                                          list& other) -> void {
   if (pos == end()) throw std::out_of_range("Cannot splice at end iterator");
   if (other.empty()) return;
   auto other_begin = other.begin();
@@ -407,8 +421,8 @@ inline auto s21::list<T>::splice(const_iterator pos, list& other) -> void {
   other.clear();
 }
 
-template <typename T>
-inline auto s21::list<T>::unique() -> void {
+template <typename value_type>
+inline auto s21::list<value_type>::unique() -> void {
   if (this->empty()) return;
 
   for (iterator it = this->begin(); it != this->end();) {

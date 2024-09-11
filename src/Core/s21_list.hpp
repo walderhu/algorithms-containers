@@ -1,7 +1,6 @@
 #ifndef __S21_LIST_HXX__
 #define __S21_LIST_HXX__
 
-#include <initializer_list>
 #include <iostream>
 #include <limits>
 
@@ -10,12 +9,7 @@ namespace s21 {
 template <typename T>
 class list final {
  private:
-  struct Node {
-    T value;
-    Node* next;
-    Node* prev;
-    Node(T value = T());
-  };
+  struct Node;
   Node* head;
   Node* tail;
   size_t _size;
@@ -38,14 +32,14 @@ class list final {
   list(list&& other) noexcept;
 
   size_type size() const;
-  list<T>& operator=(list&& other) noexcept;
-  list<T>& operator=(const list& other) noexcept;
+  list<value_type>& operator=(list&& other) noexcept;
+  list<value_type>& operator=(const list& other) noexcept;
   reference operator[](const int index) const;
-  void push_back(T value);
+  void push_back(value_type value);
   bool empty();
   void clear();
   void pop_front();
-  void push_front(T value);
+  void push_front(value_type value);
   void pop_back();
   void reverse();
   const_reference front();
@@ -61,32 +55,10 @@ class list final {
   void splice(const_iterator pos, list& other);
   void unique();
 
-  struct Iterator {
-    Node* current;
-    s21::list<T>* list;
-    Iterator() noexcept;
-    Iterator(Node* node) noexcept;
-    Iterator(Node* node, s21::list<T>* list) noexcept;
-    Iterator(const Iterator& other) noexcept;
-    virtual bool operator==(const Iterator& other);
-    virtual bool operator!=(const Iterator& other);
-    bool operator<(const Iterator& other);
-    bool operator<=(const Iterator& other);
-    bool operator>(const Iterator& other);
-    bool operator>=(const Iterator& other);
-    virtual reference operator*();
-    Iterator& operator++();
-    Iterator& operator--();
-    Iterator& operator=(const Iterator& other);
-  };
+  struct Iterator;
+  struct ConstIterator;
   Iterator begin();
   Iterator end();
-
-  struct ConstIterator final : public Iterator {
-    bool operator==(const ConstIterator& other) const override;
-    bool operator!=(const ConstIterator& other) const override;
-    const_reference operator*() const override;
-  };
   ConstIterator cbegin() const;
   ConstIterator cend() const;
 
@@ -94,6 +66,43 @@ class list final {
   friend std::ostream& operator<<(std::ostream& os, const list<U>& obj);
 };
 }  // namespace s21
+
+template <typename T>
+struct s21::list<T>::Node final {
+  value_type value;
+  Node* next;
+  Node* prev;
+  Node(value_type value = value_type());
+};
+
+template <typename T>
+struct s21::list<T>::Iterator {
+  Iterator() noexcept;
+  Iterator(Node* node) noexcept;
+  Iterator(Node* node, s21::list<value_type>* list) noexcept;
+  Iterator(const Iterator& other) noexcept;
+  virtual bool operator==(const Iterator& other);
+  virtual bool operator!=(const Iterator& other);
+  bool operator<(const Iterator& other);
+  bool operator<=(const Iterator& other);
+  bool operator>(const Iterator& other);
+  bool operator>=(const Iterator& other);
+  virtual reference operator*();
+  Iterator& operator++();
+  Iterator& operator--();
+  Iterator& operator=(const Iterator& other);
+
+ protected:
+  Node* current;
+  s21::list<value_type>* list;
+};
+
+template <typename T>
+struct s21::list<T>::ConstIterator final : public s21::list<T>::Iterator {
+  bool operator==(const ConstIterator& other) const override;
+  bool operator!=(const ConstIterator& other) const override;
+  const_reference operator*() const override;
+};
 
 #include "s21_list.tpp"
 
