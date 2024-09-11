@@ -81,16 +81,16 @@ struct s21::list<T>::Iterator {
   Iterator(Node* node) noexcept;
   Iterator(Node* node, s21::list<value_type>* list) noexcept;
   Iterator(const Iterator& other) noexcept;
-  bool operator==(const Iterator& other);
-  bool operator!=(const Iterator& other);
-  bool operator<(const Iterator& other);
-  bool operator<=(const Iterator& other);
-  bool operator>(const Iterator& other);
-  bool operator>=(const Iterator& other);
-  reference operator*();
+  bool operator==(const Iterator& other) const;
+  bool operator!=(const Iterator& other) const;
+  bool operator<(const Iterator& other) const;
+  bool operator<=(const Iterator& other) const;
+  bool operator>(const Iterator& other) const;
+  bool operator>=(const Iterator& other) const;
   Iterator& operator++();
   Iterator& operator--();
-  Iterator& operator=(const Iterator& other);
+  reference operator*() const;
+  virtual Iterator& operator=(const Iterator& other);
 
  protected:
   Node* current;
@@ -103,9 +103,8 @@ struct s21::list<T>::ConstIterator final : public s21::list<T>::Iterator {
   using s21::list<T>::Iterator::Iterator;
   ConstIterator(Node* node, const s21::list<T>* lst) noexcept
       : Iterator(node, const_cast<s21::list<T>*>(lst)) {}
-  bool operator==(const ConstIterator& other) const;
-  bool operator!=(const ConstIterator& other) const;
   const_reference operator*() const;
+  Iterator& operator=(const Iterator& other) override;
 };
 
 #include "s21_list.tpp"

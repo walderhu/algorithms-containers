@@ -22,20 +22,20 @@ inline s21::list<value_type>::Iterator::Iterator(const Iterator& other) noexcept
     : current(other.current) {}
 
 template <typename value_type>
-inline auto s21::list<value_type>::Iterator::operator==(const Iterator& other)
-    -> bool {
+inline auto s21::list<value_type>::Iterator::operator==(
+    const Iterator& other) const -> bool {
   return current == other.current;
 }
 
 template <typename value_type>
-inline auto s21::list<value_type>::Iterator::operator!=(const Iterator& other)
-    -> bool {
+inline auto s21::list<value_type>::Iterator::operator!=(
+    const Iterator& other) const -> bool {
   return !(*this == other);
 }
 
 template <typename value_type>
-inline auto s21::list<value_type>::Iterator::operator<(const Iterator& other)
-    -> bool {
+inline auto s21::list<value_type>::Iterator::operator<(
+    const Iterator& other) const -> bool {
   for (auto it = list->begin(); it != list->end(); ++it) {
     if (it == current) return true;
     if (it == other) return false;
@@ -44,26 +44,40 @@ inline auto s21::list<value_type>::Iterator::operator<(const Iterator& other)
 }
 
 template <typename value_type>
-inline auto s21::list<value_type>::Iterator::operator<=(const Iterator& other)
-    -> bool {
+inline auto s21::list<value_type>::Iterator::operator<=(
+    const Iterator& other) const -> bool {
   return this->operator==(other) || this->operator<(other);
 }
 
 template <typename value_type>
-inline auto s21::list<value_type>::Iterator::operator>(const Iterator& other)
-    -> bool {
+inline auto s21::list<value_type>::Iterator::operator>(
+    const Iterator& other) const -> bool {
   return !this->operator<(other);
 }
 
 template <typename value_type>
-inline auto s21::list<value_type>::Iterator::operator>=(const Iterator& other)
-    -> bool {
+inline auto s21::list<value_type>::Iterator::operator>=(
+    const Iterator& other) const -> bool {
   return this->operator==(other) || this->operator>(other);
 }
 
 template <typename value_type>
-inline auto s21::list<value_type>::Iterator::operator*() -> reference {
+inline auto s21::list<value_type>::Iterator::operator*() const -> reference {
   return current->value;
+}
+
+template <typename value_type>
+inline auto s21::list<value_type>::ConstIterator::operator*() const
+    -> const_reference {
+  return static_cast<const_reference>(Iterator::operator*());
+}
+
+template <typename value_type>
+inline auto s21::list<value_type>::ConstIterator::operator=(
+    const Iterator& other) -> Iterator& {
+  (void)other;
+  throw std::out_of_range("Cannot modify value through const_iterator");
+  return *this;
 }
 
 template <typename value_type>
@@ -72,7 +86,6 @@ auto s21::list<value_type>::Iterator::operator++() -> Iterator& {
   return *this;
 }
 
-// here BUG TODO
 template <typename value_type>
 inline auto s21::list<value_type>::Iterator::operator--() -> Iterator& {
   current = current ? current->prev : list->tail;
@@ -85,24 +98,6 @@ inline auto s21::list<value_type>::Iterator::operator=(const Iterator& other)
   current = other.current;
   list = other.list;
   return *this;
-}
-
-template <typename value_type>
-inline auto s21::list<value_type>::ConstIterator::operator==(
-    const ConstIterator& other) const -> bool {
-  return Iterator::current == other.current;
-}
-
-template <typename value_type>
-inline auto s21::list<value_type>::ConstIterator::operator!=(
-    const ConstIterator& other) const -> bool {
-  return !(*this == other);
-}
-
-template <typename value_type>
-inline auto s21::list<value_type>::ConstIterator::operator*() const
-    -> const_reference {
-  return Iterator::current->value;
 }
 
 template <typename value_type>
