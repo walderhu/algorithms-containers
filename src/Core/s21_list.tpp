@@ -88,15 +88,9 @@ inline s21::list<T>::list(const list& other) noexcept
   }
 }
 
-// Конструктор перемещения
 template <typename T>
-inline s21::list<T>::list(list&& other) noexcept {
-  this->clear();
-
-  this->head = other.head;
-  this->tail = other.tail;
-  this->_size = other._size;
-
+inline s21::list<T>::list(list&& other) noexcept
+    : head(other.head), tail(other.tail), _size(other._size) {
   other.head = nullptr;
   other.tail = nullptr;
   other._size = 0;
@@ -242,14 +236,17 @@ template <typename T>
 inline auto s21::list<T>::pop_back() -> void {
   if (head) {
     Node* tmp = tail;
-    tail = tail->prev;
-    delete tail;
-    _size--;
 
-    if (head)
-      tail->next = nullptr;
-    else
+    if (tail == head) {
+      head = nullptr;
       tail = nullptr;
+    } else {
+      tail = tail->prev;
+      tail->next = nullptr;
+    }
+
+    delete tmp;
+    _size--;
   }
 }
 
@@ -264,11 +261,13 @@ inline auto s21::list<T>::reverse() -> void {
 
 template <typename T>
 inline auto s21::list<T>::front() -> const_reference {
+  if (head == nullptr) throw std::out_of_range("List is empty");
   return head->value;
 }
 
 template <typename T>
 inline auto s21::list<T>::back() -> const_reference {
+  if (tail == nullptr) throw std::out_of_range("List is empty");
   return tail->value;
 }
 
