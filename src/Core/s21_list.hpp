@@ -39,6 +39,7 @@ class list final {
 
   size_type size() const;
   list<T>& operator=(list&& other) noexcept;
+  list<T>& operator=(const list& other) noexcept;
   reference operator[](const int index) const;
   void push_back(T value);
   bool empty();

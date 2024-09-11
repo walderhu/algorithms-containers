@@ -28,16 +28,16 @@ TEST(List, Constructor_Copy) {
   EXPECT_EQ(our_copy.back(), std_copy.back());
 }
 
-// TEST(List, Operator_Copy) {
-//   s21::list<int> our_list = {1, 2, 3};
-//   std::list<int> std_list = {1, 2, 3};
-//   s21::list<int> our_copy;
-//   our_copy = our_list;
-//   std::list<int> std_copy;
-//   std_copy = std_list;
-//   EXPECT_EQ(our_copy.front(), std_copy.front());
-//   EXPECT_EQ(our_copy.back(), std_copy.back());
-// }
+TEST(List, Operator_Copy) {
+  s21::list<int> s21_list = {1, 2, 3};
+  std::list<int> std_list = {1, 2, 3};
+  s21::list<int> s21_copy;
+  std::list<int> std_copy;
+  s21_copy = s21_list;
+  std_copy = std_list;
+  EXPECT_EQ(s21_copy.front(), std_copy.front());
+  EXPECT_EQ(s21_copy.back(), std_copy.back());
+}
 
 // TEST(List, Constructor_Move) {
 //   s21::list<int> our_list = {1, 2, 3};

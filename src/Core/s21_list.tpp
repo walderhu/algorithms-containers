@@ -103,7 +103,7 @@ inline s21::list<T>::list(list&& other) noexcept {
 }
 
 template <typename T>
-inline s21::list<T>& s21::list<T>::operator=(list&& other) noexcept {
+inline auto s21::list<T>::operator=(list&& other) noexcept -> s21::list<T>& {
   this->clear();
 
   this->head = other.head;
@@ -113,6 +113,15 @@ inline s21::list<T>& s21::list<T>::operator=(list&& other) noexcept {
   other.head = nullptr;
   other.tail = nullptr;
   other._size = 0;
+  return *this;
+}
+
+// todo
+template <typename T>
+inline auto s21::list<T>::operator=(const list& other) noexcept
+    -> s21::list<T>& {
+  s21::list<T> new_list(other);
+  *this = std::move(new_list);
   return *this;
 }
 
