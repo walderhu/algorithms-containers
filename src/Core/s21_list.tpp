@@ -430,10 +430,7 @@ inline auto s21::list<value_type>::splice(const_iterator pos,
   auto other_begin = other.begin();
   auto other_end = other.end();
 
-  for (auto it = other_end; it != other_begin;) {
-    --it;
-    insert(pos, *it);
-  }
+  for (auto it = other_begin; it != other_end; ++it) insert(pos, *it);
   other.clear();
 }
 

@@ -233,18 +233,18 @@ TEST(List, Erase) {
   EXPECT_EQ(s21_list.back(), std_list.back());
 }
 
-// TEST(List, Splice) {
-//   s21::list<int> s21_list_first = {1};
-//   s21::list<int> s21_list_second = {2, 3, 4, 5};
-//   std::list<int> std_list_first = {1};
-//   std::list<int> std_list_second = {2, 3, 4, 5};
-//   s21::list<int>::iterator s21_it = s21_list_first.begin();
-//   std::list<int>::iterator std_it = std_list_first.begin();
-//   s21_list_first.splice(s21_it, s21_list_second);
-//   std_list_first.splice(std_it, std_list_second);
-//   EXPECT_EQ(s21_list_first.front(), std_list_first.front());
-//   EXPECT_EQ(s21_list_first.back(), std_list_first.back());
-// }
+TEST(List, Splice) {
+  s21::list<int> s21_list_first = {1};
+  s21::list<int> s21_list_second = {2, 3, 4, 5};
+  std::list<int> std_list_first = {1};
+  std::list<int> std_list_second = {2, 3, 4, 5};
+  s21::list<int>::iterator s21_it = s21_list_first.begin();
+  std::list<int>::iterator std_it = std_list_first.begin();
+  s21_list_first.splice(s21_it, s21_list_second);
+  std_list_first.splice(std_it, std_list_second);
+  EXPECT_EQ(s21_list_first.front(), std_list_first.front());
+  EXPECT_EQ(s21_list_first.back(), std_list_first.back());
+}
 
 // TEST(List, Merge) {
 //   s21::list<int> s21_list_first = {1};
