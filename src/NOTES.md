@@ -63,3 +63,13 @@
  <!-- TODO TASK ~TAIL -->
  <!-- NOTE: TASK ~TAIL -->
  - [ ] void merge(list& other) ;объединяет два отсортированных списка
+
+
+
+
+mkdir bin   
+g++ Tests/*.hpp Tests/*.cpp -lgtest -lrt -lpthread -lsubunit -lm --coverage -o bin/s21_list_test
+./bin/s21_list_test
+lcov --capture --directory bin --output-file bin/test.info
+genhtml -o bin/report bin/test.info 
+open bin/report/index.html 
