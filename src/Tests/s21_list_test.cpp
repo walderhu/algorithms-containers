@@ -216,22 +216,22 @@ TEST(List, Iterator_BeginPlusAndMinus) {
 //   EXPECT_EQ(s21_list.back(), std_list.back());
 // }
 
-// TEST(List, Erase) {
-//   s21::list<int> s21_list = {1, 2, 3, 4, 5};
-//   std::list<int> std_list = {1, 2, 3, 4, 5};
-//   s21_list.erase(s21_list.begin());
-//   std_list.erase(std_list.begin());
-//   EXPECT_EQ(s21_list.front(), std_list.front());
-//   EXPECT_EQ(s21_list.back(), std_list.back());
-//   s21::list<int>::iterator s21_it;
-//   s21_it = s21_list.begin();
-//   ++s21_it;
-//   std::list<int>::iterator std_it;
-//   std_it = std_list.begin();
-//   ++std_it;
-//   EXPECT_EQ(s21_list.front(), std_list.front());
-//   EXPECT_EQ(s21_list.back(), std_list.back());
-// }
+TEST(List, Erase) {
+  s21::list<int> s21_list = {1, 2, 3, 4, 5};
+  std::list<int> std_list = {1, 2, 3, 4, 5};
+  s21_list.erase(s21_list.begin());
+  std_list.erase(std_list.begin());
+  EXPECT_EQ(s21_list.front(), std_list.front());
+  EXPECT_EQ(s21_list.back(), std_list.back());
+  s21::list<int>::iterator s21_it;
+  s21_it = s21_list.begin();
+  ++s21_it;
+  std::list<int>::iterator std_it;
+  std_it = std_list.begin();
+  ++std_it;
+  EXPECT_EQ(s21_list.front(), std_list.front());
+  EXPECT_EQ(s21_list.back(), std_list.back());
+}
 
 // TEST(List, Splice) {
 //   s21::list<int> s21_list_first = {1};
