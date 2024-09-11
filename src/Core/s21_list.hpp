@@ -13,6 +13,8 @@ class list final {
   Node* head;
   Node* tail;
   size_t _size;
+  void push_front(Node* new_node);
+  void push_back(Node* new_node);
 
  public:
   struct Iterator;

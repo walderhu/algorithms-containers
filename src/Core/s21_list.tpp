@@ -183,6 +183,11 @@ inline auto s21::list<value_type>::operator[](const int index) const
 template <typename value_type>
 inline auto s21::list<value_type>::push_back(value_type value) -> void {
   Node* new_node = new Node(value);
+  this->push_back(new_node);
+}
+
+template <typename value_type>
+inline auto s21::list<value_type>::push_back(Node* new_node) -> void {
   if (!head) {
     head = new_node;
     tail = new_node;
@@ -257,6 +262,11 @@ inline auto s21::list<value_type>::pop_front() -> void {
 template <typename value_type>
 inline auto s21::list<value_type>::push_front(value_type value) -> void {
   Node* new_node = new Node(value);
+  this->push_front(new_node);
+}
+
+template <typename value_type>
+inline auto s21::list<value_type>::push_front(Node* new_node) -> void {
   if (!head) {
     head = new_node;
     tail = new_node;
@@ -349,10 +359,10 @@ inline auto s21::list<value_type>::insert(iterator pos,
                                           const_reference value) -> iterator {
   Node* new_node = new Node(value);
 
-  if (pos == begin()) {
-    new_node->next = head;
-    if (head) head->prev = new_node;
-    head = new_node;
+  if (pos == this->begin()) {
+    this->push_front(new_node);
+  } else if (pos == this->end()) {
+    this->push_back(new_node);
   } else {
     Node* current = pos.current;
     Node* previous = current->prev;
@@ -361,11 +371,10 @@ inline auto s21::list<value_type>::insert(iterator pos,
     new_node->prev = previous;
 
     if (previous) previous->next = new_node;
-    current->prev = new_node;
-  }
+    if (current) current->prev = new_node;
 
-  if (pos == end()) tail = new_node;
-  this->_size++;
+    this->_size++;
+  }
   return new_node;
 }
 
