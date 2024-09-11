@@ -6,11 +6,11 @@ TEST(List, Constructor_Default) {
   EXPECT_EQ(our_list.empty(), std_list.empty());
 }
 
-// TEST(List, Constructor_Size) {
-//   s21::list<int> our_list(5);
-//   std::list<int> std_list(5);
-//   EXPECT_EQ(our_list.size(), std_list.size());
-// }
+TEST(List, Constructor_Size) {
+  s21::list<int> our_list(5);
+  std::list<int> std_list(5);
+  EXPECT_EQ(our_list.size(), std_list.size());
+}
 
 TEST(List, Constructor_List) {
   s21::list<int> our_list = {1, 2, 3};

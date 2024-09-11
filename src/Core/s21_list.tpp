@@ -71,8 +71,7 @@ inline s21::list<T>::list() noexcept : head(nullptr), tail(nullptr), _size(0) {}
 
 template <typename T>
 inline s21::list<T>::list(size_type n) noexcept : s21::list<T>() {
-  this->_size = n;
-  for (size_t i = 0; i < size(); i++) push_front(T());
+  for (size_t i = 0; i < n; i++) push_front(T());
 }
 
 // TODO проверить на наличие утечек памяти, если вызывать clear() то

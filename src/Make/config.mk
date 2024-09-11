@@ -26,9 +26,8 @@ docs:
 clean_docs:
 	@$(MAKE) -C Docs clean -s
 
-CURRENT_DIR := $(shell pwd)
-gitconfig-apply: $(CURRENT_DIR)/.gitconfig
-	git config --global include.path $(CURRENT_DIR)/.gitconfig
+gitconfig: $(CONFIG_PATH)
+	git config --global include.path $(CONFIG_PATH)
 
 
 endif # __CONFIG_MK__
