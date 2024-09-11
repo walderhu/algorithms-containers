@@ -189,17 +189,11 @@ inline auto s21::list<T>::cend() const -> ConstIterator {
 }
 
 namespace s21 {
-
 template <typename T>
 std::ostream& operator<<(std::ostream& os, const list<T>& obj) {
-  typename list<T>::Node* current = obj.head;
-  while (current) {
-    os << current->value << " ";
-    current = current->next;
-  }
+  for (auto it = obj.cbegin(); it != obj.cend(); ++it) os << *it << " ";
   return os;
 }
-
 }  // namespace s21
 
 template <typename T>
