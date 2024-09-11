@@ -5,7 +5,7 @@ CC := g++
 CXXFLAGS := -Wall -Wextra -Werror -std=c++11 -g
 EXE := s21_list
 TEST_EXE := s21_list_test
-BUILD_PATH := bin
+BUILD_PATH := build
 SRC_PATH := Core
 TESTS_PATH := Tests
 SRCS := $(wildcard $(SRC_PATH)/*.cpp) 
