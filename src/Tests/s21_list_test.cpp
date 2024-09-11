@@ -246,17 +246,17 @@ TEST(List, Splice) {
   EXPECT_EQ(s21_list_first.back(), std_list_first.back());
 }
 
-// TEST(List, Merge) {
-//   s21::list<int> s21_list_first = {1};
-//   s21::list<int> s21_list_second = {2, 3, 4, 5};
-//   std::list<int> std_list_first = {1};
-//   std::list<int> std_list_second = {2, 3, 4, 5};
-//   s21_list_first.merge(s21_list_second);
-//   std_list_first.merge(std_list_second);
-//   EXPECT_EQ(s21_list_first.front(), std_list_first.front());
-//   EXPECT_EQ(s21_list_first.back(), std_list_first.back());
-//   EXPECT_EQ(s21_list_second.empty(), std_list_second.empty());
-// }
+TEST(List, Merge) {
+  s21::list<int> s21_list_first = {1};
+  s21::list<int> s21_list_second = {2, 3, 4, 5};
+  std::list<int> std_list_first = {1};
+  std::list<int> std_list_second = {2, 3, 4, 5};
+  s21_list_first.merge(s21_list_second);
+  std_list_first.merge(std_list_second);
+  EXPECT_EQ(s21_list_first.front(), std_list_first.front());
+  EXPECT_EQ(s21_list_first.back(), std_list_first.back());
+  EXPECT_EQ(s21_list_second.empty(), std_list_second.empty());
+}
 
 TEST(List, Reverse) {
   s21::list<int> s21_list = {1, 2, 3, 4, 5};

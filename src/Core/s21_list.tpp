@@ -40,7 +40,7 @@ inline auto s21::list<value_type>::Iterator::operator<(
     if (it == current) return true;
     if (it == other) return false;
   }
-  throw std::out_of_range("Итератора не существует");
+  throw std::out_of_range("Disabled iterator. Not exist");
 }
 
 template <typename value_type>
@@ -363,7 +363,14 @@ inline auto s21::list<value_type>::swap(list& other) noexcept -> void {
 
 template <typename value_type>
 inline auto s21::list<value_type>::merge(list& other) -> void {
-  for (auto it = other.begin(); it != other.end(); ++it) this->push_back(*it);
+  Node* current = other.head;
+  this->push_back(current);
+  this->tail = other.tail;
+  this->_size += other._size - 1;
+
+  other.head = nullptr;
+  other.tail = nullptr;
+  other._size = 0;
 }
 
 template <typename value_type>
