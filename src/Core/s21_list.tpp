@@ -15,11 +15,11 @@ inline s21::list<value_type>::Iterator::Iterator(Node* node) noexcept
 
 template <typename value_type>
 inline s21::list<value_type>::Iterator::Iterator() noexcept
-    : current(nullptr) {}
+    : current(nullptr), list(nullptr) {}
 
 template <typename value_type>
 inline s21::list<value_type>::Iterator::Iterator(const Iterator& other) noexcept
-    : current(other.current) {}
+    : current(other.current), list(other.list) {}
 
 template <typename value_type>
 inline auto s21::list<value_type>::Iterator::operator==(
@@ -70,6 +70,18 @@ template <typename value_type>
 inline auto s21::list<value_type>::ConstIterator::operator*() const
     -> const_reference {
   return static_cast<const_reference>(Iterator::operator*());
+}
+
+template <typename value_type>
+inline s21::list<value_type>::ConstIterator::ConstIterator(
+    Node* node, const s21::list<value_type>* lst) noexcept
+    : Iterator(node, const_cast<s21::list<value_type>*>(lst)) {}
+
+template <typename value_type>
+inline s21::list<value_type>::ConstIterator::ConstIterator(
+    iterator it) noexcept {
+  Iterator::current = it.current;
+  Iterator::list = it.list;
 }
 
 template <typename value_type>
@@ -423,6 +435,12 @@ inline auto s21::list<value_type>::splice(const_iterator pos,
     insert(pos, *it);
   }
   other.clear();
+}
+
+template <typename value_type>
+inline auto s21::list<value_type>::splice(iterator pos, list& other) -> void {
+  const_iterator it(pos);
+  this->splice(it, other);
 }
 
 template <typename value_type>

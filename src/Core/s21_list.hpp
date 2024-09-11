@@ -55,6 +55,7 @@ class list final {
   iterator insert(iterator pos, std::initializer_list<value_type> const& items);
   void erase(iterator pos);
   void splice(const_iterator pos, list& other);
+  void splice(iterator pos, list& other);
   void unique();
 
   struct Iterator;
@@ -98,13 +99,14 @@ struct s21::list<T>::Iterator {
   Node* current;
   s21::list<value_type>* list;
   friend class s21::list<T>;
+  friend class s21::list<T>::ConstIterator;
 };
 
 template <typename T>
 struct s21::list<T>::ConstIterator final : public s21::list<T>::Iterator {
   using s21::list<T>::Iterator::Iterator;
-  ConstIterator(Node* node, const s21::list<T>* lst) noexcept
-      : Iterator(node, const_cast<s21::list<T>*>(lst)) {}
+  ConstIterator(Node* node, const s21::list<T>* lst) noexcept;
+  ConstIterator(iterator it) noexcept;
   const_reference operator*() const;
   Iterator& operator=(const Iterator& other) override;
 };

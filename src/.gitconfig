@@ -16,6 +16,7 @@
     patch = format-patch origin/master
     lg = log --graph --oneline --decorate
     s = checkout -
+    diff = diff --cached
     
 
 [merge]
