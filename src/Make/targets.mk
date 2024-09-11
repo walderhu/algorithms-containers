@@ -8,11 +8,11 @@ all: clean $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
 run: 
 	@$(BUILD_PATH)/$(EXE)
 
-$(BUILD_PATH)/$(EXE): $(BUILD_PATH)/%.o
-	@$(CC) $(CXXFLAGS) -o $@ $^
-
-$(BUILD_PATH)/%.o: $(SRCS) $(HEADERS)
+$(BUILD_PATH)/%.o: $(SRC_PATH)/%.cpp
 	@$(CC) $(CXXFLAGS) -MMD -c $< -o $@
+
+$(BUILD_PATH)/$(EXE): $(SRCS:$(SRC_PATH)/%.cpp=$(BUILD_PATH)/%.o) $(HEADERS)
+	@$(CC) $(CXXFLAGS) -o $@ $^
 
 $(BUILD_PATH):
 	@mkdir -p $@
