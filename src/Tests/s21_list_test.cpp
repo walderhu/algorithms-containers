@@ -197,24 +197,24 @@ TEST(List, Iterator_Equals) {
   EXPECT_TRUE(s21_it_first <= s21_it_second);
 }
 
-// TEST(List, Insert) {
-//   s21::list<int> s21_list;
-//   std::list<int> std_list;
-//   s21::list<int>::iterator s21_it;
-//   s21_it = s21_list.begin();
-//   std::list<int>::iterator std_it;
-//   std_it = std_list.begin();
-//   s21_list.insert(s21_it, 5);
-//   std_list.insert(std_it, 5);
-//   EXPECT_EQ(s21_list.front(), std_list.front());
-//   EXPECT_EQ(s21_list.back(), std_list.back());
-//   s21_list.insert(s21_it, 7);
-//   std_list.insert(std_it, 7);
-//   s21_list.insert(s21_it, 9);
-//   std_list.insert(std_it, 9);
-//   EXPECT_EQ(s21_list.front(), std_list.front());
-//   EXPECT_EQ(s21_list.back(), std_list.back());
-// }
+TEST(List, Insert) {
+  s21::list<int> s21_list;
+  std::list<int> std_list;
+  s21::list<int>::iterator s21_it;
+  s21_it = s21_list.begin();
+  std::list<int>::iterator std_it;
+  std_it = std_list.begin();
+  s21_list.insert(s21_it, 5);
+  std_list.insert(std_it, 5);
+  EXPECT_EQ(s21_list.front(), std_list.front());
+  EXPECT_EQ(s21_list.back(), std_list.back());
+  s21_list.insert(s21_it, 7);
+  std_list.insert(std_it, 7);
+  s21_list.insert(s21_it, 9);
+  std_list.insert(std_it, 9);
+  EXPECT_EQ(s21_list.front(), std_list.front());
+  EXPECT_EQ(s21_list.back(), std_list.back());
+}
 
 TEST(List, Erase) {
   s21::list<int> s21_list = {1, 2, 3, 4, 5};

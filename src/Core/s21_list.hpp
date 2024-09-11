@@ -95,6 +95,7 @@ struct s21::list<T>::Iterator {
  protected:
   Node* current;
   s21::list<value_type>* list;
+  friend class s21::list<T>;
 };
 
 template <typename T>
