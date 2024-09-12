@@ -24,7 +24,7 @@ class list final : public deque<T> {
   // deque
  private:
   // void push_front(Node* new_node);
-  void push_back(Node* new_node);
+  // void push_back(Node* new_node);
 
  public:
   // list() noexcept;
@@ -32,13 +32,13 @@ class list final : public deque<T> {
   // ~list() noexcept;
   // list(const list& other) noexcept;
   // list(list&& other) noexcept;
-  // list(std::initializer_list<value_type> const& items) noexcept;
+  list(std::initializer_list<value_type> const& items) noexcept;
 
-  size_type size() const;
-  list<value_type>& operator=(list&& other) noexcept;
-  list<value_type>& operator=(const list& other) noexcept;
+  // size_type size() const;
+  // list<value_type>& operator=(list&& other) noexcept;
+  // list<value_type>& operator=(const list& other) noexcept;
   // void push_front(value_type value);
-  void push_back(value_type value);
+  // void push_back(value_type value);
   // void clear();
   const_reference front();
   const_reference back();

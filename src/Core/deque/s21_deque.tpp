@@ -63,12 +63,12 @@ inline auto s21::deque<value_type>::clear() -> void {
   s21::deque<value_type>::tail = nullptr;
 }
 
-template <class value_type>
-inline s21::deque<value_type>::deque(
-    std::initializer_list<value_type> const& items) noexcept
-    : s21::deque<value_type>() {
-  for (auto it = items.begin(); it != items.end(); ++it) push_back(*it);
-}
+// template <class value_type>
+// inline s21::deque<value_type>::deque(
+//     std::initializer_list<value_type> const& items) noexcept
+//     : s21::deque<value_type>() {
+//   for (auto it = items.begin(); it != items.end(); ++it) push_back(*it);
+// }
 
 template <class value_type>
 inline s21::deque<value_type>::deque(const deque& other) noexcept {
@@ -113,4 +113,57 @@ inline auto s21::deque<value_type>::push_front(Node* new_node) -> void {
     s21::deque<value_type>::head = new_node;
   }
   deque<value_type>::_size++;
+}
+
+
+
+
+template <class value_type>
+inline auto s21::deque<value_type>::push_back(value_type value) -> void {
+  Node* new_node = new Node(value);
+  this->push_back(new_node);
+}
+
+template <class value_type>
+inline auto s21::deque<value_type>::push_back(Node* new_node) -> void {
+  if (!s21::deque<value_type>::head) {
+    s21::deque<value_type>::head = new_node;
+    s21::deque<value_type>::tail = new_node;
+  } else {
+    new_node->prev = s21::deque<value_type>::tail;
+    s21::deque<value_type>::tail->next = new_node;
+    s21::deque<value_type>::tail = new_node;
+  }
+  deque<value_type>::_size++;
+}
+
+
+template <class value_type>
+inline auto s21::deque<value_type>::size() const -> size_type {
+  return deque<value_type>::_size;
+}
+
+
+
+template <class value_type>
+inline auto s21::deque<value_type>::operator=(deque&& other) noexcept
+    -> s21::deque<value_type>& {
+  this->clear();
+
+  s21::deque<value_type>::head = other.head;
+  s21::deque<value_type>::tail = other.tail;
+  this->deque<value_type>::_size = other.deque<value_type>::_size;
+
+  other.head = nullptr;
+  other.tail = nullptr;
+  other.deque<value_type>::_size = 0;
+  return *this;
+}
+
+template <class value_type>
+inline auto s21::deque<value_type>::operator=(const deque& other) noexcept
+    -> s21::deque<value_type>& {
+  s21::deque<value_type> new_deque(other);
+  *this = std::move(new_deque);
+  return *this;
 }

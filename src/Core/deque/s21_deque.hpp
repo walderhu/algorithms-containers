@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <initializer_list>
 #include <limits>
-
+#include <utility>
 namespace s21 {
 template <class T>
 class deque {
@@ -19,10 +19,13 @@ class deque {
   ~deque() noexcept;
   deque(const deque& other) noexcept;
   deque(deque&& other) noexcept;
-  deque(std::initializer_list<value_type> const& items) noexcept;
+  // deque(std::initializer_list<value_type> const& items) noexcept;
   void clear();
   void push_front(value_type value);
-
+  void push_back(value_type value);
+  size_type size() const;
+  deque<value_type>& operator=(deque&& other) noexcept;
+  deque<value_type>& operator=(const deque& other) noexcept;
   bool empty();
   void pop_front();
   void pop_back();
@@ -35,6 +38,8 @@ class deque {
 
  protected:
   void push_front(Node* new_node);
+  void push_back(Node* new_node);
+
 };
 }  // namespace s21
 
