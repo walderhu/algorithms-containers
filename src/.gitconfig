@@ -7,10 +7,9 @@
     apply = config --global include.path # $(GITCONFIG_PATH)
     unapply = config --global --unset include.path
 
-    amend = "!f() { git add . && git commit --amend --no-edit && git push -f; }; f"
-    tmp = "!f() { git add . && git commit -m 'Temporary commit' && git push; }; f"
-    delete = "!f() { git push origin --delete \"$1\" && git branch -D \"$1\"; }; f"
-    
+    amend = "!f() { read -p 'Вы уверены, что хотите выполнить пуш без коммита? (y/n): ' confirm; if [ \"$confirm\" = 'y' ]; then git add . && git commit --amend --no-edit && git push -f; else echo 'Отменено.'; fi; }; f"
+    delete = "!f() { read -p 'Вы уверены, что хотите удалить ветку? (y/n): ' confirm; if [ \"$confirm\" = 'y' ]; then git push origin --delete \"$1\" && git branch -D \"$1\";; else echo 'Отменено.'; fi; }; f"
+
     last = log -1 HEAD
     diff = diff --color-words 
     patch = format-patch origin/master
