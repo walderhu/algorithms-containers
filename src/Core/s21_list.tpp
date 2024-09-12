@@ -463,3 +463,24 @@ inline auto s21::list<value_type>::unique() -> void {
     }
   }
 }
+
+template <typename T>
+template <typename... Args>
+typename s21::list<T>::iterator s21::list<T>::insert_many(const_iterator pos,
+                                                          Args&&... args) {
+  iterator var_pos = iterator(const_cast<Node*>(pos.current));
+  (this->insert(var_pos, std::forward<Args>(args)), ...);
+  return var_pos;
+}
+
+template <typename T>
+template <typename... Args>
+void s21::list<T>::insert_many_back(Args&&... args) {
+  (this->push_back(std::forward<Args>(args)), ...);
+}
+
+template <typename T>
+template <typename... Args>
+void s21::list<T>::insert_many_front(Args&&... args) {
+  (this->push_front(std::forward<Args>(args)), ...);
+}
