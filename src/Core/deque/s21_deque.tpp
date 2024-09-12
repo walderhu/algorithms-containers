@@ -161,3 +161,22 @@ inline auto s21::deque<value_type>::operator=(const deque& other) noexcept
   *this = std::move(new_deque);
   return *this;
 }
+
+template <class value_type>
+inline auto s21::deque<value_type>::front() -> const_reference {
+  if (s21::deque<value_type>::head == nullptr)
+    throw std::out_of_range("deque is empty");
+  return s21::deque<value_type>::head->value;
+}
+
+template <class value_type>
+inline auto s21::deque<value_type>::back() -> const_reference {
+  if (s21::deque<value_type>::tail == nullptr)
+    throw std::out_of_range("deque is empty");
+  return s21::deque<value_type>::tail->value;
+}
+
+template <class value_type>
+inline auto s21::deque<value_type>::max_size() -> size_type {
+  return (std::numeric_limits<size_t>::max() / sizeof(value_type)) / 2;
+}

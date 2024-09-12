@@ -31,9 +31,6 @@ class list final : public deque<T> {
   list(std::initializer_list<value_type> const& items) noexcept;
   list<value_type>& operator=(list&& other) noexcept ;
   list<value_type>& operator=(const list& other) noexcept ;
-  const_reference front();
-  const_reference back();
-  size_type max_size();
 
   // list
   reference operator[](const int index) const;

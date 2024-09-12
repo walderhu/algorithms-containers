@@ -4,7 +4,9 @@
 #include <cstddef>
 #include <initializer_list>
 #include <limits>
+#include <stdexcept>
 #include <utility>
+
 namespace s21 {
 template <class T>
 class deque {
@@ -29,6 +31,9 @@ class deque {
   bool empty();
   void pop_front();
   void pop_back();
+  const_reference front();
+  const_reference back();
+  size_type max_size();
 
  protected:
   struct Node;
