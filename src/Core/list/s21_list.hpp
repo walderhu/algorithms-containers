@@ -12,7 +12,6 @@ class list final : public deque<T> {
  public:
   struct Iterator;
   struct ConstIterator;
-  // using s21::deque<T>::deque;
   using typename s21::deque<T>::Node;
 
   using size_type = size_t;
@@ -22,10 +21,8 @@ class list final : public deque<T> {
   using const_iterator = ConstIterator;
   using const_reference = const T&;
 
+  // deque
  private:
-  typename deque<T>::Node* head;
-  typename deque<T>::Node* tail;
-  // typename deque<T>::size_type _size;
   void push_front(Node* new_node);
   void push_back(Node* new_node);
 
@@ -40,35 +37,29 @@ class list final : public deque<T> {
   size_type size() const;
   list<value_type>& operator=(list&& other) noexcept;
   list<value_type>& operator=(const list& other) noexcept;
-  reference operator[](const int index) const;
   void push_front(value_type value);
   void push_back(value_type value);
-  // typename s21::deque<T>::push_front;
-  // bool empty();
-  // typename s21::deque<T>::empty;
-  // using s21::deque<T>::empty;
   void clear();
-  void pop_front();
-  void pop_back();
-  void reverse();
   const_reference front();
   const_reference back();
   size_type max_size();
+
+  // list
+  reference operator[](const int index) const;
+  void reverse();
   void sort();
   void print();
   void swap(list& other) noexcept;
   void merge(list& other);
+
   iterator insert(iterator pos, const_reference value);
   iterator insert(iterator pos, std::initializer_list<value_type> const& items);
-
   template <typename... Args>
-  iterator insert_many(const_iterator pos, Args&&... args);  // new
-
+  iterator insert_many(const_iterator pos, Args&&... args);
   template <typename... Args>
-  void insert_many_back(Args&&... args);  // new
-
+  void insert_many_back(Args&&... args);
   template <typename... Args>
-  void insert_many_front(Args&&... args);  // new
+  void insert_many_front(Args&&... args);
 
   void erase(iterator pos);
   void splice(const_iterator pos, list& other);

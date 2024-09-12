@@ -109,7 +109,9 @@ inline auto s21::list<value_type>::Iterator::operator=(const Iterator& other)
 }
 
 template <class value_type>
-inline s21::list<value_type>::list() noexcept : head(nullptr), tail(nullptr) {
+inline s21::list<value_type>::list() noexcept {
+  s21::deque<value_type>::head = nullptr;
+  s21::deque<value_type>::tail = nullptr;
   deque<value_type>::_size = 0;
 }
 
@@ -120,8 +122,10 @@ inline s21::list<value_type>::list(size_type n) noexcept
 }
 
 template <class value_type>
-inline s21::list<value_type>::list(const list& other) noexcept
-    : head(nullptr), tail(nullptr) {
+inline s21::list<value_type>::list(const list& other) noexcept {
+  s21::deque<value_type>::head = nullptr;
+  s21::deque<value_type>::tail = nullptr;
+
   deque<value_type>::_size = 0;
   if (this != &other) {
     Node* current = other.head;
@@ -133,8 +137,10 @@ inline s21::list<value_type>::list(const list& other) noexcept
 }
 
 template <class value_type>
-inline s21::list<value_type>::list(list&& other) noexcept
-    : head(other.head), tail(other.tail) {
+inline s21::list<value_type>::list(list&& other) noexcept {
+  s21::deque<value_type>::head = other.head;
+  s21::deque<value_type>::tail = other.tail;
+
   deque<value_type>::_size = other._size;
   other.head = nullptr;
   other.tail = nullptr;
@@ -146,8 +152,8 @@ inline auto s21::list<value_type>::operator=(list&& other) noexcept
     -> s21::list<value_type>& {
   this->clear();
 
-  this->head = other.head;
-  this->tail = other.tail;
+  s21::deque<value_type>::head = other.head;
+  s21::deque<value_type>::tail = other.tail;
   this->deque<value_type>::_size = other.deque<value_type>::_size;
 
   other.head = nullptr;
@@ -186,7 +192,7 @@ inline auto s21::list<value_type>::operator[](const int index) const
     -> reference {
   if (index < 0 || index >= deque<value_type>::_size)
     throw std::out_of_range("Index out of range");
-  Node* current = head;
+  Node* current = s21::deque<value_type>::head;
   for (int i = 0; i < index; ++i) current = current->next;
   return current->value;
 }
@@ -199,31 +205,26 @@ inline auto s21::list<value_type>::push_back(value_type value) -> void {
 
 template <class value_type>
 inline auto s21::list<value_type>::push_back(Node* new_node) -> void {
-  if (!head) {
-    head = new_node;
-    tail = new_node;
+  if (!s21::deque<value_type>::head) {
+    s21::deque<value_type>::head = new_node;
+    s21::deque<value_type>::tail = new_node;
   } else {
-    new_node->prev = tail;
-    tail->next = new_node;
-    tail = new_node;
+    new_node->prev = s21::deque<value_type>::tail;
+    s21::deque<value_type>::tail->next = new_node;
+    s21::deque<value_type>::tail = new_node;
   }
   deque<value_type>::_size++;
 }
 
-// template <class value_type>
-// inline auto s21::list<value_type>::empty() -> bool {
-// return size() == 0;
-// }
-
 template <class value_type>
 inline auto s21::list<value_type>::clear() -> void {
-  while (deque<value_type>::_size) pop_front();
-  tail = nullptr;
+  while (deque<value_type>::_size) s21::deque<value_type>::pop_front();
+  s21::deque<value_type>::tail = nullptr;
 }
 
 template <class value_type>
 inline auto s21::list<value_type>::begin() -> Iterator {
-  return Iterator(this->head, this);
+  return Iterator(s21::deque<value_type>::head, this);
 }
 
 template <class value_type>
@@ -233,7 +234,7 @@ inline auto s21::list<value_type>::end() -> Iterator {
 
 template <class value_type>
 inline auto s21::list<value_type>::cbegin() const -> ConstIterator {
-  return ConstIterator(this->head, this);
+  return ConstIterator(s21::deque<value_type>::head, this);
 }
 
 template <class value_type>
@@ -256,21 +257,6 @@ inline auto s21::list<value_type>::print() -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::pop_front() -> void {
-  if (head) {
-    Node* tmp = head;
-    head = head->next;
-    delete tmp;
-    if (head)
-      head->prev = nullptr;
-    else
-      tail = nullptr;
-
-    deque<value_type>::_size -= 1;
-  }
-}
-
-template <class value_type>
 inline auto s21::list<value_type>::push_front(value_type value) -> void {
   Node* new_node = new Node(value);
   this->push_front(new_node);
@@ -278,33 +264,15 @@ inline auto s21::list<value_type>::push_front(value_type value) -> void {
 
 template <class value_type>
 inline auto s21::list<value_type>::push_front(Node* new_node) -> void {
-  if (!head) {
-    head = new_node;
-    tail = new_node;
+  if (!s21::deque<value_type>::head) {
+    s21::deque<value_type>::head = new_node;
+    s21::deque<value_type>::tail = new_node;
   } else {
-    new_node->next = head;
-    head->prev = new_node;
-    head = new_node;
+    new_node->next = s21::deque<value_type>::head;
+    s21::deque<value_type>::head->prev = new_node;
+    s21::deque<value_type>::head = new_node;
   }
   deque<value_type>::_size++;
-}
-
-template <class value_type>
-inline auto s21::list<value_type>::pop_back() -> void {
-  if (head) {
-    Node* tmp = tail;
-
-    if (tail == head) {
-      head = nullptr;
-      tail = nullptr;
-    } else {
-      tail = tail->prev;
-      tail->next = nullptr;
-    }
-
-    delete tmp;
-    deque<value_type>::_size--;
-  }
 }
 
 template <class value_type>
@@ -318,14 +286,16 @@ inline auto s21::list<value_type>::reverse() -> void {
 
 template <class value_type>
 inline auto s21::list<value_type>::front() -> const_reference {
-  if (head == nullptr) throw std::out_of_range("List is empty");
-  return head->value;
+  if (s21::deque<value_type>::head == nullptr)
+    throw std::out_of_range("List is empty");
+  return s21::deque<value_type>::head->value;
 }
 
 template <class value_type>
 inline auto s21::list<value_type>::back() -> const_reference {
-  if (tail == nullptr) throw std::out_of_range("List is empty");
-  return tail->value;
+  if (s21::deque<value_type>::tail == nullptr)
+    throw std::out_of_range("List is empty");
+  return s21::deque<value_type>::tail->value;
 }
 
 template <class value_type>
@@ -335,12 +305,12 @@ inline auto s21::list<value_type>::max_size() -> size_type {
 
 template <class value_type>
 inline auto s21::list<value_type>::sort() -> void {
-  Node* current = head;
+  Node* current = s21::deque<value_type>::head;
   bool swapped = true;
 
   while (swapped) {
     swapped = false;
-    current = head;
+    current = s21::deque<value_type>::head;
 
     while (current && current->next) {
       Node* next_node = current->next;
@@ -355,16 +325,16 @@ inline auto s21::list<value_type>::sort() -> void {
 
 template <class value_type>
 inline auto s21::list<value_type>::swap(list& other) noexcept -> void {
-  std::swap(head, other.head);
-  std::swap(tail, other.tail);
-  std::swap(size, other.size);
+  std::swap(s21::deque<value_type>::head, other.head);
+  std::swap(s21::deque<value_type>::tail, other.tail);
+  std::swap(s21::deque<value_type>::_size, other._size);
 }
 
 template <class value_type>
 inline auto s21::list<value_type>::merge(list& other) -> void {
   Node* current = other.head;
   this->push_back(current);
-  this->tail = other.tail;
+  s21::deque<value_type>::tail = other.tail;
   this->deque<value_type>::_size += other.deque<value_type>::_size - 1;
 
   other.head = nullptr;
@@ -415,12 +385,12 @@ inline auto s21::list<value_type>::erase(iterator pos) -> void {
   Node* next = current->next;
 
   if (prev == nullptr)
-    head = next;
+    s21::deque<value_type>::head = next;
   else
     prev->next = next;
 
   if (next == nullptr)
-    tail = prev;
+    s21::deque<value_type>::tail = prev;
   else
     next->prev = prev;
 
