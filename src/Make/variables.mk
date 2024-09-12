@@ -2,7 +2,7 @@ ifndef __VARIABLES_MK__
 export __VARIABLES_MK__ = 1
 
 CC := g++ -g
-CXXFLAGS := -Wall -Wextra -Werror -std=c++17
+# CXXFLAGS := -Wall -Wextra -Werror -std=c++17
 EXE := s21_list
 TEST_EXE := s21_list_test
 BUILD_PATH := build
