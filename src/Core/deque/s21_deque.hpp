@@ -13,6 +13,8 @@ class deque {
   using const_reference = const T&;
   using size_type = size_t;
   bool empty();
+  void pop_front();
+  void pop_back();
 
  protected:
   struct Node;
