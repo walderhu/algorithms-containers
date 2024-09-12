@@ -21,25 +21,16 @@ class list final : public deque<T> {
   using const_iterator = ConstIterator;
   using const_reference = const T&;
 
-  // deque
- private:
-  // void push_front(Node* new_node);
-  // void push_back(Node* new_node);
-
  public:
-  // list() noexcept;
-  // list(size_type n) noexcept;
-  // ~list() noexcept;
-  // list(const list& other) noexcept;
-  // list(list&& other) noexcept;
-  list(std::initializer_list<value_type> const& items) noexcept;
+  list() noexcept : s21::deque<T>::deque() {}
+  list(size_type n) noexcept : s21::deque<T>::deque(n) {}
+  ~list() noexcept  { s21::deque<T>::clear(); }
+  list(const list& other) noexcept ;
+  list(list&& other) noexcept ;
 
-  // size_type size() const;
-  // list<value_type>& operator=(list&& other) noexcept;
-  // list<value_type>& operator=(const list& other) noexcept;
-  // void push_front(value_type value);
-  // void push_back(value_type value);
-  // void clear();
+  list(std::initializer_list<value_type> const& items) noexcept;
+  list<value_type>& operator=(list&& other) noexcept ;
+  list<value_type>& operator=(const list& other) noexcept ;
   const_reference front();
   const_reference back();
   size_type max_size();

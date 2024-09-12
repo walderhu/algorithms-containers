@@ -39,7 +39,6 @@ class deque {
  protected:
   void push_front(Node* new_node);
   void push_back(Node* new_node);
-
 };
 }  // namespace s21
 
