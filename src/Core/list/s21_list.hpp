@@ -22,9 +22,9 @@ class list final : public deque<T> {
   using const_reference = const T&;
 
  public:
-  list() noexcept : s21::deque<T>::deque() {}
-  list(size_type n) noexcept : s21::deque<T>::deque(n) {}
-  ~list() noexcept  { s21::deque<T>::clear(); }
+  list() noexcept ;
+  list(size_type n) noexcept ;
+  ~list() noexcept;
   list(const list& other) noexcept ;
   list(list&& other) noexcept ;
 
@@ -99,6 +99,7 @@ struct s21::list<T>::ConstIterator final : public s21::list<T>::Iterator {
   Iterator& operator=(const Iterator& other) override;
 };
 
+#include "s21_list_iterator.tpp"
 #include "s21_list.tpp"
 
 #endif  // __S21_LIST_HXX__

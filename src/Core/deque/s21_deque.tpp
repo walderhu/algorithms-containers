@@ -63,13 +63,6 @@ inline auto s21::deque<value_type>::clear() -> void {
   s21::deque<value_type>::tail = nullptr;
 }
 
-// template <class value_type>
-// inline s21::deque<value_type>::deque(
-// std::initializer_list<value_type> const& items) noexcept
-// : s21::deque<value_type>() {
-// for (auto it = items.begin(); it != items.end(); ++it) push_back(*it);
-// }
-
 template <class value_type>
 inline s21::deque<value_type>::deque(const deque& other) noexcept {
   s21::deque<value_type>::head = nullptr;
