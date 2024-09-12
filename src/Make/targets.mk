@@ -30,9 +30,11 @@ $(BUILD_PATH)/$(TEST_EXE): $(BUILD_PATH) $(BUILD_PATH)/$(EXE)
 test_run:
 	@./$(BUILD_PATH)/$(TEST_EXE)
 
-gcov_report: $(BUILD_PATH) $(BUILD_PATH)/$(TEST_EXE) test_run
+gcov_report: $(BUILD_PATH) $(BUILD_PATH)/$(TEST_EXE) test_run report_run
 	@lcov --capture --directory $(BUILD_PATH) --output-file $(BUILD_PATH)/test.info
 	@genhtml -o $(BUILD_PATH)/report $(BUILD_PATH)/test.info 
+
+report_run:
 	@open $(BUILD_PATH)/report/index.html 
 
 endif # __TARGETS_MK__
