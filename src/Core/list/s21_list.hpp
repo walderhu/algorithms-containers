@@ -12,8 +12,9 @@ class list final : public deque<T> {
  public:
   struct Iterator;
   struct ConstIterator;
-  using s21::deque<T>::deque;
+  // using s21::deque<T>::deque;
   using typename s21::deque<T>::Node;
+
   using size_type = size_t;
   using value_type = T;
   using reference = T&;
@@ -24,7 +25,7 @@ class list final : public deque<T> {
  private:
   typename deque<T>::Node* head;
   typename deque<T>::Node* tail;
-  typename deque<T>::size_type _size;
+  // typename deque<T>::size_type _size;
   void push_front(Node* new_node);
   void push_back(Node* new_node);
 
@@ -40,11 +41,14 @@ class list final : public deque<T> {
   list<value_type>& operator=(list&& other) noexcept;
   list<value_type>& operator=(const list& other) noexcept;
   reference operator[](const int index) const;
+  void push_front(value_type value);
   void push_back(value_type value);
-  bool empty();
+  // typename s21::deque<T>::push_front;
+  // bool empty();
+  // typename s21::deque<T>::empty;
+  // using s21::deque<T>::empty;
   void clear();
   void pop_front();
-  void push_front(value_type value);
   void pop_back();
   void reverse();
   const_reference front();

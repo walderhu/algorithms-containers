@@ -12,6 +12,7 @@ class deque {
   using reference = T&;
   using const_reference = const T&;
   using size_type = size_t;
+  bool empty();
 
  protected:
   struct Node;

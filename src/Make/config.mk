@@ -9,6 +9,8 @@ style:
 	@find .. -type f -name "*.hpp" -exec clang-format -n -style=Google {} \;
 	@echo "Clang format style check is finished"
 
+c: style_repair
+
 style_repair:
 	@find .. -type f -name "*.tpp" -exec clang-format -i -style=Google {} \;
 	@find .. -type f -name "*.cpp" -exec clang-format -i -style=Google {} \;
