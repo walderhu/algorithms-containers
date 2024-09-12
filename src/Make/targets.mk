@@ -25,7 +25,7 @@ reset: clean all
 test: clean $(BUILD_PATH)/$(TEST_EXE) test_run
 
 $(BUILD_PATH)/$(TEST_EXE): $(BUILD_PATH) $(BUILD_PATH)/$(EXE)
-	@$(CC) $(TESTS_PATH)/*.hpp $(TESTS_PATH)/*.cpp $(LIB) --coverage -o $@
+	@$(CC) $(TESTS_HEADERS) $(TESTS_SRCS) $(LIB) -o $@
 
 test_run:
 	@./$(BUILD_PATH)/$(TEST_EXE)
