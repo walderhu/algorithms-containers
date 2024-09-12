@@ -19,10 +19,6 @@ HEADERS=$(shell find $(SRC_PATH) -type f -name "*.hpp")
 TESTS_SRCS=$(shell find $(TESTS_PATH) -type f -name "*.cpp")
 TESTS_HEADERS=$(shell find $(TESTS_PATH) -type f -name "*.hpp")
 
-print:
-	@echo "$(SRCS)"
-	@echo "$(HEADERS)"
-
 DEPS := $(SRCS:.cpp=.d)
 -include $(DEPS)
 

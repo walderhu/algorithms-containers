@@ -5,7 +5,7 @@
 
 #include <list>
 
-#include "../Core/s21_list.hpp"
+#include "../Core/s21_containers.hpp"
 
 void run_tests();
 
