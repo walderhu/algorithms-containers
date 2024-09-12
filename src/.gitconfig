@@ -17,7 +17,9 @@
     lg = log --graph --oneline --decorate
     s = checkout -
     diff = diff --cached
-    
+    dev = "!f() { git checkout walderhu/develop; }; f"
+    fea = "!f() { git checkout walderhu/feature; }; f"
+    master = "!f() { git checkout walderhu/master; }; f"
 
 [merge]
     tool = meld

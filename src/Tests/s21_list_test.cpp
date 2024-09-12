@@ -309,6 +309,56 @@ TEST(List, Sort) {
   EXPECT_EQ(*s21_it, *std_it);
 }
 
+TEST(List, Insert_Many) {
+  s21::list<int> our_list = {1, 2, 3, 4, 5};
+  s21::list<int>::iterator our_it = our_list.begin();
+  ++our_it;
+  our_list.insert_many(our_it, 7, 8, 9);
+  our_it = our_list.begin();
+  EXPECT_EQ(*our_it, 1);
+  ++our_it;
+  EXPECT_EQ(*our_it, 7);
+  ++our_it;
+  EXPECT_EQ(*our_it, 8);
+  ++our_it;
+  EXPECT_EQ(*our_it, 9);
+  ++our_it;
+  EXPECT_EQ(*our_it, 2);
+}
+
+TEST(List, Insert_Many_Back) {
+  s21::list<int> our_list = {1, 2, 3, 4, 5};
+  s21::list<int>::iterator our_it;
+  our_list.insert_many_back(7, 8, 9);
+  our_it = our_list.end();
+  --our_it;
+  EXPECT_EQ(*our_it, 9);
+  --our_it;
+  EXPECT_EQ(*our_it, 8);
+  --our_it;
+  EXPECT_EQ(*our_it, 7);
+  --our_it;
+  EXPECT_EQ(*our_it, 5);
+  --our_it;
+  EXPECT_EQ(*our_it, 4);
+}
+
+TEST(List, Insert_Many_Front) {
+  s21::list<int> our_list = {1, 2, 3, 4, 5};
+  s21::list<int>::iterator our_it;
+  our_list.insert_many_front(7, 8, 9);
+  our_it = our_list.begin();
+  EXPECT_EQ(*our_it, 9);
+  ++our_it;
+  EXPECT_EQ(*our_it, 8);
+  ++our_it;
+  EXPECT_EQ(*our_it, 7);
+  ++our_it;
+  EXPECT_EQ(*our_it, 1);
+  ++our_it;
+  EXPECT_EQ(*our_it, 2);
+}
+
 void run_tests() {
   ::testing::InitGoogleTest();
   int result = RUN_ALL_TESTS();

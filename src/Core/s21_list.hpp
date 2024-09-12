@@ -53,6 +53,16 @@ class list final {
   void merge(list& other);
   iterator insert(iterator pos, const_reference value);
   iterator insert(iterator pos, std::initializer_list<value_type> const& items);
+
+  template <typename... Args>
+  iterator insert_many(const_iterator pos, Args&&... args);  // new
+
+  template <typename... Args>
+  void insert_many_back(Args&&... args);  // new
+
+  template <typename... Args>
+  void insert_many_front(Args&&... args);  // new
+
   void erase(iterator pos);
   void splice(const_iterator pos, list& other);
   void splice(iterator pos, list& other);
