@@ -1,39 +1,35 @@
 #include "s21_list.hpp"
 
-template <typename value_type>
-inline s21::list<value_type>::Node::Node(value_type value)
-    : value(value), next(nullptr), prev(nullptr) {}
-
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::Iterator::Iterator(
     Node* node, s21::list<value_type>* list) noexcept
     : current(node), list(list) {}
 
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::Iterator::Iterator(Node* node) noexcept
     : current(node), list(nullptr) {}
 
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::Iterator::Iterator() noexcept
     : current(nullptr), list(nullptr) {}
 
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::Iterator::Iterator(const Iterator& other) noexcept
     : current(other.current), list(other.list) {}
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::Iterator::operator==(
     const Iterator& other) const -> bool {
   return current == other.current;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::Iterator::operator!=(
     const Iterator& other) const -> bool {
   return !(*this == other);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::Iterator::operator<(
     const Iterator& other) const -> bool {
   for (auto it = list->begin(); it != list->end(); ++it) {
@@ -43,48 +39,48 @@ inline auto s21::list<value_type>::Iterator::operator<(
   throw std::out_of_range("Disabled iterator. Not exist");
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::Iterator::operator<=(
     const Iterator& other) const -> bool {
   return this->operator==(other) || this->operator<(other);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::Iterator::operator>(
     const Iterator& other) const -> bool {
   return !this->operator<(other);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::Iterator::operator>=(
     const Iterator& other) const -> bool {
   return this->operator==(other) || this->operator>(other);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::Iterator::operator*() const -> reference {
   return current->value;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::ConstIterator::operator*() const
     -> const_reference {
   return static_cast<const_reference>(Iterator::operator*());
 }
 
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::ConstIterator::ConstIterator(
     Node* node, const s21::list<value_type>* lst) noexcept
     : Iterator(node, const_cast<s21::list<value_type>*>(lst)) {}
 
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::ConstIterator::ConstIterator(
     iterator it) noexcept {
   Iterator::current = it.current;
   Iterator::list = it.list;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::ConstIterator::operator=(
     const Iterator& other) -> Iterator& {
   (void)other;
@@ -92,19 +88,19 @@ inline auto s21::list<value_type>::ConstIterator::operator=(
   return *this;
 }
 
-template <typename value_type>
+template <class value_type>
 auto s21::list<value_type>::Iterator::operator++() -> Iterator& {
   if (current) current = current->next;
   return *this;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::Iterator::operator--() -> Iterator& {
   current = current ? current->prev : list->tail;
   return *this;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::Iterator::operator=(const Iterator& other)
     -> Iterator& {
   current = other.current;
@@ -112,17 +108,17 @@ inline auto s21::list<value_type>::Iterator::operator=(const Iterator& other)
   return *this;
 }
 
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::list() noexcept
     : head(nullptr), tail(nullptr), _size(0) {}
 
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::list(size_type n) noexcept
     : s21::list<value_type>() {
   for (size_t i = 0; i < n; i++) push_front(value_type());
 }
 
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::list(const list& other) noexcept
     : head(nullptr), tail(nullptr), _size(0) {
   if (this != &other) {
@@ -134,7 +130,7 @@ inline s21::list<value_type>::list(const list& other) noexcept
   }
 }
 
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::list(list&& other) noexcept
     : head(other.head), tail(other.tail), _size(other._size) {
   other.head = nullptr;
@@ -142,7 +138,7 @@ inline s21::list<value_type>::list(list&& other) noexcept
   other._size = 0;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::operator=(list&& other) noexcept
     -> s21::list<value_type>& {
   this->clear();
@@ -157,7 +153,7 @@ inline auto s21::list<value_type>::operator=(list&& other) noexcept
   return *this;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::operator=(const list& other) noexcept
     -> s21::list<value_type>& {
   s21::list<value_type> new_list(other);
@@ -165,24 +161,24 @@ inline auto s21::list<value_type>::operator=(const list& other) noexcept
   return *this;
 }
 
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::list(
     std::initializer_list<value_type> const& items) noexcept
     : s21::list<value_type>() {
   for (auto it = items.begin(); it != items.end(); ++it) push_back(*it);
 }
 
-template <typename value_type>
+template <class value_type>
 inline s21::list<value_type>::~list() noexcept {
   clear();
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::size() const -> size_type {
   return _size;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::operator[](const int index) const
     -> reference {
   if (index < 0 || index >= _size)
@@ -192,13 +188,13 @@ inline auto s21::list<value_type>::operator[](const int index) const
   return current->value;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::push_back(value_type value) -> void {
   Node* new_node = new Node(value);
   this->push_back(new_node);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::push_back(Node* new_node) -> void {
   if (!head) {
     head = new_node;
@@ -211,52 +207,52 @@ inline auto s21::list<value_type>::push_back(Node* new_node) -> void {
   _size++;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::empty() -> bool {
   return size() == 0;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::clear() -> void {
   while (_size) pop_front();
   tail = nullptr;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::begin() -> Iterator {
   return Iterator(this->head, this);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::end() -> Iterator {
   return Iterator(nullptr, this);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::cbegin() const -> ConstIterator {
   return ConstIterator(this->head, this);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::cend() const -> ConstIterator {
   return ConstIterator(nullptr, this);
 }
 
 namespace s21 {
-template <typename value_type>
+template <class value_type>
 std::ostream& operator<<(std::ostream& os, const list<value_type>& obj) {
   for (auto it = obj.cbegin(); it != obj.cend(); ++it) os << *it << " ";
   return os;
 }
 }  // namespace s21
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::print() -> void {
   for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";
   std::cout << "\n";
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::pop_front() -> void {
   if (head) {
     Node* tmp = head;
@@ -271,13 +267,13 @@ inline auto s21::list<value_type>::pop_front() -> void {
   }
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::push_front(value_type value) -> void {
   Node* new_node = new Node(value);
   this->push_front(new_node);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::push_front(Node* new_node) -> void {
   if (!head) {
     head = new_node;
@@ -290,7 +286,7 @@ inline auto s21::list<value_type>::push_front(Node* new_node) -> void {
   _size++;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::pop_back() -> void {
   if (head) {
     Node* tmp = tail;
@@ -308,7 +304,7 @@ inline auto s21::list<value_type>::pop_back() -> void {
   }
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::reverse() -> void {
   if (this->size() < 2) return;
   list<value_type> new_list;
@@ -317,24 +313,24 @@ inline auto s21::list<value_type>::reverse() -> void {
   *this = std::move(new_list);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::front() -> const_reference {
   if (head == nullptr) throw std::out_of_range("List is empty");
   return head->value;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::back() -> const_reference {
   if (tail == nullptr) throw std::out_of_range("List is empty");
   return tail->value;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::max_size() -> size_type {
   return (std::numeric_limits<size_t>::max() / sizeof(value_type)) / 2;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::sort() -> void {
   Node* current = head;
   bool swapped = true;
@@ -354,14 +350,14 @@ inline auto s21::list<value_type>::sort() -> void {
   }
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::swap(list& other) noexcept -> void {
   std::swap(head, other.head);
   std::swap(tail, other.tail);
   std::swap(size, other.size);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::merge(list& other) -> void {
   Node* current = other.head;
   this->push_back(current);
@@ -373,7 +369,7 @@ inline auto s21::list<value_type>::merge(list& other) -> void {
   other._size = 0;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::insert(iterator pos, const_reference value)
     -> iterator {
   Node* new_node = new Node(value);
@@ -397,7 +393,7 @@ inline auto s21::list<value_type>::insert(iterator pos, const_reference value)
   return new_node;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::insert(
     iterator pos, std::initializer_list<value_type> const& items) -> iterator {
   for (auto item = items.end(); item != items.begin();) {
@@ -407,7 +403,7 @@ inline auto s21::list<value_type>::insert(
   return pos;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::erase(iterator pos) -> void {
   if (pos == end()) throw std::out_of_range("Cannot erase end iterator");
 
@@ -429,7 +425,7 @@ inline auto s21::list<value_type>::erase(iterator pos) -> void {
   _size -= 1;
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::splice(const_iterator pos, list& other)
     -> void {
   if (pos == end()) throw std::out_of_range("Cannot splice at end iterator");
@@ -441,13 +437,13 @@ inline auto s21::list<value_type>::splice(const_iterator pos, list& other)
   other.clear();
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::splice(iterator pos, list& other) -> void {
   const_iterator it(pos);
   this->splice(it, other);
 }
 
-template <typename value_type>
+template <class value_type>
 inline auto s21::list<value_type>::unique() -> void {
   if (this->empty()) return;
 
@@ -464,7 +460,7 @@ inline auto s21::list<value_type>::unique() -> void {
   }
 }
 
-template <typename T>
+template <class T>
 template <typename... Args>
 typename s21::list<T>::iterator s21::list<T>::insert_many(const_iterator pos,
                                                           Args&&... args) {
@@ -473,13 +469,13 @@ typename s21::list<T>::iterator s21::list<T>::insert_many(const_iterator pos,
   return var_pos;
 }
 
-template <typename T>
+template <class T>
 template <typename... Args>
 void s21::list<T>::insert_many_back(Args&&... args) {
   (this->push_back(std::forward<Args>(args)), ...);
 }
 
-template <typename T>
+template <class T>
 template <typename... Args>
 void s21::list<T>::insert_many_front(Args&&... args) {
   (this->push_front(std::forward<Args>(args)), ...);

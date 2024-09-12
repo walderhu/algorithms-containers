@@ -2,30 +2,33 @@
 #define __S21_LIST_HXX__
 
 #include <iostream>
-#include <limits>
+
+#include "../s21_containers.hpp"
 
 namespace s21 {
 
-template <typename T>
-class list final {
- private:
-  struct Node;
-  Node* head;
-  Node* tail;
-  size_t _size;
-  void push_front(Node* new_node);
-  void push_back(Node* new_node);
-
+template <class T>
+class list final : public deque<T> {
  public:
   struct Iterator;
   struct ConstIterator;
+  using s21::deque<T>::deque;
+  using typename s21::deque<T>::Node;
+  using size_type = size_t;
   using value_type = T;
   using reference = T&;
   using iterator = Iterator;
   using const_iterator = ConstIterator;
   using const_reference = const T&;
-  using size_type = size_t;
 
+ private:
+  typename deque<T>::Node* head;
+  typename deque<T>::Node* tail;
+  typename deque<T>::size_type _size;
+  void push_front(Node* new_node);
+  void push_back(Node* new_node);
+
+ public:
   list() noexcept;
   ~list() noexcept;
   list(size_type n) noexcept;
@@ -80,15 +83,7 @@ class list final {
 };
 }  // namespace s21
 
-template <typename T>
-struct s21::list<T>::Node final {
-  value_type value;
-  Node* next;
-  Node* prev;
-  Node(value_type value = value_type());
-};
-
-template <typename T>
+template <class T>
 struct s21::list<T>::Iterator {
   Iterator() noexcept;
   Iterator(Node* node) noexcept;
@@ -112,7 +107,7 @@ struct s21::list<T>::Iterator {
   friend class s21::list<T>::ConstIterator;
 };
 
-template <typename T>
+template <class T>
 struct s21::list<T>::ConstIterator final : public s21::list<T>::Iterator {
   using s21::list<T>::Iterator::Iterator;
   ConstIterator(Node* node, const s21::list<T>* lst) noexcept;
