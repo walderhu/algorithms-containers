@@ -13,7 +13,6 @@ class list final : public deque<T> {
   struct Iterator;
   struct ConstIterator;
   using typename s21::deque<T>::Node;
-
   using size_type = size_t;
   using value_type = T;
   using reference = T&;
@@ -22,15 +21,15 @@ class list final : public deque<T> {
   using const_reference = const T&;
 
  public:
-  list() noexcept ;
-  list(size_type n) noexcept ;
+  list() noexcept;
+  list(size_type n) noexcept;
   ~list() noexcept;
-  list(const list& other) noexcept ;
-  list(list&& other) noexcept ;
+  list(const list& other) noexcept;
+  list(list&& other) noexcept;
 
   list(std::initializer_list<value_type> const& items) noexcept;
-  list<value_type>& operator=(list&& other) noexcept ;
-  list<value_type>& operator=(const list& other) noexcept ;
+  list<value_type>& operator=(list&& other) noexcept;
+  list<value_type>& operator=(const list& other) noexcept;
 
   // list
   reference operator[](const int index) const;
@@ -99,7 +98,7 @@ struct s21::list<T>::ConstIterator final : public s21::list<T>::Iterator {
   Iterator& operator=(const Iterator& other) override;
 };
 
-#include "s21_list_iterator.tpp"
 #include "s21_list.tpp"
+#include "s21_list_iterator.tpp"
 
 #endif  // __S21_LIST_HXX__

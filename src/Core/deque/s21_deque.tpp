@@ -173,3 +173,12 @@ template <class value_type>
 inline auto s21::deque<value_type>::max_size() -> size_type {
   return (std::numeric_limits<size_t>::max() / sizeof(value_type)) / 2;
 }
+
+
+template <class value_type>
+inline s21::deque<value_type>::deque(
+    std::initializer_list<value_type> const& items) noexcept
+    : s21::deque<value_type>() {
+  for (auto it = items.begin(); it != items.end(); ++it)
+  this->push_back(*it);
+}

@@ -52,9 +52,7 @@ inline auto s21::list<value_type>::operator=(const list& other) noexcept
 template <class value_type>
 inline s21::list<value_type>::list(
     std::initializer_list<value_type> const& items) noexcept
-    : s21::deque<value_type>() {
-  for (auto it = items.begin(); it != items.end(); ++it)
-    s21::deque<value_type>::push_back(*it);
+    : s21::deque<value_type>(items) { 
 }
 
 template <class value_type>
@@ -261,16 +259,15 @@ void s21::list<T>::insert_many_front(Args&&... args) {
   (this->push_front(std::forward<Args>(args)), ...);
 }
 
-
 template <class value_type>
 inline s21::list<value_type>::list() noexcept
-   : s21::deque<value_type>::deque() {}
+    : s21::deque<value_type>::deque() {}
 
 template <class value_type>
 inline s21::list<value_type>::list(size_type n) noexcept
-   : s21::deque<value_type>::deque(n) {}
+    : s21::deque<value_type>::deque(n) {}
 
 template <class value_type>
-inline s21::list<value_type>::~list() noexcept
-   {s21::deque<value_type>::clear();}
-
+inline s21::list<value_type>::~list() noexcept {
+  s21::deque<value_type>::clear();
+}

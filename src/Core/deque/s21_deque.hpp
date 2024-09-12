@@ -21,7 +21,8 @@ class deque {
   ~deque() noexcept;
   deque(const deque& other) noexcept;
   deque(deque&& other) noexcept;
-  // deque(std::initializer_list<value_type> const& items) noexcept;
+  deque(std::initializer_list<value_type> const& items) noexcept;
+
   void clear();
   void push_front(value_type value);
   void push_back(value_type value);
