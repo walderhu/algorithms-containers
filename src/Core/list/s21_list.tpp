@@ -27,33 +27,23 @@ inline s21::list<value_type>::list(list&& other) noexcept {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::operator=(list&& other) noexcept
-    -> s21::list<value_type>& {
-  this->clear();
-
-  s21::deque<value_type>::head = other.head;
-  s21::deque<value_type>::tail = other.tail;
-  this->deque<value_type>::_size = other.deque<value_type>::_size;
-
-  other.head = nullptr;
-  other.tail = nullptr;
-  other.deque<value_type>::_size = 0;
+s21::list<value_type>& s21::list<value_type>::operator=(
+    s21::list<value_type>&& other) noexcept {
+  s21::deque<value_type>::operator=(std::move(other));
   return *this;
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::operator=(const list& other) noexcept
-    -> s21::list<value_type>& {
-  s21::list<value_type> new_list(other);
-  *this = std::move(new_list);
+s21::list<value_type>& s21::list<value_type>::operator=(
+    const s21::list<value_type>& other) noexcept {
+  s21::deque<value_type>::operator=(other);
   return *this;
 }
 
 template <class value_type>
 inline s21::list<value_type>::list(
     std::initializer_list<value_type> const& items) noexcept
-    : s21::deque<value_type>(items) { 
-}
+    : s21::deque<value_type>(items) {}
 
 template <class value_type>
 inline auto s21::list<value_type>::operator[](const int index) const

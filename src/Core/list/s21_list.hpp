@@ -26,8 +26,8 @@ class list final : public deque<T> {
   ~list() noexcept;
   list(const list& other) noexcept;
   list(list&& other) noexcept;
-
   list(std::initializer_list<value_type> const& items) noexcept;
+
   list<value_type>& operator=(list&& other) noexcept;
   list<value_type>& operator=(const list& other) noexcept;
 
