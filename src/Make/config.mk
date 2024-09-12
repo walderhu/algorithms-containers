@@ -4,7 +4,16 @@ export __CONFIG_MK__ = 1
 include Make/variables.mk
 
 style:
-	clang-format -n -style=google $(SRC_PATH)/* $(TESTS_PATH)/*
+	@find .. -type f -name "*.tpp" -exec clang-format -n -style=Google {} \;
+	@find .. -type f -name "*.cpp" -exec clang-format -n -style=Google {} \;
+	@find .. -type f -name "*.hpp" -exec clang-format -n -style=Google {} \;
+	@echo "Clang format style check is finished"
+
+style_repair:
+	@find .. -type f -name "*.tpp" -exec clang-format -i -style=Google {} \;
+	@find .. -type f -name "*.cpp" -exec clang-format -i -style=Google {} \;
+	@find .. -type f -name "*.hpp" -exec clang-format -i -style=Google {} \;
+	@echo "Clang format style apply is finished"
 
 dist: 
 	tar cvzf ${EXE}.tgz $(BUILD_PATH)

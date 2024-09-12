@@ -1,6 +1,6 @@
 #include <list>
 
-#include "s21_list.hpp"
+#include "s21_containers.hpp"
 
 int main() {
   s21::list<int> s21_list_first = {1};
@@ -11,6 +11,6 @@ int main() {
   std::list<int>::iterator std_it = std_list_first.begin();
   s21_list_first.splice(s21_it, s21_list_second);
   std_list_first.splice(std_it, std_list_second);
-
+  s21_list_first.print();
   return 0;
 }
