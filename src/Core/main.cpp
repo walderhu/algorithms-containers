@@ -1,4 +1,7 @@
 #include <list>
+#include <deque>
+#include <set>
+#include <multyset>
 
 #include "s21_containers.hpp"
 
