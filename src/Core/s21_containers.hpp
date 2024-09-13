@@ -4,7 +4,7 @@
 #include "BinaryTree/s21_BinaryTree.hpp"
 #include "Deque/s21_deque.hpp"
 #include "List/s21_list.hpp"
-#include "Set/s21_set.hpp"
 #include "Multyset/s21_multyset.hpp"
+#include "Set/s21_set.hpp"
 
 #endif  // __S21_CONTAINER_HXX__
