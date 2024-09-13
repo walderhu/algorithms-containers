@@ -7,8 +7,6 @@ namespace s21 {
 template <class T> class set : public s21::deque<T> {
 public:
   using Node = typename s21::deque<T>::Node;
-  using right = typename s21::deque<T>::Node::next;
-  using left = typename s21::deque<T>::Node::prev;
 
   struct Iterator;
   struct ConstIterator;
@@ -19,7 +17,7 @@ public:
   using const_iterator = ConstIterator;
   using const_reference = const T &;
 
-  set() : s21::deque<T>() {}
+  set();
   set(std::initializer_list<value_type> const &items) {}
   set(const set &s) : s21::deque<T>(s) {}
   set(set &&s) : s21::deque<T>(std::move(s)) {}
