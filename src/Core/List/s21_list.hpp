@@ -67,8 +67,7 @@ class list final : public deque<T> {
 template <class T>
 struct s21::list<T>::Iterator {
   Iterator() noexcept;
-  Iterator(Node *node) noexcept;
-  Iterator(Node *node, s21::list<value_type> *list) noexcept;
+  Iterator(Node *node, s21::list<value_type> *list= nullptr) noexcept;
   Iterator(const Iterator &other) noexcept;
   bool operator==(const Iterator &other) const;
   bool operator!=(const Iterator &other) const;

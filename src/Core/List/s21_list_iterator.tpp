@@ -6,10 +6,6 @@ inline s21::list<value_type>::Iterator::Iterator(
     : current(node), list(list) {}
 
 template <class value_type>
-inline s21::list<value_type>::Iterator::Iterator(Node* node) noexcept
-    : current(node), list(nullptr) {}
-
-template <class value_type>
 inline s21::list<value_type>::Iterator::Iterator() noexcept
     : current(nullptr), list(nullptr) {}
 
