@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 
 #include <list>
+#include <set>
 
 #include "../Core/s21_containers.hpp"
 
