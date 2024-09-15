@@ -42,6 +42,7 @@ class set {
   void clear();
 
   std::pair<iterator, bool> insert(value_type value);
+  size_type max_size();
 
   iterator begin();
   iterator end();
