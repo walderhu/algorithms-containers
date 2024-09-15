@@ -3,8 +3,8 @@ export __VARIABLES_MK__ = 1
 
 CC := g++ -g
 # CXXFLAGS := -Wall -Wextra -Werror -std=c++17
-EXE := s21_list
-TEST_EXE := s21_list_test
+EXE := s21_containers
+TEST_EXE := s21_containers_test
 BUILD_PATH := build
 SRC_PATH := Core
 TESTS_PATH := Tests

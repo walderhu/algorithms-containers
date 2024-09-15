@@ -8,7 +8,7 @@ inline s21::set<value_type>::Iterator::Iterator() noexcept
 
 template <class value_type>
 inline s21::set<value_type>::Iterator::Iterator(
-    BinaryNode* node, s21::set<value_type>* set) noexcept
+    Node* node, s21::set<value_type>* set) noexcept
     : current(node), set(set) {}
 
 // template <class value_type>

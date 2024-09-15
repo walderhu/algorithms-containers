@@ -4,33 +4,41 @@
 #include "s21_set.hpp"
 
 template <class value_type>
-inline s21::set<value_type>::BinaryNode::BinaryNode(value_type value)
-    : Node::Node() {
-  this->left = Node::prev;
-  this->right = Node::next;
-  this->value = Node::value;
+inline s21::set<value_type>::Node::Node(value_type value) {
+  this->left = nullptr;
+  this->right = nullptr;
+  this->value = value;
 }
 
 template <class value_type>
-inline s21::set<value_type>::set() noexcept
-    : s21::deque<value_type>::deque(), root(nullptr) {}
+inline auto s21::set<value_type>::empty() const -> bool {
+  return this->_size == 0;
+}
 
 template <class value_type>
-inline auto s21::set<value_type>::insert(value_type& value) -> Iterator {
+inline s21::set<value_type>::set() noexcept : root(nullptr), _size(0) {}
+
+template <class value_type>
+inline auto s21::set<value_type>::insert(value_type value) -> Iterator {
   return insert(value, root);
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::insert(value_type& value,
-                                         BinaryNode* current) -> Iterator {
+inline auto s21::set<value_type>::insert(value_type value,
+                                         Node*& current) -> Iterator {
   if (current == nullptr) {
-    current = new BinaryNode(value);
-    s21::deque<value_type>::_size++;
+    current = new Node(value);
+    _size++;
     return Iterator(current);
   }
   if (value > current->value) return insert(value, current->right);
   if (value < current->value) return insert(value, current->left);
   return Iterator(current);
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::size() const -> size_type {
+  return this->_size;
 }
 
 template <class value_type>
