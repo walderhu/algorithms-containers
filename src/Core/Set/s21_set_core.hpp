@@ -25,21 +25,21 @@ inline s21::set<value_type>::set(
 template <class value_type>
 inline auto s21::set<value_type>::insert(value_type value)
     -> std::pair<iterator, bool> {
-  return insert(value, root);
+  return insert(value, root, nullptr);
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::insert(value_type value, Node *&current)
+inline auto s21::set<value_type>::insert(value_type value, Node *&current,
+                                         Node *parent)
     -> std::pair<iterator, bool> {
   if (current == nullptr) {
-    Node *new_node = new Node(value);
-    new_node->parent = current;
-    current = new_node;
+    current = new Node(value);
+    current->parent = parent;
     _size++;
     return std::make_pair(Iterator(current), true);
   }
-  if (value > current->value) return insert(value, current->right);
-  if (value < current->value) return insert(value, current->left);
+  if (value > current->value) return insert(value, current->right, current);
+  if (value < current->value) return insert(value, current->left, current);
   return std::make_pair(Iterator(current), false);
 }
 
