@@ -31,8 +31,8 @@ class set : public s21::deque<Key> {
   set(set &&s) : s21::deque<Key>(std::move(s)) {}
   ~set() = default;
 
-  void insert(value_type &value);
-  void insert(value_type &value, BinaryNode *current = nullptr);
+  Iterator insert(value_type &value);
+  Iterator insert(value_type &value, BinaryNode *current = nullptr);
   Iterator begin();
   Iterator end();
 

@@ -16,60 +16,22 @@ inline s21::set<value_type>::set() noexcept
     : s21::deque<value_type>::deque(), root(nullptr) {}
 
 template <class value_type>
-inline auto s21::set<value_type>::insert(value_type& value) -> void {
-  if (root == nullptr) {
-    root = BinaryNode(value);
-    s21::deque<value_type>::_size++;
-    return;
-    // return Iterator(root);
-  } else {
-    BinaryNode* new_node = (value > root->value) ? root->right : root->left;
-    insert(value, new_node);
-    // return insert(value, new_node);
-  }
+inline auto s21::set<value_type>::insert(value_type& value) -> Iterator {
+  return insert(value, root);
 }
 
 template <class value_type>
 inline auto s21::set<value_type>::insert(value_type& value,
-                                         BinaryNode* current) -> void {
+                                         BinaryNode* current) -> Iterator {
   if (current == nullptr) {
     current = new BinaryNode(value);
     s21::deque<value_type>::_size++;
-    return;
-    // return Iterator(current);
-  } else {
-    current = (value > current->value) ? current->right : current->left;
-    insert(value, current);
+    return Iterator(current);
   }
+  if (value > current->value) return insert(value, current->right);
+  if (value < current->value) return insert(value, current->left);
+  return Iterator(current);
 }
-
-// inline auto s21::set<value_type>::insert(value_type& value) -> Iterator {
-//   if (root == nullptr) {
-//     root->value = value;
-//   } else {
-//     BinaryNode* current = root;
-//     if (value < root->value) {
-//       current = root->left;
-
-//       while (true) {
-//         if (current == nullptr) {
-//           current->value = value;
-//           break;
-//         }
-//       }
-
-//     } else if (value > root->value) {
-//       while (true) {
-//         if (current == nullptr) {
-//           current->value = value;
-//           break;
-//         }
-//       }
-//     }
-//   }
-
-//   return Iterator();
-// }
 
 template <class value_type>
 inline auto s21::set<value_type>::begin() -> Iterator {
