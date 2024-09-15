@@ -17,6 +17,11 @@ inline s21::set<value_type>::set() noexcept
 
 template <class value_type>
 inline auto s21::set<value_type>::insert(value_type& value) -> Iterator {
+  if (this->root == nullptr) {
+    this->root->value = value;
+    this->root->left = nullptr;
+    this->root->right = nullptr;
+  }
   return Iterator();
 }
 
