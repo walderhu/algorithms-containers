@@ -169,22 +169,22 @@ TEST(set, SwapSet) {
   EXPECT_EQ(*s21_swap_set.begin(), 1);
 }
 
-// TEST(set, MergeSet) {
-//   s21::set<int> s21_set = {1};
-//   s21::set<int> s21_merge_set = {3, 4, 5};
-//   s21_set.merge(s21_merge_set);
+TEST(set, MergeSet) {
+  s21::set<int> s21_set = {1};
+  s21::set<int> s21_merge_set = {3, 4, 5};
+  s21_set.merge(s21_merge_set);
 
-//   std::set<int> std_set = {1};
-//   std::set<int> std_merge_set = {3, 4, 5};
-//   std_set.merge(std_merge_set);
-//   auto s21_it = s21_set.begin();
-//   auto std_it = std_set.begin();
-//   for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
-//     EXPECT_TRUE(*std_it == *s21_it);
-//   }
-//   EXPECT_EQ(std_set.size(), s21_set.size());
-//   EXPECT_EQ(s21_merge_set.size(), std_merge_set.size());
-// }
+  std::set<int> std_set = {1};
+  std::set<int> std_merge_set = {3, 4, 5};
+  std_set.merge(std_merge_set);
+  auto s21_it = s21_set.begin();
+  auto std_it = std_set.begin();
+  for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
+    EXPECT_TRUE(*std_it == *s21_it);
+  }
+  EXPECT_EQ(std_set.size(), s21_set.size());
+  EXPECT_EQ(s21_merge_set.size(), std_merge_set.size());
+}
 
 TEST(set, FindSet) {
   s21::set<double> s21_set = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6};

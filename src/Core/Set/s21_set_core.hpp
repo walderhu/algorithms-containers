@@ -129,9 +129,15 @@ inline auto s21::set<value_type>::clear(Node *&current) -> void {
 }
 
 template <class value_type>
-inline void s21::set<value_type>::swap(set &other) {
+inline auto s21::set<value_type>::swap(set &other) -> void {
   std::swap(this->root, other.root);
   std::swap(this->_size, other._size);
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::merge(set &other) -> void {
+  for (auto it = other.cbegin(); it != other.cend(); ++it) this->insert(*it);
+  other.clear();
 }
 
 #endif  // __S21_SET_CORE_HPP__

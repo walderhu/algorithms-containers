@@ -48,6 +48,7 @@ class set {
   ConstIterator cbegin() const;
   ConstIterator cend() const;
   void swap(set &other);
+  void merge(set &other);
   size_type size() const;
 
   template <typename... Args>
