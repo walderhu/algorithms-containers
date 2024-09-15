@@ -12,7 +12,7 @@ inline s21::set<value_type>::BinaryNode::BinaryNode(value_type value)
 }
 
 template <class value_type>
-inline s21::set<value_type>::set()
+inline s21::set<value_type>::set() noexcept
     : s21::deque<value_type>::deque(), root(nullptr) {}
 
 template <class value_type>

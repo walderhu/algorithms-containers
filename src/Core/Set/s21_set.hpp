@@ -23,7 +23,9 @@ class set : public s21::deque<Key> {
   using const_iterator = ConstIterator;
   using size_type = size_t;
 
-  set();
+  // set();
+  set() noexcept;
+
   set(std::initializer_list<value_type> const &items) {}
   set(const set &s) : s21::deque<Key>(s) {}
   set(set &&s) : s21::deque<Key>(std::move(s)) {}
@@ -74,6 +76,8 @@ struct s21::set<Key>::ConstIterator final : public s21::set<Key>::Iterator {
 };
 
 }  // namespace s21
-#include "s21_set.hpp"
+
+#include "s21_set_core.hpp"
 #include "s21_set_iterator.hpp"
+
 #endif  //  __S21_SET_HPP__
