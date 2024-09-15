@@ -4,6 +4,37 @@
 #include "s21_set.hpp"
 
 template <class value_type>
+inline s21::set<value_type>::set(const set &s) {
+  for (auto it = s.begin(); it < s.end(); ++it) this->insert(*it);
+}
+
+template <class value_type>
+inline s21::set<value_type>::set(set &&s) {
+  this->clear();
+  this->root = s.root();
+  this->_size = s.size();
+
+  s.root = nullptr;
+  s._size = 0;
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::operator=(set &&s) noexcept
+    -> s21::set<value_type> & {
+  s21::set<value_type>::set(std::move(s));
+  return *this;
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::operator=(const set &s) noexcept
+    -> s21::set<value_type> & {
+  s21::set<value_type> new_set(s);
+  *this = std::move(new_set);
+  return *this;
+}
+
+//
+template <class value_type>
 inline s21::set<value_type>::Node::Node(value_type value)
     : left(nullptr), right(nullptr), parent(nullptr), value(value) {}
 

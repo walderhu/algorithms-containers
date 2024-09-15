@@ -1,10 +1,13 @@
 #ifndef __S21_SET_HPP__
 #define __S21_SET_HPP__
 
+#include <cstddef>
+#include <initializer_list>
+#include <limits>
+#include <stdexcept>
 #include <utility>
 #include <vector>
 
-#include "../Deque/s21_deque.hpp"
 namespace s21 {
 
 template <class Key>
@@ -26,9 +29,12 @@ class set {
 
   set() noexcept;
   set(std::initializer_list<value_type> const &items) noexcept;
-  set(const set &s) : s21::deque<Key>(s) {}
-  set(set &&s) : s21::deque<Key>(std::move(s)) {}
+  set(const set &s);
+  set(set &&s);
   ~set() noexcept;
+  set<value_type> &operator=(set &&s) noexcept;
+  set<value_type> &operator=(const set &s) noexcept;
+
   bool empty() const;
   void clear();
 
