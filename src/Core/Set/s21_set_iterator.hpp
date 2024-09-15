@@ -33,7 +33,7 @@ inline auto s21::set<value_type>::Iterator::operator==(
 template <class value_type>
 inline auto s21::set<value_type>::Iterator::operator!=(
     const Iterator& other) const -> bool {
-  return !this->operator==(other);
+  return current != other.current;
 }
 
 template <class value_type>
@@ -69,43 +69,91 @@ inline auto s21::set<value_type>::Iterator::operator>=(
 }
 
 // hight
+// template <class value_type>
+// auto s21::set<value_type>::Iterator::operator++() -> Iterator& {
+//   if (current == nullptr)
+//     throw std::out_of_range("Disabled iterator. Not exist");
+
+//   if (current->right != nullptr) {
+//     current = current->right;
+//   } else {
+//     Node* new_node = current->parent;
+//     while (new_node) {
+//       if (new_node->value > current->value) {
+//         current = new_node;
+//         break;
+//       } else
+//         new_node = new_node->parent;
+//     }
+//     if (current->right != nullptr) {
+//       current = current->right;
+//     } else {
+//       throw std::out_of_range("Disabled iterator. Not exist");
+//     }
+//   }
+//   return *this;
+// }
+
+//   if (current->right != nullptr) {
+//     current = current->right;
+//   } else {
+//     Node* new_node = current->parent;
+//     while (new_node) {
+//       if (new_node->value > current->value) {
+//         current = new_node;
+//         break;
+//       } else
+//         new_node = new_node->parent;
+//     }
+//     if (current->right != nullptr) {
+//       current = current->right;
+//     } else {
+//       throw std::out_of_range("Disabled iterator. Not exist");
+//     }
+//   }
+//   return *this;
+// }
+
 template <class value_type>
 auto s21::set<value_type>::Iterator::operator++() -> Iterator& {
-  // если nullptr  в начале, то элемента не существует
   if (current == nullptr)
     throw std::out_of_range("Disabled iterator. Not exist");
-
-  // правый потомок всегда больше текущего
-  if (current->right != nullptr) {
+  // Если есть правое поддерево, идем к самому левому узлу
+  if (current->right) {
     current = current->right;
+    while (current->left) current = current->left;
   } else {
-    // если потомков нету, то поднимаемся к родителям в поисках большего
+    // Поднимаемся к родителю, пока не найдем узел, который больше текущего
     Node* new_node = current->parent;
-    while (new_node) {
-      if (new_node->value > current->value) {
-        current = new_node;
-        break;
-      } else
-        new_node = new_node->parent;
+    while (new_node && current == new_node->right) {
+      current = new_node;           // Поднимаемся
+      new_node = new_node->parent;  // Переходим к родителю
     }
-
-    // дошли до root и не нашли большего элемента?
-    // начинаем спускаться вправо снова но уже от корня
-    // если и там нету, то конец (а как же проверить левые от правого????)
-    // надо тестить это что есть пока что
-    if (current->right != nullptr) {
-      current = current->right;
-    } else {
-      throw std::out_of_range("Disabled iterator. Not exist");
-    }
+    current = new_node;  // Устанавливаем текущий узел на родителя
   }
   return *this;
 }
 
-// template <class value_type>
-// inline auto s21::set<value_type>::Iterator::operator--() -> Iterator& {
-//   current = current ? current->prev : set->tail;
-//   return *this;
-// }
+template <class value_type>
+auto s21::set<value_type>::Iterator::operator--() -> Iterator& {
+  if (current == nullptr)
+    throw std::out_of_range("Disabled iterator. Not exist");
+
+  // Если есть левое поддерево, идем к самому правому узлу
+  if (current->left) {
+    current = current->left;
+    while (current->right) current = current->right;
+  } else {
+    // Поднимаемся к родителю, пока не найдем узел, который меньше текущего
+    Node* new_node = current->parent;
+    while (new_node && current == new_node->left) {
+      current = new_node;           // Поднимаемся
+      new_node = new_node->parent;  // Переходим к родителю
+    }
+    current = new_node;  // Устанавливаем текущий узел на родителя
+  }
+
+  return *this;
+}
 
 #endif  // __S21_SET_ITERATOR__
