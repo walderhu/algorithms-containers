@@ -20,6 +20,7 @@ $(BUILD_PATH):
 
 clean: clean_docs
 	@rm $(RM_FLAGS) $(TRASH)
+	clear 
 
 reset: clean all
 

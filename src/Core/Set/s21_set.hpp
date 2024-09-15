@@ -32,7 +32,7 @@ class set {
   bool empty() const;
   void clear();
 
-  Iterator insert(value_type value);
+  std::pair<iterator, bool> insert(value_type value);
 
   Iterator begin();
   Iterator end();
@@ -43,7 +43,7 @@ class set {
 
  protected:
   size_type _size;
-  Iterator insert(value_type value, Node *&current);
+  std::pair<iterator, bool> insert(value_type value, Node *&current);
   void clear(Node *&current);
   void push_left(value_type value);
   void push_right(value_type value);

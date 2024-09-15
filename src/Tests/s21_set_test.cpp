@@ -25,20 +25,20 @@ TEST(set, InsertTest) {
   EXPECT_EQ(s21_set.size(), std_set.size());
 }
 
-// TEST(set, InsertManyTest) {
-//   s21::set<int> s21_set;
-//   std::set<int> std_set;
-//   s21_set.insert_many(2, 3, 2, 4, 5, 6, 7);
+TEST(set, InsertManyTest) {
+  s21::set<int> s21_set;
+  std::set<int> std_set;
+  s21_set.insert_many(2, 3, 2, 4, 5, 6, 7);
 
-//   std_set.insert(2);
-//   std_set.insert(3);
-//   std_set.insert(2);
-//   std_set.insert(4);
-//   std_set.insert(5);
-//   std_set.insert(6);
-//   std_set.insert(7);
-//   EXPECT_EQ(s21_set.size(), std_set.size());
-// }
+  std_set.insert(2);
+  std_set.insert(3);
+  std_set.insert(2);
+  std_set.insert(4);
+  std_set.insert(5);
+  std_set.insert(6);
+  std_set.insert(7);
+  EXPECT_EQ(s21_set.size(), std_set.size());
+}
 
 // TEST(set, ConstructorInitializerSet) {
 //   s21::set<char> s21_set = {'x', 'b', 'z', 'y'};

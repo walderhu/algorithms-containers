@@ -19,46 +19,31 @@ template <class value_type>
 inline s21::set<value_type>::set() noexcept : root(nullptr), _size(0) {}
 
 template <class value_type>
-inline auto s21::set<value_type>::insert(value_type value) -> Iterator {
+inline auto s21::set<value_type>::insert(value_type value)
+    -> std::pair<iterator, bool> {
   return insert(value, root);
 }
 
-// template <class value_type>
-// template <typename... Args>
-// inline auto s21::set<value_type>::insert_many(Args &&...args)
-//     -> std::vector<std::pair<iterator, bool>> {
-//   std::vector<std::pair<iterator, bool>> results;
-//   (results.emplace_back(this->insert(std::forward<Args>(args))), ...);
-//   return results;
-// }
-
-// template <class value_type>
-// template <typename... Args>
-// inline auto s21::set<value_type>::insert_many(Args &&...args)
-//     -> std::vector<std::pair<iterator, bool>> {
-//   // (this->insert(std::forward<Args>(args)), ...);
-
-//   for (const auto &arg : {std::forward<Args>(args)...}) {
-//     this->insert(arg);
-//   }
-
-//   // std::vector<std::pair<iterator, bool>> results;
-//   // Используем fold expression для вставки каждого аргумента
-//   // (results.emplace_back(this->insert(std::forward<Args>(args))), ...);
-//   // return results;
-// }
-
 template <class value_type>
-inline auto s21::set<value_type>::insert(value_type value,
-                                         Node *&current) -> Iterator {
+inline auto s21::set<value_type>::insert(value_type value, Node *&current)
+    -> std::pair<iterator, bool> {
   if (current == nullptr) {
     current = new Node(value);
     _size++;
-    return Iterator(current);
+    return std::make_pair(Iterator(current), true);
   }
   if (value > current->value) return insert(value, current->right);
   if (value < current->value) return insert(value, current->left);
-  return Iterator(current);
+  return std::make_pair(Iterator(current), false);
+}
+
+template <class value_type>
+template <typename... Args>
+inline auto s21::set<value_type>::insert_many(Args &&...args)
+    -> std::vector<std::pair<iterator, bool>> {
+  std::vector<std::pair<iterator, bool>> results;
+  (results.emplace_back(this->insert(std::forward<Args>(args))), ...);
+  return results;
 }
 
 template <class value_type>
