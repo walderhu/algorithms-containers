@@ -31,7 +31,10 @@ class set : public s21::deque<Key> {
   set(set &&s) : s21::deque<Key>(std::move(s)) {}
   ~set() = default;
 
-  Iterator insert(value_type &value);
+  void insert(value_type &value);
+  void insert(value_type &value, BinaryNode *current = nullptr);
+  Iterator begin();
+  Iterator end();
 
  protected:
   void push_left(value_type value);
@@ -60,8 +63,11 @@ struct s21::set<Key>::Iterator {
   //   bool operator>=(const Iterator &other) const;
   Iterator &operator++();
   Iterator &operator--();
-  reference operator*() const;
-  //   virtual Iterator &operator=(const Iterator &other);
+  reference operator*() const { return current->value; };
+  Iterator &operator=(const Iterator &other) {
+    current = other.current;
+    return *this;
+  }
 
  protected:
   BinaryNode *current;

@@ -54,8 +54,8 @@ class list final : public deque<T> {
 
   struct Iterator;
   struct ConstIterator;
-  Iterator begin();
-  Iterator end();
+  Iterator begin() noexcept;
+  Iterator end() noexcept;
   ConstIterator cbegin() const;
   ConstIterator cend() const;
 
