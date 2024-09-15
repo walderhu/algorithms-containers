@@ -1,8 +1,10 @@
 #ifndef __S21_SET_HPP__
 #define __S21_SET_HPP__
 
-#include "../Deque/s21_deque.hpp"
+#include <utility>
+#include <vector>
 
+#include "../Deque/s21_deque.hpp"
 namespace s21 {
 
 template <class Key>
@@ -23,12 +25,12 @@ class set {
   using size_type = size_t;
 
   set() noexcept;
-
   set(std::initializer_list<value_type> const &items) {}
   set(const set &s) : s21::deque<Key>(s) {}
   set(set &&s) : s21::deque<Key>(std::move(s)) {}
-  ~set() = default;
+  ~set() noexcept;
   bool empty() const;
+  void clear();
 
   Iterator insert(value_type value);
 
@@ -36,9 +38,13 @@ class set {
   Iterator end();
   size_type size() const;
 
+  template <typename... Args>
+  std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
+
  protected:
   size_type _size;
   Iterator insert(value_type value, Node *&current);
+  void clear(Node *&current);
   void push_left(value_type value);
   void push_right(value_type value);
 };

@@ -23,9 +23,34 @@ inline auto s21::set<value_type>::insert(value_type value) -> Iterator {
   return insert(value, root);
 }
 
+// template <class value_type>
+// template <typename... Args>
+// inline auto s21::set<value_type>::insert_many(Args &&...args)
+//     -> std::vector<std::pair<iterator, bool>> {
+//   std::vector<std::pair<iterator, bool>> results;
+//   (results.emplace_back(this->insert(std::forward<Args>(args))), ...);
+//   return results;
+// }
+
+// template <class value_type>
+// template <typename... Args>
+// inline auto s21::set<value_type>::insert_many(Args &&...args)
+//     -> std::vector<std::pair<iterator, bool>> {
+//   // (this->insert(std::forward<Args>(args)), ...);
+
+//   for (const auto &arg : {std::forward<Args>(args)...}) {
+//     this->insert(arg);
+//   }
+
+//   // std::vector<std::pair<iterator, bool>> results;
+//   // Используем fold expression для вставки каждого аргумента
+//   // (results.emplace_back(this->insert(std::forward<Args>(args))), ...);
+//   // return results;
+// }
+
 template <class value_type>
 inline auto s21::set<value_type>::insert(value_type value,
-                                         Node*& current) -> Iterator {
+                                         Node *&current) -> Iterator {
   if (current == nullptr) {
     current = new Node(value);
     _size++;
@@ -56,5 +81,24 @@ inline auto s21::set<value_type>::push_left(value_type value) -> void {}
 
 template <class value_type>
 inline auto s21::set<value_type>::push_right(value_type value) -> void {}
+
+template <class value_type>
+inline auto s21::set<value_type>::clear() -> void {
+  this->clear(root);
+}
+
+template <class value_type>
+inline s21::set<value_type>::~set() noexcept {
+  this->clear();
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::clear(Node *&current) -> void {
+  if (!current) return;
+  clear(current->left);
+  clear(current->right);
+  delete current;
+  current = nullptr;
+}
 
 #endif  // __S21_SET_CORE_HPP__
