@@ -9,15 +9,15 @@ inline s21::list<value_type>::list(list &&other) noexcept
     : s21::deque<value_type>::deque(std::move(other)) {}
 
 template <class value_type>
-s21::list<value_type> &
-s21::list<value_type>::operator=(s21::list<value_type> &&other) noexcept {
+s21::list<value_type> &s21::list<value_type>::operator=(
+    s21::list<value_type> &&other) noexcept {
   s21::deque<value_type>::operator=(std::move(other));
   return *this;
 }
 
 template <class value_type>
-s21::list<value_type> &
-s21::list<value_type>::operator=(const s21::list<value_type> &other) noexcept {
+s21::list<value_type> &s21::list<value_type>::operator=(
+    const s21::list<value_type> &other) noexcept {
   s21::deque<value_type>::operator=(other);
   return *this;
 }
@@ -28,13 +28,12 @@ inline s21::list<value_type>::list(
     : s21::deque<value_type>(items) {}
 
 template <class value_type>
-inline auto
-s21::list<value_type>::operator[](const int index) const -> reference {
+inline auto s21::list<value_type>::operator[](const int index) const
+    -> reference {
   if (index < 0 || index >= deque<value_type>::_size)
     throw std::out_of_range("Index out of range");
   Node *current = s21::deque<value_type>::head;
-  for (int i = 0; i < index; ++i)
-    current = current->next;
+  for (int i = 0; i < index; ++i) current = current->next;
   return current->value;
 }
 
@@ -61,29 +60,28 @@ inline auto s21::list<value_type>::cend() const -> ConstIterator {
 namespace s21 {
 template <class value_type>
 std::ostream &operator<<(std::ostream &os, const list<value_type> &obj) {
-  for (auto it = obj.cbegin(); it != obj.cend(); ++it)
-    os << *it << " ";
+  for (auto it = obj.cbegin(); it != obj.cend(); ++it) os << *it << " ";
   return os;
 }
-} // namespace s21
+}  // namespace s21
 
-template <class value_type> inline auto s21::list<value_type>::print() -> void {
-  for (auto it = begin(); it != end(); ++it)
-    std::cout << *it << " ";
+template <class value_type>
+inline auto s21::list<value_type>::print() -> void {
+  for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";
   std::cout << "\n";
 }
 
 template <class value_type>
 inline auto s21::list<value_type>::reverse() -> void {
-  if (this->size() < 2)
-    return;
+  if (this->size() < 2) return;
   list<value_type> new_list;
   for (auto it = this->begin(); it != this->end(); ++it)
     new_list.push_front(*it);
   *this = std::move(new_list);
 }
 
-template <class value_type> inline auto s21::list<value_type>::sort() -> void {
+template <class value_type>
+inline auto s21::list<value_type>::sort() -> void {
   Node *current = s21::deque<value_type>::head;
   bool swapped = true;
 
@@ -122,8 +120,8 @@ inline auto s21::list<value_type>::merge(list &other) -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::insert(iterator pos,
-                                          const_reference value) -> iterator {
+inline auto s21::list<value_type>::insert(iterator pos, const_reference value)
+    -> iterator {
   Node *new_node = new Node(value);
 
   if (pos == this->begin()) {
@@ -137,10 +135,8 @@ inline auto s21::list<value_type>::insert(iterator pos,
     new_node->next = current;
     new_node->prev = previous;
 
-    if (previous)
-      previous->next = new_node;
-    if (current)
-      current->prev = new_node;
+    if (previous) previous->next = new_node;
+    if (current) current->prev = new_node;
 
     this->deque<value_type>::_size++;
   }
@@ -159,8 +155,7 @@ inline auto s21::list<value_type>::insert(
 
 template <class value_type>
 inline auto s21::list<value_type>::erase(iterator pos) -> void {
-  if (pos == end())
-    throw std::out_of_range("Cannot erase end iterator");
+  if (pos == end()) throw std::out_of_range("Cannot erase end iterator");
 
   Node *current = pos.current;
   Node *prev = current->prev;
@@ -181,17 +176,14 @@ inline auto s21::list<value_type>::erase(iterator pos) -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::splice(const_iterator pos,
-                                          list &other) -> void {
-  if (pos == end())
-    throw std::out_of_range("Cannot splice at end iterator");
-  if (other.empty())
-    return;
+inline auto s21::list<value_type>::splice(const_iterator pos, list &other)
+    -> void {
+  if (pos == end()) throw std::out_of_range("Cannot splice at end iterator");
+  if (other.empty()) return;
   auto other_begin = other.begin();
   auto other_end = other.end();
 
-  for (auto it = other_begin; it != other_end; ++it)
-    insert(pos, *it);
+  for (auto it = other_begin; it != other_end; ++it) insert(pos, *it);
   other.clear();
 }
 
@@ -203,8 +195,7 @@ inline auto s21::list<value_type>::splice(iterator pos, list &other) -> void {
 
 template <class value_type>
 inline auto s21::list<value_type>::unique() -> void {
-  if (this->empty())
-    return;
+  if (this->empty()) return;
 
   for (iterator it = this->begin(); it != this->end();) {
     Node *current = it.current;
@@ -248,6 +239,7 @@ template <class value_type>
 inline s21::list<value_type>::list(size_type n) noexcept
     : s21::deque<value_type>::deque(n) {}
 
-template <class value_type> inline s21::list<value_type>::~list() noexcept {
+template <class value_type>
+inline s21::list<value_type>::~list() noexcept {
   s21::deque<value_type>::clear();
 }

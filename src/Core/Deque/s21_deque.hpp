@@ -49,7 +49,7 @@ class deque {
 }  // namespace s21
 
 template <class T>
-struct s21::deque<T>::Node final {
+struct s21::deque<T>::Node {
   value_type value;
   Node* next;
   Node* prev;

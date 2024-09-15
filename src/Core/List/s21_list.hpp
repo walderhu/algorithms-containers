@@ -7,8 +7,9 @@
 
 namespace s21 {
 
-template <class T> class list final : public deque<T> {
-public:
+template <class T>
+class list final : public deque<T> {
+ public:
   struct Iterator;
   struct ConstIterator;
   using Node = typename s21::deque<T>::Node;
@@ -19,7 +20,7 @@ public:
   using const_iterator = ConstIterator;
   using const_reference = const T &;
 
-public:
+ public:
   list() noexcept;
   list(size_type n) noexcept;
   ~list() noexcept;
@@ -41,8 +42,10 @@ public:
   iterator insert(iterator pos, std::initializer_list<value_type> const &items);
   template <typename... Args>
   iterator insert_many(const_iterator pos, Args &&...args);
-  template <typename... Args> void insert_many_back(Args &&...args);
-  template <typename... Args> void insert_many_front(Args &&...args);
+  template <typename... Args>
+  void insert_many_back(Args &&...args);
+  template <typename... Args>
+  void insert_many_front(Args &&...args);
 
   void erase(iterator pos);
   void splice(const_iterator pos, list &other);
@@ -59,9 +62,10 @@ public:
   template <typename U>
   friend std::ostream &operator<<(std::ostream &os, const list<U> &obj);
 };
-} // namespace s21
+}  // namespace s21
 
-template <class T> struct s21::list<T>::Iterator {
+template <class T>
+struct s21::list<T>::Iterator {
   Iterator() noexcept;
   Iterator(Node *node) noexcept;
   Iterator(Node *node, s21::list<value_type> *list) noexcept;
@@ -77,7 +81,7 @@ template <class T> struct s21::list<T>::Iterator {
   reference operator*() const;
   virtual Iterator &operator=(const Iterator &other);
 
-protected:
+ protected:
   Node *current;
   s21::list<value_type> *list;
   friend class s21::list<T>;
@@ -96,4 +100,4 @@ struct s21::list<T>::ConstIterator final : public s21::list<T>::Iterator {
 #include "s21_list.tpp"
 #include "s21_list_iterator.tpp"
 
-#endif // __S21_LIST_HXX__
+#endif  // __S21_LIST_HXX__
