@@ -43,11 +43,12 @@ inline s21::set<value_type>::Iterator::Iterator(const Iterator& other) noexcept
 template <class value_type>
 inline auto s21::set<value_type>::Iterator::operator<(
     const Iterator& other) const -> bool {
+  if (other == set->end()) return this->operator!=(other);
   for (auto it = set->begin(); it != set->end(); ++it) {
     if (it == current) return true;
     if (it == other) return false;
   }
-  throw std::out_of_range("Disabled iterator. Not exist");
+  return false;
 }
 
 template <class value_type>
@@ -67,52 +68,6 @@ inline auto s21::set<value_type>::Iterator::operator>=(
     const Iterator& other) const -> bool {
   return this->operator==(other) || this->operator>(other);
 }
-
-// hight
-// template <class value_type>
-// auto s21::set<value_type>::Iterator::operator++() -> Iterator& {
-//   if (current == nullptr)
-//     throw std::out_of_range("Disabled iterator. Not exist");
-
-//   if (current->right != nullptr) {
-//     current = current->right;
-//   } else {
-//     Node* new_node = current->parent;
-//     while (new_node) {
-//       if (new_node->value > current->value) {
-//         current = new_node;
-//         break;
-//       } else
-//         new_node = new_node->parent;
-//     }
-//     if (current->right != nullptr) {
-//       current = current->right;
-//     } else {
-//       throw std::out_of_range("Disabled iterator. Not exist");
-//     }
-//   }
-//   return *this;
-// }
-
-//   if (current->right != nullptr) {
-//     current = current->right;
-//   } else {
-//     Node* new_node = current->parent;
-//     while (new_node) {
-//       if (new_node->value > current->value) {
-//         current = new_node;
-//         break;
-//       } else
-//         new_node = new_node->parent;
-//     }
-//     if (current->right != nullptr) {
-//       current = current->right;
-//     } else {
-//       throw std::out_of_range("Disabled iterator. Not exist");
-//     }
-//   }
-//   return *this;
-// }
 
 template <class value_type>
 auto s21::set<value_type>::Iterator::operator++() -> Iterator& {
@@ -138,7 +93,6 @@ template <class value_type>
 auto s21::set<value_type>::Iterator::operator--() -> Iterator& {
   if (current == nullptr)
     throw std::out_of_range("Disabled iterator. Not exist");
-
   // Если есть левое поддерево, идем к самому правому узлу
   if (current->left) {
     current = current->left;
@@ -152,7 +106,6 @@ auto s21::set<value_type>::Iterator::operator--() -> Iterator& {
     }
     current = new_node;  // Устанавливаем текущий узел на родителя
   }
-
   return *this;
 }
 
