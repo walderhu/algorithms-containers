@@ -1,4 +1,4 @@
-#include "../s21_containers_test.hpp"
+#include "s21_containers_test.hpp"
 
 TEST(Set, Constructor_Default) {
   s21::set<int> s21_set;
