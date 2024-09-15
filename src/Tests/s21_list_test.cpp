@@ -1,4 +1,4 @@
-// #include "../s21_containers_test.hpp"
+// #include "s21_containers_test.hpp"
 
 // TEST(List, Constructor_Default) {
 //   s21::list<int> s21_list;
