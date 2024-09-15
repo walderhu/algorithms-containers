@@ -142,21 +142,21 @@ TEST(set, InsertSet) {
   EXPECT_TRUE(*s21_pr.first == *std_pr.first);
 }
 
-// TEST(set, EraseSet) {
-//   s21::set<int> s21_set = {5, 4, 3, 2, 7, 8, 9};
-//   std::set<int> std_set = {5, 4, 3, 2, 7, 8, 9};
-//   auto size = s21_set.size();
-//   s21_set.erase(s21_set.end());
-//   auto new_size = s21_set.size();
-//   EXPECT_EQ(size, new_size);
-//   s21_set.erase(s21_set.begin());
-//   std_set.erase(std_set.begin());
-//   auto s21_it = s21_set.begin();
-//   auto std_it = std_set.begin();
-//   for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
-//     EXPECT_TRUE(*std_it == *s21_it);
-//   }
-// }
+TEST(set, EraseSet) {
+  s21::set<int> s21_set = {5, 4, 3, 2, 7, 8, 9};
+  std::set<int> std_set = {5, 4, 3, 2, 7, 8, 9};
+  auto size = s21_set.size();
+  s21_set.erase(s21_set.end());
+  auto new_size = s21_set.size();
+  EXPECT_EQ(size, new_size);
+  s21_set.erase(s21_set.begin());
+  std_set.erase(std_set.begin());
+  auto s21_it = s21_set.begin();
+  auto std_it = std_set.begin();
+  for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
+    EXPECT_TRUE(*std_it == *s21_it);
+  }
+}
 
 TEST(set, SwapSet) {
   s21::set<int> s21_set = {1};

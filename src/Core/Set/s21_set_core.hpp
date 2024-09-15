@@ -139,5 +139,60 @@ inline auto s21::set<value_type>::merge(set &other) -> void {
   for (auto it = other.cbegin(); it != other.cend(); ++it) this->insert(*it);
   other.clear();
 }
+//
+template <class value_type>
+inline auto s21::set<value_type>::erase(iterator pos) -> void {
+  if (pos.current == nullptr) return;  // Проверка на nullptr
+  value_type value = *pos;  // Получаем значение из итератора
+  root = deleteNode(root, value);  // Удаляем узел и обновляем корень
+  --_size;  // Уменьшаем размер множества
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::deleteNode(Node *current,
+                                             value_type value) -> Node * {
+  if (current == nullptr)
+    return current;  // Если узел не найден, возвращаем nullptr
+
+  // Рекурсивный поиск узла для удаления
+  if (value < current->value) {
+    current->left = deleteNode(current->left, value);
+  } else if (value > current->value) {
+    current->right = deleteNode(current->right, value);
+  } else {
+    // Узел найден
+    // Случай 1: узел не имеет потомков (лист)
+    if (current->left == nullptr && current->right == nullptr) {
+      delete current;  // Удаляем узел
+      return nullptr;  // Возвращаем nullptr
+    }
+    // Случай 2: узел имеет одного потомка
+    else if (current->left == nullptr) {
+      Node *temp = current->right;  // Сохраняем указатель на правого потомка
+      delete current;  // Удаляем узел
+      return temp;     // Возвращаем правого потомка
+    } else if (current->right == nullptr) {
+      Node *temp = current->left;  // Сохраняем указатель на левого потомка
+      delete current;  // Удаляем узел
+      return temp;     // Возвращаем левого потомка
+    }
+    // Случай 3: узел имеет двух потомков
+    Node *temp = minValueNode(
+        current->right);  // Находим минимальный элемент в правом поддереве
+    current->value = temp->value;  // Копируем значение минимального узла
+    current->right =
+        deleteNode(current->right, temp->value);  // Удаляем минимальный узел
+  }
+  return current;  // Возвращаем изменённый корень
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::minValueNode(Node *node) -> Node * {
+  Node *current = node;
+  while (current && current->left != nullptr) {
+    current = current->left;  // Идём по левым узлам
+  }
+  return current;  // Возвращаем узел с минимальным значением
+}
 
 #endif  // __S21_SET_CORE_HPP__

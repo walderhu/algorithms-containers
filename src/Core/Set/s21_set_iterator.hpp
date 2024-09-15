@@ -167,6 +167,6 @@ inline auto s21::set<value_type>::cbegin() const -> ConstIterator {
 template <class value_type>
 inline auto s21::set<value_type>::cend() const -> ConstIterator {
   return ConstIterator(nullptr, this);
-}
+};
 
 #endif  // __S21_SET_ITERATOR__

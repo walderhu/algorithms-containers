@@ -48,6 +48,7 @@ class set {
   ConstIterator cbegin() const;
   ConstIterator cend() const;
   void swap(set &other);
+  void erase(iterator pos);
   void merge(set &other);
   size_type size() const;
 
@@ -61,6 +62,8 @@ class set {
   void clear(Node *&current);
   void push_left(value_type value);
   void push_right(value_type value);
+  Node *deleteNode(Node *current, value_type key);
+  Node *minValueNode(Node *node);
 };
 
 template <class Key>
