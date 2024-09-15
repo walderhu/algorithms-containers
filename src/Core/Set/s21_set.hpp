@@ -71,6 +71,6 @@ struct s21::set<Key>::ConstIterator final : public s21::set<Key>::Iterator {
 };
 
 }  // namespace s21
-#include "s21_set.tpp"
-#include "s21_set_iterator.tpp"
+#include "s21_set.hpp"
+#include "s21_set_iterator.hpp"
 #endif  //  __S21_SET_HPP__

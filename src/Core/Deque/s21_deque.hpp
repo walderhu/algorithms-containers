@@ -56,6 +56,6 @@ struct s21::deque<T>::Node {
   Node(value_type value = value_type());
 };
 
-#include "s21_deque.tpp"
+#include "s21_deque_core.hpp"
 
 #endif  // __S21_DEQUE_HXX__

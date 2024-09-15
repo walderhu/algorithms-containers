@@ -8,5 +8,5 @@ template <class T>
 class multyset : public s21::set<T> {};
 
 }  // namespace s21
-#include "s21_multyset.tpp"
+#include "s21_multyset_core.hpp"
 #endif  //  __S21_MULTYSET_HPP__

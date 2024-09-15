@@ -1,3 +1,5 @@
+#ifndef __S21_DEQUE_CORE_HXX__
+#define __S21_DEQUE_CORE_HXX__
 #include "s21_deque.hpp"
 
 template <typename value_type>
@@ -180,3 +182,6 @@ inline auto s21::deque<value_type>::operator=(const deque& other) noexcept
   *this = std::move(new_deque);
   return *this;
 }
+
+
+#endif // __S21_DEQUE_CORE_HXX__

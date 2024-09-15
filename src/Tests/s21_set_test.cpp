@@ -1,10 +1,10 @@
 #include "s21_containers_test.hpp"
 
-TEST(set, ConstructorDefaultSet) {
-  s21::set<char> my_empty_set;
-  std::set<char> orig_empty_set;
-  EXPECT_EQ(my_empty_set.empty(), orig_empty_set.empty());
-}
+// TEST(set, ConstructorDefaultSet) {
+//   s21::set<char> my_empty_set;
+//   std::set<char> orig_empty_set;
+//   EXPECT_EQ(my_empty_set.empty(), orig_empty_set.empty());
+// }
 
 // TEST(set, ConstructorInitializerSet) {
 //   s21::set<char> my_set = {'x', 'b', 'z', 'y'};

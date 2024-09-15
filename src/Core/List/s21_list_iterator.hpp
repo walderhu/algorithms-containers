@@ -1,3 +1,6 @@
+#ifndef S21_LIST_ITERATOR_HPP
+#define S21_LIST_ITERATOR_HPP
+
 #include "s21_list.hpp"
 
 template <class value_type>
@@ -103,3 +106,4 @@ inline auto s21::list<value_type>::Iterator::operator=(const Iterator& other)
   list = other.list;
   return *this;
 }
+#endif // S21_LIST_ITERATOR_HPP

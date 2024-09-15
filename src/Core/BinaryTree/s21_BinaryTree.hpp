@@ -7,5 +7,5 @@ namespace s21 {
 template <class T>
 class BinaryTree : public s21::deque<T> {};
 }  // namespace s21
-#include "s21_BinaryTree.tpp"
+#include "s21_BinaryTree.hpp"
 #endif  //  __S21_BINARY_TREE_HPP__

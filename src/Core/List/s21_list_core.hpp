@@ -1,3 +1,6 @@
+#ifndef __S21_LIST_CORE_HPP__
+#define __S21_LIST_CORE_HPP__
+
 #include "s21_list.hpp"
 
 template <class value_type>
@@ -243,3 +246,5 @@ template <class value_type>
 inline s21::list<value_type>::~list() noexcept {
   s21::deque<value_type>::clear();
 }
+
+#endif // __S21_LIST_CORE_HPP__

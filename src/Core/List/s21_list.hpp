@@ -96,7 +96,7 @@ struct s21::list<T>::ConstIterator final : public s21::list<T>::Iterator {
   Iterator &operator=(const Iterator &other) override;
 };
 
-#include "s21_list.tpp"
-#include "s21_list_iterator.tpp"
+#include "s21_list_core.hpp"
+#include "s21_list_iterator.hpp"
 
 #endif  // __S21_LIST_HXX__
