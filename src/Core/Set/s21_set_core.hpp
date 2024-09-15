@@ -4,11 +4,8 @@
 #include "s21_set.hpp"
 
 template <class value_type>
-inline s21::set<value_type>::Node::Node(value_type value) {
-  this->left = nullptr;
-  this->right = nullptr;
-  this->value = value;
-}
+inline s21::set<value_type>::Node::Node(value_type value)
+    : left(nullptr), right(nullptr), parent(nullptr), value(value) {}
 
 template <class value_type>
 inline auto s21::set<value_type>::empty() const -> bool {
@@ -35,7 +32,9 @@ template <class value_type>
 inline auto s21::set<value_type>::insert(value_type value, Node *&current)
     -> std::pair<iterator, bool> {
   if (current == nullptr) {
-    current = new Node(value);
+    Node *new_node = new Node(value);
+    new_node->parent = current;
+    current = new_node;
     _size++;
     return std::make_pair(Iterator(current), true);
   }
@@ -60,7 +59,10 @@ inline auto s21::set<value_type>::size() const -> size_type {
 
 template <class value_type>
 inline auto s21::set<value_type>::begin() -> Iterator {
-  return Iterator(s21::set<value_type>::root, this);
+  if (root == nullptr) return Iterator(nullptr, this);
+  Node *smallest_member = root;
+  while (smallest_member->left) smallest_member = smallest_member->left;
+  return Iterator(smallest_member, this);
 }
 
 template <class value_type>

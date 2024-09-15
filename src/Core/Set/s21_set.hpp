@@ -54,6 +54,7 @@ struct s21::set<Key>::Node {
   value_type value;
   Node *left;
   Node *right;
+  Node *parent;
   Node(value_type value = value_type());
 };
 
@@ -61,15 +62,15 @@ template <class Key>
 struct s21::set<Key>::Iterator {
   Iterator() noexcept;
   Iterator(Node *node, s21::set<value_type> *set = nullptr) noexcept;
-  // Iterator(const Iterator &other) noexcept;
-  //   bool operator==(const Iterator &other) const;
-  //   bool operator!=(const Iterator &other) const;
-  //   bool operator<(const Iterator &other) const;
-  //   bool operator<=(const Iterator &other) const;
-  //   bool operator>(const Iterator &other) const;
-  //   bool operator>=(const Iterator &other) const;
-  // Iterator &operator++();
-  // Iterator &operator--();
+  Iterator(const Iterator &other) noexcept;
+  bool operator==(const Iterator &other) const;
+  bool operator!=(const Iterator &other) const;
+  bool operator<(const Iterator &other) const;
+  bool operator<=(const Iterator &other) const;
+  bool operator>(const Iterator &other) const;
+  bool operator>=(const Iterator &other) const;
+  Iterator &operator++();
+  Iterator &operator--();
   reference operator*() const;
   Iterator &operator=(const Iterator &other);
 

@@ -3,8 +3,8 @@ export __TARGETS_MK__ = 1
 
 include Make/variables.mk
 
-# all: clean $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
-all: test
+all: clean $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
+# all: test
 
 run: 
 	@$(BUILD_PATH)/$(EXE)
