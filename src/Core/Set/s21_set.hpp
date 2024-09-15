@@ -34,11 +34,7 @@ struct s21::set<Key>::BinaryNode : public Node {
   value_type &value;
   BinaryNode *left;
   BinaryNode *right;
-  BinaryNode(value_type value = value_type()) : Node::Node() {
-    this->left = Node::prev;
-    this->right = Node::next;
-    this->value = Node::value;
-  }
+  BinaryNode(value_type value = value_type());
 };
 
 template <class Key>
