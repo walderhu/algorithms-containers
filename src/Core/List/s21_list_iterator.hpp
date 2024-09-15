@@ -106,4 +106,27 @@ inline auto s21::list<value_type>::Iterator::operator=(const Iterator& other)
   list = other.list;
   return *this;
 }
+
+// begin/end cbegin/cend
+
+template <class value_type>
+inline auto s21::list<value_type>::begin() noexcept -> Iterator {
+  return Iterator(s21::deque<value_type>::head, this);
+}
+
+template <class value_type>
+inline auto s21::list<value_type>::end() noexcept -> Iterator {
+  return Iterator(nullptr, this);
+}
+
+template <class value_type>
+inline auto s21::list<value_type>::cbegin() const -> ConstIterator {
+  return ConstIterator(s21::deque<value_type>::head, this);
+}
+
+template <class value_type>
+inline auto s21::list<value_type>::cend() const -> ConstIterator {
+  return ConstIterator(nullptr, this);
+}
+
 #endif  // S21_LIST_ITERATOR_HPP

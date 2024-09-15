@@ -40,26 +40,6 @@ inline auto s21::list<value_type>::operator[](const int index) const
   return current->value;
 }
 
-template <class value_type>
-inline auto s21::list<value_type>::begin() noexcept -> Iterator {
-  return Iterator(s21::deque<value_type>::head, this);
-}
-
-template <class value_type>
-inline auto s21::list<value_type>::end() noexcept -> Iterator {
-  return Iterator(nullptr, this);
-}
-
-template <class value_type>
-inline auto s21::list<value_type>::cbegin() const -> ConstIterator {
-  return ConstIterator(s21::deque<value_type>::head, this);
-}
-
-template <class value_type>
-inline auto s21::list<value_type>::cend() const -> ConstIterator {
-  return ConstIterator(nullptr, this);
-}
-
 namespace s21 {
 template <class value_type>
 std::ostream &operator<<(std::ostream &os, const list<value_type> &obj) {
@@ -123,8 +103,8 @@ inline auto s21::list<value_type>::merge(list &other) -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::insert(iterator pos, const_reference value)
-    -> iterator {
+inline auto s21::list<value_type>::insert(iterator pos,
+                                          const_reference value) -> iterator {
   Node *new_node = new Node(value);
 
   if (pos == this->begin()) {
@@ -179,8 +159,8 @@ inline auto s21::list<value_type>::erase(iterator pos) -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::splice(const_iterator pos, list &other)
-    -> void {
+inline auto s21::list<value_type>::splice(const_iterator pos,
+                                          list &other) -> void {
   if (pos == end()) throw std::out_of_range("Cannot splice at end iterator");
   if (other.empty()) return;
   auto other_begin = other.begin();

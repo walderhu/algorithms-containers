@@ -46,21 +46,21 @@ TEST(set, ConstructorInitializerSet) {
   EXPECT_EQ(s21_set.size(), std_set.size());
   auto s21_it = s21_set.begin();
   auto std_it = std_set.begin();
-  // for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
-  // EXPECT_TRUE(*std_it == *s21_it);
-  // }
+  for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
+    EXPECT_TRUE(*std_it == *s21_it);
+  }
 }
 
-// TEST(set, ConstructorInitializer2Set) {
-//   s21::set<char> s21_set = {};
-//   std::set<char> std_set = {};
-//   EXPECT_EQ(s21_set.size(), std_set.size());
-//   auto s21_it = s21_set.begin();
-//   auto std_it = std_set.begin();
-//   for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
-//     EXPECT_TRUE(*std_it == *s21_it);
-//   }
-// }
+TEST(set, ConstructorInitializer2Set) {
+  s21::set<char> s21_set = {};
+  std::set<char> std_set = {};
+  EXPECT_EQ(s21_set.size(), std_set.size());
+  auto s21_it = s21_set.begin();
+  auto std_it = std_set.begin();
+  for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
+    EXPECT_TRUE(*std_it == *s21_it);
+  }
+}
 
 // TEST(set, ConstructorCopySet) {
 //   s21::set<int> s21_set = {1, 2, 3, 4, 5};
@@ -113,35 +113,35 @@ TEST(set, CapacitySet) {
   EXPECT_EQ(s21_empty_set.size(), std_empty_set.size());
 }
 
-// TEST(set, ClearSet) {
-//   s21::set<char> s21_empty_set;
-//   std::set<char> std_empty_set;
-//   s21_empty_set.clear();
-//   std_empty_set.clear();
-//   EXPECT_EQ(s21_empty_set.empty(), std_empty_set.empty());
-//   EXPECT_EQ(s21_empty_set.size(), std_empty_set.size());
-//   s21_empty_set.insert('a');
-//   std_empty_set.insert('b');
-//   EXPECT_EQ(s21_empty_set.empty(), std_empty_set.empty());
-//   EXPECT_EQ(s21_empty_set.size(), std_empty_set.size());
-//   s21_empty_set.clear();
-//   std_empty_set.clear();
-//   EXPECT_EQ(s21_empty_set.empty(), std_empty_set.empty());
-//   EXPECT_EQ(s21_empty_set.size(), std_empty_set.size());
-// }
+TEST(set, ClearSet) {
+  s21::set<char> s21_empty_set;
+  std::set<char> std_empty_set;
+  s21_empty_set.clear();
+  std_empty_set.clear();
+  EXPECT_EQ(s21_empty_set.empty(), std_empty_set.empty());
+  EXPECT_EQ(s21_empty_set.size(), std_empty_set.size());
+  s21_empty_set.insert('a');
+  std_empty_set.insert('b');
+  EXPECT_EQ(s21_empty_set.empty(), std_empty_set.empty());
+  EXPECT_EQ(s21_empty_set.size(), std_empty_set.size());
+  s21_empty_set.clear();
+  std_empty_set.clear();
+  EXPECT_EQ(s21_empty_set.empty(), std_empty_set.empty());
+  EXPECT_EQ(s21_empty_set.size(), std_empty_set.size());
+}
 
-// TEST(set, InsertSet) {
-//   s21::set<std::string> s21_set = {"This", "is", "s21", "set"};
-//   std::set<std::string> std_set = {"This", "is", "s21", "set"};
-//   auto s21_pr = s21_set.insert("best");
-//   auto std_pr = std_set.insert("best");
-//   EXPECT_TRUE(s21_pr.second == std_pr.second);
-//   EXPECT_TRUE(*s21_pr.first == *std_pr.first);
-//   s21_pr = s21_set.insert("is");
-//   std_pr = std_set.insert("is");
-//   EXPECT_TRUE(s21_pr.second == std_pr.second);
-//   EXPECT_TRUE(*s21_pr.first == *std_pr.first);
-// }
+TEST(set, InsertSet) {
+  s21::set<std::string> s21_set = {"This", "is", "s21", "set"};
+  std::set<std::string> std_set = {"This", "is", "s21", "set"};
+  auto s21_pr = s21_set.insert("best");
+  auto std_pr = std_set.insert("best");
+  EXPECT_TRUE(s21_pr.second == std_pr.second);
+  EXPECT_TRUE(*s21_pr.first == *std_pr.first);
+  s21_pr = s21_set.insert("is");
+  std_pr = std_set.insert("is");
+  EXPECT_TRUE(s21_pr.second == std_pr.second);
+  EXPECT_TRUE(*s21_pr.first == *std_pr.first);
+}
 
 // TEST(set, EraseSet) {
 //   s21::set<int> s21_set = {5, 4, 3, 2, 7, 8, 9};
@@ -187,17 +187,17 @@ TEST(set, CapacitySet) {
 //   EXPECT_EQ(s21_merge_set.size(), std_merge_set.size());
 // }
 
-// TEST(set, FindSet) {
-//   s21::set<double> s21_set = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6};
-//   s21::set<double> std_set = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6};
-//   auto s21_it = s21_set.find(2.4);
-//   auto std_it = std_set.find(2.4);
-//   EXPECT_TRUE(*std_it == *s21_it);
-// }
+TEST(set, FindSet) {
+  s21::set<double> s21_set = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6};
+  s21::set<double> std_set = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6};
+  auto s21_it = s21_set.find(2.4);
+  auto std_it = std_set.find(2.4);
+  EXPECT_TRUE(*std_it == *s21_it);
+}
 
-// TEST(set, ContainsSet) {
-//   s21::set<double> s21_set = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6};
-//   s21::set<double> std_set = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6};
-//   EXPECT_EQ(s21_set.contains(2), std_set.contains(2));
-//   EXPECT_EQ(s21_set.contains(2.1), std_set.contains(2.1));
-// }
+TEST(set, ContainsSet) {
+  s21::set<double> s21_set = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6};
+  s21::set<double> std_set = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6};
+  EXPECT_EQ(s21_set.contains(2), std_set.contains(2));
+  EXPECT_EQ(s21_set.contains(2.1), std_set.contains(2.1));
+}
