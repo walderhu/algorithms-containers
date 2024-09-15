@@ -70,24 +70,23 @@ TEST(set, ConstructorInitializer2Set) {
 //   EXPECT_EQ(s21_set_copy.size(), std_set_copy.size());
 //   auto s21_it = s21_set_copy.begin();
 //   auto std_it = std_set_copy.begin();
-//   for (; s21_it != s21_set_copy.end(); ++s21_it, ++std_it) {
+//   for (; s21_it != s21_set_copy.end(); ++s21_it, ++std_it)
 //     EXPECT_TRUE(*std_it == *s21_it);
-//   }
 // }
 
-// TEST(set, ConstructorMoveSet) {
-//   s21::set<int> s21_set = {1, 2, 3, 4, 5};
-//   std::set<int> std_set = {1, 2, 3, 4, 5};
-//   s21::set<int> s21_set_copy = std::move(s21_set);
-//   std::set<int> std_set_copy = std::move(std_set);
-//   EXPECT_EQ(s21_set.size(), std_set.size());
-//   EXPECT_EQ(s21_set_copy.size(), std_set_copy.size());
-//   auto s21_it = s21_set_copy.begin();
-//   auto std_it = std_set_copy.begin();
-//   for (; s21_it != s21_set_copy.end(); ++s21_it, ++std_it) {
-//     EXPECT_TRUE(*std_it == *s21_it);
-//   }
-// }
+TEST(set, ConstructorMoveSet) {
+  s21::set<int> s21_set = {1, 2, 3, 4, 5};
+  std::set<int> std_set = {1, 2, 3, 4, 5};
+  s21::set<int> s21_set_copy = std::move(s21_set);
+  std::set<int> std_set_copy = std::move(std_set);
+  EXPECT_EQ(s21_set.size(), std_set.size());
+  EXPECT_EQ(s21_set_copy.size(), std_set_copy.size());
+  auto s21_it = s21_set_copy.begin();
+  auto std_it = std_set_copy.begin();
+  for (; s21_it != s21_set_copy.end(); ++s21_it, ++std_it) {
+    EXPECT_TRUE(*std_it == *s21_it);
+  }
+}
 
 TEST(set, SetIteratorsSet) {
   s21::set<std::string> s21_set = {"This", "is", "s21", "set"};
@@ -159,16 +158,16 @@ TEST(set, InsertSet) {
 //   }
 // }
 
-// TEST(set, SwapSet) {
-//   s21::set<int> s21_set = {1};
-//   s21::set<int> s21_swap_set = {3, 4, 5};
+TEST(set, SwapSet) {
+  s21::set<int> s21_set = {1};
+  s21::set<int> s21_swap_set = {3, 4, 5};
 
-//   s21_set.swap(s21_swap_set);
-//   EXPECT_EQ(s21_set.size(), 3);
-//   EXPECT_EQ(s21_swap_set.size(), 1);
-//   EXPECT_EQ(*s21_set.begin(), 3);
-//   EXPECT_EQ(*s21_swap_set.begin(), 1);
-// }
+  s21_set.swap(s21_swap_set);
+  EXPECT_EQ(s21_set.size(), 3);
+  EXPECT_EQ(s21_swap_set.size(), 1);
+  EXPECT_EQ(*s21_set.begin(), 3);
+  EXPECT_EQ(*s21_swap_set.begin(), 1);
+}
 
 // TEST(set, MergeSet) {
 //   s21::set<int> s21_set = {1};

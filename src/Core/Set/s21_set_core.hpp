@@ -4,13 +4,14 @@
 #include "s21_set.hpp"
 
 template <class value_type>
-inline s21::set<value_type>::set(const set &s) {
-  for (auto it = s.cbegin(); it < s.cend(); ++it) this->insert(*it);
+s21::set<value_type>::set(const set &s) {
+  if (this == &s) return;
+  // this->clear();
+  for (auto it = s.cbegin(); it != s.cend(); ++it) this->insert(*it);
 }
 
 template <class value_type>
 inline s21::set<value_type>::set(set &&s) {
-  this->clear();
   this->root = s.root;
   this->_size = s._size;
 
@@ -94,11 +95,6 @@ inline auto s21::set<value_type>::push_left(value_type value) -> void {}
 template <class value_type>
 inline auto s21::set<value_type>::push_right(value_type value) -> void {}
 
-template <class value_type>
-inline auto s21::set<value_type>::clear() -> void {
-  this->clear(root);
-}
-
 template <class Key>
 inline auto s21::set<Key>::find(const Key &key) -> iterator {
   auto it = this->begin();
@@ -118,15 +114,24 @@ inline s21::set<value_type>::~set() noexcept {
 }
 
 template <class value_type>
+inline auto s21::set<value_type>::clear() -> void {
+  clear(root);
+  _size = 0;
+}
+
+template <class value_type>
 inline auto s21::set<value_type>::clear(Node *&current) -> void {
-  if (!current) {
-    _size = 0;
-    return;
-  }
+  if (!current) return;
   clear(current->left);
   clear(current->right);
   delete current;
   current = nullptr;
+}
+
+template <class value_type>
+inline void s21::set<value_type>::swap(set &other) {
+  std::swap(this->root, other.root);
+  std::swap(this->_size, other._size);
 }
 
 #endif  // __S21_SET_CORE_HPP__

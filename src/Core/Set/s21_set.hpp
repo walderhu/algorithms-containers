@@ -47,7 +47,7 @@ class set {
   iterator end();
   ConstIterator cbegin() const;
   ConstIterator cend() const;
-
+  void swap(set &other);
   size_type size() const;
 
   template <typename... Args>
@@ -85,7 +85,7 @@ struct s21::set<Key>::Iterator {
   Iterator &operator++();
   Iterator &operator--();
   reference operator*() const;
-  Iterator &operator=(const Iterator &other);
+  virtual Iterator &operator=(const Iterator &other);
 
  protected:
   Node *current;
