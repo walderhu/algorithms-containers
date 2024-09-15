@@ -89,18 +89,18 @@ TEST(set, ConstructorInitializer2Set) {
 //   }
 // }
 
-// TEST(set, SetIteratorsSet) {
-//   s21::set<std::string> s21_set = {"This", "is", "s21", "set"};
-//   std::set<std::string> std_set = {"This", "is", "s21", "set"};
-//   auto s21_it = s21_set.begin();
-//   auto std_it = std_set.begin();
-//   EXPECT_TRUE(*std_it == *s21_it);
-//   s21_it = s21_set.end();
-//   std_it = std_set.end();
-//   --s21_it;
-//   --std_it;
-//   EXPECT_TRUE(*std_it == *s21_it);
-// }
+TEST(set, SetIteratorsSet) {
+  s21::set<std::string> s21_set = {"This", "is", "s21", "set"};
+  std::set<std::string> std_set = {"This", "is", "s21", "set"};
+  auto s21_it = s21_set.begin();
+  auto std_it = std_set.begin();
+  EXPECT_TRUE(*std_it == *s21_it);
+  s21_it = s21_set.end();
+  std_it = std_set.end();
+  --s21_it;
+  --std_it;
+  EXPECT_TRUE(*std_it == *s21_it);
+}
 
 TEST(set, CapacitySet) {
   s21::set<char> s21_empty_set;

@@ -91,8 +91,12 @@ auto s21::set<value_type>::Iterator::operator++() -> Iterator& {
 
 template <class value_type>
 auto s21::set<value_type>::Iterator::operator--() -> Iterator& {
-  if (current == nullptr)
-    throw std::out_of_range("Disabled iterator. Not exist");
+  if (current == set->end().current) {
+    Node* biggest_member = set->begin().current;
+    while (biggest_member->right) biggest_member = biggest_member->right;
+    current = biggest_member;
+    return *this;
+  }
   // Если есть левое поддерево, идем к самому правому узлу
   if (current->left) {
     current = current->left;
@@ -129,13 +133,13 @@ inline s21::set<value_type>::ConstIterator::ConstIterator(
   Iterator::set = it.set;
 }
 
-// template <class value_type>
-// inline auto s21::set<value_type>::ConstIterator::operator=(
-//     const Iterator& other) -> Iterator& {
-//   (void)other;
-//   throw std::out_of_range("Cannot modify value through const_iterator");
-//   return *this;
-// }
+template <class value_type>
+inline auto s21::set<value_type>::ConstIterator::operator=(
+    const Iterator& other) -> Iterator& {
+  (void)other;
+  throw std::out_of_range("Cannot modify value through const_iterator");
+  return *this;
+}
 
 // begin/end cbegin/ceng
 

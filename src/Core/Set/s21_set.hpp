@@ -100,7 +100,7 @@ struct s21::set<Key>::ConstIterator final : public s21::set<Key>::Iterator {
   ConstIterator(Node *node, const s21::set<Key> *set_) noexcept;
   ConstIterator(iterator it) noexcept;
   const_reference operator*() const;
-  // Iterator &operator=(const Iterator &other) override;
+  Iterator &operator=(const Iterator &other) override;
 };
 
 }  // namespace s21
