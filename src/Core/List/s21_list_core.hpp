@@ -123,8 +123,8 @@ inline auto s21::list<value_type>::merge(list &other) -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::insert(iterator pos,
-                                          const_reference value) -> iterator {
+inline auto s21::list<value_type>::insert(iterator pos, const_reference value)
+    -> iterator {
   Node *new_node = new Node(value);
 
   if (pos == this->begin()) {
@@ -179,8 +179,8 @@ inline auto s21::list<value_type>::erase(iterator pos) -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::splice(const_iterator pos,
-                                          list &other) -> void {
+inline auto s21::list<value_type>::splice(const_iterator pos, list &other)
+    -> void {
   if (pos == end()) throw std::out_of_range("Cannot splice at end iterator");
   if (other.empty()) return;
   auto other_begin = other.begin();

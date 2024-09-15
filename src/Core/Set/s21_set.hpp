@@ -68,13 +68,10 @@ struct s21::set<Key>::Iterator {
   //   bool operator<=(const Iterator &other) const;
   //   bool operator>(const Iterator &other) const;
   //   bool operator>=(const Iterator &other) const;
-  Iterator &operator++();
-  Iterator &operator--();
-  reference operator*() const { return current->value; };
-  Iterator &operator=(const Iterator &other) {
-    current = other.current;
-    return *this;
-  }
+  // Iterator &operator++();
+  // Iterator &operator--();
+  reference operator*() const;
+  Iterator &operator=(const Iterator &other);
 
  protected:
   Node *current;

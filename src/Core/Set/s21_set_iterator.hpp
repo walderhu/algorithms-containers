@@ -11,6 +11,19 @@ inline s21::set<value_type>::Iterator::Iterator(
     Node* node, s21::set<value_type>* set) noexcept
     : current(node), set(set) {}
 
+template <class value_type>
+inline auto s21::set<value_type>::Iterator::operator*() const -> reference {
+  return current->value;
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::Iterator::operator=(const Iterator& other)
+    -> Iterator& {
+  current = other.current;
+  set = other.set;
+  return *this;
+}
+
 // template <class value_type>
 // Iterator& operator++() {}
 
