@@ -58,19 +58,6 @@ inline auto s21::set<value_type>::size() const -> size_type {
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::begin() -> Iterator {
-  if (root == nullptr) return Iterator(nullptr, this);
-  Node *smallest_member = root;
-  while (smallest_member->left) smallest_member = smallest_member->left;
-  return Iterator(smallest_member, this);
-}
-
-template <class value_type>
-inline auto s21::set<value_type>::end() -> Iterator {
-  return Iterator(nullptr, this);
-}
-
-template <class value_type>
 inline auto s21::set<value_type>::push_left(value_type value) -> void {}
 
 template <class value_type>

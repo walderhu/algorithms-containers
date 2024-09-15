@@ -109,4 +109,57 @@ auto s21::set<value_type>::Iterator::operator--() -> Iterator& {
   return *this;
 }
 
+// const_iterator
+
+template <class value_type>
+inline auto s21::set<value_type>::ConstIterator::operator*() const
+    -> const_reference {
+  return static_cast<const_reference>(Iterator::operator*());
+}
+
+template <class value_type>
+inline s21::set<value_type>::ConstIterator::ConstIterator(
+    Node* node, const s21::set<value_type>* set_) noexcept
+    : Iterator(node, const_cast<s21::set<value_type>*>(set_)) {}
+
+template <class value_type>
+inline s21::set<value_type>::ConstIterator::ConstIterator(
+    iterator it) noexcept {
+  Iterator::current = it.current;
+  Iterator::set = it.set;
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::ConstIterator::operator=(
+    const Iterator& other) -> Iterator& {
+  (void)other;
+  throw std::out_of_range("Cannot modify value through const_iterator");
+  return *this;
+}
+
+// begin/end cbegin/ceng
+
+template <class value_type>
+inline auto s21::set<value_type>::begin() -> Iterator {
+  if (root == nullptr) return Iterator(nullptr, this);
+  Node* smallest_member = root;
+  while (smallest_member->left) smallest_member = smallest_member->left;
+  return Iterator(smallest_member, this);
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::end() -> Iterator {
+  return Iterator(nullptr, this);
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::cbegin() const -> ConstIterator {
+  return static_cast<ConstIterator>(Iterator::begin());
+}
+
+template <class value_type>
+inline auto s21::set<value_type>::cend() const -> ConstIterator {
+  return static_cast<ConstIterator>(Iterator::end());
+}
+
 #endif  // __S21_SET_ITERATOR__

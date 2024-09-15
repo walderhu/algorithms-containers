@@ -34,8 +34,11 @@ class set {
 
   std::pair<iterator, bool> insert(value_type value);
 
-  Iterator begin();
-  Iterator end();
+  iterator begin();
+  iterator end();
+  ConstIterator cbegin() const;
+  ConstIterator cend() const;
+
   size_type size() const;
 
   template <typename... Args>
@@ -84,7 +87,11 @@ struct s21::set<Key>::Iterator {
 
 template <class Key>
 struct s21::set<Key>::ConstIterator final : public s21::set<Key>::Iterator {
-  ConstIterator() {}
+  using s21::set<Key>::Iterator::Iterator;
+  ConstIterator(Node *node, const s21::set<Key> *set_) noexcept;
+  ConstIterator(iterator it) noexcept;
+  const_reference operator*() const;
+  Iterator &operator=(const Iterator &other) override;
 };
 
 }  // namespace s21
