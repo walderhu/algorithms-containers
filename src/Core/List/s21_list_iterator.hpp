@@ -106,4 +106,4 @@ inline auto s21::list<value_type>::Iterator::operator=(const Iterator& other)
   list = other.list;
   return *this;
 }
-#endif // S21_LIST_ITERATOR_HPP
+#endif  // S21_LIST_ITERATOR_HPP

@@ -1,7 +1,8 @@
 #ifndef __S21_SET_HPP__
 #define __S21_SET_HPP__
 
-#include "../BinaryTree/s21_BinaryTree.hpp"
+#include "../Deque/s21_deque.hpp"
+
 namespace s21 {
 
 template <class Key>
@@ -28,6 +29,8 @@ class set : public s21::deque<Key> {
   set(set &&s) : s21::deque<Key>(std::move(s)) {}
   ~set() = default;
 
+  Iterator insert(value_type &value);
+
  protected:
   void push_left(value_type value);
   void push_right(value_type value);
@@ -53,9 +56,9 @@ struct s21::set<Key>::Iterator {
   //   bool operator<=(const Iterator &other) const;
   //   bool operator>(const Iterator &other) const;
   //   bool operator>=(const Iterator &other) const;
-  //   Iterator &operator++();
-  //   Iterator &operator--();
-  //   reference operator*() const;
+  Iterator &operator++();
+  Iterator &operator--();
+  reference operator*() const;
   //   virtual Iterator &operator=(const Iterator &other);
 
  protected:

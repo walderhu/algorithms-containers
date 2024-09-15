@@ -247,4 +247,4 @@ inline s21::list<value_type>::~list() noexcept {
   s21::deque<value_type>::clear();
 }
 
-#endif // __S21_LIST_CORE_HPP__
+#endif  // __S21_LIST_CORE_HPP__

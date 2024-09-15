@@ -183,5 +183,4 @@ inline auto s21::deque<value_type>::operator=(const deque& other) noexcept
   return *this;
 }
 
-
-#endif // __S21_DEQUE_CORE_HXX__
+#endif  // __S21_DEQUE_CORE_HXX__
