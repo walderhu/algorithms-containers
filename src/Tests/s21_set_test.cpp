@@ -40,16 +40,16 @@ TEST(set, InsertManyTest) {
   EXPECT_EQ(s21_set.size(), std_set.size());
 }
 
-// TEST(set, ConstructorInitializerSet) {
-//   s21::set<char> s21_set = {'x', 'b', 'z', 'y'};
-//   std::set<char> std_set = {'x', 'b', 'z', 'y'};
-//   EXPECT_EQ(s21_set.size(), std_set.size());
-//   auto s21_it = s21_set.begin();
-//   auto std_it = std_set.begin();
-//   for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
-//     EXPECT_TRUE(*std_it == *s21_it);
-//   }
-// }
+TEST(set, ConstructorInitializerSet) {
+  s21::set<char> s21_set = {'x', 'b', 'z', 'y'};
+  std::set<char> std_set = {'x', 'b', 'z', 'y'};
+  EXPECT_EQ(s21_set.size(), std_set.size());
+  auto s21_it = s21_set.begin();
+  auto std_it = std_set.begin();
+  // for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
+  // EXPECT_TRUE(*std_it == *s21_it);
+  // }
+}
 
 // TEST(set, ConstructorInitializer2Set) {
 //   s21::set<char> s21_set = {};

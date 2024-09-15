@@ -25,7 +25,7 @@ class set {
   using size_type = size_t;
 
   set() noexcept;
-  set(std::initializer_list<value_type> const &items) {}
+  set(std::initializer_list<value_type> const &items) noexcept;
   set(const set &s) : s21::deque<Key>(s) {}
   set(set &&s) : s21::deque<Key>(std::move(s)) {}
   ~set() noexcept;

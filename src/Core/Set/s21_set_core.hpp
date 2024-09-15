@@ -19,6 +19,13 @@ template <class value_type>
 inline s21::set<value_type>::set() noexcept : root(nullptr), _size(0) {}
 
 template <class value_type>
+inline s21::set<value_type>::set(
+    std::initializer_list<value_type> const &items) noexcept
+    : s21::set<value_type>() {
+  for (auto it = items.begin(); it != items.end(); ++it) this->insert(*it);
+}
+
+template <class value_type>
 inline auto s21::set<value_type>::insert(value_type value)
     -> std::pair<iterator, bool> {
   return insert(value, root);
