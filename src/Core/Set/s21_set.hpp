@@ -87,7 +87,8 @@ struct s21::set<Key>::Iterator {
   Iterator &operator++();
   Iterator &operator--();
   reference operator*() const;
-  Iterator &operator=(const Iterator &other);
+  virtual Iterator &operator=(const Iterator &other);
+  Key get_value() const;
 
  protected:
   Node *current;

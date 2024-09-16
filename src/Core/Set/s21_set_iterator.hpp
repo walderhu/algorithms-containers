@@ -141,6 +141,12 @@ inline auto s21::set<value_type>::ConstIterator::operator=(
   return *this;
 }
 
+template <class value_type>
+inline auto s21::set<value_type>::Iterator::get_value() const -> value_type {
+  if (!current) return value_type();
+  return current->value;
+}
+
 // begin/end cbegin/ceng
 
 template <class value_type>

@@ -1,24 +1,24 @@
-// #include "s21_containers_test.hpp"
+#include "s21_containers_test.hpp"
 
-// TEST(multiset_constructor, no_arg) {
-//   s21::multiset<int> _multiset;
-//   EXPECT_EQ(_multiset.empty(), 1);
-// }
+TEST(multiset_constructor, no_arg) {
+  s21::multiset<int> _multiset;
+  EXPECT_EQ(_multiset.empty(), 1);
+}
 
-// TEST(multiset_constructor, initializer_list) {
-//   s21::multiset<int> _multiset({11, 2, 99, 0});
-//   EXPECT_EQ(_multiset.empty(), 0);
-// }
+TEST(multiset_constructor, initializer_list) {
+  s21::multiset<int> _multiset({11, 2, 99, 0});
+  EXPECT_EQ(_multiset.empty(), 0);
+}
 
-// TEST(multiset_constructor, copy) {
-//   s21::multiset<int> _multiset({11, 2, 99, 0});
-//   s21::multiset<int> multiset_copy(_multiset);
-//   auto j = multiset_copy.begin();
-//   for (auto i = _multiset.begin(); i != _multiset.end(); ++i) {
-//     ASSERT_TRUE(i->key == j->key);
-//     ++j;
-//   }
-// }
+TEST(multiset_constructor, copy) {
+  s21::multiset<int> _multiset({11, 2, 99, 0});
+  s21::multiset<int> multiset_copy(_multiset);
+  auto j = multiset_copy.begin();
+  for (auto i = _multiset.begin(); i != _multiset.end(); ++i) {
+    ASSERT_TRUE(i.get_value() == j.get_value());
+    ++j;
+  }
+}
 
 // TEST(multiset_constructor, move) {
 //   s21::multiset<int> _multiset({11, 2, 99, 0});
@@ -26,7 +26,7 @@
 //   s21::multiset<int> multiset_moved(std::move(_multiset));
 //   auto j = multiset_moved.begin();
 //   for (auto i = multiset_copy.begin(); i != multiset_copy.end(); ++i) {
-//     ASSERT_TRUE(i->key == j->key);
+//     ASSERT_TRUE(i->value == j->value);
 //     ++j;
 //   }
 //   EXPECT_EQ(_multiset.empty(), 1);
