@@ -61,4 +61,12 @@ inline auto s21::multiset<value_type>::insert(value_type value, Node *&current,
   return std::make_pair(iterator(current), false);
 }
 
+template <class Key>
+inline auto s21::multiset<Key>::count(const Key &key) const -> size_type {
+  size_type _count = 0;
+  for (auto it = s21::set<Key>::cbegin(); it != s21::set<Key>::cend();
+       ++it, _count++);
+  return _count;
+}
+
 #endif  // __S21_MULTISET_CORE_HPP__

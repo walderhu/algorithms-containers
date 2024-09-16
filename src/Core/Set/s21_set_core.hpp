@@ -78,7 +78,7 @@ inline auto s21::set<value_type>::insert(value_type value, Node *&current,
 
 template <class value_type>
 inline auto s21::set<value_type>::max_size() -> size_type {
-  return (std::numeric_limits<size_t>::max() / sizeof(value_type)) / 2;
+  return (std::numeric_limits<size_t>::max() / sizeof(value_type));
 }
 
 template <class value_type>

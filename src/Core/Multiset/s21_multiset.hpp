@@ -26,6 +26,7 @@ class multiset final : public s21::set<Key> {
   multiset<Key> &operator=(const multiset &s) noexcept;
 
   std::pair<iterator, bool> insert(const value_type &value);
+  size_type count(const Key &key) const;
 
  protected:
   std::pair<iterator, bool> insert(value_type value, Node *&current,

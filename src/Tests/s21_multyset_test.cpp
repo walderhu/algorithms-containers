@@ -20,17 +20,17 @@ TEST(multiset_constructor, copy) {
   }
 }
 
-// TEST(multiset_constructor, move) {
-//   s21::multiset<int> _multiset({11, 2, 99, 0});
-//   s21::multiset<int> multiset_copy(_multiset);
-//   s21::multiset<int> multiset_moved(std::move(_multiset));
-//   auto j = multiset_moved.begin();
-//   for (auto i = multiset_copy.begin(); i != multiset_copy.end(); ++i) {
-//     ASSERT_TRUE(i->value == j->value);
-//     ++j;
-//   }
-//   EXPECT_EQ(_multiset.empty(), 1);
-// }
+TEST(multiset_constructor, move) {
+  s21::multiset<int> _multiset({11, 2, 99, 0});
+  s21::multiset<int> multiset_copy(_multiset);
+  s21::multiset<int> multiset_moved(std::move(_multiset));
+  auto j = multiset_moved.begin();
+  for (auto i = multiset_copy.begin(); i != multiset_copy.end(); ++i) {
+    ASSERT_TRUE(i.get_value() == j.get_value());
+    ++j;
+  }
+  EXPECT_EQ(_multiset.empty(), 1);
+}
 
 // TEST(multiset_operator, move_assignment) {
 //   s21::multiset<std::string> first({"this", "world", "is mine"});
@@ -39,40 +39,40 @@ TEST(multiset_constructor, copy) {
 //   second = std::move(first);
 //   auto j = second.begin();
 //   for (auto i = copy.begin(); i != copy.end(); ++i) {
-//     ASSERT_TRUE(i->key == j->key);
+//     ASSERT_TRUE(i.get_value() == j.get_value());
 //     ++j;
 //   }
 //   EXPECT_EQ(first.empty(), 1);
 // }
 
-// TEST(multiset_iterator, begin) {
-//   s21::multiset<std::string> _multiset({"this", "world", "is mine"});
-//   auto i = _multiset.begin();
-//   EXPECT_EQ(i->key, "is mine");
-// }
+TEST(multiset_iterator, begin) {
+  s21::multiset<std::string> _multiset({"this", "world", "is mine"});
+  auto i = _multiset.begin();
+  EXPECT_EQ(i.get_value(), "is mine");
+}
 
 // TEST(multiset_iterator, end) {
 //   s21::multiset<std::string> _multiset({"this", "world", "is mine"});
 //   auto i = _multiset.end();
-//   EXPECT_EQ(i->key, "world");
+//   EXPECT_EQ((--i).get_value(), "world");
 // }
 
-// TEST(multiset_iterator_operator, increment) {
-//   s21::multiset<std::string> _multiset({"this", "world", "is mine"});
-//   auto i = _multiset.begin();
-//   ++i;
-//   EXPECT_EQ(i->key, "this");
-//   i++;
-//   EXPECT_EQ(i->key, "world");
-// }
+TEST(multiset_iterator_operator, increment) {
+  s21::multiset<std::string> _multiset({"this", "world", "is mine"});
+  auto i = _multiset.begin();
+  ++i;
+  EXPECT_EQ(i.get_value(), "this");
+  ++i;
+  EXPECT_EQ(i.get_value(), "world");
+}
 
 // TEST(multiset_iterator_operator, decrement) {
 //   s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
 //   auto i = _multiset.end();
 //   --i;
-//   EXPECT_EQ(i->key, 5);
+//   EXPECT_EQ(i.get_value(), 5);
 //   i--;
-//   EXPECT_EQ(i->key, 4);
+//   EXPECT_EQ(i.get_value(), 4);
 // }
 
 // TEST(multiset_iterator_operator, decrement_test_1) {
@@ -81,27 +81,27 @@ TEST(multiset_constructor, copy) {
 //   int j = 5;
 //   while (i != ms.begin()) {
 //     --i;
-//     EXPECT_EQ(i->key, j);
+//     EXPECT_EQ(i.get_value(), j);
 //     --j;
 //   }
 // }
 
-// TEST(multiset_size, size_check) {
-//   s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
-//   EXPECT_EQ(_multiset.Size(), 10);
-//   _multiset.clear();
-//   EXPECT_EQ(_multiset.empty(), 1);
-//   EXPECT_EQ(_multiset.max_size(),
-//             std::numeric_limits<size_t>::max() / sizeof(int));
-//   EXPECT_EQ(_multiset.Size(), 0);
-// }
+TEST(multiset_size, size_check) {
+  s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
+  EXPECT_EQ(_multiset.size(), 10);
+  _multiset.clear();
+  EXPECT_EQ(_multiset.empty(), 1);
+  EXPECT_EQ(_multiset.max_size(),
+            std::numeric_limits<size_t>::max() / sizeof(int));
+  EXPECT_EQ(_multiset.size(), 0);
+}
 
-// TEST(multiset_insert, insert_test_0) {
-//   s21::multiset<int> _multiset;
-//   _multiset.insert(9);
-//   auto i = _multiset.begin();
-//   EXPECT_EQ(i->key, 9);
-// }
+TEST(multiset_insert, insert_test_0) {
+  s21::multiset<int> _multiset;
+  _multiset.insert(9);
+  auto i = _multiset.begin();
+  EXPECT_EQ(i.get_value(), 9);
+}
 
 // TEST(multiset_insert, insert_test_1) {
 //   s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
@@ -120,12 +120,12 @@ TEST(multiset_constructor, copy) {
 //   EXPECT_EQ(v[2].second, 1);
 // }
 
-// TEST(multiset_erase, erase_test_0) {
-//   s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
-//   auto i = _multiset.find(5);
-//   _multiset.erase(i);
-//   EXPECT_EQ(_multiset.contains(5), 0);
-// }
+TEST(multiset_erase, erase_test_0) {
+  s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
+  auto i = _multiset.find(5);
+  _multiset.erase(i);
+  EXPECT_EQ(_multiset.contains(5), 0);
+}
 
 // TEST(multiset_swap, swap_test_0) {
 //   s21::multiset<int> _multiset({5, 4, 1, 0, 12, 1, 4, 3, 2});
@@ -135,24 +135,24 @@ TEST(multiset_constructor, copy) {
 //   _multiset.swap(_s);
 //   auto it = _s.begin();
 //   for (auto i = multiset_copy.begin(); i != multiset_copy.end(); ++i) {
-//     EXPECT_EQ(i->key, it->key);
+//     EXPECT_EQ(i.get_value(), it.get_value());
 //     ++it;
 //   }
 //   it = _multiset.begin();
 //   for (auto i = s_copy.begin(); i != s_copy.end(); ++i) {
-//     EXPECT_EQ(i->key, it->key);
+//     EXPECT_EQ(i.get_value(), it.get_value());
 //     ++it;
 //   }
 // }
 
-// TEST(multiset_merge, merge_test_0) {
-//   s21::multiset<int> _multiset({5, 0, 12, 1, 4, 3, 2});
-//   s21::multiset<int> _s({13, 10, 6, 9, 7, 11, 8});
-//   _multiset.merge(_s);
-//   int i = 0;
-//   for (auto it = _multiset.begin(); it != _multiset.end(); ++it)
-//     EXPECT_EQ(it->key, i++);
-// }
+TEST(multiset_merge, merge_test_0) {
+  s21::multiset<int> _multiset({5, 0, 12, 1, 4, 3, 2});
+  s21::multiset<int> _s({13, 10, 6, 9, 7, 11, 8});
+  _multiset.merge(_s);
+  int i = 0;
+  for (auto it = _multiset.begin(); it != _multiset.end(); ++it)
+    EXPECT_EQ(it.get_value(), i++);
+}
 
 // TEST(multiset_contains, contains_test_0) {
 //   s21::multiset<int> _multiset({5, 0, 12, 1, 4, 3, 2});
@@ -161,16 +161,16 @@ TEST(multiset_constructor, copy) {
 //   EXPECT_EQ(_multiset.contains(36), 0);
 // }
 
-// TEST(multiset_find, find_test_0) {
-//   s21::multiset<int> _multiset({5, 0, 12, 1, 4, 3, 2});
-//   int k = 5;
-//   auto i = _multiset.find(k);
-//   for (auto it = _multiset.begin(); it != _multiset.end(); ++it) {
-//     if (it->key == k) {
-//       EXPECT_EQ(it, i);
-//     }
-//   }
-// }
+TEST(multiset_find, find_test_0) {
+  s21::multiset<int> _multiset({5, 0, 12, 1, 4, 3, 2});
+  int k = 5;
+  auto i = _multiset.find(k);
+  for (auto it = _multiset.begin(); it != _multiset.end(); ++it) {
+    if (it.get_value() == k) {
+      EXPECT_EQ(it, i);
+    }
+  }
+}
 
 // TEST(multiset_equal_range, equal_range_test_0) {
 //   s21::multiset<int> _multiset({5, 0, 4, 12, 1, 4, 3, 2, 4, 4});
@@ -178,7 +178,7 @@ TEST(multiset_constructor, copy) {
 //   auto pair = _multiset.equal_range(k);
 //   int _c = 0;
 //   for (auto i = pair.first; i != pair.second; ++i) {
-//     EXPECT_EQ(i->key, k);
+//     EXPECT_EQ(i.get_value(), k);
 //     _c++;
 //   }
 //   EXPECT_EQ(_c, _multiset.count(k));
@@ -190,7 +190,7 @@ TEST(multiset_constructor, copy) {
 //   auto _end = _multiset.upper_bound(k);
 //   int _c = 0;
 //   for (auto i = _multiset.lower_bound(k); i != _end; ++i) {
-//     EXPECT_EQ(i->key, k);
+//     EXPECT_EQ(i.get_value(), k);
 //     _c++;
 //   }
 //   EXPECT_EQ(_c, _multiset.count(k));
