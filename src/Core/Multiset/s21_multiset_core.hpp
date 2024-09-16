@@ -11,8 +11,9 @@ inline s21::multiset<value_type>::multiset() noexcept
 
 template <class value_type>
 inline s21::multiset<value_type>::multiset(
-    std::initializer_list<value_type> const &items) noexcept
-    : set<value_type>::set(items) {}
+    std::initializer_list<value_type> const &items) noexcept {
+  for (auto it = items.begin(); it != items.end(); ++it) insert(*it);
+}
 
 template <class value_type>
 inline s21::multiset<value_type>::multiset(const multiset &s)
@@ -37,6 +38,12 @@ template <class value_type>
 inline auto s21::multiset<value_type>::operator=(const multiset &s) noexcept
     -> multiset<value_type> & {
   return set<value_type>::operator=(s);
+}
+
+template <class value_type>
+inline auto s21::multiset<value_type>::insert(const value_type &value)
+    -> std::pair<iterator, bool> {
+  return s21::set<value_type>::insert(value);
 }
 
 template <class value_type>
