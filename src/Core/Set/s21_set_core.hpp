@@ -177,21 +177,16 @@ inline auto s21::set<value_type>::deleteNode(Node *current,
       return temp;     // Возвращаем левого потомка
     }
     // Случай 3: узел имеет двух потомков
-    Node *temp = minValueNode(
-        current->right);  // Находим минимальный элемент в правом поддереве
+    Node *temp = current->right;
+    while (temp && temp->left != nullptr) temp = temp->left;
+
+    // Находим минимальный элемент в правом поддереве
     current->value = temp->value;  // Копируем значение минимального узла
-    current->right =
-        deleteNode(current->right, temp->value);  // Удаляем минимальный узел
+
+    // Удаляем минимальный узел
+    current->right = deleteNode(current->right, temp->value);
   }
   return current;  // Возвращаем изменённый корень
-}
-
-template <class value_type>
-inline auto s21::set<value_type>::minValueNode(Node *node) -> Node * {
-  Node *current = node;
-  while (current && current->left != nullptr) current = current->left;
-  // Идём по левым узлам
-  return current;  // Возвращаем узел с минимальным значением
 }
 
 #endif  // __S21_SET_CORE_HPP__

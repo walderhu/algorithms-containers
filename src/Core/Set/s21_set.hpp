@@ -62,7 +62,6 @@ class set {
                                    Node *parent);
   void clear(Node *&current);
   Node *deleteNode(Node *current, value_type key);
-  Node *minValueNode(Node *node);
 };
 
 template <class Key>
