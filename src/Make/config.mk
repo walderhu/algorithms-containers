@@ -31,12 +31,6 @@ README.html: README.md
 leaks: $(BUILD_PATH)/$(TEST_EXE)
 	valgrind --leak-check=full --track-origins=yes $(BUILD_PATH)/$(TEST_EXE)
 
-docs:
-	@$(MAKE) -C Docs -s 
-
-clean_docs:
-	@$(MAKE) -C Docs clean -s
-
 gitconfig: $(CONFIG_PATH)
 	git config --global include.path $(CONFIG_PATH)
 

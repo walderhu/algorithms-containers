@@ -18,7 +18,7 @@ $(BUILD_PATH)/$(EXE): $(SRCS:$(SRC_PATH)/%.cpp=$(BUILD_PATH)/%.o) $(HEADERS)
 $(BUILD_PATH):
 	@mkdir -p $@
 
-clean: clean_docs
+clean: 
 	@rm $(RM_FLAGS) $(TRASH)
 	clear 
 
