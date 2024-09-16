@@ -6,10 +6,9 @@
 template <class value_type>
 s21::set<value_type>::set(const set &s) {
   if (this == &s) return;
-  // this->clear();
+  this->clear();
   for (auto it = s.cbegin(); it != s.cend(); ++it) this->insert(*it);
 }
-
 template <class value_type>
 inline s21::set<value_type>::set(set &&s) {
   this->root = s.root;
@@ -93,12 +92,6 @@ template <class value_type>
 inline auto s21::set<value_type>::size() const -> size_type {
   return this->_size;
 }
-
-template <class value_type>
-inline auto s21::set<value_type>::push_left(value_type value) -> void {}
-
-template <class value_type>
-inline auto s21::set<value_type>::push_right(value_type value) -> void {}
 
 template <class Key>
 inline auto s21::set<Key>::find(const Key &key) -> iterator {
@@ -194,9 +187,8 @@ inline auto s21::set<value_type>::deleteNode(Node *current,
 template <class value_type>
 inline auto s21::set<value_type>::minValueNode(Node *node) -> Node * {
   Node *current = node;
-  while (current && current->left != nullptr) {
-    current = current->left;  // Идём по левым узлам
-  }
+  while (current && current->left != nullptr) current = current->left;
+  // Идём по левым узлам
   return current;  // Возвращаем узел с минимальным значением
 }
 

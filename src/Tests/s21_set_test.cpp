@@ -62,17 +62,17 @@ TEST(set, ConstructorInitializer2Set) {
   }
 }
 
-// TEST(set, ConstructorCopySet) {
-//   s21::set<int> s21_set = {1, 2, 3, 4, 5};
-//   std::set<int> std_set = {1, 2, 3, 4, 5};
-//   s21::set<int> s21_set_copy = s21_set;
-//   std::set<int> std_set_copy = std_set;
-//   EXPECT_EQ(s21_set_copy.size(), std_set_copy.size());
-//   auto s21_it = s21_set_copy.begin();
-//   auto std_it = std_set_copy.begin();
-//   for (; s21_it != s21_set_copy.end(); ++s21_it, ++std_it)
-//     EXPECT_TRUE(*std_it == *s21_it);
-// }
+TEST(set, ConstructorCopySet) {
+  s21::set<int> s21_set = {1, 2, 3, 4, 5};
+  std::set<int> std_set = {1, 2, 3, 4, 5};
+  s21::set<int> s21_set_copy = s21_set;
+  std::set<int> std_set_copy = std_set;
+  EXPECT_EQ(s21_set_copy.size(), std_set_copy.size());
+  auto s21_it = s21_set_copy.begin();
+  auto std_it = std_set_copy.begin();
+  for (; s21_it != s21_set_copy.end(); ++s21_it, ++std_it)
+    EXPECT_TRUE(*std_it == *s21_it);
+}
 
 TEST(set, ConstructorMoveSet) {
   s21::set<int> s21_set = {1, 2, 3, 4, 5};

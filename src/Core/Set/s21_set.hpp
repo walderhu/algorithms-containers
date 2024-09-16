@@ -61,8 +61,6 @@ class set {
   std::pair<iterator, bool> insert(value_type value, Node *&current,
                                    Node *parent);
   void clear(Node *&current);
-  void push_left(value_type value);
-  void push_right(value_type value);
   Node *deleteNode(Node *current, value_type key);
   Node *minValueNode(Node *node);
 };
