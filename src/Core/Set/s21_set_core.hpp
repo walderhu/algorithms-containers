@@ -56,9 +56,9 @@ inline s21::set<value_type>::set(
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::insert(value_type value)
+inline auto s21::set<value_type>::insert(const value_type value)
     -> std::pair<iterator, bool> {
-  return insert(value, root, nullptr);
+  return insert(static_cast<value_type>(value), root, nullptr);
 }
 
 template <class value_type>

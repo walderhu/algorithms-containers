@@ -43,7 +43,6 @@ template <class value_type>
 inline auto s21::multiset<value_type>::insert(value_type value, Node *&current,
                                               Node *parent)
     -> std::pair<iterator, bool> {
-  std::cout << "hello" << std::endl;  // delete
   if (current == nullptr) {
     current = new Node(value);
     current->parent = parent;

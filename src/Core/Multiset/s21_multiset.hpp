@@ -25,6 +25,10 @@ class multiset final : public s21::set<Key> {
   multiset<Key> &operator=(multiset &&s) noexcept;
   multiset<Key> &operator=(const multiset &s) noexcept;
 
+  std::pair<iterator, bool> insert(const value_type &value) {
+    return s21::set<value_type>::insert(value);
+  }
+
  protected:
   std::pair<iterator, bool> insert(value_type value, Node *&current,
                                    Node *parent) override;

@@ -41,7 +41,7 @@ class set {
   bool empty() const;
   void clear();
 
-  virtual std::pair<iterator, bool> insert(value_type value);
+  virtual std::pair<iterator, bool> insert(const value_type value);
   size_type max_size();
 
   iterator begin();
