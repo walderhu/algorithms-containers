@@ -41,7 +41,7 @@ class set {
   bool empty() const;
   void clear();
 
-  std::pair<iterator, bool> insert(value_type value);
+  virtual std::pair<iterator, bool> insert(value_type value);
   size_type max_size();
 
   iterator begin();
@@ -58,8 +58,8 @@ class set {
 
  protected:
   size_type _size;
-  std::pair<iterator, bool> insert(value_type value, Node *&current,
-                                   Node *parent);
+  virtual std::pair<iterator, bool> insert(value_type value, Node *&current,
+                                           Node *parent);
   void clear(Node *&current);
   Node *deleteNode(Node *current, value_type key);
 };
@@ -87,7 +87,7 @@ struct s21::set<Key>::Iterator {
   Iterator &operator++();
   Iterator &operator--();
   reference operator*() const;
-  virtual Iterator &operator=(const Iterator &other);
+  Iterator &operator=(const Iterator &other);
 
  protected:
   Node *current;

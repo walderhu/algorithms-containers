@@ -48,10 +48,11 @@ inline auto s21::multiset<value_type>::insert(value_type value, Node *&current,
     current = new Node(value);
     current->parent = parent;
     s21::set<value_type>::_size++;
-    return std::make_pair(Iterator(current), true);
+    return std::make_pair(iterator(current), true);
   }
   if (value >= current->value) return insert(value, current->right, current);
   if (value < current->value) return insert(value, current->left, current);
+  return std::make_pair(iterator(current), false);
 }
 
 #endif  // __S21_MULTISET_CORE_HPP__

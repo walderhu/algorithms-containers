@@ -27,7 +27,7 @@ class multiset final : public s21::set<Key> {
 
  protected:
   std::pair<iterator, bool> insert(value_type value, Node *&current,
-                                   Node *parent);
+                                   Node *parent) override;
 };
 
 }  // namespace s21
