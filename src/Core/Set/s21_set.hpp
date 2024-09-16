@@ -66,10 +66,10 @@ class set {
 
 template <class Key>
 struct s21::set<Key>::Node {
-  value_type value;
   Node *left;
   Node *right;
   Node *parent;
+  value_type value;
   Node(value_type value = value_type());
 };
 

@@ -11,6 +11,17 @@ namespace s21 {
 */
 template <class Key>
 class multiset : public s21::set<Key> {
+ public:
+  using Node = typename s21::set<Key>::Node;
+
+  using key_type = Key;
+  using value_type = Key;
+  using reference = value_type &;
+  using const_reference = const value_type &;
+  using iterator = typename s21::set<Key>::Iterator;
+  using const_iterator = typename s21::set<Key>::ConstIterator;
+  using size_type = size_t;
+
   multiset() noexcept : set<Key>::set() {};
   multiset(std::initializer_list<Key> const &items) noexcept
       : set<Key>::set(items) {}
@@ -47,8 +58,8 @@ class multiset : public s21::set<Key> {
 
   //  protected:
   //   size_type _size;
-  //   std::pair<iterator, bool> insert(value_type value, Node *&current,
-  //                                    Node *parent);
+  std::pair<iterator, bool> insert(value_type value, Node *&current,
+                                   Node *parent);
   //   void clear(Node *&current);
   //   Node *deleteNode(Node *current, value_type key);
   //   Node *minValueNode(Node *node);
