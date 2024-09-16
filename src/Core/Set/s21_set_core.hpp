@@ -6,9 +6,11 @@
 template <class value_type>
 s21::set<value_type>::set(const set &s) {
   if (this == &s) return;
-  this->clear();
+  this->root = nullptr;
+  this->_size = 0;
   for (auto it = s.cbegin(); it != s.cend(); ++it) this->insert(*it);
 }
+
 template <class value_type>
 inline s21::set<value_type>::set(set &&s) {
   this->root = s.root;
