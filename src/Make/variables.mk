@@ -1,8 +1,5 @@
-ifndef __VARIABLES_MK__
-export __VARIABLES_MK__ = 1
-
 CC := g++ -g
-# CXXFLAGS := -Wall -Wextra -Werror -std=c++17
+CXXFLAGS := -Wall -Wextra -Werror -std=c++17
 EXE := s21_containers
 TEST_EXE := s21_containers_test
 BUILD_PATH := build
@@ -18,6 +15,7 @@ HEADERS=$(shell find $(SRC_PATH) -type f -name "*.hpp")
 
 TESTS_SRCS=$(shell find $(TESTS_PATH) -type f -name "*.cpp")
 TESTS_HEADERS=$(shell find $(TESTS_PATH) -type f -name "*.hpp")
+RM_FLAGS = --recursive --force
 
 DEPS := $(SRCS:.cpp=.d)
 -include $(DEPS)
@@ -31,6 +29,3 @@ else ifeq ($(UNAME_S),Darwin)
 else ifeq ($(UNAME_S),Windows_NT)
     OPEN_CMD = start
 endif
-
-RM_FLAGS = --recursive --force
-endif # __VARIABLES_MK__

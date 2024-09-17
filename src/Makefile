@@ -1,8 +1,67 @@
-ifndef __MAKEFILE__
-export __MAKEFILE__ = 1
+CC := g++ -g
+CXXFLAGS := -Wall -Wextra -Werror -std=c++17
+EXE := s21_containers
+TEST_EXE := s21_containers_test
+BUILD_PATH := build
+SRC_PATH := Core
+TESTS_PATH := Tests
 
-include Make/variables.mk
-include Make/targets.mk
-include Make/config.mk
+TRASH := README.html $(BUILD_PATH) $(SRC_PATH)/*.gch 
+UNAME_S := $(shell uname -s)
+CONFIG_PATH := $(shell pwd)/.gitconfig
 
-endif # __MAKEFILE__
+SRCS=$(shell find $(SRC_PATH) -type f -name "*.cpp")
+HEADERS=$(shell find $(SRC_PATH) -type f -name "*.hpp")
+
+TESTS_SRCS=$(shell find $(TESTS_PATH) -type f -name "*.cpp")
+TESTS_HEADERS=$(shell find $(TESTS_PATH) -type f -name "*.hpp")
+RM_FLAGS = --recursive --force
+
+DEPS := $(SRCS:.cpp=.d)
+-include $(DEPS)
+
+ifeq ($(UNAME_S),Linux)
+    OPEN_CMD = xdg-open
+	LIB = -lgtest -lrt -lpthread -lsubunit -lm --coverage
+else ifeq ($(UNAME_S),Darwin)
+    OPEN_CMD = open
+	LIB = -lgtest --coverage
+else ifeq ($(UNAME_S),Windows_NT)
+    OPEN_CMD = start
+endif
+
+
+all: clean $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
+
+run: 
+	@$(BUILD_PATH)/$(EXE)
+
+$(BUILD_PATH)/%.o: $(SRC_PATH)/%.cpp
+	@$(CC) $(CXXFLAGS) -MMD -c $< -o $@
+
+$(BUILD_PATH)/$(EXE): $(SRCS:$(SRC_PATH)/%.cpp=$(BUILD_PATH)/%.o) $(HEADERS)
+	@$(CC) $(CXXFLAGS) -o $@ $^
+
+$(BUILD_PATH):
+	@mkdir -p $@
+
+clean: 
+	@rm $(RM_FLAGS) $(TRASH)
+	clear 
+
+reset: clean all
+
+test: clean $(BUILD_PATH)/$(TEST_EXE) test_run
+
+$(BUILD_PATH)/$(TEST_EXE): $(BUILD_PATH) $(BUILD_PATH)/$(EXE)
+	@$(CC) $(TESTS_HEADERS) $(TESTS_SRCS) $(LIB) -o $@
+
+test_run:
+	@./$(BUILD_PATH)/$(TEST_EXE)
+
+gcov_report: $(BUILD_PATH) $(BUILD_PATH)/$(TEST_EXE) test_run report_run
+	@lcov --capture --directory $(BUILD_PATH) --output-file $(BUILD_PATH)/test.info
+	@genhtml -o $(BUILD_PATH)/report $(BUILD_PATH)/test.info 
+
+report_run:
+	@open $(BUILD_PATH)/report/index.html 

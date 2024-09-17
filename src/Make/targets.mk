@@ -1,10 +1,4 @@
-ifndef __TARGETS_MK__
-export __TARGETS_MK__ = 1
-
-include Make/variables.mk
-
 all: clean $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
-# all: test
 
 run: 
 	@$(BUILD_PATH)/$(EXE)
@@ -38,5 +32,3 @@ gcov_report: $(BUILD_PATH) $(BUILD_PATH)/$(TEST_EXE) test_run report_run
 
 report_run:
 	@open $(BUILD_PATH)/report/index.html 
-
-endif # __TARGETS_MK__
