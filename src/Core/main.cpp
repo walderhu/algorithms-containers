@@ -6,11 +6,10 @@
 #include "s21_containers.hpp"
 using namespace std;
 int main() {
-  s21::multiset<std::string> s21_multiset({"this", "world", "is mine"});
-  std::multiset<std::string> std_multiset({"this", "world", "is mine"});
-  std::cout << *(--(s21_multiset.end())) << std::endl;
-  std::cout << *(--(std_multiset.end())) << std::endl;
-
+  s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
+  auto i = _multiset.end();
+  --i;
+  i--;
   return 0;
 }
 

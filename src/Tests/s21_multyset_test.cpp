@@ -79,25 +79,25 @@ TEST(multiset_iterator_operator, increment) {
   EXPECT_EQ(i.get_value(), "world");
 }
 
-// TEST(multiset_iterator_operator, decrement) {
-//   s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
-//   auto i = _multiset.end();
-//   --i;
-//   EXPECT_EQ(i.get_value(), 5);
-//   i--;
-//   EXPECT_EQ(i.get_value(), 4);
-// }
+TEST(multiset_iterator_operator, decrement) {
+  s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
+  auto i = _multiset.end();
+  --i;
+  EXPECT_EQ(i.get_value(), 5);
+  i--;
+  EXPECT_EQ(i.get_value(), 4);
+}
 
-// TEST(multiset_iterator_operator, decrement_test_1) {
-//   s21::multiset<int> ms({1, 5, 3, 4, 2, 0});
-//   auto i = ms.end();
-//   int j = 5;
-//   while (i != ms.begin()) {
-//     --i;
-//     EXPECT_EQ(i.get_value(), j);
-//     --j;
-//   }
-// }
+TEST(multiset_iterator_operator, decrement_test_1) {
+  s21::multiset<int> ms({1, 5, 3, 4, 2, 0});
+  auto i = ms.end();
+  int j = 5;
+  while (i != ms.begin()) {
+    --i;
+    EXPECT_EQ(i.get_value(), j);
+    --j;
+  }
+}
 
 TEST(multiset_size, size_check) {
   s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});

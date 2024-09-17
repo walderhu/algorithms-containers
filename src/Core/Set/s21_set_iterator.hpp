@@ -123,6 +123,20 @@ auto s21::set<value_type>::Iterator::operator--() -> Iterator& {
   return *this;
 }
 
+template <class value_type>
+auto s21::set<value_type>::Iterator::operator++(int) -> Iterator {
+  Iterator temp = *this;
+  ++(*this);
+  return temp;
+}
+
+template <class value_type>
+auto s21::set<value_type>::Iterator::operator--(int) -> Iterator {
+  Iterator temp = *this;
+  --(*this);
+  return temp;
+}
+
 // const_iterator
 
 template <class value_type>
