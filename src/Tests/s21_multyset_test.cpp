@@ -140,23 +140,22 @@ TEST(multiset_erase, erase_test_0) {
   EXPECT_EQ(_multiset.contains(5), false);
 }
 
-// TEST(multiset_swap, swap_test_0) {
-//   s21::multiset<int> _multiset({5, 4, 1, 0, 12, 1, 4, 3, 2});
-//   s21::multiset<int> multiset_copy(_multiset);
-//   s21::multiset<int> _s({9, 20, 30, 40});
-//   s21::multiset<int> s_copy(_s);
-//   _multiset.swap(_s);
-//   auto it = _s.begin();
-//   for (auto i = multiset_copy.begin(); i != multiset_copy.end(); ++i) {
-//     EXPECT_EQ(i.get_value(), it.get_value());
-//     ++it;
-//   }
-//   it = _multiset.begin();
-//   for (auto i = s_copy.begin(); i != s_copy.end(); ++i) {
-//     EXPECT_EQ(i.get_value(), it.get_value());
-//     ++it;
-//   }
-// }
+TEST(multiset_swap, swap_test) {
+  s21::multiset<int> multiset_a({5, 4, 1, 0, 12, 1, 4, 3, 2});
+  s21::multiset<int> multiset_b({9, 20, 30, 40});
+
+  s21::multiset<int> multiset_a_copy(multiset_a);
+  s21::multiset<int> multiset_b_copy(multiset_b);
+
+  multiset_a.swap(multiset_b);
+
+  EXPECT_EQ(multiset_a.size(), multiset_b_copy.size());
+  auto it_a = multiset_a.begin();
+  auto it_b_copy = multiset_b_copy.begin();
+
+  for (; it_a != multiset_a.end(); ++it_a, ++it_b_copy)
+    EXPECT_EQ(it_a.get_value(), it_b_copy.get_value());
+}
 
 TEST(multiset_merge, merge_test_0) {
   s21::multiset<int> _multiset({5, 0, 12, 1, 4, 3, 2});
