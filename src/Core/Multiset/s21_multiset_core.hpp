@@ -1,8 +1,6 @@
 #ifndef __S21_MULTISET_CORE_HPP__
 #define __S21_MULTISET_CORE_HPP__
 
-#include <iostream>
-
 #include "s21_multiset.hpp"
 
 template <class value_type>

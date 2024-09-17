@@ -61,6 +61,8 @@ test_run:
 gcov_report: $(BUILD_PATH) $(BUILD_PATH)/$(TEST_EXE) test_run report_run
 	@lcov --capture --directory $(BUILD_PATH) --output-file $(BUILD_PATH)/test.info
 	@genhtml -o $(BUILD_PATH)/report $(BUILD_PATH)/test.info 
+# lcov --capture --directory build --output-file build/test.info 
+# genhtml -o build/report build/test.info
 
 report_run:
 	@open $(BUILD_PATH)/report/index.html 
