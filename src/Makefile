@@ -30,8 +30,7 @@ else ifeq ($(UNAME_S),Windows_NT)
     OPEN_CMD = start
 endif
 
-
-all: clean $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
+all: $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
 
 run: 
 	@$(BUILD_PATH)/$(EXE)
@@ -51,7 +50,7 @@ clean:
 
 reset: clean all
 
-test: clean $(BUILD_PATH)/$(TEST_EXE) test_run
+test: $(BUILD_PATH)/$(TEST_EXE) test_run
 
 $(BUILD_PATH)/$(TEST_EXE): $(BUILD_PATH) $(BUILD_PATH)/$(EXE)
 	@$(CC) $(TESTS_HEADERS) $(TESTS_SRCS) $(LIB) -o $@
@@ -65,3 +64,22 @@ gcov_report: $(BUILD_PATH) $(BUILD_PATH)/$(TEST_EXE) test_run report_run
 
 report_run:
 	@open $(BUILD_PATH)/report/index.html 
+
+style:
+	@find .. -type f -name "*.tpp" -exec clang-format -n -style=Google {} \;
+	@find .. -type f -name "*.cpp" -exec clang-format -n -style=Google {} \;
+	@find .. -type f -name "*.hpp" -exec clang-format -n -style=Google {} \;
+	@echo "Clang format style check is finished"
+
+c: style_repair
+
+style_repair:
+	@find .. -type f -name "*.tpp" -exec clang-format -i -style=Google {} \;
+	@find .. -type f -name "*.cpp" -exec clang-format -i -style=Google {} \;
+	@find .. -type f -name "*.hpp" -exec clang-format -i -style=Google {} \;
+	@echo "Clang format style apply is finished"
+
+.PHONY: test all gcov_report
+
+leaks: $(BUILD_PATH)/$(TEST_EXE)
+	valgrind --leak-check=full --track-origins=yes $(BUILD_PATH)/$(TEST_EXE)
