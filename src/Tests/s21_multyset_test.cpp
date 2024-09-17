@@ -51,11 +51,15 @@ TEST(multiset_iterator, begin) {
   EXPECT_EQ(i.get_value(), "is mine");
 }
 
-// TEST(multiset_iterator, end) {
-//   s21::multiset<std::string> _multiset({"this", "world", "is mine"});
-//   auto i = _multiset.end();
-//   EXPECT_EQ((--i).get_value(), "world");
-// }
+TEST(multiset_iterator, end) {
+  s21::multiset<std::string> s21_multiset({"this", "world", "is mine"});
+  std::multiset<std::string> std_multiset({"this", "world", "is mine"});
+  auto s21_it = s21_multiset.end();
+  auto std_it = std_multiset.end();
+  --s21_it;
+  --std_it;
+  EXPECT_EQ(*s21_it, *std_it);
+}
 
 TEST(multiset_iterator_operator, increment) {
   s21::multiset<std::string> _multiset({"this", "world", "is mine"});

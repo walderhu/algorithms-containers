@@ -13,6 +13,8 @@ inline s21::set<value_type>::Iterator::Iterator(
 
 template <class value_type>
 inline auto s21::set<value_type>::Iterator::operator*() const -> reference {
+  if (*this == set->end())
+    throw std::out_of_range("Attempt to access the end()");
   return current->value;
 }
 
