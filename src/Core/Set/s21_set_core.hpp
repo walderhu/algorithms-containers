@@ -139,14 +139,6 @@ inline auto s21::set<Key>::find(const Key &key) -> iterator {
   return this->end();
 }
 
-// template <class Key>
-// inline auto s21::set<Key>::find(const Key &key) -> iterator {
-//   iterator it;
-//   for (it = this->begin(); it != this->end(); ++it)
-//     if (*it == key) break;
-//   return it;
-// }
-
 template <class Key>
 inline auto s21::set<Key>::contains(const Key &key) -> bool {
   for (auto it = this->begin(); it != this->end(); ++it)
@@ -196,8 +188,8 @@ inline auto s21::set<value_type>::erase(iterator pos) -> void {
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::deleteNode(Node *current,
-                                             value_type value) -> Node * {
+inline auto s21::set<value_type>::deleteNode(Node *current, value_type value)
+    -> Node * {
   if (current == nullptr)
     return nullptr;  // Если узел не найден, возвращаем nullptr
 

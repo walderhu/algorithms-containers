@@ -79,8 +79,13 @@ inline auto s21::multiset<Key>::count(const Key &key) const -> size_type {
 template <class Key>
 inline auto s21::multiset<Key>::lower_bound(const Key &key) noexcept
     -> iterator {
-  for (auto it = this->begin(); it != this->end(); ++it)
-    if (*it >= key) return it;
+  if (s21::set<Key>::root != nullptr) {
+    Node *current = s21::set<Key>::root;
+    while (current) {
+      if (current->value >= key) return iterator(current, this);
+      if (current->value < key) current = current->right;
+    }
+  }
   return this->end();
 }
 

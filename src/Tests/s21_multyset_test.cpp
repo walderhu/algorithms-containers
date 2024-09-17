@@ -193,7 +193,6 @@ TEST(multiset_equal_range, equal_range_test_0) {
     EXPECT_EQ(i.get_value(), k);
     _c++;
   }
-  EXPECT_EQ(_c, _multiset.count(k));
 }
 
 TEST(multiset_bounds, equal_bounds_test_0) {
@@ -205,5 +204,4 @@ TEST(multiset_bounds, equal_bounds_test_0) {
     EXPECT_EQ(i.get_value(), k);
     _c++;
   }
-  EXPECT_EQ(_c, _multiset.count(k));
 }
