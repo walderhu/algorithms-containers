@@ -97,15 +97,17 @@ inline auto s21::set<value_type>::size() const -> size_type {
 
 template <class Key>
 inline auto s21::set<Key>::find(const Key &key) -> iterator {
-  auto it = this->begin();
-  for (; it != this->end(); ++it)
+  iterator it;
+  for (it = this->begin(); it != this->end(); ++it)
     if (*it == key) break;
   return it;
 }
 
 template <class Key>
 inline auto s21::set<Key>::contains(const Key &key) -> bool {
-  return (this->find(key) == this->end());
+  for (auto it = this->begin(); it != this->end(); ++it)
+    if (*it == key) return true;
+  return false;
 }
 
 template <class value_type>
