@@ -54,6 +54,15 @@ TEST(multiset_iterator, begin) {
 TEST(multiset_iterator, end) {
   s21::multiset<std::string> s21_multiset({"this", "world", "is mine"});
   std::multiset<std::string> std_multiset({"this", "world", "is mine"});
+  for (auto s21_it = s21_multiset.begin(); s21_it != s21_multiset.end();
+       ++s21_it)
+    std::cout << *s21_it << " ";
+  std::cout << std::endl;
+  for (auto std_it = s21_multiset.begin(); std_it != s21_multiset.end();
+       ++std_it)
+    std::cout << *std_it << " ";
+  std::cout << std::endl;
+
   auto s21_it = s21_multiset.end();
   auto std_it = std_multiset.end();
   --s21_it;

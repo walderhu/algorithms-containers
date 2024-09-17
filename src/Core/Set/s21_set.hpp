@@ -92,6 +92,7 @@ struct s21::set<Key>::Iterator {
 
  protected:
   Node *current;
+  Iterator last();
   s21::set<value_type> *set;
   friend class s21::set<value_type>;
   friend class s21::set<value_type>::ConstIterator;

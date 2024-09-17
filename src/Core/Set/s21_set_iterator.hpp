@@ -13,8 +13,6 @@ inline s21::set<value_type>::Iterator::Iterator(
 
 template <class value_type>
 inline auto s21::set<value_type>::Iterator::operator*() const -> reference {
-  if (*this == set->end())
-    throw std::out_of_range("Attempt to access the end()");
   return current->value;
 }
 
@@ -72,6 +70,14 @@ inline auto s21::set<value_type>::Iterator::operator>=(
 }
 
 template <class value_type>
+inline auto s21::set<value_type>::Iterator::last() -> Iterator {
+  if (set->root == nullptr) return set->end();
+  Node* current = set->root;
+  while (current->right != nullptr) current = current->right;
+  return Iterator(current);
+}
+
+template <class value_type>
 auto s21::set<value_type>::Iterator::operator++() -> Iterator& {
   if (current == nullptr)
     throw std::out_of_range("Disabled iterator. Not exist");
@@ -93,12 +99,14 @@ auto s21::set<value_type>::Iterator::operator++() -> Iterator& {
 
 template <class value_type>
 auto s21::set<value_type>::Iterator::operator--() -> Iterator& {
-  if (current == set->end().current) {
-    Node* biggest_member = set->begin().current;
-    while (biggest_member->right) biggest_member = biggest_member->right;
-    current = biggest_member;
+  if (*this == set->end()) {
+    if (set->empty())
+      throw std::out_of_range(
+          "Attempt to decrement end iterator of empty container");
+    *this = this->last();
     return *this;
   }
+
   // Если есть левое поддерево, идем к самому правому узлу
   if (current->left) {
     current = current->left;
