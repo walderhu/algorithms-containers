@@ -15,7 +15,6 @@ HEADERS=$(shell find $(SRC_PATH) -type f -name "*.hpp")
 
 TESTS_SRCS=$(shell find $(TESTS_PATH) -type f -name "*.cpp")
 TESTS_HEADERS=$(shell find $(TESTS_PATH) -type f -name "*.hpp")
-RM_FLAGS = --recursive --force
 
 DEPS := $(SRCS:.cpp=.d)
 -include $(DEPS)
@@ -45,7 +44,7 @@ $(BUILD_PATH):
 	@mkdir -p $@
 
 clean: 
-	@rm $(RM_FLAGS) $(TRASH)
+	@rm -rf $(TRASH)
 	clear 
 
 reset: clean all
@@ -58,11 +57,10 @@ $(BUILD_PATH)/$(TEST_EXE): $(BUILD_PATH) $(BUILD_PATH)/$(EXE)
 test_run:
 	@./$(BUILD_PATH)/$(TEST_EXE)
 
-gcov_report: $(BUILD_PATH) $(BUILD_PATH)/$(TEST_EXE) test_run report_run
+gcov_report: $(BUILD_PATH) $(BUILD_PATH)/$(TEST_EXE) test_run
 	@lcov --capture --directory $(BUILD_PATH) --output-file $(BUILD_PATH)/test.info
 	@genhtml -o $(BUILD_PATH)/report $(BUILD_PATH)/test.info 
-# lcov --capture --directory build --output-file build/test.info 
-# genhtml -o build/report build/test.info
+	@$(MAKE) report_run -s
 
 report_run:
 	@open $(BUILD_PATH)/report/index.html 
