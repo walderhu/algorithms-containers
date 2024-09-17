@@ -128,11 +128,24 @@ inline auto s21::set<value_type>::size() const -> size_type {
 
 template <class Key>
 inline auto s21::set<Key>::find(const Key &key) -> iterator {
-  iterator it;
-  for (it = this->begin(); it != this->end(); ++it)
-    if (*it == key) break;
-  return it;
+  if (root != nullptr) {
+    Node *current = root;
+    while (current) {
+      if (current->value > key) current = current->left;
+      if (current->value < key) current = current->right;
+      if (current->value == key) return iterator(current, this);
+    }
+  }
+  return this->end();
 }
+
+// template <class Key>
+// inline auto s21::set<Key>::find(const Key &key) -> iterator {
+//   iterator it;
+//   for (it = this->begin(); it != this->end(); ++it)
+//     if (*it == key) break;
+//   return it;
+// }
 
 template <class Key>
 inline auto s21::set<Key>::contains(const Key &key) -> bool {

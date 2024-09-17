@@ -184,26 +184,26 @@ TEST(multiset_find, find_test_0) {
   }
 }
 
-// TEST(multiset_equal_range, equal_range_test_0) {
-//   s21::multiset<int> _multiset({5, 0, 4, 12, 1, 4, 3, 2, 4, 4});
-//   int k = 4;
-//   auto pair = _multiset.equal_range(k);
-//   int _c = 0;
-//   for (auto i = pair.first; i != pair.second; ++i) {
-//     EXPECT_EQ(i.get_value(), k);
-//     _c++;
-//   }
-//   EXPECT_EQ(_c, _multiset.count(k));
-// }
+TEST(multiset_equal_range, equal_range_test_0) {
+  s21::multiset<int> _multiset({5, 0, 4, 12, 1, 4, 3, 2, 4, 4});
+  int k = 4;
+  auto pair = _multiset.equal_range(k);
+  int _c = 0;
+  for (auto i = pair.first; i != pair.second; ++i) {
+    EXPECT_EQ(i.get_value(), k);
+    _c++;
+  }
+  EXPECT_EQ(_c, _multiset.count(k));
+}
 
-// TEST(multiset_bounds, equal_bounds_test_0) {
-//   s21::multiset<int> _multiset({5, 0, 4, 12, 1, 4, 3, 2, 4, 4});
-//   int k = 4;
-//   auto _end = _multiset.upper_bound(k);
-//   int _c = 0;
-//   for (auto i = _multiset.lower_bound(k); i != _end; ++i) {
-//     EXPECT_EQ(i.get_value(), k);
-//     _c++;
-//   }
-//   EXPECT_EQ(_c, _multiset.count(k));
-// }
+TEST(multiset_bounds, equal_bounds_test_0) {
+  s21::multiset<int> _multiset({5, 0, 4, 12, 1, 4, 3, 2, 4, 4});
+  int k = 4;
+  auto _end = _multiset.upper_bound(k);
+  int _c = 0;
+  for (auto i = _multiset.lower_bound(k); i != _end; ++i) {
+    EXPECT_EQ(i.get_value(), k);
+    _c++;
+  }
+  EXPECT_EQ(_c, _multiset.count(k));
+}
