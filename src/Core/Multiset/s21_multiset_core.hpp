@@ -71,8 +71,8 @@ inline auto s21::multiset<value_type>::insert(value_type value, Node *&current,
 template <class Key>
 inline auto s21::multiset<Key>::count(const Key &key) const -> size_type {
   size_type _count = 0;
-  for (auto it = s21::set<Key>::cbegin(); it != s21::set<Key>::cend();
-       ++it, _count++);
+  for (auto it = s21::set<Key>::cbegin(); it != s21::set<Key>::cend(); ++it)
+    if (*it == key) _count++;
   return _count;
 }
 

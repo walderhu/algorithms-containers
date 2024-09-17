@@ -122,16 +122,16 @@ TEST(multiset_insert, insert_test_1) {
   EXPECT_EQ(_multiset.contains(90), true);
 }
 
-// TEST(multiset_insert, insert_many_test_0) {
-//   s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
-//   auto v = _multiset.insert_many(1, 90, 10);
-//   EXPECT_EQ(_multiset.contains(90), 1);
-//   EXPECT_EQ(_multiset.contains(10), 1);
-//   EXPECT_EQ(_multiset.count(1), 3);
-//   EXPECT_EQ(v[0].second, 1);
-//   EXPECT_EQ(v[1].second, 1);
-//   EXPECT_EQ(v[2].second, 1);
-// }
+TEST(multiset_insert, insert_many_test_0) {
+  s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
+  auto v = _multiset.insert_many(1, 90, 10);
+  EXPECT_EQ(_multiset.contains(90), true);
+  EXPECT_EQ(_multiset.contains(10), true);
+  EXPECT_EQ(_multiset.count(1), 3);
+  EXPECT_EQ(v[0].second, 1);
+  EXPECT_EQ(v[1].second, 1);
+  EXPECT_EQ(v[2].second, 1);
+}
 
 TEST(multiset_erase, erase_test_0) {
   s21::multiset<int> _multiset({5, 4, 1, 0, 2, 1, 4, 3, 3, 2});
