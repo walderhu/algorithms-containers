@@ -1,17 +1,17 @@
 #ifndef __S21_LIST_HXX__
 #define __S21_LIST_HXX__
 
-#include <iostream>
-
 #include "../s21_containers.hpp"
 
 namespace s21 {
 
 template <class T>
 class list final : public deque<T> {
- public:
+ private:
   struct Iterator;
   struct ConstIterator;
+
+ public:
   using Node = typename s21::deque<T>::Node;
   using size_type = size_t;
   using value_type = T;
@@ -20,7 +20,6 @@ class list final : public deque<T> {
   using const_iterator = ConstIterator;
   using const_reference = const T &;
 
- public:
   list() noexcept;
   list(size_type n) noexcept;
   ~list() noexcept;
@@ -34,7 +33,6 @@ class list final : public deque<T> {
   reference operator[](const int index) const;
   void reverse();
   void sort();
-  void print();
   void swap(list &other) noexcept;
   void merge(list &other);
 
@@ -51,16 +49,10 @@ class list final : public deque<T> {
   void splice(const_iterator pos, list &other);
   void splice(iterator pos, list &other);
   void unique();
-
-  struct Iterator;
-  struct ConstIterator;
   Iterator begin() noexcept;
   Iterator end() noexcept;
   ConstIterator cbegin() const;
   ConstIterator cend() const;
-
-  template <typename U>
-  friend std::ostream &operator<<(std::ostream &os, const list<U> &obj);
 };
 }  // namespace s21
 

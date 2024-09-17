@@ -37,7 +37,6 @@ class set {
 
   iterator find(const Key &key);
   bool contains(const Key &key);
-
   bool empty() const;
   void clear();
 
@@ -58,10 +57,12 @@ class set {
 
  protected:
   size_type _size;
-  virtual std::pair<iterator, bool> insert(value_type value, Node *&current,
-                                           Node *parent);
   void clear(Node *&current);
+
+ private:
   Node *deleteNode(Node *current, value_type key);
+  virtual std::pair<iterator, bool> insert_in(value_type value, Node *&current,
+                                              Node *parent);
 };
 
 template <class Key>
@@ -71,11 +72,6 @@ struct s21::set<Key>::Node {
   Node *parent;
   value_type value;
   Node(value_type value = value_type());
-
-  Node(const Node &other) noexcept;
-  Node(Node &&other);
-  Node &operator=(const Node &other) noexcept;
-  Node &operator=(set &&other) noexcept;
 };
 
 template <class Key>

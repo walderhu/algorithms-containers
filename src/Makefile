@@ -15,7 +15,6 @@ HEADERS =$(shell find $(SRC_PATH) -type f -name "*.hpp")
 TESTS_SRCS =$(shell find $(TESTS_PATH) -type f -name "*.cpp")
 TESTS_HEADERS =$(shell find $(TESTS_PATH) -type f -name "*.hpp")
 
-
 DEPS := $(SRCS:.cpp=.d)
 -include $(DEPS)
 
@@ -45,10 +44,6 @@ $(BUILD_PATH):
 
 clean: 
 	@rm -rf $(TRASH)
-	@$(eval SRCS =)
-	@$(eval HEADERS =)
-	@$(eval TESTS_SRCS =)
-	@$(eval TESTS_HEADERS =) 
 
 reset: clean all
 

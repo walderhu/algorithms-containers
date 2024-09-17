@@ -39,38 +39,6 @@ template <class value_type>
 inline s21::set<value_type>::Node::Node(value_type value)
     : left(nullptr), right(nullptr), parent(nullptr), value(value) {}
 
-template <class Key>
-inline s21::set<Key>::Node::Node(const Node &other) noexcept
-    : left(other.left),
-      right(other.right),
-      parent(other.parent),
-      value(other.value) {}
-
-template <class Key>
-inline s21::set<Key>::Node::Node(Node &&other) {
-  if (this != &other) {
-    s21::set<Key>::Node new_node(other);
-    other.left = nullptr;
-    other.right = nullptr;
-    other.parent = nullptr;
-    other.value = Key();
-  }
-}
-
-template <class Key>
-inline auto s21::set<Key>::Node::operator=(const Node &other) noexcept
-    -> Node & {
-  s21::set<Key>::Node new_node(other);
-  *this = std::move(new_node);
-  return *this;
-}
-
-template <class Key>
-inline auto s21::set<Key>::Node::operator=(set &&other) noexcept -> Node & {
-  s21::set<Key>::Node(std::move(other));
-  return *this;
-}
-
 template <class value_type>
 inline auto s21::set<value_type>::empty() const -> bool {
   return this->_size == 0;
@@ -89,12 +57,12 @@ inline s21::set<value_type>::set(
 template <class value_type>
 inline auto s21::set<value_type>::insert(const value_type value)
     -> std::pair<iterator, bool> {
-  return insert(static_cast<value_type>(value), root, nullptr);
+  return insert_in(static_cast<value_type>(value), root, nullptr);
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::insert(value_type value, Node *&current,
-                                         Node *parent)
+inline auto s21::set<value_type>::insert_in(value_type value, Node *&current,
+                                            Node *parent)
     -> std::pair<iterator, bool> {
   if (current == nullptr) {
     current = new Node(value);
@@ -102,8 +70,8 @@ inline auto s21::set<value_type>::insert(value_type value, Node *&current,
     _size++;
     return std::make_pair(Iterator(current), true);
   }
-  if (value > current->value) return insert(value, current->right, current);
-  if (value < current->value) return insert(value, current->left, current);
+  if (value > current->value) return insert_in(value, current->right, current);
+  if (value < current->value) return insert_in(value, current->left, current);
   return std::make_pair(Iterator(current), false);
 }
 
@@ -188,8 +156,8 @@ inline auto s21::set<value_type>::erase(iterator pos) -> void {
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::deleteNode(Node *current, value_type value)
-    -> Node * {
+inline auto s21::set<value_type>::deleteNode(Node *current,
+                                             value_type value) -> Node * {
   if (current == nullptr)
     return nullptr;  // Если узел не найден, возвращаем nullptr
 

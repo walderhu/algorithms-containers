@@ -10,7 +10,8 @@ inline s21::multiset<value_type>::multiset() noexcept
 template <class value_type>
 inline s21::multiset<value_type>::multiset(
     std::initializer_list<value_type> const &items) noexcept {
-  for (auto it = items.begin(); it != items.end(); ++it) insert(*it);
+  for (auto it = items.begin(); it != items.end(); ++it)
+    set<value_type>::insert(*it);
 }
 
 template <class value_type>
@@ -46,30 +47,24 @@ inline auto s21::multiset<value_type>::operator=(const multiset &s) noexcept
 }
 
 template <class value_type>
-inline auto s21::multiset<value_type>::insert(const value_type &value)
-    -> std::pair<iterator, bool> {
-  return s21::set<value_type>::insert(value);
-}
-
-template <class value_type>
-inline auto s21::multiset<value_type>::insert(value_type value, Node *&current,
-                                              Node *parent)
+inline auto s21::multiset<value_type>::insert_in(value_type value,
+                                                 Node *&current, Node *parent)
     -> std::pair<iterator, bool> {
   if (current == nullptr) {
     current = new Node(value);
     current->parent = parent;
-    s21::set<value_type>::_size++;
+    set<value_type>::_size++;
     return std::make_pair(iterator(current), true);
   }
-  if (value >= current->value) return insert(value, current->right, current);
-  if (value < current->value) return insert(value, current->left, current);
+  if (value >= current->value) return insert_in(value, current->right, current);
+  if (value < current->value) return insert_in(value, current->left, current);
   return std::make_pair(iterator(current), false);
 }
 
 template <class Key>
 inline auto s21::multiset<Key>::count(const Key &key) const -> size_type {
   size_type _count = 0;
-  for (auto it = s21::set<Key>::cbegin(); it != s21::set<Key>::cend(); ++it)
+  for (auto it = set<Key>::cbegin(); it != set<Key>::cend(); ++it)
     if (*it == key) _count++;
   return _count;
 }
@@ -77,8 +72,8 @@ inline auto s21::multiset<Key>::count(const Key &key) const -> size_type {
 template <class Key>
 inline auto s21::multiset<Key>::lower_bound(const Key &key) noexcept
     -> iterator {
-  if (s21::set<Key>::root != nullptr) {
-    Node *current = s21::set<Key>::root;
+  if (set<Key>::root != nullptr) {
+    Node *current = set<Key>::root;
     while (current) {
       if (current->value >= key) return iterator(current, this);
       if (current->value < key) current = current->right;

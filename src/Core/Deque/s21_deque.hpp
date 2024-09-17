@@ -41,8 +41,6 @@ class deque {
   Node* head;
   Node* tail;
   size_type _size;
-
- protected:
   void push_front(Node* new_node);
   void push_back(Node* new_node);
 };
