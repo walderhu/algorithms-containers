@@ -203,12 +203,14 @@ inline auto s21::set<value_type>::deleteNode(Node *current,
     // Случай 2: узел имеет одного потомка
     else if (current->left == nullptr) {
       Node *temp = current->right;  // Сохраняем указатель на правого потомка
-      delete current;  // Удаляем узел
-      return temp;     // Возвращаем правого потомка
+      temp->parent = current->parent;  // ???
+      delete current;                  // Удаляем узел
+      return temp;  // Возвращаем правого потомка
     } else if (current->right == nullptr) {
       Node *temp = current->left;  // Сохраняем указатель на левого потомка
-      delete current;  // Удаляем узел
-      return temp;     // Возвращаем левого потомка
+      temp->parent = current->parent;  // ???
+      delete current;                  // Удаляем узел
+      return temp;  // Возвращаем левого потомка
     }
     // Случай 3: узел имеет двух потомков
     Node *temp = current->right;

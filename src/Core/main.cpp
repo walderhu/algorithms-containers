@@ -13,7 +13,7 @@ int main() {
   // cout << *it << " ";
   // cout << endl;
 
-  // _multiset.erase(i);
+  _multiset.erase(i);
 
   for (auto it = _multiset.begin(); it != _multiset.end(); ++it)
     cout << *it << " ";
