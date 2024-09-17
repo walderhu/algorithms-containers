@@ -76,4 +76,29 @@ inline auto s21::multiset<Key>::count(const Key &key) const -> size_type {
   return _count;
 }
 
+template <class Key>
+inline auto s21::multiset<Key>::lower_bound(const Key &key) noexcept
+    -> iterator {
+  for (auto it = this->begin(); it != this->end(); ++it)
+    if (*it >= key) return it;
+  return this->end();
+}
+
+template <class Key>
+inline auto s21::multiset<Key>::upper_bound(const Key &key) noexcept
+    -> iterator {
+  for (iterator it = this->lower_bound(key); it != this->end(); ++it)
+    if (*it > key) return it;
+  return this->end();
+}
+
+template <class Key>
+inline auto s21::multiset<Key>::equal_range(const Key &key) noexcept
+    -> std::pair<iterator, iterator> {
+  std::pair<iterator, iterator> result;
+  result.first = this->lower_bound(key);
+  result.second = this->upper_bound(key);
+  return result;
+}
+
 #endif  // __S21_MULTISET_CORE_HPP__

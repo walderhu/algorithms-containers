@@ -25,6 +25,10 @@ class multiset final : public s21::set<Key> {
   multiset<Key> &operator=(multiset &&s) noexcept;
   multiset<Key> &operator=(const multiset &s) noexcept;
 
+  iterator lower_bound(const Key &key) noexcept;
+  iterator upper_bound(const Key &key) noexcept;
+  std::pair<iterator, iterator> equal_range(const Key &key) noexcept;
+
   std::pair<iterator, bool> insert(const value_type &value);
   size_type count(const Key &key) const;
 
