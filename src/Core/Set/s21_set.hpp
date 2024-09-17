@@ -71,6 +71,11 @@ struct s21::set<Key>::Node {
   Node *parent;
   value_type value;
   Node(value_type value = value_type());
+
+  Node(const Node &other) noexcept;
+  Node(Node &&other);
+  Node &operator=(const Node &other) noexcept;
+  Node &operator=(set &&other) noexcept;
 };
 
 template <class Key>

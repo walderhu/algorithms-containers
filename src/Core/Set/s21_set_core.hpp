@@ -35,10 +35,41 @@ inline auto s21::set<value_type>::operator=(const set &s) noexcept
   return *this;
 }
 
-//
 template <class value_type>
 inline s21::set<value_type>::Node::Node(value_type value)
     : left(nullptr), right(nullptr), parent(nullptr), value(value) {}
+
+template <class Key>
+inline s21::set<Key>::Node::Node(const Node &other) noexcept
+    : left(other.left),
+      right(other.right),
+      parent(other.parent),
+      value(other.value) {}
+
+template <class Key>
+inline s21::set<Key>::Node::Node(Node &&other) {
+  if (this != &other) {
+    s21::set<Key>::Node new_node(other);
+    other.left = nullptr;
+    other.right = nullptr;
+    other.parent = nullptr;
+    other.value = Key();
+  }
+}
+
+template <class Key>
+inline auto s21::set<Key>::Node::operator=(const Node &other) noexcept
+    -> Node & {
+  s21::set<Key>::Node new_node(other);
+  *this = std::move(new_node);
+  return *this;
+}
+
+template <class Key>
+inline auto s21::set<Key>::Node::operator=(set &&other) noexcept -> Node & {
+  s21::set<Key>::Node(std::move(other));
+  return *this;
+}
 
 template <class value_type>
 inline auto s21::set<value_type>::empty() const -> bool {
@@ -141,20 +172,21 @@ inline auto s21::set<value_type>::merge(set &other) -> void {
   for (auto it = other.cbegin(); it != other.cend(); ++it) this->insert(*it);
   other.clear();
 }
-//
+
 template <class value_type>
 inline auto s21::set<value_type>::erase(iterator pos) -> void {
-  if (pos.current == nullptr) return;  // Проверка на nullptr
-  value_type value = *pos;  // Получаем значение из итератора
-  root = deleteNode(root, value);  // Удаляем узел и обновляем корень
-  --_size;  // Уменьшаем размер множества
+  if (pos.current == nullptr) return;
+
+  value_type value = *pos;
+  root = deleteNode(root, value);
+  --_size;
 }
 
 template <class value_type>
 inline auto s21::set<value_type>::deleteNode(Node *current,
                                              value_type value) -> Node * {
   if (current == nullptr)
-    return current;  // Если узел не найден, возвращаем nullptr
+    return nullptr;  // Если узел не найден, возвращаем nullptr
 
   // Рекурсивный поиск узла для удаления
   if (value < current->value) {
@@ -180,12 +212,13 @@ inline auto s21::set<value_type>::deleteNode(Node *current,
     }
     // Случай 3: узел имеет двух потомков
     Node *temp = current->right;
-    while (temp && temp->left != nullptr) temp = temp->left;
-
+    while (temp && temp->left != nullptr) {
+      temp = temp->left;
+    }
     // Находим минимальный элемент в правом поддереве
     current->value = temp->value;  // Копируем значение минимального узла
 
-    // Удаляем минимальный узел
+    // Удаляем минимальный узел из правого поддерева
     current->right = deleteNode(current->right, temp->value);
   }
   return current;  // Возвращаем изменённый корень
