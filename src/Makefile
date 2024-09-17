@@ -11,10 +11,10 @@ UNAME_S := $(shell uname -s)
 CONFIG_PATH := $(shell pwd)/.gitconfig
 
 SRCS=$(shell find $(SRC_PATH) -type f -name "*.cpp")
-HEADERS=$(shell find $(SRC_PATH) -type f -name "*.hpp")
+HEADERS =$(shell find $(SRC_PATH) -type f -name "*.hpp")
+TESTS_SRCS =$(shell find $(TESTS_PATH) -type f -name "*.cpp")
+TESTS_HEADERS =$(shell find $(TESTS_PATH) -type f -name "*.hpp")
 
-TESTS_SRCS=$(shell find $(TESTS_PATH) -type f -name "*.cpp")
-TESTS_HEADERS=$(shell find $(TESTS_PATH) -type f -name "*.hpp")
 
 DEPS := $(SRCS:.cpp=.d)
 -include $(DEPS)
@@ -29,7 +29,7 @@ else ifeq ($(UNAME_S),Windows_NT)
     OPEN_CMD = start
 endif
 
-all: $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
+all:  $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
 
 run: 
 	@$(BUILD_PATH)/$(EXE)
@@ -45,11 +45,14 @@ $(BUILD_PATH):
 
 clean: 
 	@rm -rf $(TRASH)
-	clear 
+	@$(eval SRCS =)
+	@$(eval HEADERS =)
+	@$(eval TESTS_SRCS =)
+	@$(eval TESTS_HEADERS =) 
 
 reset: clean all
 
-test: $(BUILD_PATH)/$(TEST_EXE) test_run
+test:  $(BUILD_PATH)/$(TEST_EXE) test_run
 
 $(BUILD_PATH)/$(TEST_EXE): $(BUILD_PATH) $(BUILD_PATH)/$(EXE)
 	@$(CC) $(TESTS_HEADERS) $(TESTS_SRCS) $(LIB) -o $@
