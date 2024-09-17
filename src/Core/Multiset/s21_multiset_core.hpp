@@ -31,7 +31,14 @@ inline s21::multiset<value_type>::~multiset() noexcept {
 template <class value_type>
 inline auto s21::multiset<value_type>::operator=(multiset &&s) noexcept
     -> multiset<value_type> & {
-  return set<value_type>::operator=(std::move(s));
+  if (this != &s) {
+    s21::multiset<value_type>::clear();
+    this->root = std::move(s.root);
+    this->_size = std::move(s._size);
+    s.root = nullptr;
+    s._size = 0;
+  }
+  return *this;
 }
 
 template <class value_type>

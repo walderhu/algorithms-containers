@@ -32,18 +32,18 @@ TEST(multiset_constructor, move) {
   EXPECT_EQ(_multiset.empty(), 1);
 }
 
-// TEST(multiset_operator, move_assignment) {
-//   s21::multiset<std::string> first({"this", "world", "is mine"});
-//   s21::multiset<std::string> copy(first);
-//   s21::multiset<std::string> second;
-//   second = std::move(first);
-//   auto j = second.begin();
-//   for (auto i = copy.begin(); i != copy.end(); ++i) {
-//     ASSERT_TRUE(i.get_value() == j.get_value());
-//     ++j;
-//   }
-//   EXPECT_EQ(first.empty(), 1);
-// }
+TEST(multiset_operator, move_assignment) {
+  s21::multiset<std::string> first({"this", "world", "is mine"});
+  s21::multiset<std::string> copy(first);
+  s21::multiset<std::string> second;
+  second = std::move(first);
+  auto j = second.begin();
+  for (auto i = copy.begin(); i != copy.end(); ++i) {
+    ASSERT_TRUE(i.get_value() == j.get_value());
+    ++j;
+  }
+  EXPECT_EQ(first.empty(), 1);
+}
 
 TEST(multiset_iterator, begin) {
   s21::multiset<std::string> _multiset({"this", "world", "is mine"});
