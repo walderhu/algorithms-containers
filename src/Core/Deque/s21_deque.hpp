@@ -51,7 +51,7 @@ struct s21::deque<T>::Node {
   value_type value;
   Node* next;
   Node* prev;
-  Node(value_type value = value_type());
+  Node(value_type val = value_type());
 };
 
 #include "s21_deque_core.hpp"

@@ -5,8 +5,8 @@
 
 template <class value_type>
 inline s21::list<value_type>::Iterator::Iterator(
-    Node* node, s21::list<value_type>* list) noexcept
-    : current(node), list(list) {}
+    Node* node, s21::list<value_type>* lst) noexcept
+    : current(node), list(lst) {}
 
 template <class value_type>
 inline s21::list<value_type>::Iterator::Iterator() noexcept

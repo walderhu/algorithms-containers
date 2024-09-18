@@ -70,13 +70,13 @@ struct s21::set<Key>::Node {
   Node *right;
   Node *parent;
   value_type value;
-  Node(value_type value = value_type());
+  Node(value_type val = value_type());
 };
 
 template <class Key>
 struct s21::set<Key>::Iterator {
   Iterator() noexcept;
-  Iterator(Node *node, s21::set<value_type> *set = nullptr) noexcept;
+  Iterator(Node *node, s21::set<value_type> *st = nullptr) noexcept;
   Iterator(const Iterator &other) noexcept;
   bool operator==(const Iterator &other) const;
   bool operator!=(const Iterator &other) const;

@@ -1,5 +1,5 @@
 CC := g++ -g
-CXXFLAGS := -Wall -Wextra -Werror -std=c++17
+CXXFLAGS := -Wall -Wextra -Werror -std=c++17 -Wpedantic -pipe -O2
 EXE := s21_containers
 TEST_EXE := s21_containers_test
 BUILD_PATH := build
@@ -33,7 +33,7 @@ all:  $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
 run: 
 	@$(BUILD_PATH)/$(EXE)
 
-$(BUILD_PATH)/%.o: $(SRC_PATH)/%.cpp
+$(BUILD_PATH)/%.o: $(SRCS)
 	@$(CC) $(CXXFLAGS) -MMD -c $< -o $@
 
 $(BUILD_PATH)/$(EXE): $(SRCS:$(SRC_PATH)/%.cpp=$(BUILD_PATH)/%.o) $(HEADERS)

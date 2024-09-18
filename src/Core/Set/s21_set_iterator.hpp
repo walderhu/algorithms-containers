@@ -8,8 +8,8 @@ inline s21::set<value_type>::Iterator::Iterator() noexcept
 
 template <class value_type>
 inline s21::set<value_type>::Iterator::Iterator(
-    Node* node, s21::set<value_type>* set) noexcept
-    : current(node), set(set) {}
+    Node* node, s21::set<value_type>* st) noexcept
+    : current(node), set(st) {}
 
 template <class value_type>
 inline auto s21::set<value_type>::Iterator::operator*() const -> reference {
@@ -72,9 +72,9 @@ inline auto s21::set<value_type>::Iterator::operator>=(
 template <class value_type>
 inline auto s21::set<value_type>::Iterator::last() -> Iterator {
   if (set->root == nullptr) return set->end();
-  Node* current = set->root;
-  while (current->right != nullptr) current = current->right;
-  return Iterator(current);
+  Node* cur = set->root;
+  while (cur->right != nullptr) cur = cur->right;
+  return Iterator(cur);
 }
 
 template <class value_type>

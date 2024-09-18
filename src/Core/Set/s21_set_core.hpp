@@ -36,8 +36,8 @@ inline auto s21::set<value_type>::operator=(const set &s) noexcept
 }
 
 template <class value_type>
-inline s21::set<value_type>::Node::Node(value_type value)
-    : left(nullptr), right(nullptr), parent(nullptr), value(value) {}
+inline s21::set<value_type>::Node::Node(value_type val)
+    : left(nullptr), right(nullptr), parent(nullptr), value(val) {}
 
 template <class value_type>
 inline auto s21::set<value_type>::empty() const -> bool {
