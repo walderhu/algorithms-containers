@@ -9,7 +9,7 @@ inline s21::deque<value_type>::Node::Node(value_type val)
 
 template <class value_type>
 inline auto s21::deque<value_type>::empty() -> bool {
-  return this->_size == 0;
+  return this->_size == 0u;
 }
 
 template <class value_type>
@@ -47,12 +47,12 @@ inline auto s21::deque<value_type>::pop_back() -> void {
 
 template <class value_type>
 inline s21::deque<value_type>::deque() noexcept
-    : head(nullptr), tail(nullptr), _size(0) {}
+    : head(nullptr), tail(nullptr), _size(0u) {}
 
 template <class value_type>
 inline s21::deque<value_type>::deque(size_type n) noexcept
     : s21::deque<value_type>() {
-  for (size_t i = 0; i < n; i++) push_front(value_type());
+  for (size_t i = 0u; i < n; i++) push_front(value_type());
 }
 
 template <class value_type>
@@ -71,7 +71,7 @@ inline s21::deque<value_type>::deque(const deque& other) noexcept {
   s21::deque<value_type>::head = nullptr;
   s21::deque<value_type>::tail = nullptr;
 
-  deque<value_type>::_size = 0;
+  deque<value_type>::_size = 0u;
   if (this != &other) {
     Node* current = other.head;
     while (current) {
@@ -89,7 +89,7 @@ inline s21::deque<value_type>::deque(deque&& other) noexcept {
   deque<value_type>::_size = other._size;
   other.head = nullptr;
   other.tail = nullptr;
-  other.deque<value_type>::_size = 0;
+  other.deque<value_type>::_size = 0u;
 }
 
 template <class value_type>
@@ -172,7 +172,7 @@ inline auto s21::deque<value_type>::operator=(deque&& other) noexcept
 
   other.head = nullptr;
   other.tail = nullptr;
-  other.deque<value_type>::_size = 0;
+  other.deque<value_type>::_size = 0u;
   return *this;
 }
 
