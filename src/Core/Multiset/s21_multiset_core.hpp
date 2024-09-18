@@ -35,7 +35,7 @@ inline auto s21::multiset<value_type>::operator=(multiset &&s) noexcept
     this->root = std::move(s.root);
     this->_size = std::move(s._size);
     s.root = nullptr;
-    s._size = 0;
+    s._size = 0u;
   }
   return *this;
 }
@@ -63,7 +63,7 @@ inline auto s21::multiset<value_type>::insert_in(value_type value,
 
 template <class Key>
 inline auto s21::multiset<Key>::count(const Key &key) const -> size_type {
-  size_type _count = 0;
+  size_type _count = 0u;
   for (auto it = set<Key>::cbegin(); it != set<Key>::cend(); ++it)
     if (*it == key) _count++;
   return _count;

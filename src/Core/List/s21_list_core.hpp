@@ -33,10 +33,10 @@ inline s21::list<value_type>::list(
 template <class value_type>
 inline auto s21::list<value_type>::operator[](const int index) const
     -> reference {
-  if (index < 0 || index >= deque<value_type>::_size)
+  if (index < 0u || index >= deque<value_type>::_size)
     throw std::out_of_range("Index out of range");
   Node *current = deque<value_type>::head;
-  for (int i = 0; i < index; ++i) current = current->next;
+  for (int i = 0u; i < index; ++i) current = current->next;
   return current->value;
 }
 
@@ -85,7 +85,7 @@ inline auto s21::list<value_type>::merge(list &other) -> void {
 
   other.head = nullptr;
   other.tail = nullptr;
-  other.deque<value_type>::_size = 0;
+  other.deque<value_type>::_size = 0u;
 }
 
 template <class value_type>

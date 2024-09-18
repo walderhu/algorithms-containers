@@ -7,7 +7,7 @@ template <class value_type>
 s21::set<value_type>::set(const set &s) {
   if (this == &s) return;
   this->root = nullptr;
-  this->_size = 0;
+  this->_size = 0u;
   for (auto it = s.cbegin(); it != s.cend(); ++it) this->insert(*it);
 }
 
@@ -17,7 +17,7 @@ inline s21::set<value_type>::set(set &&s) {
   this->_size = s._size;
 
   s.root = nullptr;
-  s._size = 0;
+  s._size = 0u;
 }
 
 template <class value_type>
@@ -41,11 +41,11 @@ inline s21::set<value_type>::Node::Node(value_type val)
 
 template <class value_type>
 inline auto s21::set<value_type>::empty() const -> bool {
-  return this->_size == 0;
+  return this->_size == 0u;
 }
 
 template <class value_type>
-inline s21::set<value_type>::set() noexcept : root(nullptr), _size(0) {}
+inline s21::set<value_type>::set() noexcept : root(nullptr), _size(0u) {}
 
 template <class value_type>
 inline s21::set<value_type>::set(
@@ -122,7 +122,7 @@ inline s21::set<value_type>::~set() noexcept {
 template <class value_type>
 inline auto s21::set<value_type>::clear() -> void {
   clear(root);
-  _size = 0;
+  _size = 0u;
 }
 
 template <class value_type>
