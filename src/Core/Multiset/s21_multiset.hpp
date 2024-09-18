@@ -1,9 +1,9 @@
-#ifndef __S21_multiset_HPP__
-#define __S21_multiset_HPP__
+#ifndef __S21_MUITISET_HPP__
+#define __S21_MUITISET_HPP__
 
 #include "../Set/s21_set.hpp"
-namespace s21 {
 
+namespace s21 {
 template <class Key>
 class multiset final : public s21::set<Key> {
  public:
@@ -34,7 +34,7 @@ class multiset final : public s21::set<Key> {
   std::pair<iterator, bool> insert_in(value_type value, Node *&current,
                                       Node *parent) override;
 };
-
 }  // namespace s21
 #include "s21_multiset_core.hpp"
-#endif  //  __S21_multiset_HPP__
+
+#endif  //  __S21_MUITISET_HPP__

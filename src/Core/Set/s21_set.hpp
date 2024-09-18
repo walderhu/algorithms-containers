@@ -9,7 +9,6 @@
 #include <vector>
 
 namespace s21 {
-
 template <class Key>
 class set {
  protected:

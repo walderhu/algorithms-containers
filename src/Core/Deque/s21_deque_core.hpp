@@ -1,5 +1,6 @@
 #ifndef __S21_DEQUE_CORE_HXX__
 #define __S21_DEQUE_CORE_HXX__
+
 #include "s21_deque.hpp"
 
 template <typename value_type>
