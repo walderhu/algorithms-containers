@@ -44,16 +44,16 @@ class deque {
   void push_front(Node* new_node);
   void push_back(Node* new_node);
 };
-}  // namespace s21
 
 template <class T>
-struct s21::deque<T>::Node {
+struct deque<T>::Node {
   value_type value;
   Node* next;
   Node* prev;
   Node(value_type val = value_type());
 };
 
+}  // namespace s21
 #include "s21_deque_core.hpp"
 
 #endif  // __S21_DEQUE_HXX__

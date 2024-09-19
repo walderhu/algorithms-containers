@@ -22,19 +22,8 @@ class set;
 template <class T>
 class multiset;
 
-template <class value_type, class object_type>
-class BaseIterator;
-
-template <class value_type>
-struct BaseNode;
-// template <>
-// class Iterator<int, SomeObjectType> : public BaseIterator<int,
-// SomeObjectType> { Специфическая реализация для int
-// };
-
 }  // namespace s21
 
-#include "BaseIterator/s21_base_iterator.hpp"
 #include "Deque/s21_deque.hpp"
 #include "List/s21_list.hpp"
 #include "Multiset/s21_multiset.hpp"

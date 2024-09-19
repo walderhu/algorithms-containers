@@ -55,12 +55,11 @@ class list final : public deque<T> {
   ConstIterator cbegin() const;
   ConstIterator cend() const;
 };
-}  // namespace s21
 
 template <class T>
-struct s21::list<T>::Iterator {
+struct list<T>::Iterator {
   Iterator() noexcept;
-  Iterator(Node *node, s21::list<value_type> *lst = nullptr) noexcept;
+  Iterator(Node *node, list<value_type> *lst = nullptr) noexcept;
   Iterator(const Iterator &other) noexcept;
   bool operator==(const Iterator &other) const;
   bool operator!=(const Iterator &other) const;
@@ -76,18 +75,18 @@ struct s21::list<T>::Iterator {
  protected:
   Node *current;
   s21::list<value_type> *list;
-  friend class s21::list<T>;
-  friend class s21::list<T>::ConstIterator;
+  friend class list<T>;
 };
 
 template <class T>
-struct s21::list<T>::ConstIterator final : public s21::list<T>::Iterator {
-  using s21::list<T>::Iterator::Iterator;
-  ConstIterator(Node *node, const s21::list<T> *lst) noexcept;
+struct list<T>::ConstIterator final : public list<T>::Iterator {
+  using list<T>::Iterator::Iterator;
+  ConstIterator(Node *node, const list<T> *lst) noexcept;
   ConstIterator(iterator it) noexcept;
   const_reference operator*() const;
   Iterator &operator=(const Iterator &other) override;
 };
+}  // namespace s21
 
 #include "s21_list_core.hpp"
 #include "s21_list_iterator.hpp"

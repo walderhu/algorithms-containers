@@ -2,36 +2,36 @@
 #define __S21_MULTISET_CORE_HPP__
 
 #include "s21_multiset.hpp"
+namespace s21 {
 
 template <class value_type>
-inline s21::multiset<value_type>::multiset() noexcept
-    : set<value_type>::set(){};
+inline multiset<value_type>::multiset() noexcept : set<value_type>::set(){};
 
 template <class value_type>
-inline s21::multiset<value_type>::multiset(
+inline multiset<value_type>::multiset(
     std::initializer_list<value_type> const &items) noexcept {
   for (auto it = items.begin(); it != items.end(); ++it)
     set<value_type>::insert(*it);
 }
 
 template <class value_type>
-inline s21::multiset<value_type>::multiset(const multiset &s)
+inline multiset<value_type>::multiset(const multiset &s)
     : set<value_type>::set(s) {}
 
 template <class value_type>
-inline s21::multiset<value_type>::multiset(multiset &&s)
+inline multiset<value_type>::multiset(multiset &&s)
     : set<value_type>::set(std::move(s)) {}
 
 template <class value_type>
-inline s21::multiset<value_type>::~multiset() noexcept {
+inline multiset<value_type>::~multiset() noexcept {
   set<value_type>::clear();
 }
 
 template <class value_type>
-inline auto s21::multiset<value_type>::operator=(multiset &&s) noexcept
+inline auto multiset<value_type>::operator=(multiset &&s) noexcept
     -> multiset<value_type> & {
   if (this != &s) {
-    s21::multiset<value_type>::clear();
+    multiset<value_type>::clear();
     this->root = std::move(s.root);
     this->_size = std::move(s._size);
     s.root = nullptr;
@@ -41,14 +41,14 @@ inline auto s21::multiset<value_type>::operator=(multiset &&s) noexcept
 }
 
 template <class value_type>
-inline auto s21::multiset<value_type>::operator=(const multiset &s) noexcept
+inline auto multiset<value_type>::operator=(const multiset &s) noexcept
     -> multiset<value_type> & {
   return set<value_type>::operator=(s);
 }
 
 template <class value_type>
-inline auto s21::multiset<value_type>::insert_in(value_type value,
-                                                 Node *&current, Node *parent)
+inline auto multiset<value_type>::insert_in(value_type value, Node *&current,
+                                            Node *parent)
     -> std::pair<iterator, bool> {
   if (current == nullptr) {
     current = new Node(value);
@@ -62,7 +62,7 @@ inline auto s21::multiset<value_type>::insert_in(value_type value,
 }
 
 template <class Key>
-inline auto s21::multiset<Key>::count(const Key &key) const -> size_type {
+inline auto multiset<Key>::count(const Key &key) const -> size_type {
   size_type _count = 0u;
   for (auto it = set<Key>::cbegin(); it != set<Key>::cend(); ++it)
     if (*it == key) _count++;
@@ -70,8 +70,7 @@ inline auto s21::multiset<Key>::count(const Key &key) const -> size_type {
 }
 
 template <class Key>
-inline auto s21::multiset<Key>::lower_bound(const Key &key) noexcept
-    -> iterator {
+inline auto multiset<Key>::lower_bound(const Key &key) noexcept -> iterator {
   if (set<Key>::root != nullptr) {
     Node *current = set<Key>::root;
     while (current) {
@@ -83,15 +82,14 @@ inline auto s21::multiset<Key>::lower_bound(const Key &key) noexcept
 }
 
 template <class Key>
-inline auto s21::multiset<Key>::upper_bound(const Key &key) noexcept
-    -> iterator {
+inline auto multiset<Key>::upper_bound(const Key &key) noexcept -> iterator {
   for (iterator it = this->lower_bound(key); it != this->end(); ++it)
     if (*it > key) return it;
   return this->end();
 }
 
 template <class Key>
-inline auto s21::multiset<Key>::equal_range(const Key &key) noexcept
+inline auto multiset<Key>::equal_range(const Key &key) noexcept
     -> std::pair<iterator, iterator> {
   std::pair<iterator, iterator> result;
   result.first = this->lower_bound(key);
@@ -100,10 +98,10 @@ inline auto s21::multiset<Key>::equal_range(const Key &key) noexcept
 }
 
 template <class Key>
-s21::multiset<Key>::operator s21::set<Key>() noexcept {
-  s21::set<Key> st;
+multiset<Key>::operator set<Key>() noexcept {
+  set<Key> st;
   for (auto it = this->begin(); it != this->end(); ++it) st.insert(*it);
   return st;
 }
-
+}  // namespace s21
 #endif  // __S21_MULTISET_CORE_HPP__

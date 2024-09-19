@@ -2,37 +2,37 @@
 #define __S21_LIST_CORE_HPP__
 
 #include "s21_list.hpp"
+namespace s21 {
 
 template <class value_type>
-inline s21::list<value_type>::list(const list &other) noexcept
+inline list<value_type>::list(const list &other) noexcept
     : deque<value_type>::deque(other) {}
 
 template <class value_type>
-inline s21::list<value_type>::list(list &&other) noexcept
+inline list<value_type>::list(list &&other) noexcept
     : deque<value_type>::deque(std::move(other)) {}
 
 template <class value_type>
-s21::list<value_type> &s21::list<value_type>::operator=(
-    s21::list<value_type> &&other) noexcept {
+list<value_type> &list<value_type>::operator=(
+    list<value_type> &&other) noexcept {
   deque<value_type>::operator=(std::move(other));
   return *this;
 }
 
 template <class value_type>
-s21::list<value_type> &s21::list<value_type>::operator=(
-    const s21::list<value_type> &other) noexcept {
+list<value_type> &list<value_type>::operator=(
+    const list<value_type> &other) noexcept {
   deque<value_type>::operator=(other);
   return *this;
 }
 
 template <class value_type>
-inline s21::list<value_type>::list(
+inline list<value_type>::list(
     std::initializer_list<value_type> const &items) noexcept
     : deque<value_type>(items) {}
 
 template <class value_type>
-inline auto s21::list<value_type>::operator[](const int index) const
-    -> reference {
+inline auto list<value_type>::operator[](const int index) const -> reference {
   if (index < 0u || index >= deque<value_type>::_size)
     throw std::out_of_range("Index out of range");
   Node *current = deque<value_type>::head;
@@ -41,7 +41,7 @@ inline auto s21::list<value_type>::operator[](const int index) const
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::reverse() -> void {
+inline auto list<value_type>::reverse() -> void {
   if (this->size() < 2) return;
   list<value_type> new_list;
   for (auto it = this->begin(); it != this->end(); ++it)
@@ -50,7 +50,7 @@ inline auto s21::list<value_type>::reverse() -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::sort() -> void {
+inline auto list<value_type>::sort() -> void {
   Node *current = deque<value_type>::head;
   bool swapped = true;
 
@@ -70,14 +70,14 @@ inline auto s21::list<value_type>::sort() -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::swap(list &other) noexcept -> void {
+inline auto list<value_type>::swap(list &other) noexcept -> void {
   std::swap(deque<value_type>::head, other.head);
   std::swap(deque<value_type>::tail, other.tail);
   std::swap(deque<value_type>::_size, other._size);
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::merge(list &other) -> void {
+inline auto list<value_type>::merge(list &other) -> void {
   Node *current = other.head;
   this->push_back(current);
   deque<value_type>::tail = other.tail;
@@ -89,8 +89,8 @@ inline auto s21::list<value_type>::merge(list &other) -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::insert(iterator pos,
-                                          const_reference value) -> iterator {
+inline auto list<value_type>::insert(iterator pos,
+                                     const_reference value) -> iterator {
   Node *new_node = new Node(value);
 
   if (pos == this->begin()) {
@@ -113,7 +113,7 @@ inline auto s21::list<value_type>::insert(iterator pos,
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::insert(
+inline auto list<value_type>::insert(
     iterator pos, std::initializer_list<value_type> const &items) -> iterator {
   for (auto item = items.end(); item != items.begin();) {
     --item;
@@ -123,7 +123,7 @@ inline auto s21::list<value_type>::insert(
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::erase(iterator pos) -> void {
+inline auto list<value_type>::erase(iterator pos) -> void {
   if (pos == end()) throw std::out_of_range("Cannot erase end iterator");
 
   Node *current = pos.current;
@@ -145,8 +145,7 @@ inline auto s21::list<value_type>::erase(iterator pos) -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::splice(const_iterator pos,
-                                          list &other) -> void {
+inline auto list<value_type>::splice(const_iterator pos, list &other) -> void {
   if (pos == end()) throw std::out_of_range("Cannot splice at end iterator");
   if (other.empty()) return;
   auto other_begin = other.begin();
@@ -157,13 +156,13 @@ inline auto s21::list<value_type>::splice(const_iterator pos,
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::splice(iterator pos, list &other) -> void {
+inline auto list<value_type>::splice(iterator pos, list &other) -> void {
   const_iterator it(pos);
   this->splice(it, other);
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::unique() -> void {
+inline auto list<value_type>::unique() -> void {
   if (this->empty()) return;
 
   for (iterator it = this->begin(); it != this->end();) {
@@ -181,8 +180,8 @@ inline auto s21::list<value_type>::unique() -> void {
 
 template <class T>
 template <typename... Args>
-typename s21::list<T>::iterator s21::list<T>::insert_many(const_iterator pos,
-                                                          Args &&...args) {
+typename list<T>::iterator list<T>::insert_many(const_iterator pos,
+                                                Args &&...args) {
   iterator var_pos = iterator(const_cast<Node *>(pos.current));
   (this->insert(var_pos, std::forward<Args>(args)), ...);
   return var_pos;
@@ -190,32 +189,34 @@ typename s21::list<T>::iterator s21::list<T>::insert_many(const_iterator pos,
 
 template <class T>
 template <typename... Args>
-void s21::list<T>::insert_many_back(Args &&...args) {
+void list<T>::insert_many_back(Args &&...args) {
   (this->push_back(std::forward<Args>(args)), ...);
 }
 
 template <class T>
 template <typename... Args>
-void s21::list<T>::insert_many_front(Args &&...args) {
+void list<T>::insert_many_front(Args &&...args) {
   (this->push_front(std::forward<Args>(args)), ...);
 }
 
 template <class value_type>
-inline s21::list<value_type>::list() noexcept : deque<value_type>::deque() {}
+inline list<value_type>::list() noexcept : deque<value_type>::deque() {}
 
 template <class value_type>
-inline s21::list<value_type>::list(size_type n) noexcept
+inline list<value_type>::list(size_type n) noexcept
     : deque<value_type>::deque(n) {}
 
 template <class value_type>
-inline s21::list<value_type>::~list() noexcept {
+inline list<value_type>::~list() noexcept {
   deque<value_type>::clear();
 }
 
 template <class Key>
-s21::list<Key>::operator s21::deque<Key>() noexcept {
-  s21::deque<Key> deq;
+list<Key>::operator deque<Key>() noexcept {
+  deque<Key> deq;
   for (auto it = this->begin(); it != this->end(); ++it) deq.push_back(*it);
   return deq;
 }
+
+}  // namespace s21
 #endif  // __S21_LIST_CORE_HPP__
