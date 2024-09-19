@@ -22,8 +22,15 @@ class set;
 template <class T>
 class multiset;
 
-template <class T>
+template <class value_type, class object_type>
 class BaseIterator;
+
+template <class value_type>
+struct BaseNode;
+// template <>
+// class Iterator<int, SomeObjectType> : public BaseIterator<int,
+// SomeObjectType> { Специфическая реализация для int
+// };
 
 }  // namespace s21
 
