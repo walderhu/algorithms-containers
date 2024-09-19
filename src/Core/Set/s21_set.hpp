@@ -25,7 +25,7 @@ class set {
   set(std::initializer_list<value_type> const &items) noexcept;
   set(const set &s);
   set(set &&s);
-  ~set() noexcept;
+  virtual ~set() noexcept;
   set<value_type> &operator=(set &&s) noexcept;
   set<value_type> &operator=(const set &s) noexcept;
 

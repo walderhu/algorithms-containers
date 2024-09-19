@@ -22,7 +22,7 @@ class multiset final : public s21::set<Key> {
   multiset(std::initializer_list<Key> const &items) noexcept;
   multiset(const multiset &s);
   multiset(multiset &&s);
-  ~multiset() noexcept;
+  ~multiset() noexcept override;
   multiset<Key> &operator=(multiset &&s) noexcept;
   multiset<Key> &operator=(const multiset &s) noexcept;
 

@@ -14,7 +14,7 @@ class deque {
 
   deque() noexcept;
   deque(size_type n) noexcept;
-  ~deque() noexcept;
+  virtual ~deque() noexcept;
   deque(const deque& other) noexcept;
   deque(deque&& other) noexcept;
   deque(std::initializer_list<value_type> const& items) noexcept;

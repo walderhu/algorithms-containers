@@ -22,7 +22,7 @@ class list final : public deque<T> {
 
   list() noexcept;
   list(size_type n) noexcept;
-  ~list() noexcept;
+  ~list() noexcept override;
   list(const list &other) noexcept;
   list(list &&other) noexcept;
   list(std::initializer_list<value_type> const &items) noexcept;
