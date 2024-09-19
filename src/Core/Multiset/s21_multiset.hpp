@@ -26,8 +26,6 @@ class multiset final : public s21::set<Key> {
   multiset<Key> &operator=(multiset &&s) noexcept;
   multiset<Key> &operator=(const multiset &s) noexcept;
 
-  explicit operator s21::deque<Key>() noexcept;
-  explicit operator s21::list<Key>() noexcept;
   explicit operator s21::set<Key>() noexcept;
 
   iterator lower_bound(const Key &key) noexcept;

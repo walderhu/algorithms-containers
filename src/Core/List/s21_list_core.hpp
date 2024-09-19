@@ -89,8 +89,8 @@ inline auto s21::list<value_type>::merge(list &other) -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::insert(iterator pos, const_reference value)
-    -> iterator {
+inline auto s21::list<value_type>::insert(iterator pos,
+                                          const_reference value) -> iterator {
   Node *new_node = new Node(value);
 
   if (pos == this->begin()) {
@@ -145,8 +145,8 @@ inline auto s21::list<value_type>::erase(iterator pos) -> void {
 }
 
 template <class value_type>
-inline auto s21::list<value_type>::splice(const_iterator pos, list &other)
-    -> void {
+inline auto s21::list<value_type>::splice(const_iterator pos,
+                                          list &other) -> void {
   if (pos == end()) throw std::out_of_range("Cannot splice at end iterator");
   if (other.empty()) return;
   auto other_begin = other.begin();
@@ -212,4 +212,10 @@ inline s21::list<value_type>::~list() noexcept {
   deque<value_type>::clear();
 }
 
+template <class Key>
+s21::list<Key>::operator s21::deque<Key>() noexcept {
+  s21::deque<Key> deq;
+  for (auto it = this->begin(); it != this->end(); ++it) deq.push_back(*it);
+  return deq;
+}
 #endif  // __S21_LIST_CORE_HPP__
