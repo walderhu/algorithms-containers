@@ -25,7 +25,7 @@ inline auto s21::list<value_type>::Iterator::operator==(
 template <class value_type>
 inline auto s21::list<value_type>::Iterator::operator!=(
     const Iterator& other) const -> bool {
-  return !(*this == other);
+  return current != other.current;
 }
 
 template <class value_type>
