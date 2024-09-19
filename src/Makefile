@@ -1,5 +1,5 @@
 CC := g++ -g
-# CXXFLAGS := -Wall -Wextra -Werror -std=c++17 -Wpedantic -pipe -O2
+CXXFLAGS := -Wall -Wextra -Werror -std=c++17 -Wpedantic -pipe -O2
 EXE := s21_containers
 TEST_EXE := s21_containers_test
 BUILD_PATH := build
@@ -8,7 +8,6 @@ TESTS_PATH := Tests
 
 TRASH := README.html $(BUILD_PATH) $(SRC_PATH)/*.gch 
 UNAME_S := $(shell uname -s)
-CONFIG_PATH := $(shell pwd)/.gitconfig
 
 SRCS=$(shell find $(SRC_PATH) -type f -name "*.cpp")
 HEADERS =$(shell find $(SRC_PATH) -type f -name "*.hpp")

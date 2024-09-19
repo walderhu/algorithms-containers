@@ -213,9 +213,7 @@ inline list<value_type>::~list() noexcept {
 
 template <class Key>
 list<Key>::operator deque<Key>() noexcept {
-  deque<Key> deq;
-  for (auto it = this->begin(); it != this->end(); ++it) deq.push_back(*it);
-  return deq;
+  return static_cast<deque<Key>>(*this);
 }
 
 }  // namespace s21
