@@ -1,13 +1,10 @@
 #ifndef __S21_MUITISET_HPP__
 #define __S21_MUITISET_HPP__
 
-#include <deque>
-#include <list>
-// #include <set>
-
-#include "../Set/s21_set.hpp"
+#include "../s21_containers.hpp"
 
 namespace s21 {
+
 template <class Key>
 class multiset final : public s21::set<Key> {
  public:
@@ -29,14 +26,14 @@ class multiset final : public s21::set<Key> {
   multiset<Key> &operator=(multiset &&s) noexcept;
   multiset<Key> &operator=(const multiset &s) noexcept;
 
-  explicit operator std::deque<Key>() noexcept {
-    std::deque<Key> lst;
+  explicit operator s21::deque<Key>() noexcept {
+    s21::deque<Key> lst;
     for (auto it = this->begin(); it != this->end(); ++it) lst.push_back(*it);
     return lst;
   }
 
-  explicit operator std::list<Key>() noexcept {
-    return this->operator std::deque<Key, std::allocator<Key>>();
+  explicit operator s21::list<Key>() noexcept {
+    return this->operator s21::deque<Key>();
   }
 
   explicit operator s21::set<Key>() noexcept {
