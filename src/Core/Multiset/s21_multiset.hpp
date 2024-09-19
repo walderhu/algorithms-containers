@@ -1,9 +1,10 @@
 #ifndef __S21_MUITISET_HPP__
 #define __S21_MUITISET_HPP__
 
-#include "../Set/s21_set.hpp"
+#include "../s21_containers.hpp"
 
 namespace s21 {
+
 template <class Key>
 class multiset final : public s21::set<Key> {
  public:
@@ -25,6 +26,8 @@ class multiset final : public s21::set<Key> {
   multiset<Key> &operator=(multiset &&s) noexcept;
   multiset<Key> &operator=(const multiset &s) noexcept;
 
+  explicit operator s21::set<Key>() noexcept;
+
   iterator lower_bound(const Key &key) noexcept;
   iterator upper_bound(const Key &key) noexcept;
   std::pair<iterator, iterator> equal_range(const Key &key) noexcept;
@@ -34,6 +37,7 @@ class multiset final : public s21::set<Key> {
   std::pair<iterator, bool> insert_in(value_type value, Node *&current,
                                       Node *parent) override;
 };
+
 }  // namespace s21
 #include "s21_multiset_core.hpp"
 

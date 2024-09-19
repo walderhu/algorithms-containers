@@ -28,6 +28,7 @@ class list final : public deque<T> {
   list(std::initializer_list<value_type> const &items) noexcept;
   list<value_type> &operator=(list &&other) noexcept;
   list<value_type> &operator=(const list &other) noexcept;
+  explicit operator s21::deque<value_type>() noexcept;
 
   // list
   reference operator[](const int index) const;

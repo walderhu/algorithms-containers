@@ -158,8 +158,7 @@ inline auto s21::set<value_type>::erase(iterator pos) -> void {
 template <class value_type>
 inline auto s21::set<value_type>::deleteNode(Node *current,
                                              value_type value) -> Node * {
-  if (current == nullptr)
-    return nullptr;  // Если узел не найден, возвращаем nullptr
+  if (current == nullptr) return nullptr;  // Если узел не найден
 
   // Рекурсивный поиск узла для удаления
   if (value < current->value) {
@@ -170,19 +169,19 @@ inline auto s21::set<value_type>::deleteNode(Node *current,
     // Узел найден
     // Случай 1: узел не имеет потомков (лист)
     if (current->left == nullptr && current->right == nullptr) {
-      delete current;  // Удаляем узел
-      return nullptr;  // Возвращаем nullptr
+      delete current;
+      return nullptr;
     }
     // Случай 2: узел имеет одного потомка
     else if (current->left == nullptr) {
-      Node *temp = current->right;  // Сохраняем указатель на правого потомка
-      temp->parent = current->parent;  // ???
-      delete current;                  // Удаляем узел
+      Node *temp = current->right;
+      temp->parent = current->parent;
+      delete current;
       return temp;  // Возвращаем правого потомка
     } else if (current->right == nullptr) {
-      Node *temp = current->left;  // Сохраняем указатель на левого потомка
-      temp->parent = current->parent;  // ???
-      delete current;                  // Удаляем узел
+      Node *temp = current->left;
+      temp->parent = current->parent;
+      delete current;
       return temp;  // Возвращаем левого потомка
     }
     // Случай 3: узел имеет двух потомков
@@ -197,6 +196,25 @@ inline auto s21::set<value_type>::deleteNode(Node *current,
     current->right = deleteNode(current->right, temp->value);
   }
   return current;  // Возвращаем изменённый корень
+}
+
+template <class Key>
+s21::set<Key>::operator s21::deque<Key>() noexcept {
+  s21::deque<Key> lst;
+  for (auto it = this->begin(); it != this->end(); ++it) lst.push_back(*it);
+  return lst;
+}
+
+template <class Key>
+s21::set<Key>::operator s21::list<Key>() noexcept {
+  return this->operator s21::deque<Key>();
+}
+
+template <class Key>
+s21::set<Key>::operator s21::multiset<Key>() noexcept {
+  s21::set<Key> mst;
+  for (auto it = this->begin(); it != this->end(); ++it) mst.insert(*it);
+  return mst;
 }
 
 #endif  // __S21_SET_CORE_HPP__

@@ -99,4 +99,11 @@ inline auto s21::multiset<Key>::equal_range(const Key &key) noexcept
   return result;
 }
 
+template <class Key>
+s21::multiset<Key>::operator s21::set<Key>() noexcept {
+  s21::set<Key> st;
+  for (auto it = this->begin(); it != this->end(); ++it) st.insert(*it);
+  return st;
+}
+
 #endif  // __S21_MULTISET_CORE_HPP__

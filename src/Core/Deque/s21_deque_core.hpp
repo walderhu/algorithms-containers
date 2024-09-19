@@ -23,7 +23,7 @@ inline auto s21::deque<value_type>::pop_front() -> void {
     else
       tail = nullptr;
 
-    deque<value_type>::_size -= 1;
+    deque<value_type>::_size -= 1u;
   }
 }
 
@@ -182,6 +182,27 @@ inline auto s21::deque<value_type>::operator=(const deque& other) noexcept
   s21::deque<value_type> new_deque(other);
   *this = std::move(new_deque);
   return *this;
+}
+
+template <class value_type>
+s21::deque<value_type>::operator s21::multiset<value_type>() noexcept {
+  s21::set<value_type> mst;
+  for (Node* i = this->head; i != nullptr; i = i->next) mst.insert(i->value);
+  return mst;
+}
+
+template <class value_type>
+s21::deque<value_type>::operator s21::set<value_type>() noexcept {
+  s21::set<value_type> st;
+  for (Node* i = this->head; i != nullptr; i = i->next) st.insert(i->value);
+  return st;
+}
+
+template <class value_type>
+s21::deque<value_type>::operator s21::list<value_type>() noexcept {
+  s21::list<value_type> lst;
+  for (Node* i = this->head; i != nullptr; i = i->next) lst.push_back(i->value);
+  return lst;
 }
 
 #endif  // __S21_DEQUE_CORE_HXX__

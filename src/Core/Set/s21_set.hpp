@@ -1,12 +1,7 @@
 #ifndef __S21_SET_HPP__
 #define __S21_SET_HPP__
 
-#include <cstddef>
-#include <initializer_list>
-#include <limits>
-#include <stdexcept>
-#include <utility>
-#include <vector>
+#include "../s21_containers.hpp"
 
 namespace s21 {
 template <class Key>
@@ -34,22 +29,25 @@ class set {
   set<value_type> &operator=(set &&s) noexcept;
   set<value_type> &operator=(const set &s) noexcept;
 
+  explicit operator s21::deque<Key>() noexcept;
+  explicit operator s21::list<Key>() noexcept;
+  explicit operator s21::multiset<Key>() noexcept;
+
   iterator find(const Key &key);
   bool contains(const Key &key);
   bool empty() const;
   void clear();
-
+  void swap(set &other);
+  void erase(iterator pos);
+  void merge(set &other);
   virtual std::pair<iterator, bool> insert(const value_type value);
-  size_type max_size();
 
   iterator begin();
   iterator end();
   ConstIterator cbegin() const;
   ConstIterator cend() const;
-  void swap(set &other);
-  void erase(iterator pos);
-  void merge(set &other);
   size_type size() const;
+  size_type max_size();
 
   template <typename... Args>
   std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);

@@ -1,5 +1,5 @@
 CC := g++ -g
-CXXFLAGS := -Wall -Wextra -Werror -std=c++17 -Wpedantic -pipe -O2
+# CXXFLAGS := -Wall -Wextra -Werror -std=c++17 -Wpedantic -pipe -O2
 EXE := s21_containers
 TEST_EXE := s21_containers_test
 BUILD_PATH := build

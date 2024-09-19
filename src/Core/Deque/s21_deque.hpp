@@ -1,11 +1,7 @@
 #ifndef __S21_DEQUE_HXX__
 #define __S21_DEQUE_HXX__
 
-#include <cstddef>
-#include <initializer_list>
-#include <limits>
-#include <stdexcept>
-#include <utility>
+#include "../s21_containers.hpp"
 
 namespace s21 {
 template <class T>
@@ -29,6 +25,10 @@ class deque {
   size_type size() const;
   deque<value_type>& operator=(deque&& other) noexcept;
   deque<value_type>& operator=(const deque& other) noexcept;
+  explicit operator s21::set<value_type>() noexcept;
+  explicit operator s21::multiset<value_type>() noexcept;
+  explicit operator s21::list<value_type>() noexcept;
+
   bool empty();
   void pop_front();
   void pop_back();

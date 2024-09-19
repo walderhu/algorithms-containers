@@ -81,7 +81,7 @@ inline auto s21::list<value_type>::merge(list &other) -> void {
   Node *current = other.head;
   this->push_back(current);
   deque<value_type>::tail = other.tail;
-  this->deque<value_type>::_size += other.deque<value_type>::_size - 1;
+  this->deque<value_type>::_size += other.deque<value_type>::_size - 1u;
 
   other.head = nullptr;
   other.tail = nullptr;
@@ -141,7 +141,7 @@ inline auto s21::list<value_type>::erase(iterator pos) -> void {
     next->prev = prev;
 
   delete current;
-  deque<value_type>::_size -= 1;
+  deque<value_type>::_size -= 1u;
 }
 
 template <class value_type>
@@ -212,4 +212,10 @@ inline s21::list<value_type>::~list() noexcept {
   deque<value_type>::clear();
 }
 
+template <class Key>
+s21::list<Key>::operator s21::deque<Key>() noexcept {
+  s21::deque<Key> deq;
+  for (auto it = this->begin(); it != this->end(); ++it) deq.push_back(*it);
+  return deq;
+}
 #endif  // __S21_LIST_CORE_HPP__
