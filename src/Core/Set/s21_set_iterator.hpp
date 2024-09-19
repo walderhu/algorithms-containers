@@ -2,22 +2,24 @@
 #define __S21_SET_ITERATOR__
 #include "s21_set.hpp"
 
+namespace s21 {
+
 template <class value_type>
-inline s21::set<value_type>::Iterator::Iterator() noexcept
+inline set<value_type>::Iterator::Iterator() noexcept
     : current(nullptr), set(nullptr) {}
 
 template <class value_type>
-inline s21::set<value_type>::Iterator::Iterator(
-    Node* node, s21::set<value_type>* st) noexcept
+inline set<value_type>::Iterator::Iterator(Node* node,
+                                           s21::set<value_type>* st) noexcept
     : current(node), set(st) {}
 
 template <class value_type>
-inline auto s21::set<value_type>::Iterator::operator*() const -> reference {
+inline auto set<value_type>::Iterator::operator*() const -> reference {
   return current->value;
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::Iterator::operator=(const Iterator& other)
+inline auto set<value_type>::Iterator::operator=(const Iterator& other)
     -> Iterator& {
   current = other.current;
   set = other.set;
@@ -25,24 +27,24 @@ inline auto s21::set<value_type>::Iterator::operator=(const Iterator& other)
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::Iterator::operator==(
-    const Iterator& other) const -> bool {
+inline auto set<value_type>::Iterator::operator==(const Iterator& other) const
+    -> bool {
   return current == other.current;
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::Iterator::operator!=(
-    const Iterator& other) const -> bool {
+inline auto set<value_type>::Iterator::operator!=(const Iterator& other) const
+    -> bool {
   return current != other.current;
 }
 
 template <class value_type>
-inline s21::set<value_type>::Iterator::Iterator(const Iterator& other) noexcept
+inline set<value_type>::Iterator::Iterator(const Iterator& other) noexcept
     : current(other.current), set(other.set) {}
 
 template <class value_type>
-inline auto s21::set<value_type>::Iterator::operator<(
-    const Iterator& other) const -> bool {
+inline auto set<value_type>::Iterator::operator<(const Iterator& other) const
+    -> bool {
   if (other == set->end()) return this->operator!=(other);
   for (auto it = set->begin(); it != set->end(); ++it) {
     if (it == current) return true;
@@ -52,25 +54,25 @@ inline auto s21::set<value_type>::Iterator::operator<(
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::Iterator::operator<=(
-    const Iterator& other) const -> bool {
+inline auto set<value_type>::Iterator::operator<=(const Iterator& other) const
+    -> bool {
   return this->operator==(other) || this->operator<(other);
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::Iterator::operator>(
-    const Iterator& other) const -> bool {
+inline auto set<value_type>::Iterator::operator>(const Iterator& other) const
+    -> bool {
   return !this->operator<(other);
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::Iterator::operator>=(
-    const Iterator& other) const -> bool {
+inline auto set<value_type>::Iterator::operator>=(const Iterator& other) const
+    -> bool {
   return this->operator==(other) || this->operator>(other);
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::Iterator::last() -> Iterator {
+inline auto set<value_type>::Iterator::last() -> Iterator {
   if (set->root == nullptr) return set->end();
   Node* cur = set->root;
   while (cur->right != nullptr) cur = cur->right;
@@ -78,7 +80,7 @@ inline auto s21::set<value_type>::Iterator::last() -> Iterator {
 }
 
 template <class value_type>
-auto s21::set<value_type>::Iterator::operator++() -> Iterator& {
+auto set<value_type>::Iterator::operator++() -> Iterator& {
   if (current == nullptr)
     throw std::out_of_range("Disabled iterator. Not exist");
   // Если есть правое поддерево, идем к самому левому узлу
@@ -98,7 +100,7 @@ auto s21::set<value_type>::Iterator::operator++() -> Iterator& {
 }
 
 template <class value_type>
-auto s21::set<value_type>::Iterator::operator--() -> Iterator& {
+auto set<value_type>::Iterator::operator--() -> Iterator& {
   if (*this == set->end()) {
     if (set->empty())
       throw std::out_of_range(
@@ -124,14 +126,14 @@ auto s21::set<value_type>::Iterator::operator--() -> Iterator& {
 }
 
 template <class value_type>
-auto s21::set<value_type>::Iterator::operator++(int) -> Iterator {
+auto set<value_type>::Iterator::operator++(int) -> Iterator {
   Iterator temp = *this;
   ++(*this);
   return temp;
 }
 
 template <class value_type>
-auto s21::set<value_type>::Iterator::operator--(int) -> Iterator {
+auto set<value_type>::Iterator::operator--(int) -> Iterator {
   Iterator temp = *this;
   --(*this);
   return temp;
@@ -140,33 +142,32 @@ auto s21::set<value_type>::Iterator::operator--(int) -> Iterator {
 // const_iterator
 
 template <class value_type>
-inline auto s21::set<value_type>::ConstIterator::operator*() const
+inline auto set<value_type>::ConstIterator::operator*() const
     -> const_reference {
   return static_cast<const_reference>(Iterator::operator*());
 }
 
 template <class value_type>
-inline s21::set<value_type>::ConstIterator::ConstIterator(
-    Node* node, const s21::set<value_type>* set_) noexcept
-    : Iterator(node, const_cast<s21::set<value_type>*>(set_)) {}
+inline set<value_type>::ConstIterator::ConstIterator(
+    Node* node, const set<value_type>* set_) noexcept
+    : Iterator(node, const_cast<set<value_type>*>(set_)) {}
 
 template <class value_type>
-inline s21::set<value_type>::ConstIterator::ConstIterator(
-    iterator it) noexcept {
+inline set<value_type>::ConstIterator::ConstIterator(iterator it) noexcept {
   Iterator::current = it.current;
   Iterator::set = it.set;
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::ConstIterator::operator=(
-    const Iterator& other) -> Iterator& {
+inline auto set<value_type>::ConstIterator::operator=(const Iterator& other)
+    -> Iterator& {
   (void)other;
   throw std::out_of_range("Cannot modify value through const_iterator");
   return *this;
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::Iterator::get_value() const -> value_type {
+inline auto set<value_type>::Iterator::get_value() const -> value_type {
   if (!current) return value_type();
   return current->value;
 }
@@ -174,7 +175,7 @@ inline auto s21::set<value_type>::Iterator::get_value() const -> value_type {
 // begin/end cbegin/ceng
 
 template <class value_type>
-inline auto s21::set<value_type>::begin() -> Iterator {
+inline auto set<value_type>::begin() -> Iterator {
   if (root == nullptr) return Iterator(nullptr, this);
   Node* smallest_member = root;
   while (smallest_member->left) smallest_member = smallest_member->left;
@@ -182,12 +183,12 @@ inline auto s21::set<value_type>::begin() -> Iterator {
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::end() -> Iterator {
+inline auto set<value_type>::end() -> Iterator {
   return Iterator(nullptr, this);
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::cbegin() const -> ConstIterator {
+inline auto set<value_type>::cbegin() const -> ConstIterator {
   if (root == nullptr) return ConstIterator(nullptr, this);
   Node* smallest_member = root;
   while (smallest_member->left) smallest_member = smallest_member->left;
@@ -195,8 +196,8 @@ inline auto s21::set<value_type>::cbegin() const -> ConstIterator {
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::cend() const -> ConstIterator {
+inline auto set<value_type>::cend() const -> ConstIterator {
   return ConstIterator(nullptr, this);
 };
-
+}  // namespace s21
 #endif  // __S21_SET_ITERATOR__

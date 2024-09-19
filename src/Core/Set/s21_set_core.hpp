@@ -3,8 +3,10 @@
 
 #include "s21_set.hpp"
 
+namespace s21 {
+
 template <class value_type>
-s21::set<value_type>::set(const set &s) {
+set<value_type>::set(const set &s) {
   if (this == &s) return;
   this->root = nullptr;
   this->_size = 0u;
@@ -12,57 +14,55 @@ s21::set<value_type>::set(const set &s) {
 }
 
 template <class value_type>
-inline s21::set<value_type>::set(set &&s) {
+inline set<value_type>::set(set &&s) {
   this->root = s.root;
   this->_size = s._size;
-
   s.root = nullptr;
   s._size = 0u;
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::operator=(set &&s) noexcept
-    -> s21::set<value_type> & {
-  s21::set<value_type>::set(std::move(s));
+inline auto set<value_type>::operator=(set &&s) noexcept -> set<value_type> & {
+  set<value_type>::set(std::move(s));
   return *this;
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::operator=(const set &s) noexcept
-    -> s21::set<value_type> & {
-  s21::set<value_type> new_set(s);
+inline auto set<value_type>::operator=(const set &s) noexcept
+    -> set<value_type> & {
+  set<value_type> new_set(s);
   *this = std::move(new_set);
   return *this;
 }
 
 template <class value_type>
-inline s21::set<value_type>::Node::Node(value_type val)
+inline set<value_type>::Node::Node(value_type val)
     : left(nullptr), right(nullptr), parent(nullptr), value(val) {}
 
 template <class value_type>
-inline auto s21::set<value_type>::empty() const -> bool {
+inline auto set<value_type>::empty() const -> bool {
   return this->_size == 0u;
 }
 
 template <class value_type>
-inline s21::set<value_type>::set() noexcept : root(nullptr), _size(0u) {}
+inline set<value_type>::set() noexcept : root(nullptr), _size(0u) {}
 
 template <class value_type>
-inline s21::set<value_type>::set(
+inline set<value_type>::set(
     std::initializer_list<value_type> const &items) noexcept
-    : s21::set<value_type>() {
+    : set<value_type>() {
   for (auto it = items.begin(); it != items.end(); ++it) this->insert(*it);
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::insert(const value_type value)
+inline auto set<value_type>::insert(const value_type value)
     -> std::pair<iterator, bool> {
   return insert_in(static_cast<value_type>(value), root, nullptr);
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::insert_in(value_type value, Node *&current,
-                                            Node *parent)
+inline auto set<value_type>::insert_in(value_type value, Node *&current,
+                                       Node *parent)
     -> std::pair<iterator, bool> {
   if (current == nullptr) {
     current = new Node(value);
@@ -76,13 +76,13 @@ inline auto s21::set<value_type>::insert_in(value_type value, Node *&current,
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::max_size() -> size_type {
+inline auto set<value_type>::max_size() -> size_type {
   return (std::numeric_limits<size_t>::max() / sizeof(value_type));
 }
 
 template <class value_type>
 template <typename... Args>
-inline auto s21::set<value_type>::insert_many(Args &&...args)
+inline auto set<value_type>::insert_many(Args &&...args)
     -> std::vector<std::pair<iterator, bool>> {
   std::vector<std::pair<iterator, bool>> results;
   (results.emplace_back(this->insert(std::forward<Args>(args))), ...);
@@ -90,12 +90,12 @@ inline auto s21::set<value_type>::insert_many(Args &&...args)
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::size() const -> size_type {
+inline auto set<value_type>::size() const -> size_type {
   return this->_size;
 }
 
 template <class Key>
-inline auto s21::set<Key>::find(const Key &key) -> iterator {
+inline auto set<Key>::find(const Key &key) -> iterator {
   if (root != nullptr) {
     Node *current = root;
     while (current) {
@@ -108,25 +108,25 @@ inline auto s21::set<Key>::find(const Key &key) -> iterator {
 }
 
 template <class Key>
-inline auto s21::set<Key>::contains(const Key &key) -> bool {
+inline auto set<Key>::contains(const Key &key) -> bool {
   for (auto it = this->begin(); it != this->end(); ++it)
     if (*it == key) return true;
   return false;
 }
 
 template <class value_type>
-inline s21::set<value_type>::~set() noexcept {
+inline set<value_type>::~set() noexcept {
   this->clear();
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::clear() -> void {
+inline auto set<value_type>::clear() -> void {
   clear(root);
   _size = 0u;
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::clear(Node *&current) -> void {
+inline auto set<value_type>::clear(Node *&current) -> void {
   if (!current) return;
   clear(current->left);
   clear(current->right);
@@ -135,19 +135,19 @@ inline auto s21::set<value_type>::clear(Node *&current) -> void {
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::swap(set &other) -> void {
+inline auto set<value_type>::swap(set &other) -> void {
   std::swap(this->root, other.root);
   std::swap(this->_size, other._size);
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::merge(set &other) -> void {
+inline auto set<value_type>::merge(set &other) -> void {
   for (auto it = other.cbegin(); it != other.cend(); ++it) this->insert(*it);
   other.clear();
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::erase(iterator pos) -> void {
+inline auto set<value_type>::erase(iterator pos) -> void {
   if (pos.current == nullptr) return;
 
   value_type value = *pos;
@@ -156,8 +156,8 @@ inline auto s21::set<value_type>::erase(iterator pos) -> void {
 }
 
 template <class value_type>
-inline auto s21::set<value_type>::deleteNode(Node *current,
-                                             value_type value) -> Node * {
+inline auto set<value_type>::deleteNode(Node *current,
+                                        value_type value) -> Node * {
   if (current == nullptr) return nullptr;  // Если узел не найден
 
   // Рекурсивный поиск узла для удаления
@@ -199,22 +199,22 @@ inline auto s21::set<value_type>::deleteNode(Node *current,
 }
 
 template <class Key>
-s21::set<Key>::operator s21::deque<Key>() noexcept {
-  s21::deque<Key> lst;
+set<Key>::operator deque<Key>() noexcept {
+  deque<Key> lst;
   for (auto it = this->begin(); it != this->end(); ++it) lst.push_back(*it);
   return lst;
 }
 
 template <class Key>
-s21::set<Key>::operator s21::list<Key>() noexcept {
-  return this->operator s21::deque<Key>();
+set<Key>::operator list<Key>() noexcept {
+  return this->operator deque<Key>();
 }
 
 template <class Key>
-s21::set<Key>::operator s21::multiset<Key>() noexcept {
-  s21::set<Key> mst;
+set<Key>::operator multiset<Key>() noexcept {
+  set<Key> mst;
   for (auto it = this->begin(); it != this->end(); ++it) mst.insert(*it);
   return mst;
 }
-
+}  // namespace s21
 #endif  // __S21_SET_CORE_HPP__
