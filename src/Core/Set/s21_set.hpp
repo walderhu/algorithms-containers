@@ -1,12 +1,7 @@
 #ifndef __S21_SET_HPP__
 #define __S21_SET_HPP__
 
-#include <cstddef>
-#include <initializer_list>
-#include <limits>
-#include <stdexcept>
-#include <utility>
-#include <vector>
+#include "../s21_containers.hpp"
 
 namespace s21 {
 template <class Key>

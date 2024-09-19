@@ -1,11 +1,7 @@
 #ifndef __S21_DEQUE_HXX__
 #define __S21_DEQUE_HXX__
 
-#include <cstddef>
-#include <initializer_list>
-#include <limits>
-#include <stdexcept>
-#include <utility>
+#include "../s21_containers.hpp"
 
 namespace s21 {
 template <class T>

@@ -99,4 +99,23 @@ inline auto s21::multiset<Key>::equal_range(const Key &key) noexcept
   return result;
 }
 
+template <class Key>
+s21::multiset<Key>::operator s21::deque<Key>() noexcept {
+  s21::deque<Key> lst;
+  for (auto it = this->begin(); it != this->end(); ++it) lst.push_back(*it);
+  return lst;
+}
+
+template <class Key>
+s21::multiset<Key>::operator s21::list<Key>() noexcept {
+  return this->operator s21::deque<Key>();
+}
+
+template <class Key>
+s21::multiset<Key>::operator s21::set<Key>() noexcept {
+  s21::set<Key> st;
+  for (auto it = this->begin(); it != this->end(); ++it) st.insert(*it);
+  return st;
+}
+
 #endif  // __S21_MULTISET_CORE_HPP__

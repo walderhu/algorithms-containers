@@ -1,7 +1,17 @@
 #ifndef __S21_CONTAINER_HXX__
 #define __S21_CONTAINER_HXX__
 
+#include <cstddef>
+#include <initializer_list>
+#include <limits>
+#include <stdexcept>
+#include <utility>
+#include <vector>
+
 namespace s21 {
+
+template <typename T>
+class deque;
 
 template <typename T>
 class list;
@@ -10,7 +20,7 @@ template <typename T>
 class set;
 
 template <typename T>
-class deque;
+class multiset;
 
 }  // namespace s21
 
