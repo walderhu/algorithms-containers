@@ -5,16 +5,16 @@
 namespace s21 {
 
 template <typename value_type>
-inline deque<value_type>::Node::Node(value_type val)
+inline deque<value_type>::Node::Node(value_type val) noexcept
     : value(val), next(nullptr), prev(nullptr) {}
 
 template <class value_type>
-inline auto deque<value_type>::empty() -> bool {
+inline auto deque<value_type>::empty() const noexcept -> bool {
   return this->_size == 0u;
 }
 
 template <class value_type>
-inline auto deque<value_type>::pop_front() -> void {
+inline auto deque<value_type>::pop_front() noexcept -> void {
   if (head) {
     Node* tmp = head;
     head = head->next;
@@ -29,7 +29,7 @@ inline auto deque<value_type>::pop_front() -> void {
 }
 
 template <class value_type>
-inline auto deque<value_type>::pop_back() -> void {
+inline auto deque<value_type>::pop_back() noexcept -> void {
   if (head) {
     Node* tmp = tail;
 
@@ -61,7 +61,7 @@ inline deque<value_type>::~deque() noexcept {
 }
 
 template <class value_type>
-inline auto deque<value_type>::clear() -> void {
+inline auto deque<value_type>::clear() noexcept -> void {
   while (deque<value_type>::_size) deque<value_type>::pop_front();
   deque<value_type>::tail = nullptr;
 }
@@ -99,7 +99,7 @@ inline auto deque<value_type>::push_front(value_type value) -> void {
 }
 
 template <class value_type>
-inline auto deque<value_type>::push_front(Node* new_node) -> void {
+inline auto deque<value_type>::push_front(Node* new_node) noexcept -> void {
   if (!deque<value_type>::head) {
     deque<value_type>::head = new_node;
     deque<value_type>::tail = new_node;
@@ -118,7 +118,7 @@ inline auto deque<value_type>::push_back(value_type value) -> void {
 }
 
 template <class value_type>
-inline auto deque<value_type>::push_back(Node* new_node) -> void {
+inline auto deque<value_type>::push_back(Node* new_node) noexcept -> void {
   if (!deque<value_type>::head) {
     deque<value_type>::head = new_node;
     deque<value_type>::tail = new_node;
@@ -136,21 +136,21 @@ inline auto deque<value_type>::size() const -> size_type {
 }
 
 template <class value_type>
-inline auto deque<value_type>::front() -> const_reference {
+inline auto deque<value_type>::front() const -> const_reference {
   if (deque<value_type>::head == nullptr)
     throw std::out_of_range("deque is empty");
   return deque<value_type>::head->value;
 }
 
 template <class value_type>
-inline auto deque<value_type>::back() -> const_reference {
+inline auto deque<value_type>::back() const -> const_reference {
   if (deque<value_type>::tail == nullptr)
     throw std::out_of_range("deque is empty");
   return deque<value_type>::tail->value;
 }
 
 template <class value_type>
-inline auto deque<value_type>::max_size() -> size_type {
+inline auto deque<value_type>::max_size() const noexcept-> size_type {
   return (std::numeric_limits<size_t>::max() / sizeof(value_type)) / 2;
 }
 
@@ -185,21 +185,21 @@ inline auto deque<value_type>::operator=(const deque& other) noexcept
 }
 
 template <class value_type>
-deque<value_type>::operator multiset<value_type>() noexcept {
+deque<value_type>::operator multiset<value_type>() const noexcept {
   set<value_type> mst;
   for (Node* i = this->head; i != nullptr; i = i->next) mst.insert(i->value);
   return mst;
 }
 
 template <class value_type>
-deque<value_type>::operator set<value_type>() noexcept {
+deque<value_type>::operator set<value_type>() const noexcept {
   set<value_type> st;
   for (Node* i = this->head; i != nullptr; i = i->next) st.insert(i->value);
   return st;
 }
 
 template <class value_type>
-deque<value_type>::operator list<value_type>() noexcept {
+deque<value_type>::operator list<value_type>() const noexcept {
   list<value_type> lst;
   for (Node* i = this->head; i != nullptr; i = i->next) lst.push_back(i->value);
   return lst;
