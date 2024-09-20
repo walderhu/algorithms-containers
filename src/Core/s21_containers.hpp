@@ -7,7 +7,6 @@
 #include <limits>
 #include <stdexcept>
 #include <utility>
-#include <vector>
 #define DEBUG(x) std::cout << #x << " = " << x << std::endl;  // TODO убрать
 
 namespace s21 {

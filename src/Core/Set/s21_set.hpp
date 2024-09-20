@@ -50,7 +50,7 @@ class set {
   size_type max_size() const noexcept;
 
   template <typename... Args>
-  std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
+  s21::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
 
  protected:
   size_type _size;

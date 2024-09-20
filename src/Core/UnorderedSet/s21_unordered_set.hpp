@@ -1,8 +1,6 @@
 #if !defined(__S21_UNORDERED_SET__)
 #define __S21_UNORDERED_SET__
 
-#include <vector>
-
 #include "../s21_containers.hpp"
 namespace s21 {
 
@@ -31,7 +29,7 @@ class unordered_set final : public s21::set<Key> {
 
  protected:
   static constexpr size_type TABLE_SIZE = 100;
-  mutable std::vector<value_type> table[TABLE_SIZE];
+  mutable s21::vector<value_type> table[TABLE_SIZE];
 };
 
 }  // namespace s21

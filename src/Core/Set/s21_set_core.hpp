@@ -83,9 +83,9 @@ inline auto set<value_type>::max_size() const noexcept -> size_type {
 template <class value_type>
 template <typename... Args>
 inline auto set<value_type>::insert_many(Args &&...args)
-    -> std::vector<std::pair<iterator, bool>> {
-  std::vector<std::pair<iterator, bool>> results;
-  (results.emplace_back(this->insert(std::forward<Args>(args))), ...);
+    -> s21::vector<std::pair<iterator, bool>> {
+  s21::vector<std::pair<iterator, bool>> results;
+  (results.insert_many_back(this->insert(std::forward<Args>(args))), ...);
   return results;
 }
 
