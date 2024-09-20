@@ -9,6 +9,7 @@ namespace s21 {
 template <class Key>
 class unordered_set {
  public:
+  friend int main();  // TODO убрать
   using key_type = Key;
   using value_type = Key;
   using reference = value_type &;
@@ -22,6 +23,7 @@ class unordered_set {
   size_type hashFunction(key_type key);
   void clear();
   void insert(const key_type &key) noexcept;
+  void debug();
 
  protected:
   size_type capacity;

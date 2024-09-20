@@ -69,6 +69,19 @@ inline void unordered_set<Key>::clear() {
 }
 
 template <class Key>
+inline void unordered_set<Key>::debug() {
+  auto it = table.begin();
+
+  for (auto &arr = *it; it != table.end(); ++it)
+    for (size_t i = 0u; i < TABLE_SIZE; i++)
+      if (auto &vec = arr->at(i); !vec.empty())
+        for (auto iter = vec.begin(); iter != vec.end(); ++iter)
+          std::cout << *iter << " ";
+
+  std::cout << std::endl;
+}
+
+template <class Key>
 inline auto unordered_set<Key>::to_expand() -> IteratorType {
   auto *vec = new std::array<s21::vector<value_type>, TABLE_SIZE>();
   table.push_back(vec);
