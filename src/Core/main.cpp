@@ -36,38 +36,38 @@ O(n) времени, где n это количество элементво в 
 
 по сути у меня мапа ключом которой является хэш числа??
 */
-ТЕХНИЧЕСКАЯ ЗАДАЧА
+// ТЕХНИЧЕСКАЯ ЗАДАЧА
 
-    // ust.emplace
-    //   ust.bucket
-    //   ust.bucket_count
-    //   ust.bucket_size
-    // ust.equal_range
-    // ust.erase
-    // ust.extract
-    // ust.find
-    // ust.get_allocator
-    //   ust.hash_function
-    //   ust.insert
-    //   ust.key_eq
-    //   ust.load_factor
-    //   ust.max_bucket_count
-    //   ust.max_load_factor
-    //   ust.merge
-    //   ust.rehash
-    //   ust.reserve
-    //   ust.swap
+// ust.emplace
+//   ust.bucket
+//   ust.bucket_count
+//   ust.bucket_size
+// ust.equal_range
+// ust.erase
+// ust.extract
+// ust.find
+// ust.get_allocator
+//   ust.hash_function
+//   ust.insert
+//   ust.key_eq
+//   ust.load_factor
+//   ust.max_bucket_count
+//   ust.max_load_factor
+//   ust.merge
+//   ust.rehash
+//   ust.reserve
+//   ust.swap
 
-    // ust.empty
-    //   ust.size
-    // ust.count
-    // ust.clear
-    // ust.emplace_hint
-    //   cbegin cend begin end
+// ust.empty
+//   ust.size
+// ust.count
+// ust.clear
+// ust.emplace_hint
+//   cbegin cend begin end
 
-    /* NOTES
-      s21::unordered_set<std::string> ust;
-      auto x = ust.hashFunction("hello");
-      DEBUG(x);  // x = 2762169579135187400
+/* NOTES
+  s21::unordered_set<std::string> ust;
+  auto x = ust.hashFunction("hello");
+  DEBUG(x);  // x = 2762169579135187400
 
-    */
+*/
