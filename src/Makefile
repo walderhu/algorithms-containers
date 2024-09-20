@@ -6,11 +6,18 @@ BUILD_PATH := build
 SRC_PATH := Core
 TESTS_PATH := Tests
 
-TRASH := README.html $(BUILD_PATH) $(SRC_PATH)/*.gch 
+TRASH := $(BUILD_PATH) 
 UNAME_S := $(shell uname -s)
 
 SRCS=$(shell find $(SRC_PATH) -type f -name "*.cpp")
-HEADERS =$(shell find $(SRC_PATH) -type f -name "*.hpp") $(shell find $(SRC_PATH) -type f -name "*.h")
+
+# HEADERS =$(shell find $(SRC_PATH) -type f -name "*.hpp")
+
+# HEADERS =$(shell find $(SRC_PATH/Vector) -type f -name "*.hpp")
+# HEADERS += $(shell find $(SRC_PATH/UnorderedSet) -type f -name "*.hpp")
+# HEADERS += Core/s21_containers.hpp
+
+
 TESTS_SRCS =$(shell find $(TESTS_PATH) -type f -name "*.cpp")
 TESTS_HEADERS =$(shell find $(TESTS_PATH) -type f -name "*.hpp")
 

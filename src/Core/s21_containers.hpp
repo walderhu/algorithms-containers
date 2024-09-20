@@ -36,6 +36,6 @@ class vector;
 #include "Multiset/s21_multiset.hpp"
 #include "Set/s21_set.hpp"
 #include "UnorderedSet/s21_unordered_set.hpp"
-#include "Vector/s21_vector.h"
+#include "Vector/s21_vector.hpp"
 
 #endif  // __S21_CONTAINER_HXX__

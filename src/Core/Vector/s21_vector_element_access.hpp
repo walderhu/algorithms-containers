@@ -1,10 +1,7 @@
 #ifndef __S21_VECTOR_ELEMENT_ACCESS_H__
 #define __S21_VECTOR_ELEMENT_ACCESS_H__
 
-#include <iostream>
-#include <stdexcept>
-
-#include "s21_vector.h"
+#include "s21_vector.hpp"
 
 namespace s21 {
 

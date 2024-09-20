@@ -47,8 +47,6 @@ O(n) времени, где n это количество элементво в 
 // ust.extract
 // ust.find
 // ust.get_allocator
-//   ust.hash_function
-//   ust.insert
 //   ust.key_eq
 //   ust.load_factor
 //   ust.max_bucket_count
@@ -69,5 +67,12 @@ O(n) времени, где n это количество элементво в 
   s21::unordered_set<std::string> ust;
   auto x = ust.hashFunction("hello");
   DEBUG(x);  // x = 2762169579135187400
+
+*/
+
+/*
+DONE ??
+//   ust.hash_function
+//   ust.insert
 
 */

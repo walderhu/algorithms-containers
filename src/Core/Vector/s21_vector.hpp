@@ -1,8 +1,7 @@
 #ifndef __S21_VECTOR_H__
 #define __S21_VECTOR_H__
 
-#include <iostream>
-
+#include "../s21_containers.hpp"
 namespace s21 {
 
 template <typename T>
@@ -83,10 +82,10 @@ class vector {
 };
 }  // namespace s21
 
-#include "s21_vector_capacity.h"
-#include "s21_vector_element_access.h"
-#include "s21_vector_iterator.h"
-#include "s21_vector_member_func.h"
-#include "s21_vector_modifiers.h"
+#include "s21_vector_capacity.hpp"
+#include "s21_vector_element_access.hpp"
+#include "s21_vector_iterator.hpp"
+#include "s21_vector_member_func.hpp"
+#include "s21_vector_modifiers.hpp"
 
 #endif  // __S21_VECTOR_H__

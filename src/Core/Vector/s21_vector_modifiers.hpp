@@ -1,9 +1,7 @@
 #ifndef __S21_VECTOR_MODIFERS_H__
 #define __S21_VECTOR_MODIFERS_H__
 
-#include <iostream>
-
-#include "s21_vector.h"
+#include "s21_vector.hpp"
 
 namespace s21 {
 
