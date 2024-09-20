@@ -14,9 +14,9 @@ class unordered_set final : public s21::set<Key> {
   using value_type = Key;
   using reference = value_type &;
   using const_reference = const value_type &;
+  using size_type = size_t;
   using iterator = typename set<Key>::Iterator;
   using const_iterator = typename set<Key>::ConstIterator;
-  using size_type = size_t;
 
   unordered_set() noexcept;
   unordered_set(std::initializer_list<Key> const &items) noexcept;

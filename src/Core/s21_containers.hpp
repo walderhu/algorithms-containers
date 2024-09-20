@@ -34,5 +34,6 @@ class unordered_set;
 #include "List/s21_list.hpp"
 #include "Multiset/s21_multiset.hpp"
 #include "Set/s21_set.hpp"
+#include "UnorderedSet/s21_unordered_set.hpp"
 
 #endif  // __S21_CONTAINER_HXX__
