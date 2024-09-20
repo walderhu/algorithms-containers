@@ -1,6 +1,8 @@
 #if !defined(__S21_UNORDERED_SET__)
 #define __S21_UNORDERED_SET__
 #include <array>
+#include <typeinfo>  // TODO убрать
+                     // DEBUG(typeid(vec).name());
 
 #include "../s21_containers.hpp"
 namespace s21 {
