@@ -8,6 +8,9 @@
 #include <utility>
 #include <vector>
 
+// #include <iostream>
+// #define DEBUG(x) std::cout << #x << " = " << x << std::endl;
+
 namespace s21 {
 
 template <class T>
@@ -21,6 +24,9 @@ class set;
 
 template <class T>
 class multiset;
+
+template <class Key>
+class unordered_set;
 
 }  // namespace s21
 
