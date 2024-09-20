@@ -7,9 +7,10 @@
 
 #include "s21_containers.hpp"
 int main() {
-  s21::unordered_set<std::string> ust;
-  auto x = ust.hashFunction("hello");
-  DEBUG(x);  // x = 2762169579135187400
+  s21::unordered_set<int> ust;
+  auto x = ust.hashFunction(5);
+  ust.insert(5);
+  // DEBUG(x);  // x = 2762169579135187400
   return 0;
 }
 
