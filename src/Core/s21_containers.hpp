@@ -27,6 +27,9 @@ class multiset;
 template <class Key>
 class unordered_set;
 
+template <class Key>
+class vector;
+
 }  // namespace s21
 
 #include "Deque/s21_deque.hpp"
@@ -34,5 +37,6 @@ class unordered_set;
 #include "Multiset/s21_multiset.hpp"
 #include "Set/s21_set.hpp"
 #include "UnorderedSet/s21_unordered_set.hpp"
+#include "Vector/s21_vector.h"
 
 #endif  // __S21_CONTAINER_HXX__

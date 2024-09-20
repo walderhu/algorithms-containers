@@ -10,7 +10,7 @@ TRASH := README.html $(BUILD_PATH) $(SRC_PATH)/*.gch
 UNAME_S := $(shell uname -s)
 
 SRCS=$(shell find $(SRC_PATH) -type f -name "*.cpp")
-HEADERS =$(shell find $(SRC_PATH) -type f -name "*.hpp")
+HEADERS =$(shell find $(SRC_PATH) -type f -name "*.hpp") $(shell find $(SRC_PATH) -type f -name "*.h")
 TESTS_SRCS =$(shell find $(TESTS_PATH) -type f -name "*.cpp")
 TESTS_HEADERS =$(shell find $(TESTS_PATH) -type f -name "*.hpp")
 
