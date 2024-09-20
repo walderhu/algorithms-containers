@@ -62,15 +62,15 @@ struct list<T>::Iterator {
   Iterator() noexcept;
   Iterator(Node *node, list<value_type> *lst = nullptr) noexcept;
   Iterator(const Iterator &other) noexcept;
-  bool operator==(const Iterator &other) const;
-  bool operator!=(const Iterator &other) const;
+  bool operator==(const Iterator &other) const noexcept;
+  bool operator!=(const Iterator &other) const noexcept;
   bool operator<(const Iterator &other) const;
   bool operator<=(const Iterator &other) const;
   bool operator>(const Iterator &other) const;
   bool operator>=(const Iterator &other) const;
-  Iterator &operator++();
-  Iterator &operator--();
-  reference operator*() const;
+  Iterator &operator++() noexcept;
+  Iterator &operator--() noexcept;
+  reference operator*() const noexcept;
   virtual Iterator &operator=(const Iterator &other);
 
  protected:

@@ -18,14 +18,14 @@ inline list<value_type>::Iterator::Iterator(const Iterator& other) noexcept
     : current(other.current), list(other.list) {}
 
 template <class value_type>
-inline auto list<value_type>::Iterator::operator==(const Iterator& other) const
-    -> bool {
+inline auto list<value_type>::Iterator::operator==(
+    const Iterator& other) const noexcept -> bool {
   return current == other.current;
 }
 
 template <class value_type>
-inline auto list<value_type>::Iterator::operator!=(const Iterator& other) const
-    -> bool {
+inline auto list<value_type>::Iterator::operator!=(
+    const Iterator& other) const noexcept -> bool {
   return current != other.current;
 }
 
@@ -58,7 +58,8 @@ inline auto list<value_type>::Iterator::operator>=(const Iterator& other) const
 }
 
 template <class value_type>
-inline auto list<value_type>::Iterator::operator*() const -> reference {
+inline auto list<value_type>::Iterator::operator*() const noexcept
+    -> reference {
   return current->value;
 }
 
@@ -88,13 +89,13 @@ inline auto list<value_type>::ConstIterator::operator=(const Iterator& other)
 }
 
 template <class value_type>
-auto list<value_type>::Iterator::operator++() -> Iterator& {
+auto list<value_type>::Iterator::operator++() noexcept -> Iterator& {
   if (current) current = current->next;
   return *this;
 }
 
 template <class value_type>
-inline auto list<value_type>::Iterator::operator--() -> Iterator& {
+inline auto list<value_type>::Iterator::operator--() noexcept -> Iterator& {
   current = current ? current->prev : list->tail;
   return *this;
 }
