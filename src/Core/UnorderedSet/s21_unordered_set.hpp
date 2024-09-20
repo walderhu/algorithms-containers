@@ -23,7 +23,7 @@ class unordered_set {
   size_type hashFunction(key_type key);
   void clear();
   void insert(const key_type &key) noexcept;
-  void debug();
+  void debug();  // TODO убрать
 
  protected:
   size_type capacity;

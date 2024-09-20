@@ -11,6 +11,12 @@ int main() {
   auto x = ust.hashFunction(5);
   ust.insert(5);
   ust.insert(5);
+  ust.insert(3);
+  ust.insert(2);
+  ust.insert(1);
+  ust.insert(0);
+  ust.insert(-3);
+  ust.insert(11);
   ust.debug();
   // DEBUG(x);  // x = 2762169579135187400
   return 0;
