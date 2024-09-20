@@ -32,7 +32,7 @@ inline auto list<value_type>::Iterator::operator!=(
 template <class value_type>
 inline auto list<value_type>::Iterator::operator<(const Iterator& other) const
     -> bool {
-  for (auto it = list->begin(); it != list->end(); ++it) {
+  for (iterator it = list->begin(); it != list->end(); ++it) {
     if (it == current) return true;
     if (it == other) return false;
   }

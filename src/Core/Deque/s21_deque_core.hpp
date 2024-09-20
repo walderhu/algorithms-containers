@@ -150,7 +150,7 @@ inline auto deque<value_type>::back() const -> const_reference {
 }
 
 template <class value_type>
-inline auto deque<value_type>::max_size() const noexcept-> size_type {
+inline auto deque<value_type>::max_size() const noexcept -> size_type {
   return (std::numeric_limits<size_t>::max() / sizeof(value_type)) / 2;
 }
 

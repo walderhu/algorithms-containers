@@ -45,7 +45,7 @@ template <class value_type>
 inline auto list<value_type>::reverse() noexcept -> void {
   if (this->size() < 2) return;
   list<value_type> new_list;
-  for (auto it = this->begin(); it != this->end(); ++it)
+  for (iterator it = this->begin(); it != this->end(); ++it)
     new_list.push_front(*it);
   *this = std::move(new_list);
 }
@@ -82,11 +82,11 @@ inline auto list<value_type>::merge(list &other) noexcept -> void {
   Node *current = other.head;
   this->push_back(current);
   deque<value_type>::tail = other.tail;
-  this->deque<value_type>::_size += other.deque<value_type>::_size - 1u;
+  this->deque<value_type>::_size += other._size - 1u;
 
   other.head = nullptr;
   other.tail = nullptr;
-  other.deque<value_type>::_size = 0u;
+  other._size = 0u;
 }
 
 template <class value_type>
@@ -117,7 +117,7 @@ template <class value_type>
 inline auto list<value_type>::insert(
     iterator pos,
     std::initializer_list<value_type> const &items) noexcept -> iterator {
-  for (auto item = items.end(); item != items.begin();) {
+  for (iterator item = items.end(); item != items.begin();) {
     --item;
     pos = insert(pos, *item);
   }
@@ -150,10 +150,7 @@ template <class value_type>
 inline auto list<value_type>::splice(const_iterator pos, list &other) -> void {
   if (pos == end()) throw std::out_of_range("Cannot splice at end iterator");
   if (other.empty()) return;
-  auto other_begin = other.begin();
-  auto other_end = other.end();
-
-  for (auto it = other_begin; it != other_end; ++it) insert(pos, *it);
+  for (iterator it = other.begin(); it != other.end(); ++it) insert(pos, *it);
   other.clear();
 }
 

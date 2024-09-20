@@ -64,7 +64,7 @@ inline auto multiset<value_type>::insert_in(value_type value, Node *&current,
 template <class Key>
 inline auto multiset<Key>::count(const Key &key) const -> size_type {
   size_type _count = 0u;
-  for (auto it = set<Key>::cbegin(); it != set<Key>::cend(); ++it)
+  for (const_iterator it = set<Key>::cbegin(); it != set<Key>::cend(); ++it)
     if (*it == key) _count++;
   return _count;
 }
@@ -100,7 +100,8 @@ inline auto multiset<Key>::equal_range(const Key &key) noexcept
 template <class Key>
 multiset<Key>::operator set<Key>() const noexcept {
   set<Key> st;
-  for (auto it = this->cbegin(); it != this->cend(); ++it) st.insert(*it);
+  for (const_iterator it = this->cbegin(); it != this->cend(); ++it)
+    st.insert(*it);
   return st;
 }
 }  // namespace s21

@@ -10,7 +10,7 @@ set<value_type>::set(const set &s) noexcept {
   if (this == &s) return;
   this->root = nullptr;
   this->_size = 0u;
-  for (auto it = s.cbegin(); it != s.cend(); ++it) this->insert(*it);
+  for (const_iterator it = s.cbegin(); it != s.cend(); ++it) this->insert(*it);
 }
 
 template <class value_type>
@@ -109,7 +109,7 @@ inline auto set<Key>::find(const Key &key) noexcept -> iterator {
 
 template <class Key>
 inline auto set<Key>::contains(const Key &key) noexcept -> bool {
-  for (auto it = this->begin(); it != this->end(); ++it)
+  for (iterator it = this->begin(); it != this->end(); ++it)
     if (*it == key) return true;
   return false;
 }
@@ -142,7 +142,8 @@ inline auto set<value_type>::swap(set &other) noexcept -> void {
 
 template <class value_type>
 inline auto set<value_type>::merge(set &other) noexcept -> void {
-  for (auto it = other.cbegin(); it != other.cend(); ++it) this->insert(*it);
+  for (const_iterator it = other.cbegin(); it != other.cend(); ++it)
+    this->insert(*it);
   other.clear();
 }
 
@@ -201,7 +202,7 @@ inline auto set<value_type>::deleteNode(Node *current,
 template <class Key>
 set<Key>::operator deque<Key>() const noexcept {
   deque<Key> lst;
-  for (auto it = this->begin(); it != this->end(); ++it) lst.push_back(*it);
+  for (iterator it = this->begin(); it != this->end(); ++it) lst.push_back(*it);
   return lst;
 }
 
@@ -213,7 +214,7 @@ set<Key>::operator list<Key>() const noexcept {
 template <class Key>
 set<Key>::operator multiset<Key>() const noexcept {
   set<Key> mst;
-  for (auto it = this->begin(); it != this->end(); ++it) mst.insert(*it);
+  for (iterator it = this->begin(); it != this->end(); ++it) mst.insert(*it);
   return mst;
 }
 }  // namespace s21
