@@ -50,7 +50,7 @@ template <class value_type>
 inline auto multiset<value_type>::insert_in(value_type value, Node *&current,
                                             Node *parent) noexcept
     -> std::pair<iterator, bool> {
-  if (current == nullptr) {
+  if (!current) {
     current = new Node(value);
     current->parent = parent;
     set<value_type>::_size++;
@@ -71,7 +71,7 @@ inline auto multiset<Key>::count(const Key &key) const -> size_type {
 
 template <class Key>
 inline auto multiset<Key>::lower_bound(const Key &key) noexcept -> iterator {
-  if (set<Key>::root != nullptr) {
+  if (set<Key>::root) {
     Node *current = set<Key>::root;
     while (current) {
       if (current->value >= key) return iterator(current, this);

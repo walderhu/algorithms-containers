@@ -73,16 +73,15 @@ inline auto set<value_type>::Iterator::operator>=(
 
 template <class value_type>
 inline auto set<value_type>::Iterator::last() -> Iterator {
-  if (set->root == nullptr) return set->end();
+  if (!set->root) return set->end();
   Node* cur = set->root;
-  while (cur->right != nullptr) cur = cur->right;
+  while (cur->right) cur = cur->right;
   return Iterator(cur);
 }
 
 template <class value_type>
 auto set<value_type>::Iterator::operator++() -> Iterator& {
-  if (current == nullptr)
-    throw std::out_of_range("Disabled iterator. Not exist");
+  if (!current) throw std::out_of_range("Disabled iterator. Not exist");
   // Если есть правое поддерево, идем к самому левому узлу
   if (current->right) {
     current = current->right;
@@ -176,7 +175,7 @@ inline auto set<value_type>::Iterator::get_value() const -> value_type {
 
 template <class value_type>
 inline auto set<value_type>::begin() noexcept -> Iterator {
-  if (root == nullptr) return Iterator(nullptr, this);
+  if (!root) return Iterator(nullptr, this);
   Node* smallest_member = root;
   while (smallest_member->left) smallest_member = smallest_member->left;
   return Iterator(smallest_member, this);
@@ -189,7 +188,7 @@ inline auto set<value_type>::end() noexcept -> Iterator {
 
 template <class value_type>
 inline auto set<value_type>::cbegin() const noexcept -> ConstIterator {
-  if (root == nullptr) return ConstIterator(nullptr, this);
+  if (!root) return ConstIterator(nullptr, this);
   Node* smallest_member = root;
   while (smallest_member->left) smallest_member = smallest_member->left;
   return ConstIterator(smallest_member, this);

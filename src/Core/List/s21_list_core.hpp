@@ -132,12 +132,12 @@ inline auto list<value_type>::erase(iterator pos) -> void {
   Node *prev = current->prev;
   Node *next = current->next;
 
-  if (prev == nullptr)
+  if (!prev)
     deque<value_type>::head = next;
   else
     prev->next = next;
 
-  if (next == nullptr)
+  if (!next)
     deque<value_type>::tail = prev;
   else
     next->prev = prev;

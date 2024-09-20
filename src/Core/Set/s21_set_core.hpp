@@ -148,7 +148,7 @@ inline auto set<value_type>::merge(set &other) noexcept -> void {
 
 template <class value_type>
 inline auto set<value_type>::erase(iterator pos) noexcept -> void {
-  if (pos.current == nullptr) return;
+  if (!pos.current) return;
 
   value_type value = *pos;
   root = deleteNode(root, value);
@@ -158,7 +158,7 @@ inline auto set<value_type>::erase(iterator pos) noexcept -> void {
 template <class value_type>
 inline auto set<value_type>::deleteNode(Node *current,
                                         value_type value) -> Node * {
-  if (current == nullptr) return nullptr;  // Если узел не найден
+  if (!current) return nullptr;  // Если узел не найден
 
   // Рекурсивный поиск узла для удаления
   if (value < current->value) {
@@ -173,12 +173,12 @@ inline auto set<value_type>::deleteNode(Node *current,
       return nullptr;
     }
     // Случай 2: узел имеет одного потомка
-    else if (current->left == nullptr) {
+    else if (!current->left) {
       Node *temp = current->right;
       temp->parent = current->parent;
       delete current;
       return temp;  // Возвращаем правого потомка
-    } else if (current->right == nullptr) {
+    } else if (!current->right) {
       Node *temp = current->left;
       temp->parent = current->parent;
       delete current;
@@ -186,7 +186,7 @@ inline auto set<value_type>::deleteNode(Node *current,
     }
     // Случай 3: узел имеет двух потомков
     Node *temp = current->right;
-    while (temp && temp->left != nullptr) {
+    while (temp && temp->left) {
       temp = temp->left;
     }
     // Находим минимальный элемент в правом поддереве
