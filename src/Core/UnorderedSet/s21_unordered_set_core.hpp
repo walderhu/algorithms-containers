@@ -33,10 +33,8 @@ inline void unordered_set<Key>::insert(const key_type &key) noexcept {
   size_t index = hashFunction(key) % TABLE_SIZE;
   auto it = table.begin();
 
-  for (auto &arr = *it; it != table.end(); ++it) {
-    auto &vec = arr->at(index);
-    if (vec.empty()) vec.push_back(key);
-  }
+  for (auto &arr = *it; it != table.end(); ++it)
+    if (auto &vec = arr->at(index); vec.empty()) vec.push_back(key);
 }
 
 template <class Key>
