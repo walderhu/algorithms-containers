@@ -27,7 +27,7 @@ else ifeq ($(UNAME_S),Windows_NT)
     OPEN_CMD = start
 endif
 
-all:  $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
+all: clean $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
 
 run: 
 	@$(BUILD_PATH)/$(EXE)

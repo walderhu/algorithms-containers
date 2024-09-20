@@ -48,6 +48,13 @@ inline auto unordered_set<value_type>::operator=(
   return set<value_type>::operator=(s);
 }
 
+// here
+
+template <class value_type>
+inline auto unordered_set<value_type>::hashFunction(key_type key) -> size_type {
+  return std::hash<key_type>()(key);
+}
+
 }  // namespace s21
 
 #endif  // __S21_UNORDERED_CORE_SET__

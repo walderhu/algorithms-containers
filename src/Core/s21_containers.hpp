@@ -3,13 +3,12 @@
 
 #include <cstddef>
 #include <initializer_list>
+#include <iostream>  // TODO убрать
 #include <limits>
 #include <stdexcept>
 #include <utility>
 #include <vector>
-
-// #include <iostream>
-// #define DEBUG(x) std::cout << #x << " = " << x << std::endl;
+#define DEBUG(x) std::cout << #x << " = " << x << std::endl;  // TODO убрать
 
 namespace s21 {
 

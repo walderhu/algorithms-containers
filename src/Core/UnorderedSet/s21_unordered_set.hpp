@@ -25,6 +25,8 @@ class unordered_set final : public s21::set<Key> {
   ~unordered_set() noexcept override;
   unordered_set<Key> &operator=(unordered_set &&s) noexcept;
   unordered_set<Key> &operator=(const unordered_set &s) noexcept;
+
+  size_type hashFunction(key_type key);
 };
 
 }  // namespace s21
