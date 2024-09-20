@@ -120,12 +120,12 @@ inline auto list<value_type>::end() noexcept -> Iterator {
 }
 
 template <class value_type>
-inline auto list<value_type>::cbegin() const -> ConstIterator {
+inline auto list<value_type>::cbegin() const noexcept -> ConstIterator {
   return ConstIterator(deque<value_type>::head, this);
 }
 
 template <class value_type>
-inline auto list<value_type>::cend() const -> ConstIterator {
+inline auto list<value_type>::cend() const noexcept -> ConstIterator {
   return ConstIterator(nullptr, this);
 }
 }  // namespace s21

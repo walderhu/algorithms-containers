@@ -28,32 +28,33 @@ class list final : public deque<T> {
   list(std::initializer_list<value_type> const &items) noexcept;
   list<value_type> &operator=(list &&other) noexcept;
   list<value_type> &operator=(const list &other) noexcept;
-  explicit operator s21::deque<value_type>() noexcept;
+  explicit operator s21::deque<value_type>() const noexcept;
 
   // list
-  reference operator[](const int index) const;
-  void reverse();
-  void sort();
+  reference operator[](const unsigned index) const;
+  void reverse() noexcept;
+  void sort() noexcept;
   void swap(list &other) noexcept;
-  void merge(list &other);
+  void merge(list &other) noexcept;
 
-  iterator insert(iterator pos, const_reference value);
-  iterator insert(iterator pos, std::initializer_list<value_type> const &items);
+  iterator insert(iterator pos, const_reference value) noexcept;
+  iterator insert(iterator pos,
+                  std::initializer_list<value_type> const &items) noexcept;
   template <typename... Args>
-  iterator insert_many(const_iterator pos, Args &&...args);
+  iterator insert_many(const_iterator pos, Args &&...args) noexcept;
   template <typename... Args>
-  void insert_many_back(Args &&...args);
+  void insert_many_back(Args &&...args) noexcept;
   template <typename... Args>
-  void insert_many_front(Args &&...args);
+  void insert_many_front(Args &&...args) noexcept;
 
   void erase(iterator pos);
   void splice(const_iterator pos, list &other);
   void splice(iterator pos, list &other);
-  void unique();
+  void unique() noexcept;
   Iterator begin() noexcept;
   Iterator end() noexcept;
-  ConstIterator cbegin() const;
-  ConstIterator cend() const;
+  ConstIterator cbegin() const noexcept;
+  ConstIterator cend() const noexcept;
 };
 
 template <class T>

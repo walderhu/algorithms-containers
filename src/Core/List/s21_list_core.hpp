@@ -32,16 +32,17 @@ inline list<value_type>::list(
     : deque<value_type>(items) {}
 
 template <class value_type>
-inline auto list<value_type>::operator[](const int index) const -> reference {
-  if (index < 0u || index >= deque<value_type>::_size)
+inline auto list<value_type>::operator[](const unsigned index) const
+    -> reference {
+  if (index >= deque<value_type>::_size)
     throw std::out_of_range("Index out of range");
   Node *current = deque<value_type>::head;
-  for (int i = 0u; i < index; ++i) current = current->next;
+  for (unsigned i = 0u; i < index; ++i) current = current->next;
   return current->value;
 }
 
 template <class value_type>
-inline auto list<value_type>::reverse() -> void {
+inline auto list<value_type>::reverse() noexcept -> void {
   if (this->size() < 2) return;
   list<value_type> new_list;
   for (auto it = this->begin(); it != this->end(); ++it)
@@ -50,7 +51,7 @@ inline auto list<value_type>::reverse() -> void {
 }
 
 template <class value_type>
-inline auto list<value_type>::sort() -> void {
+inline auto list<value_type>::sort() noexcept -> void {
   Node *current = deque<value_type>::head;
   bool swapped = true;
 
@@ -77,7 +78,7 @@ inline auto list<value_type>::swap(list &other) noexcept -> void {
 }
 
 template <class value_type>
-inline auto list<value_type>::merge(list &other) -> void {
+inline auto list<value_type>::merge(list &other) noexcept -> void {
   Node *current = other.head;
   this->push_back(current);
   deque<value_type>::tail = other.tail;
@@ -89,8 +90,8 @@ inline auto list<value_type>::merge(list &other) -> void {
 }
 
 template <class value_type>
-inline auto list<value_type>::insert(iterator pos,
-                                     const_reference value) -> iterator {
+inline auto list<value_type>::insert(
+    iterator pos, const_reference value) noexcept -> iterator {
   Node *new_node = new Node(value);
 
   if (pos == this->begin()) {
@@ -114,7 +115,8 @@ inline auto list<value_type>::insert(iterator pos,
 
 template <class value_type>
 inline auto list<value_type>::insert(
-    iterator pos, std::initializer_list<value_type> const &items) -> iterator {
+    iterator pos,
+    std::initializer_list<value_type> const &items) noexcept -> iterator {
   for (auto item = items.end(); item != items.begin();) {
     --item;
     pos = insert(pos, *item);
@@ -162,7 +164,7 @@ inline auto list<value_type>::splice(iterator pos, list &other) -> void {
 }
 
 template <class value_type>
-inline auto list<value_type>::unique() -> void {
+inline auto list<value_type>::unique() noexcept -> void {
   if (this->empty()) return;
 
   for (iterator it = this->begin(); it != this->end();) {
@@ -181,7 +183,7 @@ inline auto list<value_type>::unique() -> void {
 template <class T>
 template <typename... Args>
 typename list<T>::iterator list<T>::insert_many(const_iterator pos,
-                                                Args &&...args) {
+                                                Args &&...args) noexcept {
   iterator var_pos = iterator(const_cast<Node *>(pos.current));
   (this->insert(var_pos, std::forward<Args>(args)), ...);
   return var_pos;
@@ -189,13 +191,13 @@ typename list<T>::iterator list<T>::insert_many(const_iterator pos,
 
 template <class T>
 template <typename... Args>
-void list<T>::insert_many_back(Args &&...args) {
+void list<T>::insert_many_back(Args &&...args) noexcept {
   (this->push_back(std::forward<Args>(args)), ...);
 }
 
 template <class T>
 template <typename... Args>
-void list<T>::insert_many_front(Args &&...args) {
+void list<T>::insert_many_front(Args &&...args) noexcept {
   (this->push_front(std::forward<Args>(args)), ...);
 }
 
@@ -212,7 +214,7 @@ inline list<value_type>::~list() noexcept {
 }
 
 template <class Key>
-list<Key>::operator deque<Key>() noexcept {
+list<Key>::operator deque<Key>() const noexcept {
   return static_cast<deque<Key>>(*this);
 }
 
