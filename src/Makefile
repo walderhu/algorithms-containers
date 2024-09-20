@@ -10,16 +10,7 @@ TRASH := $(BUILD_PATH)
 UNAME_S := $(shell uname -s)
 
 SRCS=$(shell find $(SRC_PATH) -type f -name "*.cpp")
-
-# HEADERS =$(shell find $(SRC_PATH) -type f -name "*.hpp")
-
-# HEADERS =$(shell find $(SRC_PATH/Vector) -type f -name "*.hpp")
-# HEADERS += $(shell find $(SRC_PATH/UnorderedSet) -type f -name "*.hpp")
-# HEADERS += Core/s21_containers.hpp
-
-
 TESTS_SRCS =$(shell find $(TESTS_PATH) -type f -name "*.cpp")
-TESTS_HEADERS =$(shell find $(TESTS_PATH) -type f -name "*.hpp")
 
 DEPS := $(SRCS:.cpp=.d)
 -include $(DEPS)
@@ -70,7 +61,6 @@ report_run:
 	@open $(BUILD_PATH)/report/index.html 
 
 style:
-	@find .. -type f -name "*.tpp" -exec clang-format -n -style=Google {} \;
 	@find .. -type f -name "*.cpp" -exec clang-format -n -style=Google {} \;
 	@find .. -type f -name "*.hpp" -exec clang-format -n -style=Google {} \;
 	@echo "Clang format style check is finished"
@@ -78,7 +68,6 @@ style:
 c: style_repair
 
 style_repair:
-	@find .. -type f -name "*.tpp" -exec clang-format -i -style=Google {} \;
 	@find .. -type f -name "*.cpp" -exec clang-format -i -style=Google {} \;
 	@find .. -type f -name "*.hpp" -exec clang-format -i -style=Google {} \;
 	@echo "Clang format style apply is finished"

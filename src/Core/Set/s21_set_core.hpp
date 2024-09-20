@@ -157,8 +157,8 @@ inline auto set<value_type>::erase(iterator pos) noexcept -> void {
 }
 
 template <class value_type>
-inline auto set<value_type>::deleteNode(Node *current,
-                                        value_type value) -> Node * {
+inline auto set<value_type>::deleteNode(Node *current, value_type value)
+    -> Node * {
   if (!current) return nullptr;  // Если узел не найден
 
   // Рекурсивный поиск узла для удаления
