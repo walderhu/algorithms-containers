@@ -15,11 +15,11 @@ inline multiset<value_type>::multiset(
 }
 
 template <class value_type>
-inline multiset<value_type>::multiset(const multiset &s)
+inline multiset<value_type>::multiset(const multiset &s) noexcept
     : set<value_type>::set(s) {}
 
 template <class value_type>
-inline multiset<value_type>::multiset(multiset &&s)
+inline multiset<value_type>::multiset(multiset &&s) noexcept
     : set<value_type>::set(std::move(s)) {}
 
 template <class value_type>
@@ -48,7 +48,7 @@ inline auto multiset<value_type>::operator=(const multiset &s) noexcept
 
 template <class value_type>
 inline auto multiset<value_type>::insert_in(value_type value, Node *&current,
-                                            Node *parent)
+                                            Node *parent) noexcept
     -> std::pair<iterator, bool> {
   if (current == nullptr) {
     current = new Node(value);
@@ -98,9 +98,9 @@ inline auto multiset<Key>::equal_range(const Key &key) noexcept
 }
 
 template <class Key>
-multiset<Key>::operator set<Key>() noexcept {
+multiset<Key>::operator set<Key>() const noexcept {
   set<Key> st;
-  for (auto it = this->begin(); it != this->end(); ++it) st.insert(*it);
+  for (auto it = this->cbegin(); it != this->cend(); ++it) st.insert(*it);
   return st;
 }
 }  // namespace s21

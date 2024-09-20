@@ -20,13 +20,13 @@ class multiset final : public s21::set<Key> {
 
   multiset() noexcept;
   multiset(std::initializer_list<Key> const &items) noexcept;
-  multiset(const multiset &s);
-  multiset(multiset &&s);
+  multiset(const multiset &s) noexcept;
+  multiset(multiset &&s) noexcept;
   ~multiset() noexcept override;
   multiset<Key> &operator=(multiset &&s) noexcept;
   multiset<Key> &operator=(const multiset &s) noexcept;
 
-  explicit operator s21::set<Key>() noexcept;
+  explicit operator s21::set<Key>() const noexcept;
 
   iterator lower_bound(const Key &key) noexcept;
   iterator upper_bound(const Key &key) noexcept;
@@ -35,7 +35,7 @@ class multiset final : public s21::set<Key> {
 
  private:
   std::pair<iterator, bool> insert_in(value_type value, Node *&current,
-                                      Node *parent) override;
+                                      Node *parent) noexcept override;
 };
 
 }  // namespace s21

@@ -6,7 +6,7 @@
 namespace s21 {
 
 template <class value_type>
-set<value_type>::set(const set &s) {
+set<value_type>::set(const set &s) noexcept {
   if (this == &s) return;
   this->root = nullptr;
   this->_size = 0u;
@@ -14,7 +14,7 @@ set<value_type>::set(const set &s) {
 }
 
 template <class value_type>
-inline set<value_type>::set(set &&s) {
+inline set<value_type>::set(set &&s) noexcept {
   this->root = s.root;
   this->_size = s._size;
   s.root = nullptr;
@@ -36,11 +36,11 @@ inline auto set<value_type>::operator=(const set &s) noexcept
 }
 
 template <class value_type>
-inline set<value_type>::Node::Node(value_type val)
+inline set<value_type>::Node::Node(value_type val) noexcept
     : left(nullptr), right(nullptr), parent(nullptr), value(val) {}
 
 template <class value_type>
-inline auto set<value_type>::empty() const -> bool {
+inline auto set<value_type>::empty() const noexcept -> bool {
   return this->_size == 0u;
 }
 
@@ -55,14 +55,14 @@ inline set<value_type>::set(
 }
 
 template <class value_type>
-inline auto set<value_type>::insert(const value_type value)
+inline auto set<value_type>::insert(const value_type value) noexcept
     -> std::pair<iterator, bool> {
   return insert_in(static_cast<value_type>(value), root, nullptr);
 }
 
 template <class value_type>
 inline auto set<value_type>::insert_in(value_type value, Node *&current,
-                                       Node *parent)
+                                       Node *parent) noexcept
     -> std::pair<iterator, bool> {
   if (current == nullptr) {
     current = new Node(value);
@@ -76,7 +76,7 @@ inline auto set<value_type>::insert_in(value_type value, Node *&current,
 }
 
 template <class value_type>
-inline auto set<value_type>::max_size() -> size_type {
+inline auto set<value_type>::max_size() const noexcept -> size_type {
   return (std::numeric_limits<size_t>::max() / sizeof(value_type));
 }
 
@@ -90,13 +90,13 @@ inline auto set<value_type>::insert_many(Args &&...args)
 }
 
 template <class value_type>
-inline auto set<value_type>::size() const -> size_type {
+inline auto set<value_type>::size() const noexcept -> size_type {
   return this->_size;
 }
 
 template <class Key>
-inline auto set<Key>::find(const Key &key) -> iterator {
-  if (root != nullptr) {
+inline auto set<Key>::find(const Key &key) noexcept -> iterator {
+  if (root) {
     Node *current = root;
     while (current) {
       if (current->value > key) current = current->left;
@@ -108,7 +108,7 @@ inline auto set<Key>::find(const Key &key) -> iterator {
 }
 
 template <class Key>
-inline auto set<Key>::contains(const Key &key) -> bool {
+inline auto set<Key>::contains(const Key &key) noexcept -> bool {
   for (auto it = this->begin(); it != this->end(); ++it)
     if (*it == key) return true;
   return false;
@@ -120,7 +120,7 @@ inline set<value_type>::~set() noexcept {
 }
 
 template <class value_type>
-inline auto set<value_type>::clear() -> void {
+inline auto set<value_type>::clear() noexcept -> void {
   clear(root);
   _size = 0u;
 }
@@ -135,19 +135,19 @@ inline auto set<value_type>::clear(Node *&current) -> void {
 }
 
 template <class value_type>
-inline auto set<value_type>::swap(set &other) -> void {
+inline auto set<value_type>::swap(set &other) noexcept -> void {
   std::swap(this->root, other.root);
   std::swap(this->_size, other._size);
 }
 
 template <class value_type>
-inline auto set<value_type>::merge(set &other) -> void {
+inline auto set<value_type>::merge(set &other) noexcept -> void {
   for (auto it = other.cbegin(); it != other.cend(); ++it) this->insert(*it);
   other.clear();
 }
 
 template <class value_type>
-inline auto set<value_type>::erase(iterator pos) -> void {
+inline auto set<value_type>::erase(iterator pos) noexcept -> void {
   if (pos.current == nullptr) return;
 
   value_type value = *pos;
@@ -199,19 +199,19 @@ inline auto set<value_type>::deleteNode(Node *current,
 }
 
 template <class Key>
-set<Key>::operator deque<Key>() noexcept {
+set<Key>::operator deque<Key>() const noexcept {
   deque<Key> lst;
   for (auto it = this->begin(); it != this->end(); ++it) lst.push_back(*it);
   return lst;
 }
 
 template <class Key>
-set<Key>::operator list<Key>() noexcept {
+set<Key>::operator list<Key>() const noexcept {
   return this->operator deque<Key>();
 }
 
 template <class Key>
-set<Key>::operator multiset<Key>() noexcept {
+set<Key>::operator multiset<Key>() const noexcept {
   set<Key> mst;
   for (auto it = this->begin(); it != this->end(); ++it) mst.insert(*it);
   return mst;

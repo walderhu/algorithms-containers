@@ -23,31 +23,31 @@ class set {
 
   set() noexcept;
   set(std::initializer_list<value_type> const &items) noexcept;
-  set(const set &s);
-  set(set &&s);
+  set(const set &s) noexcept;
+  set(set &&s) noexcept;
   virtual ~set() noexcept;
   set<value_type> &operator=(set &&s) noexcept;
   set<value_type> &operator=(const set &s) noexcept;
 
-  explicit operator s21::deque<Key>() noexcept;
-  explicit operator s21::list<Key>() noexcept;
-  explicit operator s21::multiset<Key>() noexcept;
+  explicit operator s21::deque<Key>() const noexcept;
+  explicit operator s21::list<Key>() const noexcept;
+  explicit operator s21::multiset<Key>() const noexcept;
 
-  iterator find(const Key &key);
-  bool contains(const Key &key);
-  bool empty() const;
-  void clear();
-  void swap(set &other);
-  void erase(iterator pos);
-  void merge(set &other);
-  virtual std::pair<iterator, bool> insert(const value_type value);
+  iterator find(const Key &key) noexcept;
+  bool contains(const Key &key) noexcept;
+  bool empty() const noexcept;
+  void clear() noexcept;
+  void swap(set &other) noexcept;
+  void erase(iterator pos) noexcept;
+  void merge(set &other) noexcept;
+  virtual std::pair<iterator, bool> insert(const value_type value) noexcept;
 
-  iterator begin();
-  iterator end();
-  ConstIterator cbegin() const;
-  ConstIterator cend() const;
-  size_type size() const;
-  size_type max_size();
+  iterator begin() noexcept;
+  iterator end() noexcept;
+  ConstIterator cbegin() const noexcept;
+  ConstIterator cend() const noexcept;
+  size_type size() const noexcept;
+  size_type max_size() const noexcept;
 
   template <typename... Args>
   std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
@@ -59,7 +59,7 @@ class set {
  private:
   Node *deleteNode(Node *current, value_type key);
   virtual std::pair<iterator, bool> insert_in(value_type value, Node *&current,
-                                              Node *parent);
+                                              Node *parent) noexcept;
 };
 
 template <class Key>
@@ -68,7 +68,7 @@ struct s21::set<Key>::Node {
   Node *right;
   Node *parent;
   value_type value;
-  Node(value_type val = value_type());
+  Node(value_type val = value_type()) noexcept;
 };
 
 template <class Key>
@@ -76,12 +76,12 @@ struct s21::set<Key>::Iterator {
   Iterator() noexcept;
   Iterator(Node *node, s21::set<value_type> *st = nullptr) noexcept;
   Iterator(const Iterator &other) noexcept;
-  bool operator==(const Iterator &other) const;
-  bool operator!=(const Iterator &other) const;
-  bool operator<(const Iterator &other) const;
-  bool operator<=(const Iterator &other) const;
-  bool operator>(const Iterator &other) const;
-  bool operator>=(const Iterator &other) const;
+  bool operator==(const Iterator &other) const noexcept;
+  bool operator!=(const Iterator &other) const noexcept;
+  bool operator<(const Iterator &other) const noexcept;
+  bool operator<=(const Iterator &other) const noexcept;
+  bool operator>(const Iterator &other) const noexcept;
+  bool operator>=(const Iterator &other) const noexcept;
   Iterator &operator++();
   Iterator &operator--();
   Iterator operator++(int);

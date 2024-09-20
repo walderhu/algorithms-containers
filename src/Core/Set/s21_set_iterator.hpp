@@ -27,14 +27,14 @@ inline auto set<value_type>::Iterator::operator=(const Iterator& other)
 }
 
 template <class value_type>
-inline auto set<value_type>::Iterator::operator==(const Iterator& other) const
-    -> bool {
+inline auto set<value_type>::Iterator::operator==(
+    const Iterator& other) const noexcept -> bool {
   return current == other.current;
 }
 
 template <class value_type>
-inline auto set<value_type>::Iterator::operator!=(const Iterator& other) const
-    -> bool {
+inline auto set<value_type>::Iterator::operator!=(
+    const Iterator& other) const noexcept -> bool {
   return current != other.current;
 }
 
@@ -43,8 +43,8 @@ inline set<value_type>::Iterator::Iterator(const Iterator& other) noexcept
     : current(other.current), set(other.set) {}
 
 template <class value_type>
-inline auto set<value_type>::Iterator::operator<(const Iterator& other) const
-    -> bool {
+inline auto set<value_type>::Iterator::operator<(
+    const Iterator& other) const noexcept -> bool {
   if (other == set->end()) return this->operator!=(other);
   for (auto it = set->begin(); it != set->end(); ++it) {
     if (it == current) return true;
@@ -54,20 +54,20 @@ inline auto set<value_type>::Iterator::operator<(const Iterator& other) const
 }
 
 template <class value_type>
-inline auto set<value_type>::Iterator::operator<=(const Iterator& other) const
-    -> bool {
+inline auto set<value_type>::Iterator::operator<=(
+    const Iterator& other) const noexcept -> bool {
   return this->operator==(other) || this->operator<(other);
 }
 
 template <class value_type>
-inline auto set<value_type>::Iterator::operator>(const Iterator& other) const
-    -> bool {
+inline auto set<value_type>::Iterator::operator>(
+    const Iterator& other) const noexcept -> bool {
   return !this->operator<(other);
 }
 
 template <class value_type>
-inline auto set<value_type>::Iterator::operator>=(const Iterator& other) const
-    -> bool {
+inline auto set<value_type>::Iterator::operator>=(
+    const Iterator& other) const noexcept -> bool {
   return this->operator==(other) || this->operator>(other);
 }
 
@@ -169,13 +169,13 @@ inline auto set<value_type>::ConstIterator::operator=(const Iterator& other)
 template <class value_type>
 inline auto set<value_type>::Iterator::get_value() const -> value_type {
   if (!current) return value_type();
-  return current->value;
+  return this->operator*();
 }
 
 // begin/end cbegin/ceng
 
 template <class value_type>
-inline auto set<value_type>::begin() -> Iterator {
+inline auto set<value_type>::begin() noexcept -> Iterator {
   if (root == nullptr) return Iterator(nullptr, this);
   Node* smallest_member = root;
   while (smallest_member->left) smallest_member = smallest_member->left;
@@ -183,12 +183,12 @@ inline auto set<value_type>::begin() -> Iterator {
 }
 
 template <class value_type>
-inline auto set<value_type>::end() -> Iterator {
+inline auto set<value_type>::end() noexcept -> Iterator {
   return Iterator(nullptr, this);
 }
 
 template <class value_type>
-inline auto set<value_type>::cbegin() const -> ConstIterator {
+inline auto set<value_type>::cbegin() const noexcept -> ConstIterator {
   if (root == nullptr) return ConstIterator(nullptr, this);
   Node* smallest_member = root;
   while (smallest_member->left) smallest_member = smallest_member->left;
@@ -196,7 +196,7 @@ inline auto set<value_type>::cbegin() const -> ConstIterator {
 }
 
 template <class value_type>
-inline auto set<value_type>::cend() const -> ConstIterator {
+inline auto set<value_type>::cend() const noexcept -> ConstIterator {
   return ConstIterator(nullptr, this);
 };
 }  // namespace s21
