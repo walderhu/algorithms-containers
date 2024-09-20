@@ -7,9 +7,7 @@ namespace s21 {
 
 template <class value_type>
 inline unordered_set<value_type>::unordered_set() noexcept {
-  std::array<s21::vector<value_type>, TABLE_SIZE> vec;
-  // auto *vec = new std::array<s21::vector<int>, 100>();
-  table.push_back(vec);
+  this->to_expand();
 };
 
 template <class value_type>
@@ -61,7 +59,10 @@ inline void unordered_set<Key>::insert(const key_type &key) noexcept {
 }
 
 template <class Key>
-inline void unordered_set<Key>::clear() {}
+inline void unordered_set<Key>::clear() {
+  for (auto it = table.begin(); it != table.end(); ++it) delete *it;
+  table.clear();
+}
 
 template <class Key>
 inline bool unordered_set<Key>::contains(const key_type &key) const noexcept {
@@ -69,6 +70,12 @@ inline bool unordered_set<Key>::contains(const key_type &key) const noexcept {
   // for (auto &&element : table[index])
   //   if (element == key) return true;
   return false;
+}
+
+template <class Key>
+inline void unordered_set<Key>::to_expand() {
+  auto *vec = new std::array<s21::vector<value_type>, TABLE_SIZE>();
+  table.push_back(vec);
 }
 
 template <class Key>

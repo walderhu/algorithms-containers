@@ -29,8 +29,10 @@ class unordered_set {
 
  protected:
   static constexpr size_type TABLE_SIZE = 100;
-  mutable std::list<std::array<s21::vector<value_type>, TABLE_SIZE>> table;
+  mutable std::list<std::array<s21::vector<value_type>, TABLE_SIZE> *> table;
   // mutable s21::list<s21::vector<value_type>> table;
+ private:
+  void to_expand();
 };
 }  // namespace s21
 #include "s21_unordered_set_core.hpp"
