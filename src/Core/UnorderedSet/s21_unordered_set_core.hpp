@@ -34,8 +34,24 @@ inline void unordered_set<Key>::insert(const key_type &key) noexcept {
   auto it = table.begin();
 
   for (auto &arr = *it; it != table.end(); ++it)
-    if (auto &vec = arr->at(index); vec.empty()) vec.push_back(key);
+    if (auto &vec = arr->at(index); vec.empty() || vec.front() == key)
+      vec.push_back(key);
+    else
+      this->to_expand();
 }
+/* NOTES
+
+все нормально стой, на 36 строчке я итерируюсь по узлам!
+то есть, я захожу сначала в самый первый узел, и беру вектор который
+соответсвует моему хэшу в этом узле (беру его по индексу), смотрю пустой он или
+нет, если не пустой, он должен содержать значения равные моему (я проверяю
+только первое) если одно из этих условий удовлетворяет, значит это нужное ведро,
+и мы добавляем туда наше значение, иначе мы должны расширить нашу структуру
+поскольку у нас начинают появляться коллизии (шаг расширения у меня в дефолте
+100, я не сильно раскидываюсь в памяти) да и шанс что чел вкинет числа с хэшем в
+разницу моего шага очень мала
+
+*/
 
 template <class Key>
 inline void unordered_set<Key>::clear() {
@@ -44,10 +60,12 @@ inline void unordered_set<Key>::clear() {
 }
 
 template <class Key>
-inline void unordered_set<Key>::to_expand() {
+inline auto unordered_set<Key>::to_expand() -> IteratorType {
   auto *vec = new std::array<s21::vector<value_type>, TABLE_SIZE>();
   table.push_back(vec);
   capacity += TABLE_SIZE;
+
+  return --(table.end());
 }
 
 }  // namespace s21
