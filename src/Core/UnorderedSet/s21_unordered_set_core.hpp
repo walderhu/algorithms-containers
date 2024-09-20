@@ -6,7 +6,7 @@
 namespace s21 {
 
 template <class value_type>
-inline unordered_set<value_type>::unordered_set() noexcept {
+inline unordered_set<value_type>::unordered_set() noexcept : capacity(0u) {
   this->to_expand();
 };
 
@@ -17,45 +17,26 @@ inline unordered_set<value_type>::unordered_set(
 }
 
 template <class value_type>
-inline unordered_set<value_type>::unordered_set(
-    const unordered_set &s) noexcept {}
-
-template <class value_type>
-inline unordered_set<value_type>::unordered_set(unordered_set &&s) noexcept {}
-
-template <class value_type>
 inline unordered_set<value_type>::~unordered_set() noexcept {
   this->clear();
 }
-
-template <class value_type>
-inline auto unordered_set<value_type>::operator=(unordered_set &&s) noexcept
-    -> unordered_set<value_type> & {
-  return *this;
-}
-
-template <class value_type>
-inline auto unordered_set<value_type>::operator=(
-    const unordered_set &s) noexcept -> unordered_set<value_type> & {
-  return *this;
-}
-
-// here
 
 template <class value_type>
 inline auto unordered_set<value_type>::hashFunction(key_type key) -> size_type {
   return std::hash<key_type>()(key);
 }
 
+#include <typeinfo>  // TODO убрать
+                     // DEBUG(typeid(vec).name());
 template <class Key>
 inline void unordered_set<Key>::insert(const key_type &key) noexcept {
-  unsigned external_index = hashFunction(key) / TABLE_SIZE;
-  unsigned internal_index = hashFunction(key) % TABLE_SIZE;
+  size_t index = hashFunction(key) % TABLE_SIZE;
   auto it = table.begin();
-  for (unsigned i = 0u; i <= external_index && it != table.end(); ++i, ++it);
-  // s21::vector<Key> vec = *it;
-  // auto vec = *it;
-  // vec[internal_index].push_back(key);
+
+  for (auto &arr = *it; it != table.end(); ++it) {
+    auto &vec = arr->at(index);
+    if (vec.empty()) vec.push_back(key);
+  }
 }
 
 template <class Key>
@@ -65,24 +46,10 @@ inline void unordered_set<Key>::clear() {
 }
 
 template <class Key>
-inline bool unordered_set<Key>::contains(const key_type &key) const noexcept {
-  // size_type index = this->hashFunction(key) % TABLE_SIZE;
-  // for (auto &&element : table[index])
-  //   if (element == key) return true;
-  return false;
-}
-
-template <class Key>
 inline void unordered_set<Key>::to_expand() {
   auto *vec = new std::array<s21::vector<value_type>, TABLE_SIZE>();
   table.push_back(vec);
-}
-
-template <class Key>
-inline void unordered_set<Key>::remove(key_type key) {
-  // size_t index = hashFunction(key) % TABLE_SIZE;
-  // auto &vec = table[index];
-  // vec.erase(std::remove(vec.begin(), vec.end(), key), vec.end());
+  capacity += TABLE_SIZE;
 }
 
 }  // namespace s21

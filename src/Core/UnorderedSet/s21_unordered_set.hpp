@@ -15,23 +15,17 @@ class unordered_set {
 
   unordered_set() noexcept;
   unordered_set(std::initializer_list<Key> const &items) noexcept;
-  unordered_set(const unordered_set &s) noexcept;
-  unordered_set(unordered_set &&s) noexcept;
   ~unordered_set() noexcept;
-  unordered_set<Key> &operator=(unordered_set &&s) noexcept;
-  unordered_set<Key> &operator=(const unordered_set &s) noexcept;
 
   size_type hashFunction(key_type key);
   void clear();
-  void remove(key_type key);
   void insert(const key_type &key) noexcept;
-  bool contains(const key_type &key) const noexcept;
 
  protected:
+  size_type capacity;
   static constexpr size_type TABLE_SIZE = 100;
-  mutable std::list<std::array<s21::vector<value_type>, TABLE_SIZE> *> table;
-  // mutable s21::list<s21::vector<value_type>> table;
- private:
+  mutable s21::list<std::array<s21::vector<value_type>, TABLE_SIZE> *> table;
+
   void to_expand();
 };
 }  // namespace s21
