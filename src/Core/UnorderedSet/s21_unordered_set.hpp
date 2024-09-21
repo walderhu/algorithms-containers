@@ -9,6 +9,8 @@ namespace s21 {
 template <class Key>
 class unordered_set {
  public:
+  struct Iterator;
+  struct ConstIterator;
   friend int main();  // TODO убрать
   using key_type = Key;
   using value_type = Key;
@@ -24,6 +26,11 @@ class unordered_set {
   void clear() noexcept;
   virtual void insert(const key_type &key) noexcept;
   virtual void debug();  // TODO убрать
+
+  Iterator begin();
+  Iterator end();
+  ConstIterator cbegin() const;
+  ConstIterator cend() const;
 
   size_type size() const noexcept;
   virtual size_type bucket_count() const noexcept;
@@ -116,6 +123,14 @@ class unordered_set {
 
   IteratorType to_expand() noexcept;
 };
+
+template <class Key>
+struct unordered_set<Key>::Iterator {};
+
+template <class Key>
+struct unordered_set<Key>::ConstIterator : public unordered_set<Key>::Iterator {
+};
+
 }  // namespace s21
 #include "s21_unordered_set_core.hpp"
 
