@@ -81,6 +81,11 @@ inline auto unordered_multiset<Key>::add(s21::vector<value_type> &vec,
   vec.push_back(key);
   size_++;
 }
+
+template <class Key>
+inline auto unordered_multiset<Key>::load_factor() const noexcept -> float {
+  return static_cast<float>(TABLE_SIZE) / static_cast<float>(bucket_count_);
+}
 }  // namespace s21
 
 #endif  // __S21_UNORDERED_CORE_MULTISET__

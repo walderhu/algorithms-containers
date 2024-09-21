@@ -131,6 +131,12 @@ inline auto unordered_set<Key>::erase(const key_type &key) noexcept -> void {
 }
 
 template <class Key>
+inline auto unordered_set<Key>::bucket_size(const key_type &key) const noexcept
+    -> size_type {
+  return this->count(key);
+}
+
+template <class Key>
 inline auto unordered_set<Key>::count(const key_type &key) const noexcept
     -> size_type {
   size_t index = get_index(key);
@@ -146,6 +152,11 @@ template <class Key>
 inline auto unordered_set<Key>::contains(const key_type &key) const noexcept
     -> bool {
   return static_cast<bool>(this->count(key));
+}
+
+template <class Key>
+inline auto unordered_set<Key>::load_factor() const noexcept -> float {
+  return static_cast<float>(TABLE_SIZE) / static_cast<float>(size_);
 }
 
 }  // namespace s21

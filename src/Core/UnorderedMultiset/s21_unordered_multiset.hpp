@@ -24,6 +24,7 @@ class unordered_multiset : public unordered_set<Key> {
   void insert(const key_type &key) noexcept override;
   void debug() override;  // TODO убрать
   size_type bucket_count() const noexcept override;
+  float load_factor() const noexcept override;
 
  protected:
   void add(s21::vector<value_type> &vec, const key_type &key) noexcept override;

@@ -53,20 +53,19 @@ O(n) времени, где n это количество элементво в 
 
 // ust.emplace
 //   ust.bucket
-//   ust.bucket_count
-//   ust.bucket_size
 // ust.equal_range
 // ust.extract
 // ust.find
 // ust.get_allocator
 //   ust.key_eq
-//   ust.load_factor
+
 //   ust.max_bucket_count
 //   ust.max_load_factor
+
 //   ust.merge
-//   ust.rehash
-//   ust.reserve
 //   ust.swap
 
+//   ust.rehash
+//   ust.reserve
 // ust.emplace_hint
 // cbegin cend begin end
