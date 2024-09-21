@@ -9,6 +9,8 @@ template <class Key>
 class multiset final : public s21::set<Key> {
  public:
   using Node = typename set<Key>::Node;
+  using set<Key>::root;
+  using set<Key>::_size;
 
   using key_type = Key;
   using value_type = Key;
