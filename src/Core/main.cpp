@@ -22,9 +22,9 @@ int main() {
   ust.insert(11);
   // ust.debug();
 
-  DEBUG(ust.count(5));
   for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
-  DEBUG(ust.bucket_count());
+  // DEBUG(ust.count(5));
+  // DEBUG(ust.bucket_count());
   return 0;
 }
 

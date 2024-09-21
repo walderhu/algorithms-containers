@@ -130,19 +130,19 @@ struct unordered_set<Key>::Iterator {
 
   Iterator(IteratorType iter, size_t index,
            s21::unordered_set<value_type> *ust = nullptr,
-           BucketIterator bucket_iterator = nullptr) noexcept;
-  Iterator(const Iterator &other) noexcept;
+           BucketIterator bucket_iterator = nullptr);
+  Iterator(const Iterator &other);
 
-  bool operator==(const Iterator &other) const noexcept;
-  bool operator!=(const Iterator &other) const noexcept;
+  bool operator==(const Iterator &other) const;
+  bool operator!=(const Iterator &other) const;
 
-  Iterator &operator++() noexcept;
-  Iterator &operator--() noexcept;
-  reference operator*() const noexcept;
+  Iterator &operator++();
+  Iterator &operator--();
+  reference operator*() const;
   virtual Iterator &operator=(const Iterator &other);
 
  protected:
-  Key &get_value() const noexcept;
+  Key &get_value() const;
   IteratorType iter;
   size_t index;
   BucketIterator bucket_iterator;
@@ -155,7 +155,7 @@ struct unordered_set<Key>::ConstIterator : public unordered_set<Key>::Iterator {
 };
 
 }  // namespace s21
-#include "s21_unordered_set._iterator.hpp"
 #include "s21_unordered_set_core.hpp"
+#include "s21_unordered_set_iterator.hpp"
 
 #endif  // __S21_UNORDERED_SET__

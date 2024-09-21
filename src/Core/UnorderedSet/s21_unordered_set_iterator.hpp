@@ -7,38 +7,50 @@ namespace s21 {
 template <class Key>
 inline unordered_set<Key>::Iterator::Iterator(
     IteratorType iter, size_t index, s21::unordered_set<value_type> *ust,
-    BucketIterator bucket_iterator) noexcept
+    BucketIterator bucket_iterator)
     : iter(iter), index(index), bucket_iterator(bucket_iterator), ust(ust) {}
 
 template <class Key>
-inline auto unordered_set<Key>::Iterator::get_value() const noexcept -> Key & {
+inline auto unordered_set<Key>::Iterator::get_value() const -> Key & {
   auto it = this->iter;
-  for (auto &arr = *it; it != ust->table.end(); ++it)
-    for (size_t i = this->index; i < unordered_set<Key>::TABLE_SIZE; i++)
+  DEBUG("hello");
+  if (auto &arr = *it; it != ust->table.end())
+    if (size_t i = this->index; i < unordered_set<Key>::TABLE_SIZE)
       if (auto &vec = (*it)->at(i); !vec.empty())
-        for (auto iter__ = (bucket_iterator != nullptr) ? bucket_iterator
-                                                        : vec.begin();
-             iter__ != vec.end(); ++iter__)
-          return *iter__;
-  return *bucket_iterator;
+        if (auto iter__ = vec.begin(); iter__ != vec.end()) return *iter__;
+  DEBUG("hello");
+  throw std::runtime_error("Ошибка: Элемент не найден.");
 }
+
+// template <class Key>
+// inline auto unordered_set<Key>::Iterator::get_value() const  -> Key &
+// {
+//   auto it = this->iter;
+//   for (auto &arr = *it; it != ust->table.end(); ++it)
+//     for (size_t i = this->index; i < unordered_set<Key>::TABLE_SIZE; i++)
+//       if (auto &vec = (*it)->at(i); !vec.empty())
+//         for (auto iter__ = (bucket_iterator != nullptr) ? bucket_iterator
+//                                                         : vec.begin();
+//              iter__ != vec.end(); ++iter__)
+//           return *iter__;
+//   return *bucket_iterator;
+//   // DEBUG("hello");
+// }
 
 template <class Key>
 inline auto unordered_set<Key>::Iterator::operator==(
-    const Iterator &other) const noexcept -> bool {
+    const Iterator &other) const -> bool {
   return this->get_value() == other.get_value();
 }
 
 template <class Key>
 inline auto unordered_set<Key>::Iterator::operator!=(
-    const Iterator &other) const noexcept -> bool {
-  // DEBUG();
+    const Iterator &other) const -> bool {
   return this->get_value() != other.get_value();
 }
 
 template <class Key>
-inline auto unordered_set<Key>::Iterator::operator*() const noexcept
-    -> reference {
+inline auto unordered_set<Key>::Iterator::operator*() const -> reference {
   // сюда уже не захожу
   return this->get_value();
 }
@@ -56,7 +68,7 @@ inline auto unordered_set<Key>::Iterator::operator=(const Iterator &other)
 }
 
 template <class Key>
-inline auto unordered_set<Key>::Iterator::operator++() noexcept -> Iterator & {
+inline auto unordered_set<Key>::Iterator::operator++() -> Iterator & {
   if (auto &vec = (*iter)->at(index); bucket_iterator != vec.end()) {
     ++bucket_iterator;
   } else if (index < unordered_set<Key>::TABLE_SIZE) {
@@ -91,12 +103,12 @@ inline auto unordered_set<Key>::end() noexcept -> Iterator {
 }
 
 // template <class Key>
-// inline void unordered_set<Key>::cbegin() noexcept -> Iterator {
+// inline void unordered_set<Key>::cbegin()  -> Iterator {
 //   return ConstIterator(table.begin(), 0u, this);
 // }
 
 // template <class Key>
-// inline void unordered_set<Key>::cend() noexcept -> Iterator {
+// inline void unordered_set<Key>::cend()  -> Iterator {
 //   return ConstIterator(table.end(), TABLE_SIZE, this);
 // }
 
