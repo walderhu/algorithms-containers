@@ -7,30 +7,21 @@ namespace s21 {
 
 template <class value_type>
 inline unordered_multiset<value_type>::unordered_multiset() noexcept
-    : capacity(0u) {
-  this->to_expand();
-};
+    : unordered_set<value_type>::unordered_set() {}
 
 template <class value_type>
 inline unordered_multiset<value_type>::unordered_multiset(
-    std::initializer_list<value_type> const &items) noexcept {
-  for (auto it = items.begin(); it != items.end(); ++it) this->insert(*it);
-}
+    std::initializer_list<value_type> const &items) noexcept
+    : unordered_set<value_type>::unordered_set(items) {}
 
 template <class value_type>
 inline unordered_multiset<value_type>::~unordered_multiset() noexcept {
-  this->clear();
-}
-
-template <class value_type>
-inline auto unordered_multiset<value_type>::hashFunction(key_type key)
-    -> size_type {
-  return std::hash<key_type>()(key);
+  unordered_set<value_type>::clear();
 }
 
 template <class Key>
 inline void unordered_multiset<Key>::insert(const key_type &key) noexcept {
-  size_t index = hashFunction(key) % TABLE_SIZE;
+  size_t index = unordered_set<Key>::hashFunction(key) % TABLE_SIZE;
   auto it = table.begin();
 
   for (auto &arr = *it; it != table.end(); ++it)
@@ -65,12 +56,6 @@ inline void unordered_multiset<Key>::insert(const key_type &key) noexcept {
 */
 
 template <class Key>
-inline void unordered_multiset<Key>::clear() {
-  for (auto it = table.begin(); it != table.end(); ++it) delete *it;
-  table.clear();
-}
-
-template <class Key>
 inline void unordered_multiset<Key>::debug() {
   auto it = table.begin();
 
@@ -81,14 +66,6 @@ inline void unordered_multiset<Key>::debug() {
           std::cout << *iter << " ";
 
   std::cout << std::endl;
-}
-
-template <class Key>
-inline auto unordered_multiset<Key>::to_expand() -> IteratorType {
-  auto *vec = new std::array<s21::vector<value_type>, TABLE_SIZE>();
-  table.push_back(vec);
-  capacity += TABLE_SIZE;
-  return --(table.end());
 }
 
 }  // namespace s21

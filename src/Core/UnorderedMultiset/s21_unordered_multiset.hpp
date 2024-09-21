@@ -1,13 +1,10 @@
 #if !defined(__S21_UNORDERED_MULTISET__)
 #define __S21_UNORDERED_MULTISET__
-#include <array>
-#include <typeinfo>  // TODO убрать
-                     // DEBUG(typeid(vec).name());
 
 #include "../s21_containers.hpp"
 namespace s21 {
 template <class Key>
-class unordered_multiset {
+class unordered_multiset : public unordered_set<Key> {
  public:
   friend int main();  // TODO убрать
   using key_type = Key;
@@ -16,24 +13,15 @@ class unordered_multiset {
   using const_reference = const value_type &;
   using size_type = size_t;
 
+  using unordered_set<Key>::table;
+  using unordered_set<Key>::TABLE_SIZE;
+
   unordered_multiset() noexcept;
   unordered_multiset(std::initializer_list<Key> const &items) noexcept;
   ~unordered_multiset() noexcept;
 
-  size_type hashFunction(key_type key);
-  void clear();
-  void insert(const key_type &key) noexcept;
-  void debug();  // TODO убрать
-
- protected:
-  size_type capacity;
-  static constexpr size_type TABLE_SIZE = 100;
-  mutable s21::list<std::array<s21::vector<value_type>, TABLE_SIZE> *> table;
-
-  using IteratorType = typename s21::list<
-      std::array<s21::vector<value_type>, TABLE_SIZE> *>::iterator;
-
-  IteratorType to_expand();
+  void insert(const key_type &key) noexcept override;
+  void debug() override;  // TODO убрать
 };
 }  // namespace s21
 #include "s21_unordered_multiset_core.hpp"
