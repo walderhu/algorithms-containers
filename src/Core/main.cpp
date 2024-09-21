@@ -7,8 +7,8 @@
 
 #include "s21_containers.hpp"
 int main() {
-  s21::unordered_set<int> ust;
-  // s21::unordered_multiset<int> ust;
+  // s21::unordered_set<int> ust;
+  s21::unordered_multiset<int> ust;
   // auto x = ust.hashFunction(5);
   ust.insert(5);
   ust.insert(5);
@@ -21,8 +21,8 @@ int main() {
   ust.insert(-3);
   ust.insert(11);
   ust.debug();
-  DEBUG(ust.size());
-  DEBUG(ust.empty());
+  ust.erase(5);
+  ust.debug();
   // DEBUG(x);  // x = 2762169579135187400
   return 0;
 

@@ -113,12 +113,11 @@ inline auto unordered_set<Key>::erase(const key_type &key) noexcept -> void {
   auto it = table.begin();
 
   for (auto &arr = *it; it != table.end(); ++it)
-    if (auto &vec = arr->at(index); vec.empty()) {
-      vec.push_back(key);
-      size_++;
-      break;
-    } else if (vec.front() == key)
-      break;
+    if (auto &vec = arr->at(index); !vec.empty() && vec.front() == key) {
+      vec.pop_back();
+      size_--;
+      return;
+    }
 }
 }  // namespace s21
 
