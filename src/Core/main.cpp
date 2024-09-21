@@ -19,8 +19,6 @@ int main() {
   ust.insert(0);
   ust.insert(-3);
   ust.insert(11);
-  // ust.debug();
-
   for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
   // DEBUG(ust.count(5));
   // DEBUG(ust.bucket_count());

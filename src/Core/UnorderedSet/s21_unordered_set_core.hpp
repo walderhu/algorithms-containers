@@ -28,20 +28,40 @@ inline auto unordered_set<value_type>::hashFunction(key_type key) const noexcept
   return std::hash<key_type>()(key);
 }
 
+// template <class Key>
+// inline void unordered_set<Key>::insert(const key_type &key) noexcept {
+//   size_t index = get_index(key);
+//   auto it = table.begin();
+
+//   for (auto &arr = *it; it != table.end(); ++it)
+//     if (auto &vec = arr->at(index); vec.empty()) {
+//       add(vec, key);
+//       break;
+//     } else if (vec.front() == key)
+//       break;
+
+//   if (it != table.end()) return;
+
+//   it = this->to_expand();
+//   auto &vec = (*it)->at(index);
+//   add(vec, key);
+// }
+
 template <class Key>
 inline void unordered_set<Key>::insert(const key_type &key) noexcept {
   size_t index = get_index(key);
   auto it = table.begin();
 
-  for (auto &arr = *it; it != table.end(); ++it)
+  for (auto &arr = *it; it != table.end(); ++it) {
     if (auto &vec = arr->at(index); vec.empty()) {
       add(vec, key);
       break;
-    } else if (vec.front() == key)
+    } else if (vec.front() == key) {
       break;
+    }
+  }
 
   if (it != table.end()) return;
-
   it = this->to_expand();
   auto &vec = (*it)->at(index);
   add(vec, key);
@@ -95,10 +115,10 @@ auto it = table.begin(); и size_t i = 0u;
 
 template <class Key>
 inline auto unordered_set<Key>::to_expand() noexcept -> IteratorType {
-  auto *vec = new std::array<std::vector<value_type>, TABLE_SIZE>();
-  table.push_back(vec);
+  auto *new_array = new std::array<std::vector<value_type>, TABLE_SIZE>();
+  table.push_back(new_array);
   capacity += TABLE_SIZE;
-  return --(table.end());
+  return --table.end();
 }
 
 template <class Key>

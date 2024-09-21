@@ -51,13 +51,13 @@ inline auto unordered_set<Key>::Iterator::get_value() const -> Key & {
 template <class Key>
 inline auto unordered_set<Key>::Iterator::operator==(
     const Iterator &other) const -> bool {
-  return this->get_value() == other.get_value();
+  return this->iter == other.iter;
 }
 
 template <class Key>
 inline auto unordered_set<Key>::Iterator::operator!=(
     const Iterator &other) const -> bool {
-  return this->get_value() != other.get_value();
+  return this->iter != other.iter;
 }
 
 template <class Key>
@@ -106,15 +106,37 @@ inline auto unordered_set<Key>::Iterator::operator++() -> Iterator & {
 //   return Iterator(table.begin(), 0u, this);
 // }
 
+// template <class Key>
+// inline auto unordered_set<Key>::begin() noexcept -> Iterator {
+//   auto it = table.begin();
+//   DEBUG("hey");
+//   if (it == table.end()) return Iterator(it, TABLE_SIZE, this);
+//   for (auto &arr = *it; it != table.end(); ++it)
+//     for (size_t i = 0; i < TABLE_SIZE; ++i)
+//       if (!arr[i].empty()) return Iterator(it, i, this);
+
+//   DEBUG("hey");
+//   return Iterator(table.end(), TABLE_SIZE, this);
+// }
+
 template <class Key>
 inline auto unordered_set<Key>::begin() noexcept -> Iterator {
   auto it = table.begin();
-  if (it == table.end()) return Iterator(it, TABLE_SIZE, this);
+  DEBUG("Begin called");
+
+  if (it == table.end()) {
+    DEBUG("Table is empty");
+    return Iterator(it, TABLE_SIZE, this);
+  }
 
   for (auto &arr = *it; it != table.end(); ++it)
     for (size_t i = 0; i < TABLE_SIZE; ++i)
-      if (!arr[i].empty()) return Iterator(it, i, this);
+      if (!arr[i].empty()) {
+        DEBUG("BEGIN is OK");
+        return Iterator(it, i, this);
+      }
 
+  DEBUG("No non-empty buckets found");
   return Iterator(table.end(), TABLE_SIZE, this);
 }
 
