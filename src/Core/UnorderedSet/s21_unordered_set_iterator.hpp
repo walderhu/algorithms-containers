@@ -101,16 +101,28 @@ inline auto unordered_set<Key>::Iterator::operator++() -> Iterator & {
 }
 
 // begin end
+// template <class Key>
+// inline auto unordered_set<Key>::begin() noexcept -> Iterator {
+//   return Iterator(table.begin(), 0u, this);
+// }
+
 template <class Key>
 inline auto unordered_set<Key>::begin() noexcept -> Iterator {
-  return Iterator(table.begin(), 0u, this);
+  auto it = table.begin();
+  if (it == table.end()) return Iterator(it, TABLE_SIZE, this);
+
+  for (auto &arr = *it; it != table.end(); ++it)
+    for (size_t i = 0; i < TABLE_SIZE; ++i)
+      if (!arr[i].empty()) return Iterator(it, i, this);
+
+  return Iterator(table.end(), TABLE_SIZE, this);
 }
 
 /*
-передаю итератор на начало листа, итератор на индекс баккета,
-и ссылку на текущий класс я не передаю индексы на положение
-внутри бакета, только сам бакет
-*/
+ передаю итератор на начало листа, итератор на индекс баккета,
+ и ссылку на текущий класс я не передаю индексы на положение
+ внутри бакета, только сам бакет
+ */
 
 template <class Key>
 inline auto unordered_set<Key>::end() noexcept -> Iterator {
