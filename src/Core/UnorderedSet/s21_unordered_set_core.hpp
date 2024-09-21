@@ -95,7 +95,7 @@ auto it = table.begin(); и size_t i = 0u;
 
 template <class Key>
 inline auto unordered_set<Key>::to_expand() noexcept -> IteratorType {
-  auto *vec = new std::array<s21::vector<value_type>, TABLE_SIZE>();
+  auto *vec = new std::array<std::vector<value_type>, TABLE_SIZE>();
   table.push_back(vec);
   capacity += TABLE_SIZE;
   return --(table.end());
@@ -107,7 +107,7 @@ inline auto unordered_set<Key>::size() const noexcept -> size_type {
 }
 
 template <class Key>
-inline auto unordered_set<Key>::add(s21::vector<value_type> &vec,
+inline auto unordered_set<Key>::add(std::vector<value_type> &vec,
                                     const key_type &key) noexcept -> void {
   vec.push_back(key);
   size_++;
@@ -174,8 +174,8 @@ inline auto unordered_set<Key>::load_factor() const noexcept -> float {
 // template <class value_type>
 // template <typename... Args>
 // inline auto unordered_set<value_type>::insert_many(Args &&...args)
-//     -> s21::vector<std::pair<iterator, bool>> {
-//   s21::vector<std::pair<iterator, bool>> results;
+//     -> std::vector<std::pair<iterator, bool>> {
+//   std::vector<std::pair<iterator, bool>> results;
 //   (results.insert_many_back(this->insert(std::forward<Args>(args))), ...);
 //   return results;
 // }

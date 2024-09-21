@@ -4,6 +4,8 @@
 #include <typeinfo>  // TODO убрать
                      // DEBUG(typeid(vec).name());
 
+#include <vector>
+
 #include "../s21_containers.hpp"
 namespace s21 {
 template <class Key>
@@ -44,7 +46,7 @@ class unordered_set {
   virtual float load_factor() const noexcept;
 
   // template <typename... Args>
-  // s21::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
+  // std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
   /*
   Метод load_factor в классе std::unordered_set используется для получения
   текущего коэффициента загрузки контейнера. Коэффициент загрузки — это
@@ -112,25 +114,24 @@ class unordered_set {
   */
  protected:
   size_type get_index(const key_type &key) const noexcept;
-  virtual void add(s21::vector<value_type> &vec, const key_type &key) noexcept;
+  virtual void add(std::vector<value_type> &vec, const key_type &key) noexcept;
   size_type size_;
   size_type capacity;
   static constexpr size_type TABLE_SIZE = 100;
-  mutable s21::list<std::array<s21::vector<value_type>, TABLE_SIZE> *> table;
+  mutable s21::list<std::array<std::vector<value_type>, TABLE_SIZE> *> table;
   using IteratorType = typename s21::list<
-      std::array<s21::vector<value_type>, TABLE_SIZE> *>::iterator;
+      std::array<std::vector<value_type>, TABLE_SIZE> *>::iterator;
   IteratorType to_expand() noexcept;
 };
 
 template <class Key>
 struct unordered_set<Key>::Iterator {
   using IteratorType = typename s21::list<
-      std::array<s21::vector<value_type>, TABLE_SIZE> *>::iterator;
-  using BucketIterator = typename s21::vector<value_type>::iterator;
+      std::array<std::vector<value_type>, TABLE_SIZE> *>::iterator;
+  using BucketIterator = typename std::vector<value_type>::iterator;
 
   Iterator(IteratorType iter, size_t index,
-           s21::unordered_set<value_type> *ust = nullptr,
-           BucketIterator bucket_iterator = nullptr);
+           s21::unordered_set<value_type> *ust = nullptr);
   Iterator(const Iterator &other);
 
   bool operator==(const Iterator &other) const;

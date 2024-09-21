@@ -1,6 +1,8 @@
 #if !defined(__S21_UNORDERED_MULTISET__)
 #define __S21_UNORDERED_MULTISET__
 
+#include <vector>
+
 #include "../s21_containers.hpp"
 namespace s21 {
 template <class Key>
@@ -28,7 +30,7 @@ class unordered_multiset : public unordered_set<Key> {
   float load_factor() const noexcept override;
 
  protected:
-  void add(s21::vector<value_type> &vec, const key_type &key) noexcept override;
+  void add(std::vector<value_type> &vec, const key_type &key) noexcept override;
   size_type bucket_count_;  // ?
 };
 }  // namespace s21

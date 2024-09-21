@@ -75,7 +75,7 @@ inline auto unordered_multiset<Key>::bucket_count() const noexcept
 }
 
 template <class Key>
-inline auto unordered_multiset<Key>::add(s21::vector<value_type> &vec,
+inline auto unordered_multiset<Key>::add(std::vector<value_type> &vec,
                                          const key_type &key) noexcept -> void {
   if (vec.empty()) bucket_count_++;
   vec.push_back(key);
