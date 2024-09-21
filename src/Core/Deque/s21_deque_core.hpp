@@ -24,7 +24,7 @@ inline auto deque<value_type>::pop_front() noexcept -> void {
     else
       tail = nullptr;
 
-    deque<value_type>::_size -= 1u;
+    _size -= 1u;
   }
 }
 
@@ -42,7 +42,7 @@ inline auto deque<value_type>::pop_back() noexcept -> void {
     }
 
     delete tmp;
-    deque<value_type>::_size--;
+    _size--;
   }
 }
 
@@ -62,16 +62,16 @@ inline deque<value_type>::~deque() noexcept {
 
 template <class value_type>
 inline auto deque<value_type>::clear() noexcept -> void {
-  while (deque<value_type>::_size) deque<value_type>::pop_front();
-  deque<value_type>::tail = nullptr;
+  while (_size) deque<value_type>::pop_front();
+  tail = nullptr;
 }
 
 template <class value_type>
 inline deque<value_type>::deque(const deque& other) noexcept {
-  deque<value_type>::head = nullptr;
-  deque<value_type>::tail = nullptr;
+  head = nullptr;
+  tail = nullptr;
 
-  deque<value_type>::_size = 0u;
+  _size = 0u;
   if (this != &other) {
     Node* current = other.head;
     while (current) {
@@ -83,13 +83,13 @@ inline deque<value_type>::deque(const deque& other) noexcept {
 
 template <class value_type>
 inline deque<value_type>::deque(deque&& other) noexcept {
-  deque<value_type>::head = other.head;
-  deque<value_type>::tail = other.tail;
+  head = other.head;
+  tail = other.tail;
 
-  deque<value_type>::_size = other._size;
+  _size = other._size;
   other.head = nullptr;
   other.tail = nullptr;
-  other.deque<value_type>::_size = 0u;
+  other._size = 0u;
 }
 
 template <class value_type>
@@ -100,15 +100,15 @@ inline auto deque<value_type>::push_front(value_type value) -> void {
 
 template <class value_type>
 inline auto deque<value_type>::push_front(Node* new_node) noexcept -> void {
-  if (!deque<value_type>::head) {
-    deque<value_type>::head = new_node;
-    deque<value_type>::tail = new_node;
+  if (!head) {
+    head = new_node;
+    tail = new_node;
   } else {
-    new_node->next = deque<value_type>::head;
-    deque<value_type>::head->prev = new_node;
-    deque<value_type>::head = new_node;
+    new_node->next = head;
+    head->prev = new_node;
+    head = new_node;
   }
-  deque<value_type>::_size++;
+  _size++;
 }
 
 template <class value_type>
@@ -119,34 +119,32 @@ inline auto deque<value_type>::push_back(value_type value) -> void {
 
 template <class value_type>
 inline auto deque<value_type>::push_back(Node* new_node) noexcept -> void {
-  if (!deque<value_type>::head) {
-    deque<value_type>::head = new_node;
-    deque<value_type>::tail = new_node;
+  if (!head) {
+    head = new_node;
+    tail = new_node;
   } else {
-    new_node->prev = deque<value_type>::tail;
-    deque<value_type>::tail->next = new_node;
-    deque<value_type>::tail = new_node;
+    new_node->prev = tail;
+    tail->next = new_node;
+    tail = new_node;
   }
-  deque<value_type>::_size++;
+  _size++;
 }
 
 template <class value_type>
 inline auto deque<value_type>::size() const -> size_type {
-  return deque<value_type>::_size;
+  return _size;
 }
 
 template <class value_type>
 inline auto deque<value_type>::front() const -> const_reference {
-  if (deque<value_type>::head == nullptr)
-    throw std::out_of_range("deque is empty");
-  return deque<value_type>::head->value;
+  if (head == nullptr) throw std::out_of_range("deque is empty");
+  return head->value;
 }
 
 template <class value_type>
 inline auto deque<value_type>::back() const -> const_reference {
-  if (deque<value_type>::tail == nullptr)
-    throw std::out_of_range("deque is empty");
-  return deque<value_type>::tail->value;
+  if (tail == nullptr) throw std::out_of_range("deque is empty");
+  return tail->value;
 }
 
 template <class value_type>
@@ -166,13 +164,13 @@ inline auto deque<value_type>::operator=(deque&& other) noexcept
     -> deque<value_type>& {
   this->clear();
 
-  deque<value_type>::head = other.head;
-  deque<value_type>::tail = other.tail;
-  this->deque<value_type>::_size = other.deque<value_type>::_size;
+  head = other.head;
+  tail = other.tail;
+  this->_size = other._size;
 
   other.head = nullptr;
   other.tail = nullptr;
-  other.deque<value_type>::_size = 0u;
+  other._size = 0u;
   return *this;
 }
 

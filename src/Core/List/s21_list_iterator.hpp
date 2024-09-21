@@ -112,7 +112,7 @@ inline auto list<value_type>::Iterator::operator=(const Iterator& other)
 
 template <class value_type>
 inline auto list<value_type>::begin() noexcept -> Iterator {
-  return Iterator(deque<value_type>::head, this);
+  return Iterator(head, this);
 }
 
 template <class value_type>
@@ -122,7 +122,7 @@ inline auto list<value_type>::end() noexcept -> Iterator {
 
 template <class value_type>
 inline auto list<value_type>::cbegin() const noexcept -> ConstIterator {
-  return ConstIterator(deque<value_type>::head, this);
+  return ConstIterator(head, this);
 }
 
 template <class value_type>

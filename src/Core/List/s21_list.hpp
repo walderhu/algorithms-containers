@@ -20,6 +20,10 @@ class list final : public deque<T> {
   using const_iterator = ConstIterator;
   using const_reference = const T &;
 
+  using deque<T>::head;
+  using deque<T>::tail;
+  using deque<T>::_size;
+
   list() noexcept;
   list(size_type n) noexcept;
   ~list() noexcept override;

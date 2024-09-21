@@ -12,6 +12,10 @@ class deque {
   using const_reference = const T&;
   using size_type = size_t;
 
+  // using deque<T>::head;
+  // using deque<T>::tail;
+  // using deque<T>::_size;
+
   deque() noexcept;
   deque(size_type n) noexcept;
   virtual ~deque() noexcept;
