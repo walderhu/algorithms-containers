@@ -27,6 +27,7 @@ inline void unordered_multiset<Key>::insert(const key_type &key) noexcept {
   for (auto &arr = *it; it != table.end(); ++it)
     if (auto &vec = arr->at(index); vec.empty() || vec.front() == key) {
       vec.push_back(key);
+      size_++;
       return;
     }
 
@@ -34,6 +35,7 @@ inline void unordered_multiset<Key>::insert(const key_type &key) noexcept {
     it = this->to_expand();
     auto &vec = (*it)->at(index);
     vec.push_back(key);
+    size_++;
   }
 }
 

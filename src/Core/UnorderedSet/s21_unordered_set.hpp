@@ -25,7 +25,11 @@ class unordered_set {
   virtual void insert(const key_type &key) noexcept;
   virtual void debug();  // TODO убрать
 
+  size_type size() const noexcept;
+  size_type empty() const noexcept;
+
  protected:
+  size_type size_;
   size_type capacity;
   static constexpr size_type TABLE_SIZE = 100;
   mutable s21::list<std::array<s21::vector<value_type>, TABLE_SIZE> *> table;

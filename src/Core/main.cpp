@@ -9,7 +9,9 @@
 int main() {
   s21::unordered_set<int> ust;
   // s21::unordered_multiset<int> ust;
-  auto x = ust.hashFunction(5);
+  // auto x = ust.hashFunction(5);
+  ust.insert(5);
+  ust.insert(5);
   ust.insert(5);
   ust.insert(5);
   ust.insert(3);
@@ -19,8 +21,13 @@ int main() {
   ust.insert(-3);
   ust.insert(11);
   ust.debug();
+  DEBUG(ust.size());
+  DEBUG(ust.empty());
   // DEBUG(x);  // x = 2762169579135187400
   return 0;
+
+  // erase size empty
+  // ust.count
 }
 
 /*
@@ -66,23 +73,5 @@ O(n) времени, где n это количество элементво в 
 //   ust.reserve
 //   ust.swap
 
-// ust.empty
-//   ust.size
-// ust.count
-// ust.clear
 // ust.emplace_hint
-//   cbegin cend begin end
-
-/* NOTES
-  s21::unordered_set<std::string> ust;
-  auto x = ust.hashFunction("hello");
-  DEBUG(x);  // x = 2762169579135187400
-
-*/
-
-/*
-DONE ??
-//   ust.hash_function
-//   ust.insert
-
-*/
+// cbegin cend begin end

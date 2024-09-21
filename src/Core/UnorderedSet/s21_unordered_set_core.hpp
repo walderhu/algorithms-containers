@@ -6,7 +6,8 @@
 namespace s21 {
 
 template <class value_type>
-inline unordered_set<value_type>::unordered_set() noexcept : capacity(0u) {
+inline unordered_set<value_type>::unordered_set() noexcept
+    : capacity(0u), size_(0) {
   this->to_expand();
 };
 
@@ -34,6 +35,7 @@ inline void unordered_set<Key>::insert(const key_type &key) noexcept {
   for (auto &arr = *it; it != table.end(); ++it)
     if (auto &vec = arr->at(index); vec.empty()) {
       vec.push_back(key);
+      size_++;
       break;
     } else if (vec.front() == key)
       break;
@@ -43,6 +45,7 @@ inline void unordered_set<Key>::insert(const key_type &key) noexcept {
   it = this->to_expand();
   auto &vec = (*it)->at(index);
   vec.push_back(key);
+  size_++;
 }
 
 /* NOTES
@@ -87,6 +90,15 @@ inline auto unordered_set<Key>::to_expand() -> IteratorType {
   return --(table.end());
 }
 
+template <class Key>
+inline auto unordered_set<Key>::size() const noexcept -> size_type {
+  return this->size_;
+}
+
+template <class Key>
+inline auto unordered_set<Key>::empty() const noexcept -> size_type {
+  return size() == 0u;
+}
 }  // namespace s21
 
 #endif  // __S21_UNORDERED_CORE_SET__

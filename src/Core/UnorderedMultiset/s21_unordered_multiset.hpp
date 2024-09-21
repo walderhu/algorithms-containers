@@ -15,6 +15,7 @@ class unordered_multiset : public unordered_set<Key> {
 
   using unordered_set<Key>::table;
   using unordered_set<Key>::TABLE_SIZE;
+  using unordered_set<Key>::size_;
 
   unordered_multiset() noexcept;
   unordered_multiset(std::initializer_list<Key> const &items) noexcept;
