@@ -35,8 +35,7 @@ inline void unordered_set<Key>::insert(const key_type &key) noexcept {
 
   for (auto &arr = *it; it != table.end(); ++it)
     if (auto &vec = arr->at(index); vec.empty()) {
-      vec.push_back(key);
-      size_++;
+      add(vec, key);
       break;
     } else if (vec.front() == key)
       break;
@@ -45,8 +44,7 @@ inline void unordered_set<Key>::insert(const key_type &key) noexcept {
 
   it = this->to_expand();
   auto &vec = (*it)->at(index);
-  vec.push_back(key);
-  size_++;
+  add(vec, key);
 }
 
 /* NOTES
@@ -93,6 +91,18 @@ inline auto unordered_set<Key>::to_expand() noexcept -> IteratorType {
 
 template <class Key>
 inline auto unordered_set<Key>::size() const noexcept -> size_type {
+  return this->size_;
+}
+
+template <class Key>
+inline auto unordered_set<Key>::add(s21::vector<value_type> &vec,
+                                    const key_type &key) noexcept -> void {
+  vec.push_back(key);
+  size_++;
+}
+
+template <class Key>
+inline auto unordered_set<Key>::bucket_count() const noexcept -> size_type {
   return this->size_;
 }
 

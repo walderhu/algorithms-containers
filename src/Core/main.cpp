@@ -22,11 +22,8 @@ int main() {
   ust.insert(11);
   ust.debug();
   DEBUG(ust.count(5));
-  DEBUG(ust.contains(543));
+  DEBUG(ust.bucket_count());
   return 0;
-
-  // erase
-  // ust.count
 }
 
 /*
@@ -59,7 +56,6 @@ O(n) времени, где n это количество элементво в 
 //   ust.bucket_count
 //   ust.bucket_size
 // ust.equal_range
-// ust.erase
 // ust.extract
 // ust.find
 // ust.get_allocator

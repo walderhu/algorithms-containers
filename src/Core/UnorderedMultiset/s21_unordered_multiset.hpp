@@ -23,6 +23,11 @@ class unordered_multiset : public unordered_set<Key> {
 
   void insert(const key_type &key) noexcept override;
   void debug() override;  // TODO убрать
+  size_type bucket_count() const noexcept override;
+
+ protected:
+  void add(s21::vector<value_type> &vec, const key_type &key) noexcept override;
+  size_type bucket_count_;  // ?
 };
 }  // namespace s21
 #include "s21_unordered_multiset_core.hpp"

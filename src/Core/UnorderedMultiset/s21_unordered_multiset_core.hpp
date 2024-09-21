@@ -7,7 +7,7 @@ namespace s21 {
 
 template <class value_type>
 inline unordered_multiset<value_type>::unordered_multiset() noexcept
-    : unordered_set<value_type>::unordered_set() {}
+    : unordered_set<value_type>::unordered_set(), bucket_count_(0u) {}
 
 template <class value_type>
 inline unordered_multiset<value_type>::unordered_multiset(
@@ -26,16 +26,14 @@ inline void unordered_multiset<Key>::insert(const key_type &key) noexcept {
 
   for (auto &arr = *it; it != table.end(); ++it)
     if (auto &vec = arr->at(index); vec.empty() || vec.front() == key) {
-      vec.push_back(key);
-      size_++;
+      add(vec, key);
       return;
     }
 
   if (it == table.end()) {
     it = this->to_expand();
     auto &vec = (*it)->at(index);
-    vec.push_back(key);
-    size_++;
+    add(vec, key);
   }
 }
 
@@ -70,6 +68,19 @@ inline void unordered_multiset<Key>::debug() {
   std::cout << std::endl;
 }
 
+template <class Key>
+inline auto unordered_multiset<Key>::bucket_count() const noexcept
+    -> size_type {
+  return this->bucket_count_;
+}
+
+template <class Key>
+inline auto unordered_multiset<Key>::add(s21::vector<value_type> &vec,
+                                         const key_type &key) noexcept -> void {
+  if (vec.empty()) bucket_count_++;
+  vec.push_back(key);
+  size_++;
+}
 }  // namespace s21
 
 #endif  // __S21_UNORDERED_CORE_MULTISET__

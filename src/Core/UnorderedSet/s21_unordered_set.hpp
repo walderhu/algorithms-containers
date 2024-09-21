@@ -26,6 +26,7 @@ class unordered_set {
   virtual void debug();  // TODO убрать
 
   size_type size() const noexcept;
+  virtual size_type bucket_count() const noexcept;
   bool empty() const noexcept;
   void erase(const key_type &key) noexcept;
   size_type count(const key_type &key) const noexcept;
@@ -33,6 +34,7 @@ class unordered_set {
 
  protected:
   size_type get_index(const key_type &key) const noexcept;
+  virtual void add(s21::vector<value_type> &vec, const key_type &key) noexcept;
   size_type size_;
   size_type capacity;
   static constexpr size_type TABLE_SIZE = 100;
