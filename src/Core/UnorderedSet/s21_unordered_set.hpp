@@ -70,6 +70,39 @@ class unordered_set {
   в моем случае начальное значение этих ведер это table_max
   */
 
+  /*
+  Метод key_eq в классе std::unordered_set возвращает функцию, которая
+  используется для сравнения ключей на равенство. Это позволяет пользователю
+  проверить, равны ли два ключа, используя определенный предикат сравнения,
+  который может быть задан при создании unordered_set.
+  key_equal key_eq() const;
+      auto cmpfn = mySet.key_eq();
+
+  Проверяем равенство двух символов
+    std::cout << "cmpfn('a', 'a') == " << std::boolalpha << cmpfn('a', 'a') <<
+  std::endl; // true std::cout << "cmpfn('a', 'b') == " << std::boolalpha <<
+  cmpfn('a', 'b') << std::endl; // false
+
+  */
+  /*
+  Метод get_allocator в классе std::unordered_set возвращает объект
+  распределителя (allocator), который используется для управления памятью в
+  контейнере. Это позволяет пользователям получить доступ к распределителю,
+  который был использован для выделения памяти для элементов в unordered_set.
+  allocator_type get_allocator() const noexcept;
+    std::unordered_set<int> mySet;
+
+    // Получаем распределитель
+    auto alloc = mySet.get_allocator();
+
+    // Выводим адреса выделенной памяти
+    int* p = alloc.allocate(1); // Выделяем память для одного элемента
+    *p = 42; // Присваиваем значение
+
+    std::cout << "Allocated memory for value: " << *p << std::endl;
+
+    alloc.deallocate(p, 1); // Освобождаем память
+  */
  protected:
   size_type get_index(const key_type &key) const noexcept;
   virtual void add(s21::vector<value_type> &vec, const key_type &key) noexcept;
