@@ -119,6 +119,19 @@ inline auto unordered_set<Key>::erase(const key_type &key) noexcept -> void {
       return;
     }
 }
+
+template <class Key>
+inline auto unordered_set<Key>::count(const key_type &key) const noexcept
+    -> size_type {
+  size_t index = get_index(key);
+  auto it = table.begin();
+
+  for (auto &arr = *it; it != table.end(); ++it)
+    if (auto &vec = arr->at(index); !vec.empty() && vec.front() == key)
+      return vec.size();
+  return 0;
+}
+
 }  // namespace s21
 
 #endif  // __S21_UNORDERED_CORE_SET__

@@ -28,6 +28,7 @@ class unordered_set {
   size_type size() const noexcept;
   bool empty() const noexcept;
   void erase(const key_type &key) noexcept;
+  size_type count(const key_type &key) const noexcept;
 
  protected:
   size_type get_index(const key_type &key) const noexcept;

@@ -21,9 +21,7 @@ int main() {
   ust.insert(-3);
   ust.insert(11);
   ust.debug();
-  ust.erase(5);
-  ust.debug();
-  // DEBUG(x);  // x = 2762169579135187400
+  DEBUG(ust.count(5));
   return 0;
 
   // erase
