@@ -29,6 +29,7 @@ class unordered_set {
   bool empty() const noexcept;
   void erase(const key_type &key) noexcept;
   size_type count(const key_type &key) const noexcept;
+  bool contains(const key_type &key) const noexcept;
 
  protected:
   size_type get_index(const key_type &key) const noexcept;

@@ -132,6 +132,12 @@ inline auto unordered_set<Key>::count(const key_type &key) const noexcept
   return 0;
 }
 
+template <class Key>
+inline auto unordered_set<Key>::contains(const key_type &key) const noexcept
+    -> bool {
+  return static_cast<bool>(this->count(key));
+}
+
 }  // namespace s21
 
 #endif  // __S21_UNORDERED_CORE_SET__

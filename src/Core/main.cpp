@@ -22,6 +22,7 @@ int main() {
   ust.insert(11);
   ust.debug();
   DEBUG(ust.count(5));
+  DEBUG(ust.contains(543));
   return 0;
 
   // erase
