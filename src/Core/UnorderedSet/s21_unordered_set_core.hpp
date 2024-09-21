@@ -23,13 +23,14 @@ inline unordered_set<value_type>::~unordered_set() noexcept {
 }
 
 template <class value_type>
-inline auto unordered_set<value_type>::hashFunction(key_type key) -> size_type {
+inline auto unordered_set<value_type>::hashFunction(key_type key) const noexcept
+    -> size_type {
   return std::hash<key_type>()(key);
 }
 
 template <class Key>
 inline void unordered_set<Key>::insert(const key_type &key) noexcept {
-  size_t index = hashFunction(key) % TABLE_SIZE;
+  size_t index = get_index(key);
   auto it = table.begin();
 
   for (auto &arr = *it; it != table.end(); ++it)
@@ -64,7 +65,7 @@ inline void unordered_set<Key>::insert(const key_type &key) noexcept {
 */
 
 template <class Key>
-inline void unordered_set<Key>::clear() {
+inline void unordered_set<Key>::clear() noexcept {
   for (auto it = table.begin(); it != table.end(); ++it) delete *it;
   table.clear();
 }
@@ -83,7 +84,7 @@ inline void unordered_set<Key>::debug() {
 }
 
 template <class Key>
-inline auto unordered_set<Key>::to_expand() -> IteratorType {
+inline auto unordered_set<Key>::to_expand() noexcept -> IteratorType {
   auto *vec = new std::array<s21::vector<value_type>, TABLE_SIZE>();
   table.push_back(vec);
   capacity += TABLE_SIZE;
@@ -96,8 +97,28 @@ inline auto unordered_set<Key>::size() const noexcept -> size_type {
 }
 
 template <class Key>
-inline auto unordered_set<Key>::empty() const noexcept -> size_type {
+inline auto unordered_set<Key>::empty() const noexcept -> bool {
   return size() == 0u;
+}
+
+template <class Key>
+inline auto unordered_set<Key>::get_index(const key_type &key) const noexcept
+    -> size_type {
+  return hashFunction(key) % TABLE_SIZE;
+}
+
+template <class Key>
+inline auto unordered_set<Key>::erase(const key_type &key) noexcept -> void {
+  size_t index = get_index(key);
+  auto it = table.begin();
+
+  for (auto &arr = *it; it != table.end(); ++it)
+    if (auto &vec = arr->at(index); vec.empty()) {
+      vec.push_back(key);
+      size_++;
+      break;
+    } else if (vec.front() == key)
+      break;
 }
 }  // namespace s21
 

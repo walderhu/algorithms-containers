@@ -20,15 +20,17 @@ class unordered_set {
   unordered_set(std::initializer_list<Key> const &items) noexcept;
   ~unordered_set() noexcept;
 
-  size_type hashFunction(key_type key);
-  void clear();
+  size_type hashFunction(key_type key) const noexcept;
+  void clear() noexcept;
   virtual void insert(const key_type &key) noexcept;
   virtual void debug();  // TODO убрать
 
   size_type size() const noexcept;
-  size_type empty() const noexcept;
+  bool empty() const noexcept;
+  void erase(const key_type &key) noexcept;
 
  protected:
+  size_type get_index(const key_type &key) const noexcept;
   size_type size_;
   size_type capacity;
   static constexpr size_type TABLE_SIZE = 100;
@@ -37,7 +39,7 @@ class unordered_set {
   using IteratorType = typename s21::list<
       std::array<s21::vector<value_type>, TABLE_SIZE> *>::iterator;
 
-  IteratorType to_expand();
+  IteratorType to_expand() noexcept;
 };
 }  // namespace s21
 #include "s21_unordered_set_core.hpp"

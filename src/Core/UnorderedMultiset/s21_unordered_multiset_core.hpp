@@ -21,7 +21,7 @@ inline unordered_multiset<value_type>::~unordered_multiset() noexcept {
 
 template <class Key>
 inline void unordered_multiset<Key>::insert(const key_type &key) noexcept {
-  size_t index = unordered_set<Key>::hashFunction(key) % TABLE_SIZE;
+  size_t index = unordered_set<Key>::get_index(key);
   auto it = table.begin();
 
   for (auto &arr = *it; it != table.end(); ++it)
