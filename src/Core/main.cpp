@@ -22,8 +22,8 @@ int main() {
   ust.insert(11);
   // ust.debug();
 
-  for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
   DEBUG(ust.count(5));
+  for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
   DEBUG(ust.bucket_count());
   return 0;
 }

@@ -32,12 +32,14 @@ inline auto unordered_set<Key>::Iterator::operator==(
 template <class Key>
 inline auto unordered_set<Key>::Iterator::operator!=(
     const Iterator &other) const noexcept -> bool {
+  // DEBUG();
   return this->get_value() != other.get_value();
 }
 
 template <class Key>
 inline auto unordered_set<Key>::Iterator::operator*() const noexcept
     -> reference {
+  // сюда уже не захожу
   return this->get_value();
 }
 
@@ -76,6 +78,12 @@ template <class Key>
 inline auto unordered_set<Key>::begin() noexcept -> Iterator {
   return Iterator(table.begin(), 0u, this);
 }
+
+/*
+передаю итератор на начало листа, итератор на индекс баккета,
+и ссылку на текущий класс я не передаю индексы на положение
+внутри бакета, только сам бакет
+*/
 
 template <class Key>
 inline auto unordered_set<Key>::end() noexcept -> Iterator {

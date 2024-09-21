@@ -7,7 +7,10 @@
 #include <limits>
 #include <stdexcept>
 #include <utility>
-#define DEBUG(x) std::cout << #x << " = " << x << std::endl;  // TODO убрать
+
+#define DEBUG(x)                                                    \
+  std::cout << "DEBUG: " << #x << " = " << x << " (in " << __FILE__ \
+            << ", line " << __LINE__ << ")" << std::endl;
 
 namespace s21 {
 
