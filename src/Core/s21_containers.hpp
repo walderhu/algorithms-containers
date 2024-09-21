@@ -23,10 +23,13 @@ class set;
 template <class T>
 class multiset;
 
-template <class Key>
+template <class T>
 class unordered_set;
 
-template <class Key>
+template <class T>
+class unordered_multiset;
+
+template <class T>
 class vector;
 
 }  // namespace s21
@@ -35,6 +38,7 @@ class vector;
 #include "List/s21_list.hpp"
 #include "Multiset/s21_multiset.hpp"
 #include "Set/s21_set.hpp"
+#include "UnorderedMultiset/s21_unordered_multiset.hpp"
 #include "UnorderedSet/s21_unordered_set.hpp"
 #include "Vector/s21_vector.hpp"
 
