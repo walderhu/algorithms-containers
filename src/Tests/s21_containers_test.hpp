@@ -5,6 +5,7 @@
 
 #include <list>
 #include <set>
+#include <unordered_set>
 
 #include "../Core/s21_containers.hpp"
 

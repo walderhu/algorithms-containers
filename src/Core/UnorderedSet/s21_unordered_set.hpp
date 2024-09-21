@@ -125,7 +125,24 @@ class unordered_set {
 };
 
 template <class Key>
-struct unordered_set<Key>::Iterator {};
+struct unordered_set<Key>::Iterator {
+  Iterator(Key value = Key(),
+           s21::unordered_set<value_type> *ust = nullptr) noexcept;
+  Iterator(const Iterator &other) noexcept;
+
+  bool operator==(const Iterator &other) const noexcept;
+  bool operator!=(const Iterator &other) const noexcept;
+
+  Iterator &operator++() noexcept;
+  Iterator &operator--() noexcept;
+  reference operator*() const noexcept;
+  virtual Iterator &operator=(const Iterator &other);
+
+ protected:
+  Key value;
+  s21::unordered_set<Key> *ust;
+  friend class unordered_set<Key>;
+};
 
 template <class Key>
 struct unordered_set<Key>::ConstIterator : public unordered_set<Key>::Iterator {
