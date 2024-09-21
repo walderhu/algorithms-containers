@@ -12,6 +12,8 @@ class unordered_set {
   struct Iterator;
   struct ConstIterator;
   friend int main();  // TODO убрать
+  friend struct Iterator;
+  friend struct ConstIterator;
   using key_type = Key;
   using value_type = Key;
   using reference = value_type &;
@@ -27,8 +29,8 @@ class unordered_set {
   virtual void insert(const key_type &key) noexcept;
   virtual void debug();  // TODO убрать
 
-  Iterator begin();
-  Iterator end();
+  Iterator begin() noexcept;
+  Iterator end() noexcept;
   ConstIterator cbegin() const;
   ConstIterator cend() const;
 
@@ -41,6 +43,8 @@ class unordered_set {
   size_type bucket_size(const key_type &key) const noexcept;
   virtual float load_factor() const noexcept;
 
+  // template <typename... Args>
+  // s21::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
   /*
   Метод load_factor в классе std::unordered_set используется для получения
   текущего коэффициента загрузки контейнера. Коэффициент загрузки — это
@@ -54,20 +58,17 @@ class unordered_set {
   1 элемент в случае сток сета использую size потому что он полностью
   семанимичен, в мультисете отдельный метод
   */
-
   /*
     template <class... Args>
     iterator emplace_hint(const_iterator position, Args &&...args);
   итератор это подсказка, мы можем игнорировать его полностью, но не стоит
   */
-
   /*
   void reserve(size_type n);
   нужно для перераспределения памяти на более емкую чтоли???
   просто переопределить более корректную table_max для такущей структуры
   и переопределить ее
   */
-
   /*
   Метод rehash в классе std::unordered_set используется для изменения количества
   ведер (buckets) в контейнере. Он позволяет установить новое количество ведер,
@@ -76,7 +77,6 @@ class unordered_set {
   void rehash(size_type n);
   в моем случае начальное значение этих ведер это table_max
   */
-
   /*
   Метод key_eq в классе std::unordered_set возвращает функцию, которая
   используется для сравнения ключей на равенство. Это позволяет пользователю
@@ -117,17 +117,20 @@ class unordered_set {
   size_type capacity;
   static constexpr size_type TABLE_SIZE = 100;
   mutable s21::list<std::array<s21::vector<value_type>, TABLE_SIZE> *> table;
-
   using IteratorType = typename s21::list<
       std::array<s21::vector<value_type>, TABLE_SIZE> *>::iterator;
-
   IteratorType to_expand() noexcept;
 };
 
 template <class Key>
 struct unordered_set<Key>::Iterator {
-  Iterator(Key value = Key(),
-           s21::unordered_set<value_type> *ust = nullptr) noexcept;
+  using IteratorType = typename s21::list<
+      std::array<s21::vector<value_type>, TABLE_SIZE> *>::iterator;
+  using BucketIterator = typename s21::vector<value_type>::iterator;
+
+  Iterator(IteratorType iter, size_t index,
+           s21::unordered_set<value_type> *ust = nullptr,
+           BucketIterator bucket_iterator = nullptr) noexcept;
   Iterator(const Iterator &other) noexcept;
 
   bool operator==(const Iterator &other) const noexcept;
@@ -139,7 +142,10 @@ struct unordered_set<Key>::Iterator {
   virtual Iterator &operator=(const Iterator &other);
 
  protected:
-  Key value;
+  Key &get_value() const noexcept;
+  IteratorType iter;
+  size_t index;
+  BucketIterator bucket_iterator;
   s21::unordered_set<Key> *ust;
   friend class unordered_set<Key>;
 };
@@ -149,6 +155,7 @@ struct unordered_set<Key>::ConstIterator : public unordered_set<Key>::Iterator {
 };
 
 }  // namespace s21
+#include "s21_unordered_set._iterator.hpp"
 #include "s21_unordered_set_core.hpp"
 
 #endif  // __S21_UNORDERED_SET__

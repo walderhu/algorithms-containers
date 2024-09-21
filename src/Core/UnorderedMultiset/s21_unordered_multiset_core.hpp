@@ -84,7 +84,7 @@ inline auto unordered_multiset<Key>::add(s21::vector<value_type> &vec,
 
 template <class Key>
 inline auto unordered_multiset<Key>::load_factor() const noexcept -> float {
-  return static_cast<float>(TABLE_SIZE) / static_cast<float>(bucket_count_);
+  return static_cast<float>(capacity) / static_cast<float>(bucket_count_);
 }
 }  // namespace s21
 

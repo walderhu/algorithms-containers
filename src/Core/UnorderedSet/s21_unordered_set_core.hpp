@@ -80,6 +80,18 @@ inline void unordered_set<Key>::debug() {
 
   std::cout << std::endl;
 }
+/*
+Итератору надо по чему то итерироваться но епть у меня тут дважды вложенный цикл
+мне нужна какая от отправная точка, например итератор листа условно
+в begin конструктор итератора я могу передавать изначальные значения
+auto it = table.begin(); и size_t i = 0u;
+тем самым уменьшая количество итераций цикла
+
+и можно будет сделать его статичным, *переменную, и увеличивать ее в зависимости
+от значения то есть я передаю begin -> return Iterator(table.begin(), 0u);
+в самом итераторе он сохранит все значения и вернет
+
+*/
 
 template <class Key>
 inline auto unordered_set<Key>::to_expand() noexcept -> IteratorType {
@@ -156,8 +168,17 @@ inline auto unordered_set<Key>::contains(const key_type &key) const noexcept
 
 template <class Key>
 inline auto unordered_set<Key>::load_factor() const noexcept -> float {
-  return static_cast<float>(TABLE_SIZE) / static_cast<float>(size_);
+  return static_cast<float>(capacity) / static_cast<float>(size_);
 }
+
+// template <class value_type>
+// template <typename... Args>
+// inline auto unordered_set<value_type>::insert_many(Args &&...args)
+//     -> s21::vector<std::pair<iterator, bool>> {
+//   s21::vector<std::pair<iterator, bool>> results;
+//   (results.insert_many_back(this->insert(std::forward<Args>(args))), ...);
+//   return results;
+// }
 
 }  // namespace s21
 

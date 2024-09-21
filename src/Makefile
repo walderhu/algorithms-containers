@@ -45,6 +45,7 @@ $(BUILD_PATH):
 
 clean: 
 	@rm -rf $(TRASH)
+	@clear
 
 reset: clean all
 
