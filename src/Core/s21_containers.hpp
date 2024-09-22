@@ -19,9 +19,8 @@
   std::cout << RED_TEXT << x << RESET_TEXT << " (in " << __FILE__ << ", line " \
             << __LINE__ << ")" << std::endl;
 
-// #define PRINT(x)                                                        \
-//   std::cout << x << " (in " << __FILE__ << ", line " << __LINE__ << ")" \
-//             << std::endl;
+#define PING() PRINT("ping")
+
 namespace s21 {
 
 template <class T>

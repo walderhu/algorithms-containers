@@ -1,12 +1,11 @@
 #if !defined(__S21_UNORDERED_SET__)
 #define __S21_UNORDERED_SET__
 #include <array>
-#include <typeinfo>  // TODO убрать
-                     // DEBUG(typeid(vec).name());
-
 #include <vector>
-extern int main();
+
 #include "../s21_containers.hpp"
+extern int main();
+
 namespace s21 {
 template <class Key>
 class unordered_set {
@@ -44,9 +43,10 @@ class unordered_set {
   bool contains(const key_type &key) const noexcept;
   size_type bucket_size(const key_type &key) const noexcept;
   virtual float load_factor() const noexcept;
-
-  // template <typename... Args>
-  // std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
+  /*
+    template <typename... Args>
+    std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
+  */
   /*
   Метод load_factor в классе std::unordered_set используется для получения
   текущего коэффициента загрузки контейнера. Коэффициент загрузки — это
@@ -112,6 +112,7 @@ class unordered_set {
 
     alloc.deallocate(p, 1); // Освобождаем память
   */
+
  protected:
   size_type get_index(const key_type &key) const noexcept;
   virtual void add(std::vector<value_type> &vec, const key_type &key) noexcept;
@@ -143,8 +144,7 @@ struct unordered_set<Key>::Iterator {
   reference operator*() const;
   virtual Iterator &operator=(const Iterator &other);
 
-  //  protected:
- private:
+ protected:
   Key &get_value() const;
   IteratorType lst_iter;
   size_t arr_index;
