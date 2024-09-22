@@ -4,9 +4,10 @@
 
 int main() {
   s21::unordered_set<int> ust = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
-  for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);  // BUG
-  // for (auto it = ust.begin(); it != ust.end(); ++it);
-  // DEBUG(*it);
+  auto it = ust.begin();
+  DEBUG(*it);
+
+  // for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
   return 0;
 }
 

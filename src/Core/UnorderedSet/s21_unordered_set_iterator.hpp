@@ -19,12 +19,12 @@ inline unordered_set<Key>::Iterator::Iterator(
 
 template <class Key>
 inline auto unordered_set<Key>::Iterator::get_value() const -> Key & {
-  auto &arr = *lst_iter;
-  auto &vec = arr->at(arr_index);
-  if (auto iter = vec.begin(); iter != vec.end()) return *iter;
-  throw std::runtime_error("Ошибка: Элемент не найден.");
+  // auto &arr = *lst_iter;
+  // auto &vec = arr->at(arr_index);
+  // if (auto iter = vec.begin(); iter != vec.end()) return *iter;
+  // throw std::runtime_error("Ошибка: Элемент не найден.");
 
-  // return *bucket_iterator;
+  return *bucket_iterator;
 }
 
 template <class Key>
@@ -93,12 +93,13 @@ inline auto unordered_set<Key>::Iterator::operator=(const Iterator &other)
 template <class Key>
 inline auto unordered_set<Key>::begin() noexcept -> Iterator {
   auto it = table.begin();
-
   if (it == table.end()) return Iterator(it, TABLE_SIZE, this);
 
-  for (auto &arr = *it; it != table.end(); ++it)
-    for (size_t i = 0; i < TABLE_SIZE; ++i)
-      if (!arr[i].empty()) return Iterator(it, i, this);
+  size_t bucket_index = 0;
+  for (auto &table = *it; it != this->table.end(); ++it)
+    for (size_t i = 0; bucket_index < TABLE_SIZE; ++bucket_index)
+      if (auto bucket = table->at(bucket_index); !bucket.empty())
+        return Iterator(it, bucket_index, this);
 
   return Iterator(table.end(), TABLE_SIZE, this);
 }
