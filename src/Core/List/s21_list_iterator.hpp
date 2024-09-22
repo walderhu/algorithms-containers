@@ -96,7 +96,8 @@ auto list<value_type>::Iterator::operator++() noexcept -> Iterator& {
 
 template <class value_type>
 inline auto list<value_type>::Iterator::operator--() noexcept -> Iterator& {
-  current = current ? current->prev : list->tail;
+  bool condition = !current || current == list->head;
+  current = condition ? list->tail : current->prev;
   return *this;
 }
 

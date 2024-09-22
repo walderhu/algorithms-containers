@@ -57,7 +57,7 @@ inline auto unordered_set<Key>::Iterator::operator++() -> Iterator & {
   }
 
   ArrayType &table = *lst_iter;
-  BucketType &bucket = table->at(bucket_index);  //
+  BucketType &bucket = table->at(bucket_index);
   if (bucket.empty()) {
     move_next(table, bucket);
   } else {
@@ -94,6 +94,66 @@ inline auto unordered_set<Key>::Iterator::operator=(const Iterator &other)
   }
   return *this;
 }
+
+// template <class Key>
+// inline auto unordered_set<Key>::Iterator::move_next(
+//     ArrayType &table, std::vector<Key> &bucket) -> void {
+//   while (++bucket_index < TABLE_SIZE)
+//     if (bucket = table->at(bucket_index); !bucket.empty()) {
+//       bucket_iterator = bucket.begin();
+//       break;
+//     }
+//   if (bucket_index == TABLE_SIZE) this->operator++();
+// }
+template <class Key>
+inline auto unordered_set<Key>::Iterator::move_prev(
+    ArrayType &table, std::vector<Key> &bucket) -> void {}
+
+template <class Key>
+inline auto unordered_set<Key>::Iterator::operator--() -> Iterator & {
+  // if (lst_iter == ust->table.begin())
+  //   throw std::runtime_error("Element no exist.");
+
+  // if (bucket_index >= TABLE_SIZE) {
+  //   if (IteratorType it = --lst_iter; it != ust->table.end()) {
+  //     ArrayType table = *it;
+  //     bucket_index = 0u;
+  //     BucketType &bucket = table->at(bucket_index);
+  //     bucket_iterator = bucket.begin();
+  //     return this->operator++();
+  //   } else if (lst_iter == ust->table.end()) {
+  //     bucket_iterator = BucketIterator();
+  //     return *this;
+  //   }
+  // }
+}
+// template <class Key>
+// inline auto unordered_set<Key>::Iterator::operator++() -> Iterator & {
+//   if (lst_iter == ust->table.end()) throw std::runtime_error("No table.");
+
+//   if (bucket_index >= TABLE_SIZE) {
+//     if (IteratorType it = ++lst_iter; it != ust->table.end()) {
+//       ArrayType table = *it;
+//       bucket_index = 0u;
+//       BucketType &bucket = table->at(bucket_index);
+//       bucket_iterator = bucket.begin();
+//       return this->operator++();
+//     } else if (lst_iter == ust->table.end()) {
+//       bucket_iterator = BucketIterator();
+//       return *this;
+//     }
+//   }
+
+//   ArrayType &table = *lst_iter;
+//   BucketType &bucket = table->at(bucket_index);
+//   if (bucket.empty()) {
+//     move_next(table, bucket);
+//   } else {
+//     ++bucket_iterator;
+//     move_next(table, bucket);
+//   }
+//   return *this;
+// }
 
 template <class Key>
 inline auto unordered_set<Key>::begin() noexcept -> Iterator {
