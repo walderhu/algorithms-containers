@@ -19,7 +19,10 @@ int main() {
   ust.insert(0);
   ust.insert(-3);
   ust.insert(11);
-  ust.debug();
+  // ust.debug();
+  // auto it = ust.begin();
+  // auto y = it.get_value();
+  // DEBUG(y);
   for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
   // DEBUG(ust.count(5));
   // DEBUG(ust.bucket_count());

@@ -130,9 +130,10 @@ struct unordered_set<Key>::Iterator {
       std::array<std::vector<value_type>, TABLE_SIZE> *>::iterator;
   using BucketIterator = typename std::vector<value_type>::iterator;
 
-  Iterator(IteratorType iter, size_t index,
+  Iterator(IteratorType lst_iter, size_t arr_index,
            s21::unordered_set<value_type> *ust = nullptr);
   Iterator(const Iterator &other);
+  friend int main();  // TODO убрать
 
   bool operator==(const Iterator &other) const;
   bool operator!=(const Iterator &other) const;
@@ -142,10 +143,11 @@ struct unordered_set<Key>::Iterator {
   reference operator*() const;
   virtual Iterator &operator=(const Iterator &other);
 
- protected:
+  //  protected:
+ public:
   Key &get_value() const;
-  IteratorType iter;
-  size_t index;
+  IteratorType lst_iter;
+  size_t arr_index;
   BucketIterator bucket_iterator;
   s21::unordered_set<Key> *ust;
   friend class unordered_set<Key>;

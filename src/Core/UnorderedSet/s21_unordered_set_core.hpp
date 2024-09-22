@@ -30,11 +30,11 @@ inline auto unordered_set<value_type>::hashFunction(key_type key) const noexcept
 
 // template <class Key>
 // inline void unordered_set<Key>::insert(const key_type &key) noexcept {
-//   size_t index = get_index(key);
+//   size_t arr_index = get_index(key);
 //   auto it = table.begin();
 
 //   for (auto &arr = *it; it != table.end(); ++it)
-//     if (auto &vec = arr->at(index); vec.empty()) {
+//     if (auto &vec = arr->at(arr_index); vec.empty()) {
 //       add(vec, key);
 //       break;
 //     } else if (vec.front() == key)
@@ -43,17 +43,17 @@ inline auto unordered_set<value_type>::hashFunction(key_type key) const noexcept
 //   if (it != table.end()) return;
 
 //   it = this->to_expand();
-//   auto &vec = (*it)->at(index);
+//   auto &vec = (*it)->at(arr_index);
 //   add(vec, key);
 // }
 
 template <class Key>
 inline void unordered_set<Key>::insert(const key_type &key) noexcept {
-  size_t index = get_index(key);
+  size_t arr_index = get_index(key);
   auto it = table.begin();
 
   for (auto &arr = *it; it != table.end(); ++it) {
-    if (auto &vec = arr->at(index); vec.empty()) {
+    if (auto &vec = arr->at(arr_index); vec.empty()) {
       add(vec, key);
       break;
     } else if (vec.front() == key) {
@@ -63,7 +63,7 @@ inline void unordered_set<Key>::insert(const key_type &key) noexcept {
 
   if (it != table.end()) return;
   it = this->to_expand();
-  auto &vec = (*it)->at(index);
+  auto &vec = (*it)->at(arr_index);
   add(vec, key);
 }
 
@@ -90,9 +90,8 @@ inline void unordered_set<Key>::clear() noexcept {
 
 template <class Key>
 inline void unordered_set<Key>::debug() {
-  auto it = table.begin();
-
-  for (auto &arr = *it; it != table.end(); ++it)
+  auto lst_it = table.begin();
+  for (auto &arr = *lst_it; lst_it != table.end(); ++lst_it)
     for (size_t i = 0u; i < TABLE_SIZE; i++)
       if (auto &vec = arr->at(i); !vec.empty())
         for (auto iter = vec.begin(); iter != vec.end(); ++iter)
@@ -151,11 +150,11 @@ inline auto unordered_set<Key>::get_index(const key_type &key) const noexcept
 
 template <class Key>
 inline auto unordered_set<Key>::erase(const key_type &key) noexcept -> void {
-  size_t index = get_index(key);
+  size_t arr_index = get_index(key);
   auto it = table.begin();
 
   for (auto &arr = *it; it != table.end(); ++it)
-    if (auto &vec = arr->at(index); !vec.empty() && vec.front() == key) {
+    if (auto &vec = arr->at(arr_index); !vec.empty() && vec.front() == key) {
       vec.pop_back();
       size_--;
       return;
@@ -171,11 +170,11 @@ inline auto unordered_set<Key>::bucket_size(const key_type &key) const noexcept
 template <class Key>
 inline auto unordered_set<Key>::count(const key_type &key) const noexcept
     -> size_type {
-  size_t index = get_index(key);
+  size_t arr_index = get_index(key);
   auto it = table.begin();
 
   for (auto &arr = *it; it != table.end(); ++it)
-    if (auto &vec = arr->at(index); !vec.empty() && vec.front() == key)
+    if (auto &vec = arr->at(arr_index); !vec.empty() && vec.front() == key)
       return vec.size();
   return 0;
 }
