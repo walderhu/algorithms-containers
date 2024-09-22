@@ -20,7 +20,9 @@ int main() {
   ust.insert(0);
   ust.insert(-3);
   ust.insert(11);
-  for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
+  auto it = ust.begin();
+  PRINT("hhekki")
+  for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);  // BUG
   return 0;
 }
 

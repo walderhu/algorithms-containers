@@ -12,9 +12,16 @@
   std::cout << "DEBUG: " << #x << " = " << x << " (in " << __FILE__ \
             << ", line " << __LINE__ << ")" << std::endl;
 
-#define PRINT(x)                                                        \
-  std::cout << x << " (in " << __FILE__ << ", line " << __LINE__ << ")" \
-            << std::endl;
+#define RED_TEXT "\033[31m"
+#define RESET_TEXT "\033[0m"
+
+#define PRINT(x)                                                               \
+  std::cout << RED_TEXT << x << RESET_TEXT << " (in " << __FILE__ << ", line " \
+            << __LINE__ << ")" << std::endl;
+
+// #define PRINT(x)                                                        \
+//   std::cout << x << " (in " << __FILE__ << ", line " << __LINE__ << ")" \
+//             << std::endl;
 namespace s21 {
 
 template <class T>

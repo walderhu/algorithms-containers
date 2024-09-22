@@ -9,8 +9,11 @@ inline unordered_set<Key>::Iterator::Iterator(
     IteratorType lst_iter, size_t arr_index,
     s21::unordered_set<value_type> *ust)
     : lst_iter(lst_iter), arr_index(arr_index), ust(ust) {
-  auto &vec = (*lst_iter)->at(arr_index);
-  bucket_iterator = vec.begin();
+  //
+  if (lst_iter != ust->table.end()) {
+    auto &vec = (*lst_iter)->at(arr_index);  // BUG
+    bucket_iterator = vec.begin();
+  }
 }
 
 // template <class Key>
@@ -43,16 +46,38 @@ inline auto unordered_set<Key>::Iterator::get_value() const -> Key & {
 //     throw std::runtime_error(
 //         "Ошибка: Итератор находится в недопустимом состоянии.");
 //   }
-
 //   return *bucket_iterator;
 // }
 
 template <class Key>
 inline auto unordered_set<Key>::Iterator::operator==(
     const Iterator &other) const -> bool {
+  return false;
   return lst_iter == other.lst_iter && arr_index == other.arr_index &&
          bucket_iterator == other.bucket_iterator;
 }
+
+template <class Key>
+inline auto unordered_set<Key>::Iterator::operator!=(
+    const Iterator &other) const -> bool {
+  PRINT("test");
+  return !this->operator==(other);
+}
+
+/*
+inline unordered_set<Key>::Iterator::Iterator(
+    IteratorType lst_iter, size_t arr_index,
+    s21::unordered_set<value_type> *ust)
+    : lst_iter(lst_iter), arr_index(arr_index), ust(ust) {
+  auto &vec = (*lst_iter)->at(arr_index);
+  bucket_iterator = vec.begin();
+}
+
+template <class Key>
+inline auto unordered_set<Key>::end() noexcept -> Iterator {
+  return Iterator(table.end(), TABLE_SIZE, this);
+}
+*/
 
 /*
   auto lst_it = table.begin();
@@ -70,6 +95,7 @@ inline auto unordered_set<Key>::Iterator::operator++() -> Iterator & {
   auto &arr = *lst_iter;
   auto &vec = arr->at(arr_index);
   if (vec.empty()) operator++();
+
   if (++bucket_iterator; bucket_iterator == vec.end()) {
     while (++arr_index < TABLE_SIZE)
       if (vec = arr->at(arr_index); !vec.empty()) {
@@ -124,12 +150,6 @@ inline auto unordered_set<Key>::Iterator::operator++() -> Iterator & {
 //   }
 //   return *this;
 // }
-
-template <class Key>
-inline auto unordered_set<Key>::Iterator::operator!=(
-    const Iterator &other) const -> bool {
-  return !this->operator==(other);
-}
 
 template <class Key>
 inline auto unordered_set<Key>::Iterator::operator*() const -> reference {
