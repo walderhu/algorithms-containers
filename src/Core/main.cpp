@@ -21,7 +21,6 @@ int main() {
   ust.insert(-3);
   ust.insert(11);
   auto it = ust.begin();
-  PRINT("hhekki")
   for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);  // BUG
   return 0;
 }
