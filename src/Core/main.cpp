@@ -3,12 +3,33 @@
 #include "s21_containers.hpp"
 
 int main() {
+  // std::unordered_set<int> ust = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
   s21::unordered_set<int> ust = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
-  // auto it = ust.begin();
-  // DEBUG(*it);
-  // ++it;
-  // DEBUG(*it);
-  for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
+  auto it = ust.begin();
+  DEBUG(*it);
+  ++it;
+  DEBUG(*it);
+  ++it;
+  DEBUG(*it);
+  ++it;
+  DEBUG(*it);
+  ++it;
+  DEBUG(*it);
+  ++it;
+  DEBUG(*it);
+  ++it;
+  DEBUG(*it);
+  ++it;
+  DEBUG(*it);
+  // auto x = it != ust.end();
+  // auto x = *it;
+  // auto x = *(ust.end());
+  // DEBUG(x);
+  // for (; it != ust.end(); ++it) DEBUG(*it);
+  // for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
+  // int x = int();
+  // int y = int();
+  // if (x == y) PRINT("Hello");
   return 0;
 }
 

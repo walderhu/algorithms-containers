@@ -128,7 +128,9 @@ class unordered_set {
 template <class Key>
 struct unordered_set<Key>::Iterator {
   using BucketIterator = typename std::vector<value_type>::iterator;
-  using ArrayType = typename std::array<std::vector<value_type>, TABLE_SIZE> *;
+
+  using BucketType = typename std::vector<value_type>;
+  using ArrayType = typename std::array<BucketType, TABLE_SIZE> *;
   using IteratorType = typename s21::list<ArrayType>::iterator;
 
   Iterator(IteratorType lst_iter, size_t bucket_index,
