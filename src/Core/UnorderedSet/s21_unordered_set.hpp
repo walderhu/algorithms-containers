@@ -143,7 +143,7 @@ struct unordered_set<Key>::Iterator {
 
   Iterator &operator++();
   Iterator &operator--();
-  reference operator*() const;
+  reference operator*();
   virtual Iterator &operator=(const Iterator &other);
 
  protected:

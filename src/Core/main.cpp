@@ -11,15 +11,23 @@ int main() {
   // for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
 
   auto it = ust.end();
+  DEBUG(*it);
   --it;
+  DEBUG(*it);
   --it;
+  DEBUG(*it);
   --it;
-  // --it;
-  // --it;
-  // --it;
+  DEBUG(*it);
+  --it;
+  DEBUG(*it);
+  --it;
+  DEBUG(*it);
+  --it;
+  DEBUG(*it);
   // --it;
   // --it;
   DEBUG(*it);
+  // ust.debug();
   // if (auto it = ust.end(); it != ust.begin()) {
   // --it;
   // for (; it != ust.end(); --it) std::cout << *it << " ";
