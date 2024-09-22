@@ -80,14 +80,7 @@ inline auto unordered_set<Key>::Iterator::move_next(
 
 template <class Key>
 inline auto unordered_set<Key>::Iterator::operator*() -> reference {
-  if (lst_iter == ust->table.end() && bucket_index == TABLE_SIZE &&
-      bucket_iterator == BucketIterator()) {
-    bucket_index = TABLE_SIZE - 1;
-    --lst_iter;
-    ArrayType &table = *lst_iter;
-    BucketType &bucket = table->at(bucket_index);
-    move_prev(table, bucket, true);
-  }
+  this->if_end();
   return get_value();
 }
 
@@ -104,6 +97,18 @@ inline auto unordered_set<Key>::Iterator::operator=(const Iterator &other)
 }
 
 template <class Key>
+inline auto unordered_set<Key>::Iterator::if_end() -> void {
+  if (lst_iter == ust->table.end() && bucket_index == TABLE_SIZE &&
+      bucket_iterator == BucketIterator()) {
+    bucket_index = TABLE_SIZE - 1;
+    --lst_iter;
+    ArrayType &table = *lst_iter;
+    BucketType &bucket = table->at(bucket_index);
+    move_prev(table, bucket, true);
+  }
+}
+
+template <class Key>
 inline auto unordered_set<Key>::Iterator::move_prev(ArrayType &table,
                                                     std::vector<Key> &bucket,
                                                     bool current) -> void {
@@ -115,17 +120,7 @@ inline auto unordered_set<Key>::Iterator::move_prev(ArrayType &table,
 
 template <class Key>
 inline auto unordered_set<Key>::Iterator::operator--() -> Iterator & {
-  static bool cond = true;
-  if (cond && lst_iter == ust->table.end()) {
-    cond = false;
-    bucket_index = TABLE_SIZE - 1;
-    --lst_iter;
-    if (bucket_iterator == BucketIterator()) {
-      ArrayType &table = *lst_iter;
-      BucketType &bucket = table->at(bucket_index);
-      move_prev(table, bucket, true);
-    }
-  }
+  this->if_end();
 
   if (bucket_index >= TABLE_SIZE) {
     IteratorType it = --lst_iter;

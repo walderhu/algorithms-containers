@@ -153,6 +153,7 @@ struct unordered_set<Key>::Iterator {
   void move_next(ArrayType &table, std::vector<Key> &bucket);
   void move_prev(ArrayType &table, std::vector<Key> &bucket,
                  bool current = false);
+  void if_end();
   size_t bucket_index;
   BucketIterator bucket_iterator;
   s21::unordered_set<Key> *ust;
