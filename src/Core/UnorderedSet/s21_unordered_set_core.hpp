@@ -28,25 +28,6 @@ inline auto unordered_set<value_type>::hashFunction(key_type key) const noexcept
   return std::hash<key_type>()(key);
 }
 
-// template <class Key>
-// inline void unordered_set<Key>::insert(const key_type &key) noexcept {
-//   size_t bucket_index = get_index(key);
-//   auto it = table.begin();
-
-//   for (auto &arr = *it; it != table.end(); ++it)
-//     if (auto &vec = arr->at(bucket_index); vec.empty()) {
-//       add(vec, key);
-//       break;
-//     } else if (vec.front() == key)
-//       break;
-
-//   if (it != table.end()) return;
-
-//   it = this->to_expand();
-//   auto &vec = (*it)->at(bucket_index);
-//   add(vec, key);
-// }
-
 template <class Key>
 inline void unordered_set<Key>::insert(const key_type &key) noexcept {
   size_t bucket_index = get_index(key);
