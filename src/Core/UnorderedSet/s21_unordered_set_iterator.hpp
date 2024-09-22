@@ -138,15 +138,13 @@ inline auto unordered_set<Key>::Iterator::operator=(const Iterator &other)
 // }
 
 template <class Key>
-inline auto unordered_set<Key>::Iterator::move_prev(
-    ArrayType &table, std::vector<Key> &bucket) -> void {
-  while (--bucket_index >= 0) {
-    bucket = table->at(bucket_index);
-    if (!bucket.empty()) {
-      bucket_iterator = bucket.end();
-      break;
-    }
-  }
+inline auto unordered_set<Key>::Iterator::move_prev(ArrayType &table,
+                                                    std::vector<Key> &bucket,
+                                                    bool current) -> void {
+  if (bucket = table->at(bucket_index); current && !bucket.empty())
+    bucket_iterator = bucket.end();
+  else if (--bucket_index < TABLE_SIZE)
+    move_prev(table, bucket, true);
 }
 
 template <class Key>
@@ -157,6 +155,11 @@ inline auto unordered_set<Key>::Iterator::operator--() -> Iterator & {
   } else if (lst_iter == ust->table.end()) {
     bucket_index = TABLE_SIZE - 1;
     --lst_iter;
+    if (bucket_iterator == BucketIterator()) {
+      ArrayType &table = *lst_iter;
+      BucketType &bucket = table->at(bucket_index);
+      move_prev(table, bucket, true);
+    }
   }
 
   if (bucket_index >= TABLE_SIZE) {
@@ -170,20 +173,13 @@ inline auto unordered_set<Key>::Iterator::operator--() -> Iterator & {
     } else {
       bucket_iterator = BucketIterator();
       PRINT("Декремент от начала сета");
-      return *this;
+      return this->operator--();
     }
   }
 
   ArrayType &table = *lst_iter;
   BucketType &bucket = table->at(bucket_index);  // ERROR
-
-  if (bucket.empty()) {
-    move_prev(table, bucket);
-  } else {
-    --bucket_iterator;
-    move_prev(table, bucket);
-  }
-
+  move_prev(table, bucket, bucket.empty());
   return *this;
 }
 
