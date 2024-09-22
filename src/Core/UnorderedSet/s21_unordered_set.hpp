@@ -127,11 +127,11 @@ class unordered_set {
 
 template <class Key>
 struct unordered_set<Key>::Iterator {
-  using IteratorType = typename s21::list<
-      std::array<std::vector<value_type>, TABLE_SIZE> *>::iterator;
   using BucketIterator = typename std::vector<value_type>::iterator;
+  using ArrayType = typename std::array<std::vector<value_type>, TABLE_SIZE> *;
+  using IteratorType = typename s21::list<ArrayType>::iterator;
 
-  Iterator(IteratorType lst_iter, size_t arr_index,
+  Iterator(IteratorType lst_iter, size_t bucket_index,
            s21::unordered_set<value_type> *ust = nullptr);
   Iterator(const Iterator &other);
   friend int ::main();  // TODO убрать
@@ -147,7 +147,9 @@ struct unordered_set<Key>::Iterator {
  protected:
   Key &get_value() const;
   IteratorType lst_iter;
-  size_t arr_index;
+
+  void move_next(ArrayType &table, std::vector<Key> &bucket);
+  size_t bucket_index;
   BucketIterator bucket_iterator;
   s21::unordered_set<Key> *ust;
   friend class unordered_set<Key>;
