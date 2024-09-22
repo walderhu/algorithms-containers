@@ -69,25 +69,38 @@ template <class Key>
 inline auto unordered_set<Key>::Iterator::operator++() -> Iterator & {
   auto &arr = *lst_iter;
   auto &vec = arr->at(arr_index);
-  bucket_iterator;
-  // here
-  //  if (++bucket_iterator == vec.end())
-  //  ;
-  //
-  /*
-    if (auto &arr = *lst_iter; lst_iter != ust->table.end())
-    if (arr_index < TABLE_SIZE)
-      if (auto &vec = arr->at(arr_index); !vec.empty())
-        if (auto iter = vec.begin(); iter != vec.end()) return *iter;
-  throw std::runtime_error("Ошибка: Элемент не найден.");
-  */
-  // if (auto &arr = *lst_iter; lst_iter != ust->table.end())
-  // if (size_t i = arr_index; i < TABLE_SIZE)
-  // if (auto &vec = arr->at(i); !vec.empty())
-  // if (auto iter = vec.begin(); iter != vec.end()) return *iter;
-  // throw std::runtime_error("Ошибка: Элемент не найден.");
+  if (vec.empty()) operator++();
+  if (++bucket_iterator; bucket_iterator == vec.end()) {
+    while (++arr_index < TABLE_SIZE)
+      if (vec = arr->at(arr_index); !vec.empty()) {
+        bucket_iterator = vec.begin();
+        break;
+      }
+    if (arr_index == TABLE_SIZE) {
+      if (arr = *(++lst_iter); lst_iter == ust->table.end())
+        throw std::runtime_error("Больше элементов нет.");
+      arr_index = 0u;
+      vec = arr->at(arr_index);
+      bucket_iterator = vec.begin();
+    }
+  }
   return *this;
 }
+
+/*
+беру дампы своих состояний для облегченного манипулирования
+при простом итерировании начинаю смещаться внутри бакета (в сетах это
+бесполезно) поскольку там всегда 1 элемент, но потом переопределю как надо, это
+обощенный случай должен работать везде
+как только у меня кончаются элементы в первом бакете
+я начну итерироваться по всем остальным бакетам и искать не пустой
+как только нахожу такой, устанавливаю бакет итреатор на начала этого бакета и
+все если я достигнул конца текущего списка, но так и не нашел бакета с значением
+то есть arr_index == TABLE_SIZE то я иду в некст узел, обнуляю все значения
+и начинаю итерацию заново
+если я достигнул конца списка, то вкидываю ошибку
+*/
+
 // auto lst_it = lst_iter;
 // if (auto &arr = *lst_it; lst_it != ust->table.end())
 //   if (size_t i = arr_index; i < TABLE_SIZE)

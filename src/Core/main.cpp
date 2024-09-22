@@ -20,15 +20,7 @@ int main() {
   ust.insert(0);
   ust.insert(-3);
   ust.insert(11);
-  ust.debug();
-  auto it = ust.begin();
-  auto y = it.get_value();
-  exit(0);
-  // DEBUG(y);
   for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
-  // DEBUG(ust.count(5));
-  // DEBUG(ust.bucket_count());
-
   return 0;
 }
 
