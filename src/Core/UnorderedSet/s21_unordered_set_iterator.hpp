@@ -142,17 +142,21 @@ inline auto unordered_set<Key>::Iterator::move_prev(ArrayType &table,
                                                     std::vector<Key> &bucket,
                                                     bool current) -> void {
   if (bucket = table->at(bucket_index); current && !bucket.empty())
-    bucket_iterator = bucket.end();
+    bucket_iterator = --bucket.end();
   else if (--bucket_index < TABLE_SIZE)
     move_prev(table, bucket, true);
 }
 
 template <class Key>
 inline auto unordered_set<Key>::Iterator::operator--() -> Iterator & {
-  if (lst_iter == ust->table.begin()) {
-    lst_iter = ust->table.end();
-    return this->operator--();
-  } else if (lst_iter == ust->table.end()) {
+  // if (lst_iter == ust->table.begin()) {
+  //   // не выльется ли это в бесконечную рекурсию?
+  //   lst_iter = ust->table.end();
+  //   return this->operator--();
+  // } else
+  static bool cond = true;
+  if (cond && lst_iter == ust->table.end()) {
+    cond = false;
     bucket_index = TABLE_SIZE - 1;
     --lst_iter;
     if (bucket_iterator == BucketIterator()) {
