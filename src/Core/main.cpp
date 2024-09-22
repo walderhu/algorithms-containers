@@ -6,7 +6,8 @@ int main() {
   s21::unordered_set<int> ust = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
   auto it = ust.begin();
   DEBUG(*it);
-
+  ++it;
+  DEBUG(*it);
   // for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
   return 0;
 }
