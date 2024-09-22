@@ -6,6 +6,7 @@
 #include <unordered_set>
 
 #include "s21_containers.hpp"
+
 int main() {
   s21::unordered_set<int> ust;
   // s21::unordered_multiset<int> ust;
@@ -19,13 +20,15 @@ int main() {
   ust.insert(0);
   ust.insert(-3);
   ust.insert(11);
-  // ust.debug();
-  // auto it = ust.begin();
-  // auto y = it.get_value();
+  ust.debug();
+  auto it = ust.begin();
+  auto y = it.get_value();
+  exit(0);
   // DEBUG(y);
   for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
   // DEBUG(ust.count(5));
   // DEBUG(ust.bucket_count());
+
   return 0;
 }
 
@@ -50,7 +53,6 @@ O(n) времени, где n это количество элементво в 
 
 
 
-по сути у меня мапа ключом которой является хэш числа??
 */
 // ТЕХНИЧЕСКАЯ ЗАДАЧА
 

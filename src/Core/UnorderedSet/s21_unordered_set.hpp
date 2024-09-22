@@ -5,7 +5,7 @@
                      // DEBUG(typeid(vec).name());
 
 #include <vector>
-
+extern int main();
 #include "../s21_containers.hpp"
 namespace s21 {
 template <class Key>
@@ -13,7 +13,7 @@ class unordered_set {
  public:
   struct Iterator;
   struct ConstIterator;
-  friend int main();  // TODO убрать
+  friend int ::main();  // TODO убрать
   friend struct Iterator;
   friend struct ConstIterator;
   using key_type = Key;
@@ -133,7 +133,7 @@ struct unordered_set<Key>::Iterator {
   Iterator(IteratorType lst_iter, size_t arr_index,
            s21::unordered_set<value_type> *ust = nullptr);
   Iterator(const Iterator &other);
-  friend int main();  // TODO убрать
+  friend int ::main();  // TODO убрать
 
   bool operator==(const Iterator &other) const;
   bool operator!=(const Iterator &other) const;
@@ -144,7 +144,7 @@ struct unordered_set<Key>::Iterator {
   virtual Iterator &operator=(const Iterator &other);
 
   //  protected:
- public:
+ private:
   Key &get_value() const;
   IteratorType lst_iter;
   size_t arr_index;
