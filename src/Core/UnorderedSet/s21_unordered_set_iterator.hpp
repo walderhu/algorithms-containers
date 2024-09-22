@@ -78,10 +78,15 @@ template <class Key>
 inline auto unordered_set<Key>::Iterator::operator++() -> Iterator & {
   auto &arr = *lst_iter;
   auto &vec = arr->at(arr_index);
-  abort();
-  if (vec.empty()) operator++();
 
-  if (++bucket_iterator; bucket_iterator == vec.end()) {
+  while (++arr_index < TABLE_SIZE)
+    if (vec = arr->at(arr_index); !vec.empty()) {
+      bucket_iterator = vec.begin();
+      break;
+    }
+
+  if (++bucket_iterator; bucket_iterator != vec.end()) {
+    PRINT("test");
     while (++arr_index < TABLE_SIZE)
       if (vec = arr->at(arr_index); !vec.empty()) {
         bucket_iterator = vec.begin();
