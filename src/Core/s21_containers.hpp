@@ -6,7 +6,6 @@
 #include <limits>
 #include <stdexcept>
 #include <utility>
-// #include <vector>  //
 namespace s21 {
 
 template <class T>

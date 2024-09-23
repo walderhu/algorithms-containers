@@ -253,6 +253,6 @@ class AVLTree {
 
 #include "../Map/s21_map_iterator.hpp"
 
-}
+}  // namespace s21
 
 #endif

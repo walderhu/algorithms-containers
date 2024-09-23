@@ -19,7 +19,7 @@ size_t vector<T>::capacity() const {
 
 // проверяет, пуст ли контейнер
 template <typename T>
-bool vector<T>::empty() {
+bool vector<T>::empty() const {
   return _m_size == 0;
 }
 

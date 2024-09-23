@@ -31,7 +31,7 @@ T vector<T>::at(size_t i) {
 
 // доступ к первому элементу
 template <typename T>
-const T& vector<T>::front() {
+const T& vector<T>::front() const {
   if (_m_size == 0) {
     throw std::out_of_range("vector is empty");
   }
@@ -40,7 +40,7 @@ const T& vector<T>::front() {
 
 // доступ к последнему элементу
 template <typename T>
-const T& vector<T>::back() {
+const T& vector<T>::back() const {
   if (_m_size == 0) {
     throw std::out_of_range("vector is empty");
   }

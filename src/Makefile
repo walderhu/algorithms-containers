@@ -25,7 +25,7 @@ else ifeq ($(UNAME_S),Windows_NT)
     OPEN_CMD = start
 endif
 
-all: clean $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
+all: $(BUILD_PATH) $(BUILD_PATH)/$(EXE) run
 
 run: 
 	@$(BUILD_PATH)/$(EXE)
@@ -45,7 +45,7 @@ clean:
 
 reset: clean all
 
-test:  $(BUILD_PATH)/$(TEST_EXE) test_run
+test: clean $(BUILD_PATH)/$(TEST_EXE) test_run
 
 $(BUILD_PATH)/$(TEST_EXE): $(BUILD_PATH) $(BUILD_PATH)/$(EXE)
 	@$(CC) $(TESTS_HEADERS) $(TESTS_SRCS) $(LIB) -o $@

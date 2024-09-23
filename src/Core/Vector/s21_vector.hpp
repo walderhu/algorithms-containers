@@ -54,10 +54,10 @@ class vector {
   size_t size() const;
   size_t capacity() const;
   T at(size_t i);
-  const T& front();
-  const T& back();
+  const T& front() const;
+  const T& back() const;
   T* data();
-  bool empty();
+  bool empty() const;
   size_type max_size();
   void reserve(size_type size);
   void shrink_to_fit();

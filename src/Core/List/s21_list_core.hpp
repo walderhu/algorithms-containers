@@ -89,8 +89,9 @@ inline auto list<value_type>::merge(list &other) noexcept -> void {
 }
 
 template <class value_type>
-inline auto list<value_type>::insert(
-    iterator pos, const_reference value) noexcept -> iterator {
+inline auto list<value_type>::insert(iterator pos,
+                                     const_reference value) noexcept
+    -> iterator {
   Node *new_node = new Node(value);
 
   if (pos == this->begin()) {
@@ -114,8 +115,8 @@ inline auto list<value_type>::insert(
 
 template <class value_type>
 inline auto list<value_type>::insert(
-    iterator pos,
-    std::initializer_list<value_type> const &items) noexcept -> iterator {
+    iterator pos, std::initializer_list<value_type> const &items) noexcept
+    -> iterator {
   for (iterator item = items.end(); item != items.begin();) {
     --item;
     pos = insert(pos, *item);

@@ -45,7 +45,7 @@ class stack {
   template <typename... Args>
   void emplace_front(Args &&...args) {
     for (const auto &arg : {args...}) {
-      items.emplace_back(arg);
+      items.insert_many_back(arg);
     }
   }
 
