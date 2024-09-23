@@ -2,6 +2,8 @@
 #define BINARY_TREE_H
 #include "../s21_containers.hpp"
 
+namespace s21 {
+
 template <typename Key, typename T>
 class AVLTree {
  protected:
@@ -250,5 +252,7 @@ class AVLTree {
 };
 
 #include "../Map/s21_map_iterator.hpp"
+
+}
 
 #endif

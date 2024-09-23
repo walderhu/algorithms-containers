@@ -132,7 +132,7 @@ class map : public AVLTree<Key, T> {
   }
 
   void erase(iterator pos) {
-    if (pos != end()) remove(pos->first);
+    if (pos != end()) base_type::remove(pos->first);
   }
 
   void swap(map& other) {
