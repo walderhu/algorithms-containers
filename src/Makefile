@@ -1,5 +1,5 @@
 CC := g++ -g
-# CXXFLAGS := -Wall -Wextra -Werror -std=c++17 -Wpedantic -pipe -O2
+CXXFLAGS := -Wall -Wextra -Werror -std=c++17 -Wpedantic -pipe -O2
 EXE := s21_containers
 TEST_EXE := s21_containers_test
 BUILD_PATH := build
@@ -10,12 +10,8 @@ TRASH := $(BUILD_PATH)
 UNAME_S := $(shell uname -s)
 
 SRCS=$(shell find $(SRC_PATH) -type f -name "*.cpp")
-# TESTS_SRCS =$(shell find $(TESTS_PATH) -type f -name "*.cpp")
-TESTS_SRCS = $(TESTS_PATH)/s21_containers_test.hpp \
-			$(TESTS_PATH)/s21_containers_test.cpp  \
-			$(TESTS_PATH)/s21_unordered_set_test.cpp \
-			$(TESTS_PATH)/s21_unordered_multiset_test.cpp
-# TODO вернуть старые тесты
+TESTS_SRCS =$(shell find $(TESTS_PATH) -type f -name "*.cpp")
+
 DEPS := $(SRCS:.cpp=.d)
 -include $(DEPS)
 
