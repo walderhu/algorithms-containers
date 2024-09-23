@@ -6,7 +6,7 @@
 #include <limits>
 #include <stdexcept>
 #include <utility>
-#include <vector>  //
+// #include <vector>  //
 namespace s21 {
 
 template <class T>
@@ -36,7 +36,7 @@ class map;
 template <typename T, class Container = s21::list<T>>
 class queue;
 
-template <typename T, class Container = std::vector<T>>
+template <typename T, class Container = s21::vector<T>>
 class stack;
 }  // namespace s21
 

@@ -154,8 +154,8 @@ class map : public AVLTree<Key, T> {
   bool contains(const Key& key) const { return base_type::contains(key); }
 
   template <class... Args>
-  std::vector<std::pair<iterator, bool>> insert_many(Args&&... args) {
-    std::vector<std::pair<iterator, bool>> results;
+  s21::vector<std::pair<iterator, bool>> insert_many(Args&&... args) {
+    s21::vector<std::pair<iterator, bool>> results;
     for (const auto& arg : {args...}) {
       results.push_back(insert(arg));
     }
