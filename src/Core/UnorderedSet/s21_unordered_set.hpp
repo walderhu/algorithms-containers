@@ -22,7 +22,8 @@ class unordered_set {
   using reference = value_type &;
   using const_reference = const value_type &;
   using size_type = size_t;
-
+  using iterator = Iterator;
+  using const_iterator = ConstIterator;
   unordered_set() noexcept;
   unordered_set(std::initializer_list<Key> const &items) noexcept;
   ~unordered_set() noexcept;
@@ -47,10 +48,8 @@ class unordered_set {
   bool contains(const key_type &key) const noexcept;
   size_type bucket_size(const key_type &key) const noexcept;
   virtual float load_factor() const noexcept;
-  /*
-    template <typename... Args>
-    std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
-  */
+  template <typename... Args>
+  std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
   /*
   Метод load_factor в классе std::unordered_set используется для получения
   текущего коэффициента загрузки контейнера. Коэффициент загрузки — это

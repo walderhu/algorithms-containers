@@ -4,34 +4,9 @@
 #include "s21_containers.hpp"
 
 int main() {
-  // std::unordered_set<int> ust = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
   s21::unordered_set<int> ust = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
-
-  // for (; it != ust.end(); ++it) DEBUG(*it);
-  // for (auto it = ust.begin(); it != ust.end(); ++it) DEBUG(*it);
-
-  auto it = ust.end();
-  DEBUG(*it);
-  --it;
-  DEBUG(*it);
-  --it;
-  DEBUG(*it);
-  --it;
-  DEBUG(*it);
-  --it;
-  DEBUG(*it);
-  --it;
-  DEBUG(*it);
-  --it;
-  DEBUG(*it);
-  --it;
-  DEBUG(*it);
-  // ust.debug();
-  // if (auto it = ust.end(); it != ust.begin()) {
-  // --it;
-  // for (; it != ust.end(); --it) std::cout << *it << " ";
-  // }
-
+  ust.insert_many(99, 98, 312);
+  ust.debug();
   return 0;
 }
 
