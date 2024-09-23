@@ -122,8 +122,9 @@ template <class Key>
 inline auto unordered_set<Key>::Iterator::operator--() -> Iterator & {
   this->if_end();
 
-  if (bucket_index >= TABLE_SIZE) {
+  if (bucket_index == 0 || bucket_index >= TABLE_SIZE) {
     IteratorType it = --lst_iter;
+    PRINT("HHHDFHS");
     if (it != --ust->table.begin()) {
       ArrayType table = *it;
       bucket_index = TABLE_SIZE - 1;
@@ -132,13 +133,15 @@ inline auto unordered_set<Key>::Iterator::operator--() -> Iterator & {
       return this->operator--();
     } else {
       bucket_iterator = BucketIterator();
-      PRINT("Декремент от начала сета");
+      PRINT("Декремент от начала сета");  // BUG
       return this->operator--();
     }
   }
+
   ArrayType &table = *lst_iter;
   BucketType &bucket = table->at(bucket_index);
   move_prev(table, bucket, bucket.empty());
+
   return *this;
 }
 
