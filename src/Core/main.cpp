@@ -24,8 +24,8 @@ int main() {
   DEBUG(*it);
   --it;
   DEBUG(*it);
-  // --it;
-  // DEBUG(*it);
+  --it;
+  DEBUG(*it);
   // ust.debug();
   // if (auto it = ust.end(); it != ust.begin()) {
   // --it;
