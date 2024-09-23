@@ -5,7 +5,8 @@
 
 int main() {
   s21::unordered_set<int> ust = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
-  ust.insert_many(99, 98, 312);
+  auto it = ust.cbegin();
+  ust.emplace_hint(it, 99, 98, 312);
   ust.debug();
   return 0;
 }

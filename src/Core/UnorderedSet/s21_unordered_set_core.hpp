@@ -167,6 +167,24 @@ inline auto unordered_set<value_type>::emplace_back(Args &&...args)
   return insert_many(std::forward<Args>(args)...);
 }
 
+// template <class value_type>
+// template <typename... Args>
+// inline auto unordered_set<value_type>::emplace_hint(
+//     const_iterator position, Args &&...args) -> iterator {
+//   s21::vector<std::pair<iterator, bool>> results;
+//   (results.insert_many_back(this->insert(std::forward<Args>(args))), ...);
+//   return results.back().first;
+// }
+
+template <class value_type>
+template <typename... Args>
+inline auto unordered_set<value_type>::emplace_hint(
+    const_iterator position, Args &&...args) -> iterator {
+  s21::vector<std::pair<iterator, bool>> results;
+  (results.insert_many_back(this->insert(std::forward<Args>(args))), ...);
+  if (!results.empty()) return results.back().first;
+  return this->end();
+}
 }  // namespace s21
 
 #endif  // __S21_UNORDERED_CORE_SET__

@@ -32,10 +32,10 @@ class unordered_set {
   void clear() noexcept;
   virtual std::pair<Iterator, bool> insert(const key_type &key) noexcept;
 
-  Iterator begin() noexcept;
-  Iterator end() noexcept;
-  ConstIterator cbegin() const;
-  ConstIterator cend() const;
+  Iterator begin() const noexcept;
+  Iterator end() const noexcept;
+  const_iterator cbegin() const noexcept;
+  const_iterator cend() const noexcept;
   ReverseIterator rbegin();
   ReverseIterator rend();
 
@@ -51,6 +51,8 @@ class unordered_set {
   std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
   template <typename... Args>
   std::vector<std::pair<iterator, bool>> emplace_back(Args &&...args);
+  template <class... Args>
+  iterator emplace_hint(const_iterator position, Args &&...args);
 
  protected:
   size_type get_index(const key_type &key) const noexcept;
