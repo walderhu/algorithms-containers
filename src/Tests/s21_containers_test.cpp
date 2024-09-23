@@ -7,7 +7,7 @@ void run_tests() {
   std::cout << "\e[31mFailures: " << (result != 0 ? 1 : 0) << "\e[0m\n";
 }
 
-int main(int argc, char **argv) {
+int main() {
   run_tests();
   return 0;
 }

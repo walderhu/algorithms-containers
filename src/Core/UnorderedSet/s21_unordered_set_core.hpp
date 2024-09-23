@@ -29,23 +29,28 @@ inline auto unordered_set<value_type>::hashFunction(key_type key) const noexcept
 }
 
 template <class Key>
-inline void unordered_set<Key>::insert(const key_type &key) noexcept {
+inline auto unordered_set<Key>::insert(const key_type &key) noexcept
+    -> std::pair<Iterator, bool> {
   size_t bucket_index = get_index(key);
   auto it = table.begin();
-
-  for (auto &arr = *it; it != table.end(); ++it) {
-    if (auto &vec = arr->at(bucket_index); vec.empty()) {
+  auto &bucket = *it;
+  for (; it != table.end(); ++it) {
+    if (auto &vec = bucket->at(bucket_index); vec.empty()) {
       add(vec, key);
-      break;
+      auto iter = Iterator(it, bucket_index, this);
+      return std::make_pair(iter, true);
     } else if (vec.front() == key) {
-      break;
+      auto iter = Iterator(it, bucket_index, this);
+      return std::make_pair(iter, false);
     }
   }
-
-  if (it != table.end()) return;
-  it = this->to_expand();
-  auto &vec = (*it)->at(bucket_index);
-  add(vec, key);
+  if (it == table.end()) {
+    it = this->to_expand();
+    auto &vec = (*it)->at(bucket_index);
+    add(vec, key);
+  }
+  auto iter = Iterator(it, bucket_index, this);
+  return std::make_pair(iter, true);
 }
 
 /* NOTES
@@ -72,9 +77,9 @@ inline void unordered_set<Key>::clear() noexcept {
 template <class Key>
 inline void unordered_set<Key>::debug() {
   auto lst_it = table.begin();
-  for (auto &arr = *lst_it; lst_it != table.end(); ++lst_it)
+  for (auto &bucket = *lst_it; lst_it != table.end(); ++lst_it)
     for (size_t i = 0u; i < TABLE_SIZE; i++)
-      if (auto &vec = arr->at(i); !vec.empty())
+      if (auto &vec = bucket->at(i); !vec.empty())
         for (auto iter = vec.begin(); iter != vec.end(); ++iter)
           std::cout << *iter << " ";
 
@@ -95,8 +100,8 @@ auto it = table.begin(); и size_t i = 0u;
 
 template <class Key>
 inline auto unordered_set<Key>::to_expand() noexcept -> IteratorType {
-  auto *new_array = new std::array<std::vector<value_type>, TABLE_SIZE>();
-  table.push_back(new_array);
+  auto *new_bucketay = new std::array<std::vector<value_type>, TABLE_SIZE>();
+  table.push_back(new_bucketay);
   capacity += TABLE_SIZE;
   return --table.end();
 }
@@ -134,8 +139,9 @@ inline auto unordered_set<Key>::erase(const key_type &key) noexcept -> void {
   size_t bucket_index = get_index(key);
   auto it = table.begin();
 
-  for (auto &arr = *it; it != table.end(); ++it)
-    if (auto &vec = arr->at(bucket_index); !vec.empty() && vec.front() == key) {
+  for (auto &bucket = *it; it != table.end(); ++it)
+    if (auto &vec = bucket->at(bucket_index);
+        !vec.empty() && vec.front() == key) {
       vec.pop_back();
       size_--;
       return;
@@ -154,8 +160,9 @@ inline auto unordered_set<Key>::count(const key_type &key) const noexcept
   size_t bucket_index = get_index(key);
   auto it = table.begin();
 
-  for (auto &arr = *it; it != table.end(); ++it)
-    if (auto &vec = arr->at(bucket_index); !vec.empty() && vec.front() == key)
+  for (auto &bucket = *it; it != table.end(); ++it)
+    if (auto &vec = bucket->at(bucket_index);
+        !vec.empty() && vec.front() == key)
       return vec.size();
   return 0;
 }

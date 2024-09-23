@@ -12,9 +12,11 @@ class unordered_set {
  public:
   struct Iterator;
   struct ConstIterator;
+  struct ReverseIterator;
   friend int ::main();  // TODO убрать
   friend struct Iterator;
   friend struct ConstIterator;
+  friend struct ReverseIterator;
   using key_type = Key;
   using value_type = Key;
   using reference = value_type &;
@@ -27,13 +29,15 @@ class unordered_set {
 
   size_type hashFunction(key_type key) const noexcept;
   void clear() noexcept;
-  virtual void insert(const key_type &key) noexcept;
+  virtual std::pair<Iterator, bool> insert(const key_type &key) noexcept;
   virtual void debug();  // TODO убрать
 
   Iterator begin() noexcept;
   Iterator end() noexcept;
   ConstIterator cbegin() const;
   ConstIterator cend() const;
+  ReverseIterator rbegin();
+  ReverseIterator rend();
 
   size_type size() const noexcept;
   virtual size_type bucket_count() const noexcept;
@@ -123,45 +127,6 @@ class unordered_set {
   using IteratorType = typename s21::list<
       std::array<std::vector<value_type>, TABLE_SIZE> *>::iterator;
   IteratorType to_expand() noexcept;
-};
-
-template <class Key>
-struct unordered_set<Key>::Iterator {
-  using BucketIterator = typename std::vector<value_type>::iterator;
-
-  using BucketType = typename std::vector<value_type>;
-  using ArrayType = typename std::array<BucketType, TABLE_SIZE> *;
-  using IteratorType = typename s21::list<ArrayType>::iterator;
-
-  Iterator(IteratorType lst_iter, size_t bucket_index,
-           s21::unordered_set<value_type> *ust = nullptr);
-  Iterator(const Iterator &other);
-  friend int ::main();  // TODO убрать
-
-  bool operator==(const Iterator &other) const;
-  bool operator!=(const Iterator &other) const;
-
-  Iterator &operator++();
-  Iterator &operator--();
-  reference operator*();
-  virtual Iterator &operator=(const Iterator &other);
-
- protected:
-  Key &get_value() const;
-  IteratorType lst_iter;
-
-  void move_next(ArrayType &table, std::vector<Key> &bucket);
-  void move_prev(ArrayType &table, std::vector<Key> &bucket,
-                 bool current = false);
-  void if_end();
-  size_t bucket_index;
-  BucketIterator bucket_iterator;
-  s21::unordered_set<Key> *ust;
-  friend class unordered_set<Key>;
-};
-
-template <class Key>
-struct unordered_set<Key>::ConstIterator : public unordered_set<Key>::Iterator {
 };
 
 }  // namespace s21
