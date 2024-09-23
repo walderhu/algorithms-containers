@@ -4,34 +4,34 @@
 
 namespace s21 {
 template <class Key>
-struct unordered_set<Key>::ConstIterator {
+struct unordered_set<Key>::Iterator {
   using BucketIterator = typename std::vector<value_type>::iterator;
 
   using BucketType = typename std::vector<value_type>;
   using ArrayType = typename std::array<BucketType, TABLE_SIZE> *;
   using IteratorType = typename s21::list<ArrayType>::iterator;
 
-  ConstIterator(IteratorType lst_iter, size_t bucket_index,
-                s21::unordered_set<value_type> *ust = nullptr,
-                BucketIterator bucket_iterator = BucketIterator());
+  Iterator(IteratorType lst_iter, size_t bucket_index,
+           s21::unordered_set<value_type> *ust = nullptr,
+           BucketIterator bucket_iterator = BucketIterator());
   friend int ::main();  // TODO убрать
 
-  ConstIterator(const ConstIterator &other) {
+  Iterator(const Iterator &other) {
     lst_iter = other.lst_iter;
     bucket_index = other.bucket_index;
     ust = other.ust;
     bucket_iterator = other.bucket_iterator;
   }
 
-  bool operator==(const ConstIterator &other) const;
-  bool operator!=(const ConstIterator &other) const;
+  bool operator==(const Iterator &other) const;
+  bool operator!=(const Iterator &other) const;
 
-  ConstIterator &operator++();
-  ConstIterator &operator--();
-  ConstIterator operator++(int);
-  ConstIterator operator--(int);
+  Iterator &operator++();
+  Iterator &operator--();
+  Iterator operator++(int);
+  Iterator operator--(int);
   reference operator*();
-  virtual ConstIterator &operator=(const ConstIterator &other);
+  virtual Iterator &operator=(const Iterator &other);
 
  protected:
   Key &get_value() const;
@@ -48,14 +48,14 @@ struct unordered_set<Key>::ConstIterator {
 };
 
 template <class Key>
-struct unordered_set<Key>::Iterator : public unordered_set<Key>::ConstIterator {
-  using unordered_set<Key>::ConstIterator::ConstIterator;
+struct unordered_set<Key>::ConstIterator : public unordered_set<Key>::Iterator {
+  using unordered_set<Key>::Iterator::Iterator;
 };
 
 template <class Key>
 struct unordered_set<Key>::ReverseIterator
     : public unordered_set<Key>::Iterator {
-  using unordered_set<Key>::ConstIterator::ConstIterator;
+  using unordered_set<Key>::Iterator::Iterator;
 };
 }  // namespace s21
 
