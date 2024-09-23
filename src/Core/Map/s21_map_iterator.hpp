@@ -1,7 +1,6 @@
 #ifndef MAP_ITERATOR_H
 #define MAP_ITERATOR_H
 
-// #include "s21_binary_tree.hpp"
 #include "../s21_containers.hpp"
 
 template <typename Key, typename T>

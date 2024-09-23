@@ -1,8 +1,5 @@
 #ifndef QUEUE_H
 #define QUEUE_H
-// #include "../List/s21_list.hpp"
-#include <list>
-
 #include "../s21_containers.hpp"
 
 namespace s21 {

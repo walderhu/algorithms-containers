@@ -1,7 +1,5 @@
 #ifndef STACK_H
 #define STACK_H
-// #include "../Vector/s21_vector.h"
-#include <vector>
 
 #include "../s21_containers.hpp"
 

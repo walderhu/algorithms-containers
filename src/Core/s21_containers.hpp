@@ -4,7 +4,6 @@
 #include <cstddef>
 #include <initializer_list>
 #include <limits>
-#include <list>  //
 #include <stdexcept>
 #include <utility>
 #include <vector>  //
@@ -34,7 +33,7 @@ class array;
 template <typename Key, typename T>
 class map;
 
-template <typename T, class Container = std::list<T>>
+template <typename T, class Container = s21::list<T>>
 class queue;
 
 template <typename T, class Container = std::vector<T>>
