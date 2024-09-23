@@ -123,13 +123,13 @@ inline auto unordered_set<Key>::Iterator::operator--() -> Iterator & {
   this->if_end();
 
   if (bucket_index == 0 || bucket_index >= TABLE_SIZE) {
+    PRINT("Декремент от начала сета");
     IteratorType it = --lst_iter;
-    ArrayType table = *it;
     bucket_index = TABLE_SIZE - 1;
+    ArrayType table = *it;
     BucketType &bucket = table->at(bucket_index);
-    bucket_iterator = bucket.end();
-    PRINT("Декремент от начала сета");  // BUG
-    return this->operator--();
+    move_prev(table, bucket, true);
+    return *this;
   }
 
   ArrayType &table = *lst_iter;
