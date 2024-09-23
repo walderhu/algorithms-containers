@@ -3,8 +3,12 @@
 
 #include <gtest/gtest.h>
 
+#include <array>
 #include <list>
+#include <map>
+#include <queue>
 #include <set>
+#include <stack>
 #include <unordered_set>
 
 #include "../Core/s21_containers.hpp"

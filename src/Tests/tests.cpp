@@ -1,13 +1,4 @@
-#include <gtest/gtest.h>
-#include "s21_stack.h"
-#include "s21_queue.h"
-#include "s21_array.h"
-#include "s21_map.h"
-
-#include <queue>
-#include <stack>
-#include <array>
-#include <map>
+#include "s21_containers_test.hpp"
 
 // >>>>>>>>> STACK <<<<<<<<<<<<<<
 TEST(Stack, simple_test) {
@@ -775,7 +766,7 @@ TEST(Map, WithDuplicatesCase) {
   ASSERT_EQ(m1[1], m3[1]);
   ASSERT_EQ(m1[2], m3[2]);
   ASSERT_EQ(m1[4], m3[4]);
-  
+
   ASSERT_EQ(m2[1], m4[1]);
   ASSERT_EQ(m2[2], m4[2]);
 
@@ -1050,7 +1041,8 @@ TEST(Map, function_ontains) {
 TEST(Map, insert_many_test) {
   s21::map<int, std::string> my_map;
   std::map<int, std::string> orig_map;
-  my_map.insert_many(std::make_pair(1, "Moscow"), std::make_pair(2, "Kazan"), std::make_pair(3, "Ufa"));
+  my_map.insert_many(std::make_pair(1, "Moscow"), std::make_pair(2, "Kazan"),
+                     std::make_pair(3, "Ufa"));
 
   orig_map.insert(std::make_pair(1, "Moscow"));
   orig_map.insert(std::make_pair(2, "Kazan"));
@@ -1061,19 +1053,7 @@ TEST(Map, insert_many_test) {
   auto my_it = my_map.begin();
   auto std_it = orig_map.begin();
   for (; my_it != my_map.end() && std_it != orig_map.end(); ++my_it, ++std_it) {
-      EXPECT_EQ(my_it->first, std_it->first);
-      EXPECT_EQ(my_it->second, std_it->second);
+    EXPECT_EQ(my_it->first, std_it->first);
+    EXPECT_EQ(my_it->second, std_it->second);
   }
-}
-
-
-int main(int argc, char *argv[]) {
-  ::testing::InitGoogleTest(&argc, argv);
-
-  std::cout << "Running tests:" << std::endl;
-  int ret{RUN_ALL_TESTS()};
-  if (!ret)
-    std::cout << "Ok!" << std::endl;
-  else
-    std::cout << "Fix the bugs." << std::endl;
 }
