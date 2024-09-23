@@ -160,6 +160,13 @@ inline auto unordered_set<value_type>::insert_many(Args &&...args)
   return results;
 }
 
+template <class value_type>
+template <typename... Args>
+inline auto unordered_set<value_type>::emplace_back(Args &&...args)
+    -> std::vector<std::pair<iterator, bool>> {
+  return insert_many(std::forward<Args>(args)...);
+}
+
 }  // namespace s21
 
 #endif  // __S21_UNORDERED_CORE_SET__

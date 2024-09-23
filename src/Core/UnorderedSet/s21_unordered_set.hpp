@@ -50,6 +50,8 @@ class unordered_set {
   virtual float load_factor() const noexcept;
   template <typename... Args>
   std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
+  template <typename... Args>
+  std::vector<std::pair<iterator, bool>> emplace_back(Args &&...args);
   /*
   Метод load_factor в классе std::unordered_set используется для получения
   текущего коэффициента загрузки контейнера. Коэффициент загрузки — это
