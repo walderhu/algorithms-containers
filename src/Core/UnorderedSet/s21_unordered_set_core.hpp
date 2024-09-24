@@ -61,13 +61,7 @@ inline void unordered_set<Key>::clear() noexcept {
 
 template <class Key>
 inline void unordered_set<Key>::debug() {
-  auto lst_it = table.begin();
-  for (auto &bucket = *lst_it; lst_it != table.end(); ++lst_it)
-    for (size_t i = 0u; i < TABLE_SIZE; i++)
-      if (auto &vec = bucket->at(i); !vec.empty())
-        for (auto iter = vec.begin(); iter != vec.end(); ++iter)
-          std::cout << *iter << " ";
-
+  for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";
   std::cout << std::endl;
 }
 
@@ -167,15 +161,6 @@ inline auto unordered_set<value_type>::emplace_back(Args &&...args)
   return insert_many(std::forward<Args>(args)...);
 }
 
-// template <class value_type>
-// template <typename... Args>
-// inline auto unordered_set<value_type>::emplace_hint(
-//     const_iterator position, Args &&...args) -> iterator {
-//   s21::vector<std::pair<iterator, bool>> results;
-//   (results.insert_many_back(this->insert(std::forward<Args>(args))), ...);
-//   return results.back().first;
-// }
-
 template <class value_type>
 template <typename... Args>
 inline auto unordered_set<value_type>::emplace_hint(
@@ -185,6 +170,20 @@ inline auto unordered_set<value_type>::emplace_hint(
   if (!results.empty()) return results.back().first;
   return this->end();
 }
+
+#ifdef _GLIBCXX_OSTREAM
+
+template <typename value_type>
+std::ostream &operator<<(std::ostream &os,
+                         const unordered_set<value_type> &obj) {
+  auto it = obj.cbegin();
+  auto cend = obj.cend();
+  while (it != cend) os << *it << (++it != cend ? " " : "");
+  return os;
+}
+
+#endif  // _GLIBCXX_OSTREAM
+
 }  // namespace s21
 
 #endif  // __S21_UNORDERED_CORE_SET__

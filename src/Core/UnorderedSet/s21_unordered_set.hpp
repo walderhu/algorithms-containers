@@ -53,13 +53,38 @@ class unordered_set {
   std::vector<std::pair<iterator, bool>> emplace_back(Args &&...args);
   template <class... Args>
   iterator emplace_hint(const_iterator position, Args &&...args);
+  // new
+  void rehash(size_type n);
+  void reserve(size_type n);
+  // key_equal key_eq() const;
+  // get_allocator();
+  // ust.max_bucket_count
+  // ust.max_load_factor
+  // ust.merge
+  // ust.swap
+  // ust.emplace
+  // ust.bucket
+  // ust.equal_range
+  // ust.extract
+  // new
+
+#ifdef _GLIBCXX_OSTREAM
+  // friend std::ostream &operator<<(std::ostream &os,
+  //                                 const unordered_set<Key> &obj);
+
+  template <typename U>
+  friend std::ostream &operator<<(std::ostream &os,
+                                  const unordered_set<U> &obj);
+
+#endif  // _GLIBCXX_OSTREAM
 
  protected:
   size_type get_index(const key_type &key) const noexcept;
   virtual void add(std::vector<value_type> &vec, const key_type &key) noexcept;
   size_type size_;
   size_type capacity;
-  static constexpr size_type TABLE_SIZE = 100;
+  static constexpr size_type TABLE_SIZE = 100;  // не работает при =3 =2 =1
+  // static constexpr size_type DEFAULT_TABLE_SIZE = 100;
   mutable s21::list<std::array<std::vector<value_type>, TABLE_SIZE> *> table;
   using IteratorType = typename s21::list<
       std::array<std::vector<value_type>, TABLE_SIZE> *>::iterator;

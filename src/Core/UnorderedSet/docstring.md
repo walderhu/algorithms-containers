@@ -115,7 +115,8 @@ void reserve(size_type n);: Применяется для резервирова
 
   Проверяем равенство двух символов
     std::cout << "cmpfn('a', 'a') == " << std::boolalpha << cmpfn('a', 'a') <<
-  std::endl; // true std::cout << "cmpfn('a', 'b') == " << std::boolalpha <<
+  std::endl; // true 
+  std::cout << "cmpfn('a', 'b') == " << std::boolalpha <<
   cmpfn('a', 'b') << std::endl; // false
 
   */
