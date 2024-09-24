@@ -31,7 +31,7 @@ inline auto unordered_set<value_type>::hashFunction(key_type key) const noexcept
 template <class Key>
 inline auto unordered_set<Key>::insert(const key_type &key) noexcept
     -> std::pair<iterator, bool> {
-  size_t bucket_index = get_index(key);
+  size_t bucket_index = get_index(key);  // всегда 0
   auto it = table.begin();
   auto &bucket = *it;
   for (; it != table.end(); ++it) {
@@ -172,16 +172,13 @@ inline auto unordered_set<value_type>::emplace_hint(
 }
 
 #ifdef _GLIBCXX_OSTREAM
-
-template <typename value_type>
-std::ostream &operator<<(std::ostream &os,
-                         const unordered_set<value_type> &obj) {
+template <typename U>
+std::ostream &operator<<(std::ostream &os, const unordered_set<U> &obj) {
   auto it = obj.cbegin();
   auto cend = obj.cend();
   while (it != cend) os << *it << (++it != cend ? " " : "");
   return os;
 }
-
 #endif  // _GLIBCXX_OSTREAM
 
 }  // namespace s21

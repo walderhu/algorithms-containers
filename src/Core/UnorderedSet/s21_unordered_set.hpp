@@ -69,13 +69,9 @@ class unordered_set {
   // new
 
 #ifdef _GLIBCXX_OSTREAM
-  // friend std::ostream &operator<<(std::ostream &os,
-  //                                 const unordered_set<Key> &obj);
-
   template <typename U>
   friend std::ostream &operator<<(std::ostream &os,
                                   const unordered_set<U> &obj);
-
 #endif  // _GLIBCXX_OSTREAM
 
  protected:

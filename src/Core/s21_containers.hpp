@@ -3,7 +3,6 @@
 
 #include <cstddef>
 #include <initializer_list>
-#include <iostream>  // TODO убрать
 #include <limits>
 #include <stdexcept>
 #include <utility>
@@ -20,7 +19,6 @@
             << __LINE__ << ")" << std::endl;
 
 #define PING() PRINT("ping")
-
 namespace s21 {
 
 template <class T>
