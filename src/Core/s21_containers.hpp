@@ -33,7 +33,7 @@ class set;
 template <class T>
 class multiset;
 
-template <class T>
+template <class T = int>
 class unordered_set;
 
 template <class T>
