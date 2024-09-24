@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 
 #include "s21_containers.hpp"
@@ -13,7 +14,9 @@ void test1() {
   ust.insert(3);
   ust.insert(2);
   ust.insert(1);
-  cout << ust << endl;
+  assert(!ust.empty());
+  // assert(ust.empty() && "Вот так можн добавлять описание для ассерта");
+  DEBUG(ust);
 }
 
 void test2() { cout << 5 % 1 << endl; }

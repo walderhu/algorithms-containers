@@ -36,7 +36,6 @@ inline auto unordered_set<Key>::insert(const key_type &key) noexcept
   auto &bucket = *it;
   int i = 0;
   for (; it != table.end(); ++it) {
-    DEBUG(i);
     if (auto &vec = bucket->at(bucket_index); vec.empty()) {
       add(vec, key);
       auto iter = Iterator(it, bucket_index, this);

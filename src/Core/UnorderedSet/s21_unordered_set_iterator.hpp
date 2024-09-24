@@ -1,5 +1,4 @@
-#if !defined(__S21_UNORDERED_SET_ITERATOR_HPP__)
-#define __S21_UNORDERED_SET_ITERATOR_HPP__
+#pragma once
 #include "s21_unordered_set.hpp"
 
 namespace s21 {
@@ -60,4 +59,3 @@ struct unordered_set<Key>::ReverseIterator
 }  // namespace s21
 
 #include "s21_unordered_set_iterator_core.hpp"
-#endif  // __S21_UNORDERED_SET_ITERATOR_HPP__

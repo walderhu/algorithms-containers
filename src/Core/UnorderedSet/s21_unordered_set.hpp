@@ -1,5 +1,4 @@
-#if !defined(__S21_UNORDERED_SET__)
-#define __S21_UNORDERED_SET__
+#pragma once
 #include <array>
 #include <vector>
 
@@ -96,5 +95,3 @@ class unordered_set {
 }  // namespace s21
 #include "s21_unordered_set_core.hpp"
 #include "s21_unordered_set_iterator.hpp"
-
-#endif  // __S21_UNORDERED_SET__
