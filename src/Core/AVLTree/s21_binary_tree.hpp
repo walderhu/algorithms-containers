@@ -184,6 +184,14 @@ class AVLTree {
     }
     return false;
   }
+  /* моя версия
+  bool contains(const Key& key) const {
+    for (Node* node = root; node;
+         node = key < node->value.first ? node->left : node->right)
+      if (key == node->value.first) return true;
+    return false;
+  }
+  */
 
   T& at(const Key& key) {
     Node* node = root;
