@@ -75,13 +75,18 @@ class unordered_set {
 #endif  // _GLIBCXX_OSTREAM
 
  protected:
+  static constexpr size_type DEFAULT_SIZE = 100;
+  // unordered_set(size_type n = DEFAULT_SIZE) noexcept
+  // : TABLE_SIZE(n),
+  // table(s21::list<std::array<std::vector<value_type>, n> *>) {}
   size_type get_index(const key_type &key) const noexcept;
   virtual void add(std::vector<value_type> &vec, const key_type &key) noexcept;
   size_type size_;
   size_type capacity;
-  static constexpr size_type TABLE_SIZE = 100;  // не работает при =3 =2 =1
-  // static constexpr size_type DEFAULT_TABLE_SIZE = 100;
-  mutable s21::list<std::array<std::vector<value_type>, TABLE_SIZE> *> table;
+  mutable s21::list<std::array<std::vector<value_type>, DEFAULT_SIZE> *> table;
+  // size_type TABLE_SIZE;
+  static constexpr size_type TABLE_SIZE = 100;
+
   using IteratorType = typename s21::list<
       std::array<std::vector<value_type>, TABLE_SIZE> *>::iterator;
   IteratorType to_expand() noexcept;

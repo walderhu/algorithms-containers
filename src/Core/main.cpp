@@ -5,7 +5,8 @@
 using namespace std;
 
 void test1() {
-  s21::unordered_set<int> ust;  //= {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
+  // s21::unordered_set<int> ust;  //= {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
+  s21::unordered_set<int> ust = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
   ust.insert(5);
   ust.insert(5);
   ust.insert(5);

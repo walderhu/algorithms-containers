@@ -34,7 +34,9 @@ inline auto unordered_set<Key>::insert(const key_type &key) noexcept
   size_t bucket_index = get_index(key);  // всегда 0
   auto it = table.begin();
   auto &bucket = *it;
+  int i = 0;
   for (; it != table.end(); ++it) {
+    DEBUG(i);
     if (auto &vec = bucket->at(bucket_index); vec.empty()) {
       add(vec, key);
       auto iter = Iterator(it, bucket_index, this);
@@ -44,6 +46,7 @@ inline auto unordered_set<Key>::insert(const key_type &key) noexcept
       return std::make_pair(iter, false);
     }
   }
+
   if (it == table.end()) {
     it = this->to_expand();
     auto &vec = (*it)->at(bucket_index);
@@ -64,6 +67,9 @@ inline void unordered_set<Key>::debug() {
   for (auto it = begin(); it != end(); ++it) std::cout << *it << " ";
   std::cout << std::endl;
 }
+
+template <class Key>
+inline void unordered_set<Key>::rehash(size_type n) {}
 
 template <class Key>
 inline auto unordered_set<Key>::to_expand() noexcept -> IteratorType {
