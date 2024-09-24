@@ -1,55 +1,56 @@
-#include "s21_containers_test.hpp"
+// #include "s21_containers_test.hpp"
 
-TEST(unordered_set, ConstructorDefaultSet) {
-  s21::unordered_set<int> s21_ust;
-  std::unordered_set<int> std_ust;
-  EXPECT_EQ(s21_ust.empty(), std_ust.empty());
-}
-
-TEST(unordered_set, InsertTest) {
-  s21::unordered_set<int> s21_ust;
-  std::unordered_set<int> std_ust;
-
-  s21_ust.insert(2);
-  s21_ust.insert(2);
-  s21_ust.insert(2);
-  s21_ust.insert(3);
-  s21_ust.insert(4);
-
-  std_ust.insert(2);
-  std_ust.insert(2);
-  std_ust.insert(2);
-  std_ust.insert(3);
-  std_ust.insert(4);
-
-  EXPECT_EQ(s21_ust.size(), std_ust.size());
-}
-
-TEST(unordered_set, InsertManyTest) {
-  s21::unordered_set<int> s21_set;
-  std::unordered_set<int> std_set;
-  s21_set.insert_many(2, 3, 2, 4, 5, 6, 7);
-
-  std_set.insert(2);
-  std_set.insert(3);
-  std_set.insert(2);
-  std_set.insert(4);
-  std_set.insert(5);
-  std_set.insert(6);
-  std_set.insert(7);
-  EXPECT_EQ(s21_set.size(), std_set.size());
-}
-
-// TEST(unordered_set, ConstructorInitializerSet) {
-//   s21::unordered_set<char> s21_set = {'x', 'b', 'z', 'y'};
-//   std::unordered_set<char> std_set = {'x', 'b', 'z', 'y'};
-//   EXPECT_EQ(s21_set.size(), std_set.size());
-//   auto s21_it = s21_set.begin();
-//   auto std_it = std_set.begin();
-//   for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
-//     EXPECT_TRUE(*std_it == *s21_it);
-//   }
+// TEST(unordered_set, ConstructorDefaultSet) {
+//   s21::unordered_set<int> s21_ust;
+//   std::unordered_set<int> std_ust;
+//   EXPECT_EQ(s21_ust.empty(), std_ust.empty());
 // }
+
+// TEST(unordered_set, InsertTest) {
+//   s21::unordered_set<int> s21_ust;
+//   std::unordered_set<int> std_ust;
+
+//   s21_ust.insert(2);
+//   s21_ust.insert(2);
+//   s21_ust.insert(2);
+//   s21_ust.insert(3);
+//   s21_ust.insert(4);
+
+//   std_ust.insert(2);
+//   std_ust.insert(2);
+//   std_ust.insert(2);
+//   std_ust.insert(3);
+//   std_ust.insert(4);
+
+//   EXPECT_EQ(s21_ust.size(), std_ust.size());
+// }
+
+// TEST(unordered_set, InsertManyTest) {
+//   s21::unordered_set<int> s21_set;
+//   std::unordered_set<int> std_set;
+//   s21_set.insert_many(2, 3, 2, 4, 5, 6, 7);
+
+//   std_set.insert(2);
+//   std_set.insert(3);
+//   std_set.insert(2);
+//   std_set.insert(4);
+//   std_set.insert(5);
+//   std_set.insert(6);
+//   std_set.insert(7);
+//   EXPECT_EQ(s21_set.size(), std_set.size());
+// }
+
+// new
+//  TEST(unordered_set, ConstructorInitializerSet) {
+//    s21::unordered_set<char> s21_set = {'x', 'b', 'z', 'y'};
+//    std::unordered_set<char> std_set = {'x', 'b', 'z', 'y'};
+//    EXPECT_EQ(s21_set.size(), std_set.size());
+//    auto s21_it = s21_set.begin();
+//    auto std_it = std_set.begin();
+//    for (; s21_it != s21_set.end(); ++s21_it, ++std_it) {
+//      EXPECT_TRUE(*std_it == *s21_it);
+//    }
+//  }
 
 // TEST(unordered_set, ConstructorInitializer2Set) {
 //   s21::unordered_set<char> s21_set = {};

@@ -34,8 +34,8 @@ inline list<value_type>::list(
 template <class value_type>
 inline auto list<value_type>::operator[](const unsigned index) const
     -> reference {
-  if (index >= _size) throw std::out_of_range("Index out of range");
-  Node *current = head;
+  if (index >= this->_size) throw std::out_of_range("Index out of range");
+  Node *current = this->head;
   for (unsigned i = 0u; i < index; ++i) current = current->next;
   return current->value;
 }
@@ -51,12 +51,12 @@ inline auto list<value_type>::reverse() noexcept -> void {
 
 template <class value_type>
 inline auto list<value_type>::sort() noexcept -> void {
-  Node *current = head;
+  Node *current = this->head;
   bool swapped = true;
 
   while (swapped) {
     swapped = false;
-    current = head;
+    current = this->head;
 
     while (current && current->next) {
       Node *next_node = current->next;
@@ -71,16 +71,16 @@ inline auto list<value_type>::sort() noexcept -> void {
 
 template <class value_type>
 inline auto list<value_type>::swap(list &other) noexcept -> void {
-  std::swap(head, other.head);
-  std::swap(tail, other.tail);
-  std::swap(_size, other._size);
+  std::swap(this->head, other.head);
+  std::swap(this->tail, other.tail);
+  std::swap(this->_size, other._size);
 }
 
 template <class value_type>
 inline auto list<value_type>::merge(list &other) noexcept -> void {
   Node *current = other.head;
   this->push_back(current);
-  tail = other.tail;
+  this->tail = other.tail;
   this->_size += other._size - 1u;
 
   other.head = nullptr;
@@ -132,17 +132,17 @@ inline auto list<value_type>::erase(iterator pos) -> void {
   Node *next = current->next;
 
   if (!prev)
-    head = next;
+    this->head = next;
   else
     prev->next = next;
 
   if (!next)
-    tail = prev;
+    this->tail = prev;
   else
     next->prev = prev;
 
   delete current;
-  _size -= 1u;
+  this->_size -= 1u;
 }
 
 template <class value_type>
