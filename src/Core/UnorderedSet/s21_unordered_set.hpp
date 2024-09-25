@@ -7,7 +7,7 @@ using size_type = std::size_t;
 extern int main();  // TODO убрать
 
 namespace s21 {
-template <class Key = int, size_type DEFAULT_SIZE = 100>
+template <class Key>
 class unordered_set {
  public:
   using key_type = Key;
@@ -23,10 +23,11 @@ class unordered_set {
   friend struct Iterator;
   friend struct ConstIterator;
   friend struct ReverseIterator;
-  using TableType =
-      typename std::vector<std::array<std::vector<value_type>, DEFAULT_SIZE> *>;
-  TableType table;
-  using IteratorType = typename TableType::iterator;
+  static constexpr size_type DEFAULT_CAPACITY = 100u;
+  // using TableType =
+  // typename std::vector<std::array<std::vector<value_type>, DEFAULT_SIZE> *>;
+  // TableType table;
+  // using IteratorType = typename TableType::iterator;
 
   // size_type get_index(const key_type &key) const noexcept;
   // virtual void add(std::vector<value_type> &vec, const key_type &key)
@@ -40,7 +41,10 @@ class unordered_set {
   using iterator = Iterator;
   using const_iterator = ConstIterator;
   using reverse_iterator = ReverseIterator;
+
+  template <size_type Capacity = DEFAULT_CAPACITY>
   unordered_set() noexcept;
+
   //   unordered_set(std::initializer_list<Key> const &items) noexcept;
   //   ~unordered_set() noexcept;
 
