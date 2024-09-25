@@ -8,18 +8,14 @@ namespace s21 {
 // Неконстантная версия оператора []
 template <typename T>
 T& vector<T>::operator[](size_t index) {
-  if (index >= _m_size) {
-    throw std::out_of_range("Index out of range");
-  }
+  if (index >= _m_size) throw std::out_of_range("Index out of range");
   return arr[index];
 }
 
 // Константная версия оператора []
 template <typename T>
 const T& vector<T>::operator[](size_t index) const {
-  if (index >= _m_size) {
-    throw std::out_of_range("Index out of range");
-  }
+  if (index >= _m_size) throw std::out_of_range("Index out of range");
   return arr[index];
 }
 
@@ -32,18 +28,14 @@ T vector<T>::at(size_t i) {
 // доступ к первому элементу
 template <typename T>
 const T& vector<T>::front() {
-  if (_m_size == 0) {
-    throw std::out_of_range("vector is empty");
-  }
+  if (_m_size == 0) throw std::out_of_range("vector is empty");
   return arr[0];
 }
 
 // доступ к последнему элементу
 template <typename T>
 const T& vector<T>::back() {
-  if (_m_size == 0) {
-    throw std::out_of_range("vector is empty");
-  }
+  if (_m_size == 0) throw std::out_of_range("vector is empty");
   return arr[_m_size - 1];
 }
 

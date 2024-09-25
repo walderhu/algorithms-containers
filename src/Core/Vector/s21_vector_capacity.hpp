@@ -41,9 +41,7 @@ void vector<T>::reserve(size_type size) {
 // уменьшает использование памяти, освобождая неиспользуемую память
 template <typename T>
 void vector<T>::shrink_to_fit() {
-  if (_m_size < _m_capacity) {
-    resize(_m_size);
-  }
+  if (_m_size < _m_capacity) resize(_m_size);
 }
 }  // namespace s21
 #endif  // __S21_VECTOR_CAPACITY_H__

@@ -27,10 +27,7 @@ template <typename T>
 vector<T>::vector(std::initializer_list<value_type> const& items) {
   arr = new T[items.size()];
   int i = 0;
-  for (auto it = items.begin(); it != items.end(); it++) {
-    arr[i] = *it;
-    i++;
-  }
+  for (auto it = items.begin(); it != items.end(); it++, i++) arr[i] = *it;
   _m_size = items.size();
   _m_capacity = items.size();
 }
@@ -40,18 +37,14 @@ template <typename T>
 vector<T>::vector(const vector& v)
     : _m_size(v._m_size), _m_capacity(v._m_capacity), arr(nullptr) {
   arr = new T[_m_capacity];
-  for (size_t i = 0; i < _m_size; i++) {
-    arr[i] = v.arr[i];
-  }
+  for (size_t i = 0; i < _m_size; i++) arr[i] = v.arr[i];
 }
 
 // Перегрузка = (копирование)
 template <typename T>
 vector<T>& vector<T>::operator=(const vector& v) {
   T* new_arr = new T[v._m_capacity];
-  for (size_t i = 0; i < v._m_size; i++) {
-    new_arr[i] = v.arr[i];
-  }
+  for (size_t i = 0; i < v._m_size; i++) new_arr[i] = v.arr[i];
   delete[] arr;
   _m_size = v._m_size;
   _m_capacity = v._m_capacity;

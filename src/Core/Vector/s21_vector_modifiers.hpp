@@ -8,10 +8,9 @@ namespace s21 {
 // Метод добавления элемента
 template <typename T>
 void vector<T>::push_back(const T& value) {
-  if (_m_size == _m_capacity) {
-    resize(_m_capacity == 0 ? 1 : _m_capacity * 2);
-  }
-  arr[_m_size++] = value;
+  if (_m_size == _m_capacity) resize(_m_capacity == 0 ? 1 : _m_capacity * 2);
+  arr[_m_size] = value;
+  _m_size++;
 }
 
 // Очищает содержимое. Вместимость вектора при этом не изменяется
@@ -24,9 +23,7 @@ void vector<T>::clear() {
 template <typename T>
 void vector<T>::resize(size_t new_capacity) {
   T* new_arr = new T[new_capacity];
-  for (size_t i = 0; i < _m_size; i++) {
-    new_arr[i] = arr[i];
-  }
+  for (size_t i = 0; i < _m_size; i++) new_arr[i] = arr[i];
   delete[] arr;
   arr = new_arr;
   _m_capacity = new_capacity;
@@ -38,20 +35,13 @@ void vector<T>::resize(size_t new_capacity) {
 template <typename T>
 typename vector<T>::VectorIterator vector<T>::insert(VectorIterator pos,
                                                      const_reference value) {
-  if (pos < begin() || pos > end()) {
+  if (pos < begin() || pos > end())
     throw std::out_of_range("Iterator out of range");
-  }
 
   size_t index = pos - begin();
+  if (_m_size >= _m_capacity) reserve(_m_capacity == 0 ? 1 : _m_capacity * 2);
 
-  if (_m_size >= _m_capacity) {
-    reserve(_m_capacity == 0 ? 1 : _m_capacity * 2);
-  }
-
-  for (size_t i = _m_size; i > index; --i) {
-    arr[i] = arr[i - 1];
-  }
-
+  for (size_t i = _m_size; i > index; --i) arr[i] = arr[i - 1];
   arr[index] = value;
   ++_m_size;
 
@@ -61,25 +51,21 @@ typename vector<T>::VectorIterator vector<T>::insert(VectorIterator pos,
 // стирает элемент в позиции pos
 template <typename T>
 void vector<T>::erase(VectorIterator pos) {
-  if (pos < begin() || pos > end() || pos == end()) {
+  if (pos < begin() || pos > end() || pos == end())
     throw std::out_of_range("Iterator out of range");
-  }
+
   size_t index = pos - begin();
 
-  for (size_t i = index; i < _m_size; ++i) {
-    arr[i] = arr[i + 1];
-  }
+  for (size_t i = index; i < _m_size; ++i) arr[i] = arr[i + 1];
   _m_size -= 1;
 }
 
 // удаляет последний элемент
+// Уничтожаем последний элемент с помощью аллокатора
+// _alloc.destroy(arr + _m_size - 1);
 template <typename T>
 void vector<T>::pop_back() {
-  if (_m_size > 0) {
-    // Уничтожаем последний элемент с помощью аллокатора
-    // _alloc.destroy(arr + _m_size - 1);
-    _m_size -= 1;
-  }
+  if (_m_size > 0) _m_size -= 1;
 }
 
 // меняет содержимое местами
@@ -113,9 +99,8 @@ typename vector<T>::VectorIterator vector<T>::insert_many(VectorIterator pos,
   reserve(size() + num_elements);
 
   // Сдвиг существующих элементов, чтобы освободить место для новых
-  for (size_t i = size(); i > insert_pos; --i) {
+  for (size_t i = size(); i > insert_pos; --i)
     arr[i + num_elements - 1] = arr[i - 1];
-  }
 
   // Присвоить новые значения массиву
   size_t index = insert_pos;
@@ -137,7 +122,6 @@ void vector<T>::insert_many_back(Args&&... args) {
   // Присвоить новые значения массиву
   size_t index = size();
   ((arr[index++] = std::forward<Args>(args)), ...);
-
   _m_size += num_elements;
 }
 
