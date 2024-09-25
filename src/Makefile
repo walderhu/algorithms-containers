@@ -1,6 +1,5 @@
-CXX := g++
-# CXX := g++ --debug # --debug == -g но может замедлить скорость компиляции до 10 раз
-# CXXFLAGS := -Wall -Wextra -Werror -std=c++17 -Wpedantic -pipe -O2
+CXX := g++ --debug 
+CXXFLAGS := -Wall -Wextra -Werror -std=c++17 -Wpedantic -pipe -O2
 EXE := s21_containers
 TEST_EXE := s21_containers_test
 BUILD_PATH := build

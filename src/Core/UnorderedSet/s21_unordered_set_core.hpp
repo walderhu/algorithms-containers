@@ -5,11 +5,12 @@ namespace s21 {
 
 template <class Key, size_type Capacity>
 unordered_set<Key, Capacity>::unordered_set() noexcept
-    : capacity_(Capacity), size_(0), table(Capacity){};
+    : table(Capacity), capacity_(Capacity), size_(0){};
 
 template <class Key, size_type Capacity>
 inline unordered_set<Key, Capacity>::unordered_set(
-    std::initializer_list<Key> const &items) noexcept {
+    std::initializer_list<Key> const &items) noexcept
+    : s21::unordered_set<Key, Capacity>() {
   for (auto it = items.begin(); it != items.end(); ++it) this->insert(*it);
 }
 
@@ -32,16 +33,9 @@ inline auto unordered_set<Key, Capacity>::reserve(size_type n) -> void {
 template <class Key, size_type Capacity>
 inline auto unordered_set<Key, Capacity>::insert(const Key &key) noexcept
     -> void {
-  size_t bucket_index = std::hash<Key>()(key) % table.size();
+  size_t bucket_index = get_index(key);
   if (table[bucket_index].empty()) table[bucket_index].resize(1);
   table[bucket_index].push_back(key);
-}
-
-template <class Key, size_type Capacity>
-inline auto unordered_set<Key, Capacity>::add(std::vector<Key> &vec,
-                                              const Key &key) noexcept -> void {
-  vec.push_back(key);
-  size_++;
 }
 
 template <class Key, size_type Capacity>
@@ -49,8 +43,8 @@ inline void unordered_set<Key, Capacity>::clear() noexcept {
   table.clear();
 }
 
-// template <class Key>
-// inline void unordered_set<Key>::rehash(size_type n) {}
+// template <class Key, size_type Capacity>
+// inline void unordered_set<Key, Capacity>::rehash(size_type n) {}
 
 template <class Key, size_type Capacity>
 inline auto unordered_set<Key, Capacity>::size() const noexcept -> size_type {
@@ -71,11 +65,12 @@ inline auto unordered_set<Key, Capacity>::empty() const noexcept -> bool {
 template <class Key, size_type Capacity>
 inline auto unordered_set<Key, Capacity>::get_index(
     const Key &key) const noexcept -> size_type {
-  return hashFunction(key) % capacity_;
+  return hashFunction(key) % table.size();
 }
 
-// template <class Key>
-// inline auto unordered_set<Key>::erase(const key_type &key) noexcept -> void
+// template <class Key, size_type Capacity>
+// inline auto unordered_set<Key, Capacity>::erase(const key_type &key) noexcept
+// -> void
 // {
 //   size_t bucket_index = get_index(key);
 //   auto it = table.begin();
@@ -89,25 +84,19 @@ inline auto unordered_set<Key, Capacity>::get_index(
 //     }
 // }
 
-// template <class Key>
-// inline auto unordered_set<Key>::bucket_size(const key_type &key) const
-// noexcept
+// template <class Key, size_type Capacity>
+// inline auto unordered_set<Key, Capacity>::bucket_size(const key_type &key)
+// const noexcept
 //     -> size_type {
 //   return this->count(key);
 // }
 
-// template <class Key>
-// inline auto unordered_set<Key>::count(const key_type &key) const noexcept
-//     -> size_type {
-//   size_t bucket_index = get_index(key);
-//   auto it = table.begin();
-
-//   for (auto &bucket = *it; it != table.end(); ++it)
-//     if (auto &vec = bucket->at(bucket_index);
-//         !vec.empty() && vec.front() == key)
-//       return vec.size();
-//   return 0;
-// }
+template <class Key, size_type Capacity>
+inline auto unordered_set<Key, Capacity>::count(
+    const key_type &key) const noexcept -> size_type {
+  Element vec = table[get_index(key)];
+  return std::count(vec.begin(), vec.end(), key);
+}
 
 // template <class Key, size_type Capacity>
 // inline auto unordered_set<Key, Capacity>::contains(
@@ -115,8 +104,9 @@ inline auto unordered_set<Key, Capacity>::get_index(
 //   return static_cast<bool>(this->count(key));
 // }
 
-// template <class Key>
-// inline auto unordered_set<Key>::load_factor() const noexcept -> float {
+// template <class Key, size_type Capacity>
+// inline auto unordered_set<Key, Capacity>::load_factor() const noexcept ->
+// float {
 //   return static_cast<float>(capacity) / static_cast<float>(size_);
 // }
 

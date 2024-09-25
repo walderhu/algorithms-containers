@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <array>
 #include <vector>
 
@@ -28,9 +29,8 @@ class unordered_set {
   Bucket table;
 
   size_type get_index(const key_type &key) const noexcept;
-  virtual void add(std::vector<value_type> &vec, const key_type &key) noexcept;
-  size_type size_;
   size_type capacity_;
+  size_type size_;
 
  public:
   using iterator = Iterator;
@@ -55,7 +55,7 @@ class unordered_set {
   virtual size_type bucket_count() const noexcept;
   bool empty() const noexcept;
   //   void erase(const key_type &key) noexcept;
-  //   size_type count(const key_type &key) const noexcept;
+  size_type count(const key_type &key) const noexcept;
   // bool contains(const key_type &key) const noexcept;
   //   size_type bucket_size(const key_type &key) const noexcept;
   //   virtual float load_factor() const noexcept;
