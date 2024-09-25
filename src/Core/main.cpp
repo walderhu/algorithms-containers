@@ -1,26 +1,21 @@
 #include <cassert>
 #include <iostream>
+#include <memory>
 
 #include "s21_containers.hpp"
 
-using namespace std;
-
 void test1() {
-  // s21::unordered_set<int> ust;  //= {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
-  // s21::unordered_set<int> ust = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
-  s21::unordered_set ust = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
-  ust.insert(5);
-  ust.insert(5);
-  ust.insert(5);
-  ust.insert(3);
-  ust.insert(2);
-  ust.insert(1);
+  s21::unordered_set<int> ust = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
   assert(!ust.empty());
-  // assert(ust.empty() && "Вот так можн добавлять описание для ассерта");
   DEBUG(ust);
 }
 
-void test2() { cout << 5 % 1 << endl; }
+void test2() {
+  s21::unordered_set<std::shared_ptr<int>> ust;
+  ust.insert(std::make_shared<int>(5));
+  auto it = ust.begin();
+  DEBUG(**it);
+}
 
 int main() {
   test1();
