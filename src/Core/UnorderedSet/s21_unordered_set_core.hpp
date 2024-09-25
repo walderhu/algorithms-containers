@@ -124,14 +124,14 @@ inline auto unordered_set<Key, Capacity>::load_factor() const -> float {
 //   return this->end();
 // }
 
-// #ifdef _GLIBCXX_OSTREAM
-// template <typename U>
-// std::ostream &operator<<(std::ostream &os, const unordered_set<U> &obj) {
-//   auto it = obj.cbegin();
-//   auto cend = obj.cend();
-//   while (it != cend) os << *it << (++it != cend ? " " : "");
-//   return os;
-// }
-// #endif  // _GLIBCXX_OSTREAM
+#ifdef _GLIBCXX_OSTREAM
+template <typename U>
+std::ostream &operator<<(std::ostream &os, const unordered_set<U> &obj) {
+  auto it = obj.begin();
+  auto cend = obj.end();
+  while (it != cend) os << *it << (++it != cend ? " " : "");
+  return os;
+}
+#endif  // _GLIBCXX_OSTREAM
 
 }  // namespace s21

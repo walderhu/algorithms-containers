@@ -1,8 +1,7 @@
-// #if !defined(__S21_UNORDERED_SET_ITERATOR_CORE_HPP__)
-// #define __S21_UNORDERED_SET_ITERATOR_CORE_HPP__
-// #include "s21_unordered_set_iterator.hpp"
+#pragma once
+#include "s21_unordered_set_iterator.hpp"
 
-// namespace s21 {
+namespace s21 {
 
 // template <class Key>
 // inline unordered_set<Key>::Iterator::Iterator(IteratorType lst_iter,
@@ -156,25 +155,28 @@
 //   return temp;
 // }
 
-// template <class Key>
-// inline auto unordered_set<Key>::begin() const noexcept -> iterator {
+// template <class Key, size_type Capacity>
+// inline auto unordered_set<Key, Capacity>::begin() const noexcept -> iterator
+// {
 //   return static_cast<iterator>(cbegin());
 // }
 
-// template <class Key>
-// inline auto unordered_set<Key>::end() const noexcept -> iterator {
+// template <class Key, size_type Capacity>
+// inline auto unordered_set<Key, Capacity>::end() const noexcept -> iterator {
 //   return iterator(table.end(), DEFAULT_SIZE,
 //                   const_cast<unordered_set<Key> *>(this));
 // }
 
-// template <class Key>
-// inline auto unordered_set<Key>::cend() const noexcept -> const_iterator {
+// template <class Key, size_type Capacity>
+// inline auto unordered_set<Key, Capacity>::cend() const noexcept
+//     -> const_iterator {
 //   static unordered_set<Key> *self = const_cast<unordered_set<Key> *>(this);
 //   return const_iterator(table.end(), DEFAULT_SIZE, self);
 // }
 
-// template <class Key>
-// inline auto unordered_set<Key>::cbegin() const noexcept -> const_iterator {
+// template <class Key, size_type Capacity>
+// inline auto unordered_set<Key, Capacity>::cbegin() const noexcept
+//     -> const_iterator {
 //   auto it = table.begin();
 //   static unordered_set<Key> *self = const_cast<unordered_set<Key> *>(this);
 
@@ -188,6 +190,5 @@
 
 //   return const_iterator(table.end(), DEFAULT_SIZE, self);
 // }
-// }  // namespace s21
 
-// #endif  // __S21_UNORDERED_SET_ITERATOR_CORE_HPP__
+}  // namespace s21
