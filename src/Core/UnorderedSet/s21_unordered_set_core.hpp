@@ -1,16 +1,17 @@
-// #if !defined(__S21_UNORDERED_CORE_SET__)
-// #define __S21_UNORDERED_CORE_SET__
+#pragma once
+#include "s21_unordered_set.hpp"
 
-// #include "s21_unordered_set.hpp"
-
-// namespace s21 {
+namespace s21 {
 
 // template <class value_type>
 // inline unordered_set<value_type>::unordered_set() noexcept
-//     : capacity(0u), size_(0) {
-//   table =
-//       new std::vector<std::array<std::vector<value_type>, DEFAULT_SIZE> *>();
-// };
+// : capacity(0u), size_(0){};
+
+template <class Key, size_type DEFAULT_SIZE>
+unordered_set<Key, DEFAULT_SIZE>::unordered_set() noexcept
+    : capacity(0u), size_(0) {
+  std::cout << "Конструктор unordered_set вызван!" << std::endl;
+};
 
 // template <class value_type>
 // inline unordered_set<value_type>::unordered_set(
@@ -188,6 +189,4 @@
 // }
 // #endif  // _GLIBCXX_OSTREAM
 
-// }  // namespace s21
-
-// #endif  // __S21_UNORDERED_CORE_SET__
+}  // namespace s21
