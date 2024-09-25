@@ -23,14 +23,12 @@ class unordered_set {
   friend struct Iterator;
   friend struct ConstIterator;
   friend struct ReverseIterator;
-  using TableType =
-      typename std::vector<std::array<std::vector<value_type>, Capacity> *>;
-  TableType table;
-  using IteratorType = typename TableType::iterator;
+  using Element = typename std::vector<Key>;
+  using Bucket = typename std::vector<Element>;
+  Bucket table;
 
   size_type get_index(const key_type &key) const noexcept;
-  // virtual void add(std::vector<value_type> &vec, const key_type &key)
-  // noexcept;
+  virtual void add(std::vector<value_type> &vec, const key_type &key) noexcept;
   size_type size_;
   size_type capacity_;
 
@@ -44,7 +42,7 @@ class unordered_set {
   ~unordered_set() noexcept;
   size_type hashFunction(key_type key) const noexcept;
   void clear() noexcept;
-  // virtual std::pair<Iterator, bool> insert(const key_type &key) noexcept;
+  void insert(const key_type &key) noexcept;
 
   //   Iterator begin() const noexcept;
   //   Iterator end() const noexcept;
@@ -54,8 +52,8 @@ class unordered_set {
   //   ReverseIterator rend();
 
   size_type size() const noexcept;
-  //   virtual size_type bucket_count() const noexcept;
-  //   bool empty() const noexcept;
+  virtual size_type bucket_count() const noexcept;
+  bool empty() const noexcept;
   //   void erase(const key_type &key) noexcept;
   //   size_type count(const key_type &key) const noexcept;
   // bool contains(const key_type &key) const noexcept;
