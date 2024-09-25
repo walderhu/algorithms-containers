@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <array>
+#include <stdexcept>
 #include <vector>
 
 #include "../s21_containers.hpp"
@@ -24,9 +25,9 @@ class unordered_set {
   friend struct Iterator;
   friend struct ConstIterator;
   friend struct ReverseIterator;
-  using Element = typename std::vector<Key>;
-  using Bucket = typename std::vector<Element>;
-  Bucket table;
+  using BucketType = typename std::vector<Key>;
+  using TableType = typename std::vector<BucketType>;
+  TableType table;
 
   size_type get_index(const key_type &key) const noexcept;
   size_type capacity_;
@@ -44,21 +45,21 @@ class unordered_set {
   void clear() noexcept;
   void insert(const key_type &key) noexcept;
 
-  //   Iterator begin() const noexcept;
-  //   Iterator end() const noexcept;
-  //   const_iterator cbegin() const noexcept;
-  //   const_iterator cend() const noexcept;
+  Iterator begin() const noexcept;
+  Iterator end() const noexcept;
+  // const_iterator cbegin() const noexcept;
+  // const_iterator cend() const noexcept;
   //   ReverseIterator rbegin();
   //   ReverseIterator rend();
 
   size_type size() const noexcept;
   virtual size_type bucket_count() const noexcept;
   bool empty() const noexcept;
-  //   void erase(const key_type &key) noexcept;
+  void erase(const key_type &key) noexcept;
   size_type count(const key_type &key) const noexcept;
-  // bool contains(const key_type &key) const noexcept;
-  //   size_type bucket_size(const key_type &key) const noexcept;
-  //   virtual float load_factor() const noexcept;
+  bool contains(const key_type &key) const noexcept;
+  size_type bucket_size(const key_type &key) const noexcept;
+  virtual float load_factor() const;
   //   template <typename... Args>
   //   std::vector<std::pair<iterator, bool>> insert_many(Args &&...args);
   //   template <typename... Args>

@@ -43,9 +43,6 @@ inline void unordered_set<Key, Capacity>::clear() noexcept {
   table.clear();
 }
 
-// template <class Key, size_type Capacity>
-// inline void unordered_set<Key, Capacity>::rehash(size_type n) {}
-
 template <class Key, size_type Capacity>
 inline auto unordered_set<Key, Capacity>::size() const noexcept -> size_type {
   return this->size_;
@@ -68,65 +65,56 @@ inline auto unordered_set<Key, Capacity>::get_index(
   return hashFunction(key) % table.size();
 }
 
-// template <class Key, size_type Capacity>
-// inline auto unordered_set<Key, Capacity>::erase(const key_type &key) noexcept
-// -> void
-// {
-//   size_t bucket_index = get_index(key);
-//   auto it = table.begin();
-
-//   for (auto &bucket = *it; it != table.end(); ++it)
-//     if (auto &vec = bucket->at(bucket_index);
-//         !vec.empty() && vec.front() == key) {
-//       vec.pop_back();
-//       size_--;
-//       return;
-//     }
-// }
-
-// template <class Key, size_type Capacity>
-// inline auto unordered_set<Key, Capacity>::bucket_size(const key_type &key)
-// const noexcept
-//     -> size_type {
-//   return this->count(key);
-// }
+template <class Key, size_type Capacity>
+inline auto unordered_set<Key, Capacity>::erase(const key_type &key) noexcept
+    -> void {
+  size_t bucket_index = get_index(key);
+  BucketType &bucket = table[bucket_index];
+  auto it = std::remove(bucket.begin(), bucket.end(), key);
+  if (it != bucket.end()) bucket.erase(it, bucket.end());
+}
+template <class Key, size_type Capacity>
+inline auto unordered_set<Key, Capacity>::bucket_size(
+    const Key &key) const noexcept -> size_type {
+  return count(key);
+}
 
 template <class Key, size_type Capacity>
 inline auto unordered_set<Key, Capacity>::count(
     const key_type &key) const noexcept -> size_type {
-  Element vec = table[get_index(key)];
+  BucketType vec = table[get_index(key)];
   return std::count(vec.begin(), vec.end(), key);
 }
 
-// template <class Key, size_type Capacity>
-// inline auto unordered_set<Key, Capacity>::contains(
-//     const key_type &key) const noexcept -> bool {
-//   return static_cast<bool>(this->count(key));
-// }
+template <class Key, size_type Capacity>
+inline auto unordered_set<Key, Capacity>::contains(
+    const Key &key) const noexcept -> bool {
+  return static_cast<bool>(count(key));
+}
+
+template <class Key, size_type Capacity>
+inline auto unordered_set<Key, Capacity>::load_factor() const -> float {
+  if (size_ == 0) throw std::runtime_error("Пустое множество");
+  return static_cast<float>(capacity_) / static_cast<float>(size_);
+}
 
 // template <class Key, size_type Capacity>
-// inline auto unordered_set<Key, Capacity>::load_factor() const noexcept ->
-// float {
-//   return static_cast<float>(capacity) / static_cast<float>(size_);
-// }
-
-// template <class value_type>
 // template <typename... Args>
-// inline auto unordered_set<value_type>::insert_many(Args &&...args)
+// inline auto unordered_set<Key>::insert_many(Args &&...args)
 //     -> std::vector<std::pair<iterator, bool>> {
 //   std::vector<std::pair<iterator, bool>> results;
 //   (results.emplace_back(this->insert(std::forward<Args>(args))), ...);
 //   return results;
 // }
 
-// template <class value_type>
+// template <class Key, size_type Capacity>
 // template <typename... Args>
 // inline auto unordered_set<value_type>::emplace_back(Args &&...args)
 //     -> std::vector<std::pair<iterator, bool>> {
 //   return insert_many(std::forward<Args>(args)...);
 // }
 
-// template <class value_type>
+// template <class Key, size_type Capacity>
 // template <typename... Args>
 // inline auto unordered_set<value_type>::emplace_hint(
 //     const_iterator position, Args &&...args) -> iterator {
