@@ -17,8 +17,21 @@ void test2() {
   DEBUG(**it);
 }
 
+void foo(int x) {
+  if (x > 10) throw std::bad_alloc();
+}
+
+void bar(int x) {
+  try {
+    foo(x);
+  } catch (const std::bad_alloc &e) {
+    std::cerr << e.what() << '\n';
+  }
+}
+
 int main() {
-  test1();
+  bar(11);
+  // test1();
   return 0;
 }
 

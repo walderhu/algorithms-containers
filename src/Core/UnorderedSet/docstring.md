@@ -139,3 +139,20 @@ void reserve(size_type n);: Применяется для резервирова
 
     alloc.deallocate(p, 1); // Освобождаем память
   */
+
+
+
+  // new
+  void rehash(size_type n);
+  void reserve(size_type n);
+  // key_equal key_eq() const;
+  // get_allocator();
+  // ust.max_bucket_count
+  // ust.max_load_factor
+  // ust.merge
+  // ust.swap
+  // ust.emplace
+  // ust.bucket
+  // ust.equal_range
+  // ust.extract
+  // new
