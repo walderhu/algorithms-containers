@@ -5,7 +5,7 @@
 #include "s21_containers.hpp"
 
 void test1() {
-  s21::unordered_set<int> ust;
+  s21::unordered_set<int, 200> ust;
   //  = {5, 5, 5, 5, 3, 2, 1, 0, -3, 11};
   // assert(!ust.empty());
   // DEBUG(ust);

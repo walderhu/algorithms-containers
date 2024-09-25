@@ -7,7 +7,7 @@ using size_type = std::size_t;
 extern int main();  // TODO убрать
 
 namespace s21 {
-template <class Key>
+template <class Key, size_type Capacity = 100u>
 class unordered_set {
  public:
   using key_type = Key;
@@ -23,34 +23,28 @@ class unordered_set {
   friend struct Iterator;
   friend struct ConstIterator;
   friend struct ReverseIterator;
-  static constexpr size_type DEFAULT_CAPACITY = 100u;
-  // using TableType =
-  // typename std::vector<std::array<std::vector<value_type>, DEFAULT_SIZE> *>;
-  // TableType table;
-  // using IteratorType = typename TableType::iterator;
+  using TableType =
+      typename std::vector<std::array<std::vector<value_type>, Capacity> *>;
+  TableType table;
+  using IteratorType = typename TableType::iterator;
 
-  // size_type get_index(const key_type &key) const noexcept;
+  size_type get_index(const key_type &key) const noexcept;
   // virtual void add(std::vector<value_type> &vec, const key_type &key)
   // noexcept;
   size_type size_;
-  size_type capacity;
-  // IteratorType to_expand()
-  // noexcept; virtual void debug();  // TODO убрать
+  size_type capacity_;
 
  public:
   using iterator = Iterator;
   using const_iterator = ConstIterator;
   using reverse_iterator = ReverseIterator;
 
-  template <size_type Capacity = DEFAULT_CAPACITY>
   unordered_set() noexcept;
-
-  //   unordered_set(std::initializer_list<Key> const &items) noexcept;
-  //   ~unordered_set() noexcept;
-
-  //   size_type hashFunction(key_type key) const noexcept;
-  //   void clear() noexcept;
-  //   virtual std::pair<Iterator, bool> insert(const key_type &key) noexcept;
+  unordered_set(std::initializer_list<Key> const &items) noexcept;
+  ~unordered_set() noexcept;
+  size_type hashFunction(key_type key) const noexcept;
+  void clear() noexcept;
+  // virtual std::pair<Iterator, bool> insert(const key_type &key) noexcept;
 
   //   Iterator begin() const noexcept;
   //   Iterator end() const noexcept;
@@ -59,12 +53,12 @@ class unordered_set {
   //   ReverseIterator rbegin();
   //   ReverseIterator rend();
 
-  //   size_type size() const noexcept;
+  size_type size() const noexcept;
   //   virtual size_type bucket_count() const noexcept;
   //   bool empty() const noexcept;
   //   void erase(const key_type &key) noexcept;
   //   size_type count(const key_type &key) const noexcept;
-  //   bool contains(const key_type &key) const noexcept;
+  // bool contains(const key_type &key) const noexcept;
   //   size_type bucket_size(const key_type &key) const noexcept;
   //   virtual float load_factor() const noexcept;
   //   template <typename... Args>
@@ -74,7 +68,7 @@ class unordered_set {
   //   template <class... Args>
   //   iterator emplace_hint(const_iterator position, Args &&...args);
   //   void rehash(size_type n);
-  //   void reserve(size_type n);
+  void reserve(size_type n);
 
   // #ifdef _GLIBCXX_OSTREAM
   //   template <typename U>
